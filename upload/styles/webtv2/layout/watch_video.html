@@ -2,6 +2,7 @@
 {$video=$vdo}
 {$type='video'}
 {$channel = $userquery->get_user_details($video.userid)}
+
 <div class="alaunecont">
   <div class="grid">
     <div class="col-1-1">
@@ -17,8 +18,8 @@
     <div class="grid">
       <div class="col-1-1">
         <span class="social">
-          <a href="#"><img src="{$baseurl}/styles/webtv2/theme/images/thumbup.png"/></a>
-          <span class="nblikes">0</span>
+          <a style="cursor:pointer;" onclick="javascript:{ANCHOR place='thumbzup_vote_onclick' data=$video.videoid}" target="_blank"><img src="{$baseurl}/styles/webtv2/theme/images/thumbup.png"/></a>
+          <span class="nblikes">{ANCHOR place='thumbzup_get' data=$video.videoid}</span>
           <a data-featherlight="#mylightbox" data-featherlight-persist="shared" href="#">
             <img src="{$baseurl}/styles/webtv2/theme/images/share.png"/></a>
           <a href="https://facebook.com/sharer/sharer.php?u=https%3A%2F%2F{$smarty.server.HTTP_HOST|escape:'url'}{$smarty.server.REQUEST_URI|escape:'url'}" target="_blank"> 
@@ -88,7 +89,9 @@
 {ANCHOR place="after_watch_video"}
 <script>
 
-
+function thumbzup_callback(nblikes){
+  $(".nblikes").html(nblikes);
+}
 
 	/*Cookie based comments backup start*/
 	var current_video = "{$video.videoid}",
