@@ -47,8 +47,17 @@ if(!function_exists('loggedunlisted_watch_video'))
           array('field'=>'tags','type'=>'LIKE','var'=>'%{KEY}%','op'=>'OR'),
           array('field'=>'broadcast','type'=>'!=','var'=>'unlisted','op'=>'AND','type'=>'!=','var'=>'logunlist','op'=>'AND','value'=>'static'),
           array('field'=>'status','type'=>'=','var'=>'Successful','op'=>'AND','value'=>'static')
-        );*/
+        );*/ 
       }
+        
+        //ajout de la recherche dans description, a l'origine, c'était une fonctionnalité que je voulais utiliser grace au plugin de franck, mais ça engendre des comportement inattendus lors de la recherche notament sur la visibilité des vidéos en fonction des rôles... du coup je l'ajoute ici en attendant que je jette un oeil.
+        $this->search->columns =array(
+          array('field'=>'title','type'=>'LIKE','var'=>'%{KEY}%'),
+          array('op'=>'OR', 'field'=>'description','type'=>'LIKE','var'=>'%{KEY}%'),
+          array('field'=>'tags','type'=>'LIKE','var'=>'%{KEY}%','op'=>'OR'),
+          array('field'=>'broadcast','type'=>'!=','var'=>'unlisted','op'=>'AND','type'=>'!=','var'=>'logunlist','op'=>'AND','value'=>'static'),
+          array('field'=>'status','type'=>'=','var'=>'Successful','op'=>'AND','value'=>'static')
+        );
     }
   }
 
@@ -58,6 +67,6 @@ if(!function_exists('loggedunlisted_watch_video'))
   cb_register_function('loggedunlisted_get_videos','get_videos');
   cb_register_function('loggedunlisted_load_option_fields','load_option_fields');
   
-  //$Cbucket->search_types['videos'] = "g_loggedunlisted_CBvideo";
+  $Cbucket->search_types['videos'] = "g_loggedunlisted_CBvideo";
 }
 
