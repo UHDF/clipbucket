@@ -4014,7 +4014,8 @@
 
 
 #meta_menu{
-	font-size:16px
+	background-color: #e2e2e2;
+	font-size:16px;
 }
 
 #meta_menu ul:not([class]):not([id]) li:before{
