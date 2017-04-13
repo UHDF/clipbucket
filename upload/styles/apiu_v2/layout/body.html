@@ -1,0 +1,167 @@
+<!-- This Condition is for view photo ajax mode--> 
+{if ($smarty.get['moto'] != 'ajax')}
+	{include file="$style_dir/global_header.html"}
+{/if}    
+	<body>
+
+
+
+
+	<div class="header">
+
+		<header id="header">
+			<a href="index.php" title="Accueil">
+			<img src="{$theme}/app/img/logo_apiu_v1_small.png" height="80" id="logo" alt="Picardie Universités">
+			</a>
+		</header>
+		
+		<button class="burgerbtn" id="burgerbtn" title="Menu"><i class="fa fa-bars" aria-hidden="true"></i></button>
+
+		<nav id="menuprincipal">
+			<ul id="menu">
+					<li><a class="" href="" title="">Accueil</a></li>
+					<li><a class="" href="" title="">Mission numérique</a></li>
+					<li><a class="" href="" title="">Formation continue</a></li>
+					<li><a class="" href="" title="">Partenaire</a></li>
+			</ul>
+		</nav>
+
+		<div class="clearfix"></div>
+		
+	</div>
+
+
+	<!-- #######################
+		CAROUSSEL
+	####################### -->
+	<div class="ban">
+		<img src="{$theme}/app/img/page/ban/ban-connect_2.png" alt="">
+	</div>
+	
+	<div class="caption-control"></div>
+
+	<div class="clearfix"></div>
+		
+	<!-- #######################
+		ICON AREA
+	####################### -->
+	<nav id="picto-nav">
+		<ul>
+			<li>
+				<a href="{$baseurl}index.php?p=4" title="Partenaires">
+					<span class="sr-only">Partenaires</span>
+					<span class="fa-stack fa-lg">
+						<i class="fa fa-circle fa-stack-2x fa-inverse"></i>
+						<i class="fa fa-puzzle-piece fa-stack-1x"></i>
+					</span>
+				</a>
+			</li>
+			<li>
+				<a href="{$baseurl}actualite.php" title="Actualités">
+					<span class="sr-only">Actualités</span>
+					<span class="fa-stack fa-lg">
+						<i class="fa fa-circle fa-stack-2x fa-inverse"></i>
+						<i class="fa fa-bullhorn fa-stack-1x"></i>
+					</span>
+				</a>
+			</li>
+			<li>
+				<a href="https://extra.u-picardie.fr/apiu-webtv/" title="WebTV">
+					<span class="sr-only">Web TV</span>
+					<span class="fa-stack fa-lg">
+						<i class="fa fa-circle fa-stack-2x fa-inverse"></i>
+						<i class="fa fa-television fa-stack-1x"></i>
+					</span>
+				</a>
+			</li>
+			<li>
+				<a href="{$baseurl}extranet/" title="Connexion à l'extranet">
+					<span class="sr-only">Extranet</span>
+					<span class="fa-stack fa-lg">
+						<i class="fa fa-circle fa-stack-2x fa-inverse"></i>
+						<i class="fa fa-sign-in fa-stack-1x"></i>
+					</span>
+				</a>
+			</li>
+		</ul>
+	</nav>	
+
+	<div class="clearfix"></div>
+
+
+
+
+
+
+
+	<!-- #######################
+		MAIN CONTENT
+	####################### -->
+	<main>
+		<div id="maincontent">
+
+
+	
+		{if ($smarty.get['moto'] != 'ajax')}
+			<!--<div id="page">-->
+		{/if}    
+    	
+
+
+
+
+    	<div id="container">
+
+
+
+
+			{showDevWitch()}
+			
+			{ANCHOR place="cb_floating_box"}
+			{ANCHOR place='premium_button'}
+			
+			<!-- This Condition is added for view photo ajx based request -->
+			{if ($smarty.get['moto'] != 'ajax')}
+           		 {include file="$style_dir/header.html"}
+        	{/if}
+        	
+        	<div class="row">
+				<div class="col-lg-12">
+				
+					{include file="$style_dir/message.html"}
+					
+					{foreach from=$template_files item=file}
+						{include_template_file file=$file}
+					{/foreach}
+
+				</div>
+			</div>
+
+		</div>
+
+
+
+		{if ($smarty.get['moto'] != 'ajax')}
+			<!--</div>-->
+		{/if}
+
+		</div>
+	</main>
+
+
+
+	
+		<!-- This Condition is for view photo ajax mode--> 
+		{if ($smarty.get['moto'] != 'ajax')}
+			{include file="$style_dir/footer.html" }
+		{/if}
+
+
+
+
+
+
+
+
+    </body>
+</html>
