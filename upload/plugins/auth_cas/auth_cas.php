@@ -92,12 +92,11 @@ Version: 1.0
 	 *	@param string $login User login
 	 */
 	function loginAndCreate($login){
-		global $cbplugin;
+		global $cbplugin,$userquery;
 
 		// Get user information
 		$userquery = new userquery();
 		$udetails = $userquery->get_user_details($login);
-		
 		// User already exist
 		if (isset($udetails["userid"])){
 			// Connect the user
@@ -128,7 +127,7 @@ Version: 1.0
 	 *	@return string User Id
 	 */
 	function createUser($login){
-		global $cbplugin;
+		global $cbplugin,$userquery;
 		
 		$userquery = new userquery();
 		$pass =  RandomString(10);		// create a random password
@@ -148,12 +147,13 @@ Version: 1.0
 			'email'	=> $ldap_corresp['mail'],
 			'password' => $pass,
 			'cpassword' => $pass,
-			'country' => get_country(config('default_country_iso2')),
+//			'country' => get_country(config('default_country_iso2')),
+			'country' => config('default_country_iso2'),
 			'gender' => 'Male',
 			'dob'	=> '2000-10-10',
 			'category' => '1',
 			'level' => '6',
-			'active' => 'yes',
+			'active' => 'Ok',
 			'agree' => 'yes',
 		);
 
