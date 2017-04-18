@@ -30,4 +30,4 @@ N.B.: If an email was already used by an other user, the signup process will be 
 
 *Si vous cochez "créer l'utilisateur s'il n'existe pas ?", vous devez avoir au moins le plugin LDAP client installé dans le but de récupérer les emails des utilisateurs.*
 
-*N.B.: Si un email est déjà utilisé par un autre utilisateur le compte ne sera pas créé.*
+*N.B.: Si un email est déjà utilisé par un autre utilisateur le compte ne sera pas créé.*.
