@@ -64,7 +64,7 @@
 				<div class="row">
 					<section class="col-sm-12 col-xs-12">
 						<p>
-							{description($video.description)}
+							{description($video.description)|unescape}
 						</p>
 						<div class="entry tags">
 							<h2>Tags</h2>
@@ -171,6 +171,7 @@
 	</div>
 </div>
 
+{ANCHOR place="after_watch_video"}
 <script>
 	$('#playlist-pull').on("click",function(){
 		loadHit = $(this).attr('dataHit');
