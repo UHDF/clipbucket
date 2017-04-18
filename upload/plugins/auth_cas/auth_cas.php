@@ -224,6 +224,6 @@ Version: 1.0
 	 *	Add entries for the plugin in the administration pages
 	 */
 	if ($cbplugin->is_installed('common_library.php') && $userquery->permission[getStoredPluginName("authcas")]=='yes')
-	add_admin_menu('Stats And Configurations','Configuration CAS','edit_auth_cas.php',AUTH_CAS.'/admin');
+	add_admin_menu('General Configurations','Configuration CAS','edit_auth_cas.php',AUTH_CAS.'/admin');
 
 ?>
