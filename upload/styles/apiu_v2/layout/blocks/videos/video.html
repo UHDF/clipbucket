@@ -50,8 +50,10 @@
 		<span class="author">{lang code="by"}&nbsp;<a href="{$userquery->profile_link($video)}">{$video.category|categories:video}</a></span>
 
 
-		<span>{$video.description|truncate:50}</span>
-		
+		<span>
+			{$video.description|unescape|strip_tags|truncate:50}
+		</span>
+
 		<div class="clearfix views-date">
 			<span>{prettyNum($video.views)}&nbsp;{if $video.views > 1}{lang|lower code='views'}{else}{lang|lower code="view"}{/if}</span>
 			<time class="date" datetime="2016-15-03">{$video.date_added|niceTime}</time>
@@ -98,7 +100,9 @@
 		-->
 		<span class="author">{lang code="by"}&nbsp;<a href="{$userquery->profile_link($video)}">{$video.category|categories:video}</a></span>
 
-		<span>{$video.description|truncate:80}</span>
+		<span>
+			{$video.description|unescape|strip_tags|truncate:80}
+		</span>
 
 		<div class="clearfix views-date">
 			<span>{prettyNum($video.views)}&nbsp;{if $video.views > 1}{lang|lower code='views'}{else}{lang|lower code="view"}{/if}</span>

@@ -402,7 +402,7 @@
 		width: 80vw;
 		position: relative;
 		z-index: -1;
-		margin-bottom: -70px;	/* Need to be same as .caption-control */
+		margin-bottom: -20px;	/* Need to be same as .caption-control */
 	}
 
 	.ban img{

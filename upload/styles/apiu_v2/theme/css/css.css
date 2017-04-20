@@ -3130,7 +3130,8 @@ textarea#comment_box{
 #content{
 	/*width:73%;*/ /*Original*/
 	width:65%;
-	float:left
+	float:left;
+	margin-top:20px;
 }
 
 
