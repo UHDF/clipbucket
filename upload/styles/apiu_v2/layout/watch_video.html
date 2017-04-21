@@ -1,0 +1,316 @@
+{$video=$vdo}
+{$type='video'}
+{$channel = $userquery->get_user_details($video.userid)}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="main" class="clearfix">
+	<div class="clearfix">
+		<section id="content" class="clearfix videos">
+			<div class="clearfix player-holder">
+				<div id="cb_player" class="cb_player">
+					{FlashPlayer vdetails=$video width='100%' height='100%'}
+				</div><!-- cb_player end -->
+			</div>
+			<!-- end of player-holder -->
+
+<!--			<div class="clearfix leaderboard-ad ad">
+				{AD place='ad_728x90'}
+			</div>-->
+
+
+
+			<!-- YB type / titre / share / meta -->
+			<article id="video-card" class="card">
+				<header>
+					<div class="video-type clearfix"> {*$video.category|categories:video*}
+						<!--YB signaler la video show_flag_form id=$vdo.videoid type=video-->
+						<button type="button" class="btn btn-success btn-xs share-btn pull-right" data-toggle="modal" data-target="#shareModal"><span class="fa fa-share-alt"></span>&nbsp;{lang code='share_this'}</button>
+
+						<!-- cb_player end --> 
+						{if has_access('admin_access')}
+						<div class="card edit-tools">
+							<div class="row pull-right">
+								<div class="col-md-12"> <a class="btn btn-primary btn-xs" target="_blank" href="{$admin_baseurl}/edit_video.php?video={$video.videoid}"><span class="glyphicon glyphicon-pencil"></span>&nbsp;{lang code='edit-meta'}</a> </div>
+							</div>
+						</div>
+						{/if} 
+					</div>
+
+					<h1 class="reset">{$video.title}</h1>
+					<!-- ajouter |niceTime derrière une date pour afficher "il y a X années" au lieu de Y-m-d-->
+					<div class="entry date-duration"><b>{$video.datecreated|date_format:"%d %B %Y %R"|upper}</b> | Durée <b>{if $video.duration>1}{$video.duration|SetTime}{else}00:00{/if}</b> | Vues <b>{$vdo.views|number_format}</b></div>
+				</header>
+
+				<div class="row">
+					<section class="col-sm-12 col-xs-12">
+						<p>
+							{description($video.description)|unescape}
+						</p>
+				</div>
+
+				<div class="row">
+					<section class="col-sm-12 col-xs-12">
+						<h2>
+							<i class="fa fa-microphone" aria-hidden="true"></i>
+							Intervenant(s)</h2>
+						<ul class="reset nolist">
+							{ANCHOR place="speakerList" data=$video}
+						</ul>
+					</section>
+				</div>
+
+				<div class="row">
+					<section class="col-sm-12 col-xs-12">
+						<h2><span class="glyphicon glyphicon glyphicon-file"></span> Document(s)</h2>
+						<ul class="reset nolist">
+							<li><span class="no-link">{ANCHOR place="externalDocumentList" data=$video}</span></li>
+						</ul>
+					</section>
+				</div>
+
+				<div class="row">
+					<section class="col-sm-12 col-xs-12">
+						<h2><span class="glyphicon glyphicon glyphicon-link"></span> Liens</h2>
+						<ul class="reset nolist">
+							{ANCHOR place="externalLinkList" data=$video}
+						</ul>
+					</section>
+
+				</div>
+
+				<div class="row">
+					<section class="col-sm-4 col-xs-4">
+						<div class="entry tags">
+							<h2>Tag(s)</h2>
+							<p>
+							{$vdo.tags|tags:videos} 
+							</p>
+						</div>
+					</section>
+				</div>
+
+
+			</article>
+
+			<!-- MODAL PARTAGER -->
+			<div class="modal modal-vcenter fade" id="shareModal" tabindex="-1" role="dialog" aria-labelledby="Partager" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title" id="ShareLabel">Partager</h4>
+						</div>
+						<div class="modal-body">
+							<div class="row">
+								<div class="col-xs-12 social"> <a class="btn btn-link cb-item-social-icon facebook" href="http://www.facebook.com/sharer/sharer.php?s=100&p[url]={videoLink($video)|urlencode}&p[images][0]={get_thumb vdetails=$video}&p[title]={$video.title|title|urlencode}&p[summary]={$video.description|description|urlencode}" target="_blank"> <i class="fa fa-facebook-official fa-2x"></i> </a> <a class="btn btn-link cb-item-social-icon twitter" href="https://twitter.com/share" target="_blank"> <i class="fa fa-twitter fa-2x"></i> </a> <a class="btn btn-link cb-item-social-icon googlep" href="https://plus.google.com/share?url={urlencode(videolink($video))}" target="_blank"> <i class="fa fa-google-plus fa-2x"></i> </a> </div>
+							</div>
+							<hr>
+							<div id="cb-item-share">{show_share_form id=$vdo.videoid type=video}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
+
+			{if $vdo.comments_count > 0}
+				<div class="clearfix comments-block" id="comments-block">
+					<div id="test1"></div>
+					<div id="reply" class="clearfix"> 
+						<div  class="addComment clearfix">
+							<h2 class="com_count" id="com_count">
+								{$vdo.comments_count} <span>{lang code='comments'} </span>
+							</h2>
+							{if $myquery->is_commentable($vdo,'v')}
+								{include file="$style_dir/blocks/comments/add_comment.html" id=$vdo.videoid type=v}
+							{else}
+							<div class="alert alert-warning">
+								{lang code='comm_disabled_for_vid'}
+							</div>
+							{/if}
+						</div>
+						
+						<div id="userCommentsList">
+							<div class="comments clearfix">
+							<ul id="comments-ul">
+							</ul>
+						</div>
+						</div>
+						{if $vdo.comments_count > 10}
+							<div class="clearfix text-center">
+								<button class="btn btn-loadmore" id="load-more-comments" page="2">{lang code='load_more'}</button>
+							</div>
+						{/if}
+					</div>
+				</div>
+			{/if}
+		</section>
+
+
+
+
+		<aside id="sidebar">
+			{include file="$style_dir/blocks/search.html"}
+
+			<h2>{if $smarty.get.play_list}{lang code="playlists"} {lang|lower code="videos"}{elseif $relMode != 'ono'}{lang code="videos"} {lang|lower code="related"}{else}{lang code="popular_videos"}{/if}</h2>
+			<div class="clearfix sidebar-items">
+			{if $smarty.get.play_list}
+				<div id="playlist_items">
+					{$cur_playlist = $smarty.get.play_list}
+					{$total_items = $cbvid->action->count_playlist_items($cur_playlist)}
+					{section name=plist loop=$items}
+					  {include file="$style_dir/blocks/manage/account_video.html" video=$items[plist] control="onWatch" pid=$playlist.playlist_id}
+					{/section}
+				</div>
+				{if $total_items > 10}
+					<button class="btn btn-primary text-centre" id="playlist-pull" dataList={$cur_playlist} dataLimit="10" dataHit="2">Load More</button>
+				{/if}
+			{else}			    	
+				{if $videos}
+					{foreach from=$videos item=pop_video}
+			
+					{if $pop_video@iteration == 9}
+						{break}
+					{/if}
+					<div class="clearfix popular-video">
+						{include file="$style_dir/blocks/videos/video.html" display_type='popVideos_sidebar'}
+					</div>
+					{/foreach}
+			
+				{else}
+					<div class="well well-info">No Videos Found !</div>
+				{/if}
+			{/if}
+			</div>
+		</aside>
+	</div>
+</div>
+
+<!-- Timecode to URL -->
+{ANCHOR place="after_watch_video"}
+
+<script>
+	$('#playlist-pull').on("click",function(){
+		loadHit = $(this).attr('dataHit');
+		loadLimit = $(this).attr('dataLimit');
+		playlist = $(this).attr('dataList');
+
+		$.ajax({
+			url: baseurl+'/ajax/watch.php',
+			type: 'post',
+			dataType: 'html',
+			data: {
+				"mode":'playlistMore',
+				"loadHit":loadHit,
+				"loadLimit":loadLimit,
+				"playlist": playlist
+			},
+			beforeSend: function() {
+				$(this).text("loading");
+			},
+
+			success: function(data) {
+				if (data == 'none') {
+					$('#playlist-pull').remove();
+				}
+				$(data).appendTo('#playlist_items').fadeIn('slow');
+				$('#playlist-pull').attr('dataHit', parseInt(loadHit) + 1);
+			}
+		});
+	});
+
+	var aspect_ratio = 1.77778
+	var $cb_player = $("#cb_player");
+
+	$(document).ready(function(){
+		$cb_player.height( $cb_player.width() / aspect_ratio );
+
+		var videoInfo = $("#videoDescription").text();
+		var newInfo = videoInfo.replace(/(((https?:\/\/)|([\s\t]))(www.)?([a-z0-9]+)\.[a-z]+)/g, '<a href="$1">$1</a>');
+		$("#videoDescription").html(newInfo);
+
+		comments_voting = '{$vdo.comment_voting}';
+		_cb.getCommentsNew(
+			'{$type}',
+			'{$vdo.videoid}',
+			'{$vdo.last_commented}',1,
+			'{$vdo.comments_count}',
+			'{$object_type}'
+		);
+
+		$("#reportVideo").on({
+			click : function(e){
+				e.preventDefault();
+				$("#flag_item").show();
+			}
+		});
+
+		$("#subscribeUser").on({
+			click: function(e){
+				e.preventDefault();
+				_cb.subscribeToChannelNew('{$video.userid}','subscribe_user');
+			}
+		});
+		var adHtml = $('.ad-holder').html();
+		if(adHtml<1){
+			$('.ad-holder').remove();
+		}
+		/*//Progress Bar
+		  $( '#circle' ).progressCircle();
+		  $( '#circle' ).progressCircle({
+			nPercent        : nPercent,
+			showPercentText : showPercentText,
+			thickness       : thickness,
+			circleSize      : circleSize
+		  });*/
+	});
+
+/*
+	$(document).on('click','#load-more-comments',function(){
+		var page = $(this).attr('page');
+		page = parseInt(page);
+		nextPage = page + 1;
+		$(this).text("Loading comments..")
+		_cb.getCommentsNew(
+			'{$type}',
+			'{$vdo.videoid}',
+			'{$vdo.last_commented}',page,
+			'{$vdo.comments_count}',
+			'{$object_type}'
+		);
+		$(this).attr('page', nextPage);
+		$(this).text("Load More")
+	})
+*/
+	var resizePlayer =  _cb.debounce(function() {
+		$cb_player.height( $cb_player.width() / aspect_ratio );
+	}, 500, false);
+
+	$(window).resize(resizePlayer);
+	
+</script>
+
+<!-- <link rel="stylesheet" href="{$theme}/css/branding-removal.css"> -->
+
