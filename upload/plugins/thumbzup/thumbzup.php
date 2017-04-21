@@ -10,7 +10,7 @@ Plugin Type: global
 
 * you must call the anchor "thumbzup_get" on the video page to get the votes
 * The ANCHOR "thumbzup_vote_onclick" gives us a javascript to upvote, you can use it that way :
-  <a style="cursor:pointer;" onclick="javascript:{ANCHOR place='thumbzup_vote_onclick' data=$video }" target="_blank">...</a>
+  <a style="cursor:pointer;" onclick="javascript:{ANCHOR place='thumbzup_vote_onclick' data=$video.videoid }" target="_blank">...</a>
 * you can define a "thumbzup_callback" javascript function to update your view when the user upvoted, for example:
   function thumbzup_callback(nblikes){
     $("#nblikes").html(nblikes);
@@ -96,6 +96,15 @@ function thumbzup_vote($videoid){
   }    
 }
 
+function thumbzup_get_most_liked_videos(){
+	$limit = 10;
+	$tztable = tbl('thumbzup');
+	$videotable = tbl( 'video' );
+	$fields = join(",",get_video_fields());
+	$query = "select $fields, count(*) as thumbzups from $tztable join $videotable on $videotable.videoid = $tztable.video_id group by video_id order by count(*) DESC limit $limit;";
+	return db_select($query);
+}
+
 function thumbzup_get($videoid){
   $videoid = intval($videoid);
   global $db;
@@ -110,8 +119,10 @@ function thumbzup_vote_onclick($videoid){
 }
 
 
+
 register_anchor_function('thumbzup_get','thumbzup_get');
 register_anchor_function('thumbzup_vote_url','thumbzup_vote_url');
 register_anchor_function('thumbzup_vote_onclick','thumbzup_vote_onclick');
+
 
 
