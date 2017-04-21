@@ -28,6 +28,15 @@
 		<script src="{$theme}/js/bootstrap.min.js"></script>
 		<script src="{$theme}/js/custom.js"></script>
 		
+		
+  <!--TODO mettre en local-->
+  <link href="//cdn.rawgit.com/noelboss/featherlight/1.7.0/release/featherlight.min.css" type="text/css" rel="stylesheet" />
+  <!--<script src="//code.jquery.com/jquery-latest.js"></script>-->
+  <script src="//cdn.rawgit.com/noelboss/featherlight/1.7.0/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+  
+  
+  
+		
 		{include_header file='global_header'}
 		
 		{literal}<script>
@@ -38,7 +47,7 @@
 		      if(scrollswitch){
 		        $('.shadow').fadeIn();
 		        scrollswitch = false;
-		        $('#header').animate({top:"-64px"},500);
+		        $('#header').animate({top:"-40px"},500);
 		      }
 		    }
 		    else{
@@ -51,3 +60,16 @@
 		  });
 		</script>{/literal}
 	</head>	
+	
+{* THEME CONFIG *}
+{assign var="comcategories" value=array("Vie de l’Université",
+"L’innovation",
+"L’UTC à l’international",
+"Portraits d’utécéens",
+"Les grands axes de recherche",
+"La formation",
+"Remise des diplômes et parrains",
+"Missions et valeurs de l’UTC",
+"Ces thèses qui changent la vie") scope="global"}
+
+
