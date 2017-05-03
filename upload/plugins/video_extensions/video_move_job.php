@@ -82,7 +82,6 @@
 				$query='UPDATE '.table("job").' SET `status` = "Completed" wHERE id="'.$res["id"].'"';
 				echo "\t".$query."\n";
 				$db->Execute($query);
-			echo "\n";
 			}
 		}
 	}
