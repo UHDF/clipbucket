@@ -124,6 +124,7 @@ class VideoExtension extends CBCategory{
 		return $PendingVideos;
 	}
 	
+
 	/**
 	 * Associate a pending video to the selected video data
 	 * 
@@ -133,15 +134,45 @@ class VideoExtension extends CBCategory{
 	 * 		A string found into the "job" table in the "jobset" field. $jobset is used to retrieve the original video filename.
 	 */
 	function setVideoFile($vid, $jobset){
+		$uploaddir = BASEDIR."/files/";
+		/*$files = glob($uploaddir.'/*'); // get all file names
+		foreach($files as $file){ // iterate files
+			if(is_file($file))
+				unlink($file); // delete file
+		}*/
 		global $db;
-		$query='SELECT * FROM '.table("job").' WHERE jobset="'.$jobset.'" AND (idvideo IS NULL OR idvideo=0)';
+		$query='SELECT * FROM '.table("video").' WHERE videoid="'.$vid.'"';
 		$result=$db->_select($query);
 		if (count($result)>0){
-			$originalVideoName=pathinfo($result[0]["originalsrc"],PATHINFO_BASENAME);
-			$query='UPDATE '.table("job").' SET idvideo = '.$vid.' WHERE jobset="'.$jobset.'" AND (idvideo IS NULL OR idvideo=0)';
-			$db->Execute($query);
-			$query='UPDATE '.table("video").' SET original_videoname = "'.$originalVideoName.'" WHERE videoid="'.$vid.'"';
-			$db->Execute($query);
+			$fileName=$result[0]["file_name"];
+			$fileDirectory=$result[0]["file_directory"];
+			$query='SELECT * FROM '.table("job").' WHERE jobset="'.$jobset.'" AND (idvideo IS NULL OR idvideo=0)';
+			$result=$db->_select($query);
+			if (count($result)>0){
+
+				//Remove file of the same same if still exists
+				$jobName=$result[0]["name"];
+				$jobExtension=$result[0]["extension"];
+				$table=explode("_", $jobName);
+				if ($table[0]=="original")
+					$dstFullpath=dirname(__FILE__)."/../../files/original/".$fileDirectory."/".$fileName;
+				if ($table[0]=="audio")
+					$dstFullpath=dirname(__FILE__)."/../../files/videos/".$fileDirectory."/audio_".$fileName;
+				else {
+					$dstFullpath=dirname(__FILE__)."/../../files/videos/".$fileDirectory."/".$fileName;
+					if ($table[0]!=$jobExtension)
+						$dstFullpath.="-".$table[0];
+				}
+				$dstFullpath.=".".$jobExtension;
+				unlink($dstFullpath);
+				
+				$originalVideoName=pathinfo($result[0]["originalsrc"],PATHINFO_BASENAME);
+				$query='UPDATE '.table("job").' SET idvideo = '.$vid.' WHERE jobset="'.$jobset.'" AND (idvideo IS NULL OR idvideo=0)';
+				//$db->Execute($query);
+				$query='UPDATE '.table("video").' SET original_videoname = "'.$originalVideoName.'" WHERE videoid="'.$vid.'"';
+			
+				//$db->Execute($query);
+			}
 		}
 		
 	}
