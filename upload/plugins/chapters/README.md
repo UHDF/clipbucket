@@ -1,24 +1,27 @@
-#Plugin ClipBucket - Choose Thumbnail
+#Plugin ClipBucket - Define Chapters
 
-# Installation
-Activer le plugin depuis la rubrique plugin de l'administration.
+This plugin is used to add chapters to a video.      
 
-Pour ne pas modifier le template, le bouton est ajouter via javascript.
+# Install
+To activate this plugin, go to the plugin manager and add click on the "install button" on the "Define Chapters" plugin. It also add a new table called "chapters" in CB database.
 
-Si besoin de l'inclure dans le template :
-	Ajouter le code suivant dans le template : admin_area/styles/cb_2014/layout/edit_video.html
-		<code>
-			<!--
-				2016-06-17 - Adrien Ponchelet
-				Plugin : choose_thumbnail
-				Desc : Ajoute le bouton et les champs de formulaire
-			-->
-			{$choosethumb}
-			<!--
-				Fin ajout Adrien Ponchelet
-			-->
-		</code>
-			
-# Utilisation
+## Requirements
+This plugin is based on the following plugins :
 
-Lire la video depuis le video manager de l'administration. Cliquer sur le bouton lorsque l'image correspond à votre souhait.
+- **Common Library** (Required) : Used in this plugin for localisation, and admin access permissions. 
+- **Extended Search** (Required) : Used in this plugin for searching videos with words stored into their chapters. 
+- **Expand video Manager** (Required) : Used to add a new "chapters" tab into the edit video page. 
+
+# Uninstall
+Uninstalling the plugin in the plugin manager will remove the database table and clean up the config table.
+	
+# Use
+The plugin has two parts one into the admin interface and one in user interface. 
+
+## Use in the admin interface :
+You have to activate the plugin for the user level you wnat it. Then go to the video manager page, select an edit a video. go to the "chapter" tab. Play the video and click on the "add chapter" button. set a title and click save chapter before endind chaptering.
+
+## Use in the user interface :
+You need a version of videojs that support vtt files. Add the following anchor to the "video" html tag to add chapters to the current video :
+    {ANCHOR place="getVTTFile"}
+
