@@ -115,6 +115,7 @@ class ExtendSearch extends cbsearch {
 		}
 
 		$ma_query = "";
+		$this->query_conds=[];
 		#Checking for columns
 		if(!$this->use_match_method)
 			foreach($this->columns as $column) {
