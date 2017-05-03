@@ -2,10 +2,11 @@
 {$video=$vdo}
 {$type='video'}
 {$channel = $userquery->get_user_details($video.userid)}
+
 <div class="alaunecont">
   <div class="grid">
     <div class="col-1-1">
-        <h1 style="margin-top:0em;">{$video.title|title|urlencode}</h1></div></div>
+        <h1 style="margin-top:0em;">{$video.title|title}</h1></div></div>
             
   <div class="alaunebigcont">
     <div class="grid">
@@ -17,8 +18,8 @@
     <div class="grid">
       <div class="col-1-1">
         <span class="social">
-          <a href="#"><img src="{$baseurl}/styles/webtv2/theme/images/thumbup.png"/></a>
-          <span class="nblikes">0</span>
+          <a style="cursor:pointer;" onclick="javascript:{ANCHOR place='thumbzup_vote_onclick' data=$video.videoid}" target="_blank"><img src="{$baseurl}/styles/webtv2/theme/images/thumbup.png"/></a>
+          <span class="nblikes">{ANCHOR place='thumbzup_get' data=$video.videoid}</span>
           <a data-featherlight="#mylightbox" data-featherlight-persist="shared" href="#">
             <img src="{$baseurl}/styles/webtv2/theme/images/share.png"/></a>
           <a href="https://facebook.com/sharer/sharer.php?u=https%3A%2F%2F{$smarty.server.HTTP_HOST|escape:'url'}{$smarty.server.REQUEST_URI|escape:'url'}" target="_blank"> 
@@ -28,50 +29,43 @@
           <a href="https://plus.google.com/share?url=https%3A%2F%2F{$smarty.server.HTTP_HOST|escape:'url'}{$smarty.server.REQUEST_URI|escape:'url'}" target="_blank"><img src="{$baseurl}/styles/webtv2/theme/images/gplus.png"/></a>
           <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3A%2F%2F{$smarty.server.HTTP_HOST|escape:'url'}{$smarty.server.REQUEST_URI|escape:'url'}&amp;title={$vdo.title|escape:'url'}%20%23Tv_utc&amp;summary={$vdo.title|escape:'url'}%20%23Tv_utc&amp;source=https%3A%2F%2F{$smarty.server.HTTP_HOST|escape:'url'}{$smarty.server.REQUEST_URI|escape:'url'}" target="_blank" ><img src="{$baseurl}/styles/webtv2/theme/images/lkin.png"/></a></span>
         <span class="cat">
-          Abécédaire de l'innovation</span></div></div>
+          {*{$vdo.category|@var_dump}*}
+          TODO</span></div></div>
             
 
-  <!--TODO mettre en local-->
-  <link href="//cdn.rawgit.com/noelboss/featherlight/1.7.0/release/featherlight.min.css" type="text/css" rel="stylesheet" />
-  <script src="//code.jquery.com/jquery-latest.js"></script>
-  <script src="//cdn.rawgit.com/noelboss/featherlight/1.7.0/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
 
   <div style="display:none">
     <div id="mylightbox">
-      {show_share_form id=$video.videoid type=Video}</div></div>
+      {show_share_form id=$video.videoid type=Video}
+    </div>
+  </div>
   <!---->
   
     
   <div class="watchdescriptioncont">
     <div class="grid">
-      <div class="col-1-1">
+      <div class="col-2-3">
         <div class="watchdescription">{description(AutoLinkUrls($video.description))|unescape:"html"}</div>
       </div>
-      &nbsp;
-      <div class="grid">
-        <div class="col-1-2">
+        <div class="col-1-3">
           <div class="details">Mis en ligne par <strong>{$video.username}</strong></div>
-        </div>
-        <div class="col-1-2">
           <div class="details">{prettyNum($vdo.views)} {if $vdo.views > 1}{lang code='views'}{else}{lang code="view"}{/if}</div>
+          <div class="watchdescriptionclasscont">
+            <div class="categories">
+              <strong>{lang code='category'}</strong>:&nbsp;{$vdo.category|categories:video}
+            </div>
+              <!--<div class="col-1-2 tags">-->
+              <strong>{lang('tags')}&nbsp;&nbsp;</strong><span >
+              {$vtags=","|explode:$vdo.tags}
+              {foreach $vtags as $tag}
+                <!--TODO: bonne url avec une recherche sur le tag-->
+                <a class="tag" href="{$baseurl}/search_result.php?query={$tag|escape}&type=videos">{$tag}</a>
+              {/foreach}
+              <!--{$vdo.tags|tags:videos}--></span>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="grid watchdescriptionclasscont">
-        <div class="col-1-2 categories">
-          <strong>{lang code='category'}</strong>:&nbsp;{$vdo.category|categories:video}
-          
-        </div>
-<!--        <div class="col-1-2 tags">-->
-          <strong>{lang('tags')}&nbsp;&nbsp;</strong><span >
-          {$vtags=","|explode:$vdo.tags}
-          {foreach $vtags as $tag}
-            <!--TODO: bonne url avec une recherche sur le tag-->
-            <a class="tag" href="{$baseurl}/search_result.php?query={$tag|escape}&type=videos">{$tag}</a>
-          {/foreach}
-          <!--{$vdo.tags|tags:videos}--></span>
-        </div>
-      </div>
-        
     </div>
   </div>
   
@@ -84,11 +78,59 @@
   </div>      {*grid*}
 </div>        {*watchcont*}
 
+<div class="likedcont">
+	<div class="grid">
+	  <div class="col-1-1">
+	    <h1>Dans la même catégorie</h1>
+	  </div>
+  </div>
+{$cats=array_filter(array_map('trim',explode("#",$video['category'])))}
+{$samecat=$cbvid->get_videos(["category"=>$cats,'limit'=>3, "order"=>"datecreated DESC", "exclude"=>$video->videoid])}
+{if $samecat}
+  {$samecat=array_chunk($samecat,3)}
+	<div class="grid">
+    {foreach from=$samecat[0] item=video}
+    <div class="col-1-3">
+      {include file="$style_dir/blocks/videos/video.html" display_type='videoitem'}
+    </div>
+  	{/foreach}
+ </div>
+{else}
+	<div class="grid"><div class="col-1-1">No Videos Found !</div></div>  	
+{/if}
+</div>
+
+
+<div class="mostcont">
+	<div class="grid">
+	  <div class="col-1-1">
+	    <h1>À voir également</h1>
+	  </div>
+  </div>
+{$vtags=$vdo.tags}
+{$vid=$vdo.videoid}
+{$sametags=$cbvid->get_videos(["tags"=>$vtags,'limit'=>3, "order"=>"datecreated DESC", "exclude"=>$vid])}
+{if $sametags}
+  {$sametags=array_chunk($sametags,3)}
+	<div class="grid">
+    {foreach from=$sametags[0] item=video}
+    <div class="col-1-3">
+      {thumbzup_get($video.videoid)}
+      {include file="$style_dir/blocks/videos/video.html" display_type='videoitem'}
+    </div>
+  	{/foreach}
+ </div>
+{else}
+	<div class="grid"><div class="col-1-1">No Videos Found !</div></div>  	
+{/if}
+</div>
 
 {ANCHOR place="after_watch_video"}
 <script>
 
-
+function thumbzup_callback(nblikes){
+  $(".nblikes").html(nblikes);
+}
 
 	/*Cookie based comments backup start*/
 	var current_video = "{$video.videoid}",
@@ -234,3 +276,46 @@
 	$(window).resize(resizePlayer);
 
 </script>
+
+
+  <link href="{$theme}/css/videojs.suggestedVideoEndcap.css" type="text/css" rel="stylesheet" />
+  <script src="{$theme}/js/videojs.suggestedVideoEndcap.js" type="text/javascript" charset="utf-8"></script>
+    {$sametags=$cbvid->get_videos(["tags"=>$vtags,'limit'=>3, "order"=>"datecreated DESC", "exclude"=>$vid])}
+    {$sametags|@var_dump}
+    
+<style>
+  .vjs-suggested-video-endcap-header {
+    font-size:1rem;
+    color:white;    
+    font-family: source, Helvetica, Arial, sans-serif;
+  }
+  .vjs-suggested-video-endcap-link {
+    font-family: source, Helvetica, Arial, sans-serif;
+    width: 31%;
+    text-decoration:none;
+    color:#ffd515;    
+    text-align: center;
+  }
+</style>
+  
+<script>
+  'use strict';
+  $(function(){
+    {if $sametags}
+    player.suggestedVideoEndcap({
+      header: 'Vous aimerez peut-être...',
+      suggestions: [
+      {foreach from=$sametags item=video}
+        {json_encode([
+          "title" => $video.title,
+          "url"   => videoLink($video),
+          "image" => getThumb($video,"big"),
+          "alt"   => $video.title
+        ])},
+    	{/foreach}
+      ]
+    });
+  	{/if}
+  });
+</script>
+

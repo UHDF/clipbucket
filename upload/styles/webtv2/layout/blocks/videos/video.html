@@ -1,15 +1,32 @@
 {if $display_type=='videoitem'}
-<div class="videoitemcont">
-			<a  href="{videoLink($video)}" title="{$video.title|title}"><img class="img-responsive" width="100%" src="{getThumb vdetails=$video size=416x260 }"></a>
-			<span class="title" href="{videoLink($video)}">{$video.title|title}</span>
+  <div class="videoitemcont">
+			<div class="base">
+			  <a  href="{videoLink($video)}" title="{$video.title|title}"><img class="img-responsive" width="100%" src="{getThumb vdetails=$video size=big }"></a>
+			  <!--<span class="title" href="{videoLink($video)}">{$video.title|title}</span>-->
+			</div>
 			<div class="details">
+			  <span class="title" href="{videoLink($video)}">{$video.title|title}</span>
 			  <span class="duration">{if $video.duration>1}{$video.duration|SetTime}{else}00:00{/if}</span>
 			  <span style="float:right">{$video.views}&nbsp;{lang code="views"}</span>
 			  <div class="descriptioncont"> 
-			    <span class="description">{$video.description}</span>
+			    <span class="description">{if (strlen($video.description) > 400)} {$video.description|substr:0:400}... {else} {$video.description} {/if}</span>
 			  </div>
 			</div>
 </div>
+{/if}
+{if $display_type=='videocat'}
+  <div class="catitemcont">
+			<div class="base">
+			  <a  href="{videoLink($video)}" title="{$video.category_name}"><img class="img-responsive" width="100%" src="{getThumb vdetails=$video size=big }"></a>
+			</div>
+			<div class="details">
+			  <span class="title" href="{videoLink($video)}" style="color:yellow">{$category_name}</span>
+			  <!--<div class="descriptioncont"> 
+			    <span class="description">{if (strlen($video.description) > 400)} {$video.description|substr:0:400}... {else} {$video.description} {/if}</span>
+			  </div>-->
+			</div>
+</div>
+
 {/if}
 {if $display_type=='itemvideo'}
 <div class="videocont">

@@ -1,0 +1,39 @@
+<?php
+
+
+include("../../includes/config.inc.php");
+
+function thumbzup_vote(){
+  global $db;
+  $fingerprint = hash('ripemd128', $_SERVER["REMOTE_ADDR"].$_SERVER ['HTTP_USER_AGENT']);
+  $userid = userid();
+  $registered = $userid != false;
+  
+  if($registered){
+    $alreadyvoted = $db->select(tbl('thumbzup'),'id',"videoid=$videoid AND userid=$userid");
+    if( count($alreadyvoted)!=0 )
+      return array(false,"already_voted");  
+    else{
+      $unregisteredvote = $db->select(tbl('thumbzup'),'id',
+        "videoid=$videoid AND userid=NULL AND fingerprint=$fingerprint");
+      if(count($unregisteredvote)!=0){
+        $db->delete(tbl('thumbzup'),array('videoid','fingerprint','userid'), ,array($videoid, $fingerprint "NULL"));
+      }
+      $db->insert(tbl('thumbzup'), array('videoid','fingerprint','userid'), array($videoid,$fingerprint,$userid));
+      return array(true);
+    }
+  }
+  else{
+    $computervote = $db->select(tbl('thumbzup'),'id',"videoid=$videoid AND fingerprint=$fingerprint");
+    if(count($computervote)!=0){
+      return array(false,"unregistered_already_voted"); //can't vote, you have already voted or a registered user already voted on this computer
+    }
+    else{
+      $db->insert(tbl('thumbzup'), array('videoid','fingerprint','userid'), array($videoid,$fingerprint,null));
+      return array(true);
+    }
+  }    
+}
+
+thumbzup_vote();
+
