@@ -41,6 +41,10 @@ function installJobTypeTable() {
 	  		`parameters` varchar(1024) NOT NULL
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8;'
 		);
+	$db->Execute("INSERT INTO ".tbl("job_type")."` (`id`, `name`, `command`, `parameters`) VALUES
+		(1, 'mv_original', 'mv', '{\"cle1\":\"val1\",\"cle2\":\"val2\"}'),
+		(2, 'X264', 'ffmpeg', '{\"-c:v\":\"libx264\",\"-preset\":\"medium\",\"-b:v\":\"2600k\",\"-c:a\":\"aac\",\"-b:a\":\"128k\",\"-vf\":\"format=yuv420p\"}'),
+		(3, 'MP3', 'ffmpeg', '{\"-a\":\"mp3\"}');");
 }
 
 /**
