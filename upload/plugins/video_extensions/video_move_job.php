@@ -30,23 +30,24 @@
 
 	if (count($result)>0){
 		foreach ($result as $res){
+			echo date("Y-m-d H:i:s"); 
 			$jobName=$res["name"];
-			echo "job name : ".$jobName."\n";
+			echo " job name : ".$jobName."\n";
 			$jobExtension=$res["extension"];
-			echo "job extension : ".$jobExtension."\n";
+			echo "\tjob extension : ".$jobExtension."\n";
 			// Create the full path of the file to be donwloaded
 			$srcFullpath= $res["encodedsrc"].$jobName.'.'.$jobExtension;
-			echo "src fullpath : ".$srcFullpath."\n";
+			echo "\tsrc fullpath : ".$srcFullpath."\n";
 				
 			$query='SELECT * FROM '.table("video").' WHERE `videoid`='.$res["idvideo"];
 			$vresult=$db->_select($query);
-			echo "idvideo : ".$res["idvideo"]."\n";
+			echo "\tidvideo : ".$res["idvideo"]."\n";
 				
 			if (count($vresult>0)){
 				$filename=$vresult[0]["file_name"];
-				echo "filename : ".$filename."\n";
+				echo "\tfilename : ".$filename."\n";
 				$fileDirectory=$vresult[0]['file_directory'];
-				echo "fileDirectory : ".$fileDirectory."\n";
+				echo "\tfileDirectory : ".$fileDirectory."\n";
 				/**
 				 * $jobName is formated like this : "prefix_uniquekey". The prefix may be a video format size (480,720,1080...) 
 				 * or the "audio" string for audio files or the "original" string for the full quality file. 
@@ -76,16 +77,16 @@
 						$dstFullpath.="-".$table[0];
 				}
 				$dstFullpath.=".".$jobExtension;
-				echo "dstFullpath : ".$dstFullpath."\n";
+				echo "\tdstFullpath : ".$dstFullpath."\n";
 				$process = new Process("wget \"$srcFullpath\" -O \"$dstFullpath\"");
 				$query='UPDATE '.table("job").' SET `status` = "Completed" wHERE id="'.$res["id"].'"';
-				echo $query."\n";
+				echo "\t".$query."\n";
 				$db->Execute($query);
 			echo "\n";
 			}
 		}
 	}
 	else {
-		echo "Pas de vidéo à transferer\n";
+		//echo "Pas de vidéo à transferer\n";
 	}
 	
