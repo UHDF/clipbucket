@@ -74,6 +74,16 @@ function installJobTable() {
 			);
 }
 
+/**
+ * Add a Tab to the Edit Video Page
+ */
+function installEncodingEditTab() {
+	global $db;
+	$sql = 'INSERT INTO '.tbl("expand_video_manager")." (`evm_id`, `evm_plugin_url`, `evm_zone`, `evm_is_new_tab`, `evm_tab_title`)".
+			" VALUES ('', '".BASEDIR."/plugins/video_extensions/admin/show_encoding.php', ".
+			"'expand_video_manager_right_panel', 1, '".lang("Encoding")."');";
+	$db->Execute($sql);
+}
 
 /**
  * Add a field to the video table
@@ -89,4 +99,5 @@ installJobEncoderTable();
 installJobTable();
 installJobTypeTable();
 addOriginalVideoname();
+installEncodingEditTab();
 ?>
