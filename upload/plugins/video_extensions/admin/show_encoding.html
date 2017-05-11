@@ -1,0 +1,33 @@
+<legend>{lang("Encoding_progression")}</legend>
+	<div id="chmessage"></div>
+	<div class="rien">
+		<div id="encodingContainer">{$EncodingProgress}</div>
+	</div>
+    		
+<script>
+	$(document).ready(function() {
+		setInterval(function(){
+			var $video="{$video}";
+			{literal}var formData = {data:{video:$video}}; //Array 
+			$.ajax({
+				type	  	: "POST",
+				url 	  	: "../plugins/video_extensions/admin/show_encoding_progress.php",
+				data		: formData,
+				dataType : "html",
+				success : function(q)
+				{
+					if (q){
+						//q=$.parseJSON(q);
+						$("#encodingContainer").html(q);//.output);
+						setEvents();
+					}
+				}
+			});		
+			{/literal}
+			
+		}
+		,10000);
+	});
+	
+	
+</script>
