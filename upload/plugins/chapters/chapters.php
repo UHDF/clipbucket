@@ -26,7 +26,7 @@ if(!function_exists('getVTTFile')){
 	 */
 	function getVTTFile(){
 		global $db;
-		$query = " SELECT * FROM ".tbl('video')." WHERE `videoid`='".$_GET["v"]."'";
+		$query = " SELECT * FROM ".tbl('video')." WHERE `videoid`='".$_GET["video"]."'";
 		$respons = select( $query );
 		$str="";
 		if (count($respons)>0) {
