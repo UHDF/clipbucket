@@ -13,9 +13,6 @@
 	    <script src="{$baseurl}/player/videojs-contrib-hls.min.js"></script>
 -->
 
-
-  
-
   
 <!--
 	  PLAYER CSS
@@ -27,7 +24,6 @@
 	  PLUGIN CSS
 -->
 <link href="{$upjv_player_url}/node_modules/videojs-resolution-switcher/lib/videojs-resolution-switcher.css" rel="stylesheet">
-
 
 
 <!--
@@ -43,14 +39,10 @@
 <script src="{$upjv_player_url}/video_js_custom.js"></script>
 
 
-
 <!--
 	  PLAYER PLUGIN
 -->
 <script src="{$upjv_player_url}/node_modules/videojs-resolution-switcher/lib/videojs-resolution-switcher.js"></script>
-
-
-
 
 
 <!--
@@ -61,12 +53,11 @@
 </script>
 
 
-
-
 <!--
 	  BALISE VIDEO HTML 5
 -->
 <video id="cb_video_js" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto" height="{$height}" width="{$width}" poster="{getThumb vdetails=$vdata size=big}">
+
 
     {foreach $video_files as $file}
 	    {$quality = get_upjv_quality($file)}
@@ -77,6 +68,14 @@
 		<source src='{$file}' type="video/mp4" label="{strtoupper($quality)}" res="{$quality}" />
 	    {/if}
     {/foreach}
+
+	{$sub = get_upjv_subtitle($vdata)}
+
+
+
+	{if $sub neq ''}
+		<track kind="subtitles" src="{$sub}" srclang="fr" label="French" default>
+	{/if}
     
     {ANCHOR place="play_def_sub"}
 
@@ -110,7 +109,6 @@
 	});
 </script>
 {/literal}
-
 
 
 
