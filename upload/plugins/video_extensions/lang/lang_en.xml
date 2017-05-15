@@ -13,5 +13,7 @@
 		<new_empty_video>New empty video</new_empty_video>
 		<duplicate_video>Duplicate video</duplicate_video>
 		<link_pending_video>Link pending video</link_pending_video>
+		<no_encoding_in_progress>No encoding in progress</no_encoding_in_progress>
+		<Encoding_progression>Encoding progression</Encoding_progression>
 	</phrases>
 </clipbucket_language>

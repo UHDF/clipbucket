@@ -13,7 +13,9 @@ function uninstallChaptersTable() {
 			);
 }
 
-
+/**
+ * Remove Tab from the Edit Video Page
+ */
 function uninstallChaptersEditTab() {
 	global $db;
 	$query='DELETE FROM '.tbl("expand_video_manager").' WHERE `evm_plugin_url` = 

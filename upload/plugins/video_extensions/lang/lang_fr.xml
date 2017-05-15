@@ -13,5 +13,7 @@
 		<new_empty_video>Nouvelle vidéo vierge</new_empty_video>
 		<duplicate_video>Dupliquer la fiche</duplicate_video>
 		<link_pending_video>Associer une vidéo en attente</link_pending_video>
+		<no_encoding_in_progress>Pas d'encodage en cours</no_encoding_in_progress>
+		<Encoding_progression>Avancement de l'encodage</Encoding_progression>
 	</phrases>
 </clipbucket_language>

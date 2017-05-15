@@ -176,6 +176,41 @@ class VideoExtension extends CBCategory{
 		}
 		
 	}
+
+	/**
+	 * get the HTML that display the encoding state of a video
+	 * @param int $video
+	 * 		the video id
+	 * @return string
+	 * 		The HTML string containing all the encoding progress bars
+	 */
+	function generateHTMLEncoding($video){
+		global $db;
+		$query="SELECT * from ".tbl("job")." WHERE idvideo=".$video." AND status!='Completed'";
+		$result=$db->_select($query);
+		if (count($result)>0){
+			$output= "";
+			foreach ($result as $encod){
+				$str=explode("_",$encod["name"])[0];
+				if ($str!="original"){
+					if ($str=="audio") {
+						$output.="<span>".$str." ".$encod["extension"]." : </span>";
+					}
+					else {
+						$output.="<span>".$encod["extension"]." ".$str." : </span>";
+					}
+					$output.='<div class="progress">
+					<div class="progress-bar" role="progressbar" aria-valuenow="'.$encod["progress"].'"
+							aria-valuemin="0" aria-valuemax="100" style="width:'.$encod["progress"].'%">
+							<span>'.$encod["progress"].'%</span></div></div>';
+				}
+			}
+		}
+		else {
+			$output=lang("no_encoding_in_progress");
+		}
+		return $output;
+	}
 }
 
 ?>
