@@ -37,6 +37,10 @@ Finally click on the "Generer le fichier de sous titres" to publish the work.
 *Finalement, cliquer sur le bouton "Generer le fichier de sous titres" pour publié votre travail.*
 
 ## ChangeLog
+### [0.2] - 2017-05-18
+#### Modified
+- Merge sentence less than one seconds.
+
 ### [0.1] - 2017-05-09
 #### Added
 - First version

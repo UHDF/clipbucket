@@ -39,43 +39,117 @@
 <div class="row">
 	<div class="col-md-12">
 
-		<div id="soundFinderResult" style="overflow:scroll; overflow-x:hidden; height:400px;">
 
-			{if $marker neq ''}
-				<form method="POST" class="form-horizontal">
 
-					{foreach from=$marker item=data}
+		<div class="tabbable">
+			<ul class="nav nav-tabs" id="myTab">
+				<li class="{if $tabactive eq ''}active{/if}"><a data-toggle="tab" href="#draft">Brouillon</a></li>
+				<li class="{if $tabactive == 'final'}active{/if}"><a data-toggle="tab" href="#final">Final</a></li>
+			</ul>
 
-						<div class="control-group">
-							<label for="phrase{$data[2]}" class="control-label">
-								{$data[6]} --> {$data[7]} - Durée : {$data[8]}
-							</label>
+			<!-- 
+				Edition des sous titres
+			-->
+			<div class="tab-content">
+				<div id="draft" class="tab-pane{if $tabactive eq ''} active{/if}">
+					<h2>Brouillon</h2>
 
-							<div class="form-inline">
+					Etat : <span id="draftEtat">{$savedSub} / {$nbMarker}</span><br>
+					<progress id="draftProgressBar" value="{$savedSub}" max="{$nbMarker}" style="width: 100%;"></progress> 
 
-								<input type="text"  class="form-control" name="phrase{$data[2]}" id="phrase{$data[2]}" onfocus="inputPlay({$data[0]}, {$data[1]});" onblur="inputStop();" onkeyup="infoSub({$data[2]});" value="{$data[3]}">
 
-								<span id="subinfo{$data[2]}" class="help-inline"></span>
-							</div>
-						</div>
 
-					{/foreach}
+					<div id="soundFinderResult" style="overflow:scroll; overflow-x:hidden; height:400px;">
 
-					<div class="control-group">
-						<input type="hidden" name="nbMarker" id="nbMarker" value="{$nbMarker}">
-						<input type="submit" name="envoyer" value="Envoyer">
+						{if $marker neq ''}
+							<form method="POST" class="form-horizontal">
+
+								{foreach from=$marker item=data}
+
+									<div class="control-group">
+										<label for="phrase{$data[2]}" class="control-label">
+											{$data[6]} --> {$data[7]} - Durée : {$data[8]}
+										</label>
+
+										<div class="form-inline">
+
+											<input type="text"  class="form-control" name="phrase{$data[2]}" id="phrase{$data[2]}" onfocus="inputPlay({$data[0]}, {$data[1]});" onblur="inputStop();draftProgress();" onkeyup="infoSub({$data[2]});" value="{$data[3]}">
+
+
+
+											<!--
+												Positionnement du sous titre
+											-->
+<!--
+											<div class="btn-group colors" data-toggle="buttons">
+												<label class="btn btn-primary btn-xs">
+													<input type="radio" name="options{$data[2]}" value="left" autocomplete="off" checked> Gauche
+												</label>
+
+												<label class="btn btn-primary btn-xs active">
+													<input type="radio" name="options{$data[2]}" value="" autocomplete="off"> Centre
+												</label>
+
+												<label class="btn btn-primary btn-xs">
+													<input type="radio" name="options{$data[2]}" value="right" autocomplete="off"> Droite
+												</label>
+											</div>
+-->
+
+											<span id="subinfo{$data[2]}" class="help-inline"></span>
+										</div>
+
+
+									</div>
+
+								{/foreach}
+
+								<div class="control-group">
+									<input type="hidden" name="nbMarker" id="nbMarker" value="{$nbMarker}">
+									<input type="submit" name="saveMarker" class="btn btn-primary" value="Sauvegarder">
+								</div>
+
+							</form>
+						{/if}
+
 					</div>
 
-				</form>
-			{/if}
+					<br>
 
+					<form method="POST">
+						<input type="submit" class="btn btn-primary" name="subtitlize" value="Generer le fichier de sous titres">
+					</form>
+
+				</div>
+
+				<!-- 
+					Fichier final
+				-->
+				<div id="final" class="tab-pane{if $tabactive == 'final'} active{/if}">
+					
+					<h2>Final</h2>
+					<p>Ici, vous pouvez corriger le fichier actuellement diffusé.</p>
+				
+					{if $subfile neq ''}
+						<form method="POST">
+							<div class="control-group">
+								<textarea name="subdata" id="subdata" cols="80" rows="20">{$subfile}</textarea><br>
+								<br>
+
+								<input type="submit" name="saveSubtitle" class="btn btn-primary" value="Enregistrer">
+							</div>
+						</form>
+					{/if}
+					
+				</div>
+
+
+			</div>
 		</div>
 
-		<br>
 
-		<form method="POST">
-			<input type="submit" name="subtitlize" value="Generer le fichier de sous titres">
-		</form>
+
+
 
 	</div>
 </div>
@@ -139,11 +213,44 @@
 {literal}
 <script language="JavaScript">
 
+	// get selection
+	/*
+	$('.colors input[type=radio]').on('change', function() {
+		console.log(this.value);
+	});
+	*/
+
+
+
+	/**
+	*	Information about subtitle rules when input is modified.
+	*/
+	function draftProgress(){
+		var nb = document.querySelector("#nbMarker");
+		var progressBar = document.querySelector("#draftEtat");
+		var plop = document.querySelector("#draftProgressBar");
+
+
+		var how = 0;
+
+		for (i = 1; i <= parseInt(nb.value); i++){
+			if (document.querySelector("#phrase"+i).value != ''){
+				how = how + 1;
+			}
+		}
+
+		progressBar.innerHTML = how + " / " + nb.value;
+		plop.value = how;
+
+	}
+
+
+
 	/**
 	*	Information about subtitle rules when input is modified.
 	*/
 	function infoSub(id){
-		console.log(id);
+//		console.log(id);
 		var input = document.querySelector("#phrase"+id);
 		var msg = document.querySelector("#subinfo"+id);
 		var error = '';

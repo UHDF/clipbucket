@@ -1,4 +1,27 @@
 <?php
+/*
+
+Régle de sous titrage :
+-----------------------
+
+- La police utilisée est Helvetica 28.
+- les caractères sont en jaune.
+- Un maximum de 36 caractères par ligne (incluant les espaces), mais cela dépend de la largeur des lettres : un W compte pour 1 caractère, mais A, B ou C compte pour 0,8 par exemple, un f ou un i compte pour 0,3.
+- Deux rangées de sous-titres maximum (si possible)
+- Caractères autorisés (pour une diffusion en France) : ! " % & ' ( ) * + , - ; / : > < = ? en plus des lettres et chiffres classiques.
+- Sous-titrage du titre du film : 4 secondes minimum.
+- Durée minimale d'un sous-titre : 1 seconde, durée maximale 10 secondes.
+- 5 images minimum entre deux sous-titres.
+- On évite qu'un sous-titre chevauche un changement de plan.
+- Un sous-titre disparait au minimum 4 images avant un changement de plan, et il apparait minimum 4 images après le changement de plan.
+- Si besoin, un sous-titre peut cependant chevaucher un changement de plan, à la condition qu'il apparaisse ou disparaisse au moins 1 seconde avant ou après ce changement de plan.
+
+
+
+
+*/
+
+
 // Require function file
 require(PLUG_DIR."/".SUBTITLE_MAKER_BASE."/functions.php");
 
@@ -28,8 +51,8 @@ $max_video_file_by_size = str_replace("\n", "", $max_video_file_by_size);
 assign('video_file', $max_video_file_by_size);
 assign('marker_file', $marker);
 
-
-
+// Number of caracter by line for one subtitle
+$nbcar_by_line = 70;
 
 /**
 *	Check if a silence finder metadata file is associated to the marker video file
@@ -60,7 +83,7 @@ else{
 /**
 *	Update the marker file
 */
-if ($_POST['envoyer']){
+if ($_POST['saveMarker']){
 
 	// Read files in array
 	$lines = file($marker, FILE_IGNORE_NEW_LINES);	// Read file in array (without break line)
@@ -83,7 +106,6 @@ if ($_POST['envoyer']){
 }
 
 
-
 /**
 *	Generate the final file
 */
@@ -100,10 +122,14 @@ if ($_POST['subtitlize']){
 
 			$t[3] = trim($t[3]);			// Delete unwanted space
 
-			$nbCar = $t[3];
+			// Test length of subtitle and number of line
+			$nbCar = strlen($t[3]);
+			if ( ($nbCar > $nbcar_by_line) ){
+				$t[3] = wordwrap($t[3], $nbcar_by_line, "\n", true);
 
-			if ( ($nbCar > 36) and ($nbCar < 72) ){
-				$t[3] = wordwrap($t[3], 36, "\n", true);
+				if (substr_count($t[3], "\n") > 1){
+					$t[3] = $t[3]."\n\nNOTE : You must split the subtitle above (too much line).";
+				}
 			}
 
 			// If sentence exist, write in subtitle file
@@ -119,15 +145,35 @@ if ($_POST['subtitlize']){
 
 
 
+
+/**
+*	If editing the final file
+*/
+if ($_POST['saveSubtitle']){
+
+	if (file_exists($subtitle)){
+
+		$fp = fopen($subtitle, "w+");			// Open the draft file
+		fwrite($fp, $_POST['subdata']);
+		fclose($fp);
+	}
+
+}
+
+
+
+
 /**
 *	Existing element
 */
 $element = array();
+$savedSub = 0;
 	
 if (file_exists($marker)){
 
 	$lines = file($marker, FILE_IGNORE_NEW_LINES);
 	assign('nbMarker', count($lines));
+
 
 	foreach ($lines as $line_num => $line) {
 
@@ -139,19 +185,31 @@ if (file_exists($marker)){
 		$element[] = array(
 			($t[0]-$delayBefore),		// 0 : Begin
 			($t[1]+$delayAfter),		// 1 : End
-			$t[2],						// 2 : Sentence
-			$t[3],						// 3 : line count
+			$t[2],						// 2 : line count
+			$t[3],						// 3 : Sentence
 			$begin,						// 4 : Converted begin
 			$end,						// 5 : Converted end
 			secondToTime($begin),		// 6 : Human reading converted begin
 			secondToTime($end),			// 7 : Human reading Converted end
 			round(($end-$begin), 2)		// 8 : Duration
 		);
+
+		if (isset($t[3])){
+			$savedSub++;
+		}
+
 	}
+
+	assign('savedSub', $savedSub);
 }
 
-
 assign('marker', $element);
+
+	
+if (file_exists($subtitle)){
+	$subdata = file_get_contents($subtitle);
+	assign('subfile', $subdata);
+}
 
 
 // Output

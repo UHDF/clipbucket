@@ -97,13 +97,41 @@
 		}
 
 
+		$arr = array();
+		foreach ($tempArray as $key => $value){
+			$t = explode("\t", $value);
+			$t[2] = ($t[1]-$t[0]);
+
+			$arr[] = $t;
+		}
+
+
+
+
+
+		/**
+		*	Replace and delete where difference less than 1 seconds.
+		*/
+		for ($i = (Count($arr)-1); $i >= 0 ; $i--){
+			if ($i >= 1){
+				if ($arr[$i][2] < 1){								// Subtitle do not be less than 1 second.
+
+					$arr[$i-1][1] = $arr[$i][1];					// Set the value
+					$arr[$i-1][2] = ($arr[$i][1]-$arr[$i-1][0]);	// New diff
+					unset($arr[$i]);
+				}
+			}
+		}
+
+
+
 		/**
 		*	Write the marker file.
 		*/
 		$cpt = 1;
 		$fp = fopen($output, "w+");
-		foreach ($tempArray as $value){
-			fwrite($fp, $value."\t".$cpt."\n");
+		foreach ($arr as $value){
+			fwrite($fp, $value[0]."\t".$value[1]."\t".$cpt."\n");
 			$cpt++;
 		}
 		fclose($fp);
@@ -138,10 +166,21 @@
 			$begin = substr($t[0],0,(strpos($t[0], ".")+4));
 			$end = substr($t[1],0,(strpos($t[1], ".")+4));
 
-			echo secondToTime($begin).' --> '.secondToTime($end).' - Durée : '.round(($end-$begin), 2).'<br>';
-			echo "\n";
-			echo '<input type="text" name="phrase'.$t[2].'" id="phrase'.$t[2].'" size="80" onfocus="inputPlay('.($t[0]-$delayBefore).', '.($t[1]+$delayAfter).');" onblur="inputStop();" '.((isset($t[3])) ? 'value ="'.$t[3].'"' : '').'><br>';
-			echo "\n";
+			echo '<div class="control-group">';
+				echo '<label for="phrase'.$t[2].'" class="control-label">';
+
+					echo secondToTime($begin).' --> '.secondToTime($end).' - Durée : '.round(($end-$begin), 2).'<br>';
+				echo '</label>';
+
+				echo '<div class="form-inline">';
+
+					echo "\n";
+					echo '<input type="text" class="form-control" name="phrase'.$t[2].'" id="phrase'.$t[2].'" size="80" onfocus="inputPlay('.($t[0]-$delayBefore).', '.($t[1]+$delayAfter).');" onblur="inputStop();" '.((isset($t[3])) ? 'value ="'.$t[3].'"' : '').'><br>';
+					echo "\n";
+
+					echo '<span id="subinfo'.$t[2].'" class="help-inline"></span>';
+				echo '</div>';
+			echo '</div>';
 
 		}
 
@@ -150,3 +189,9 @@
 
 		<input type="submit" name="envoyer" value="Envoyer">
 	</form>
+
+
+
+
+
+

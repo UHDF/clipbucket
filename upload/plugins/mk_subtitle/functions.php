@@ -14,5 +14,10 @@ function secondToTime($t){
 
 	$microsecs = (isset($p[1])) ? substr($p[1], 0, 3) : '000';
 
+	if (strlen($microsecs) < 3){
+		$microsecs = $microsecs.str_repeat("0", (3-strlen($microsecs)));
+	}
+
+
 	return $hours.":".$mins.":".$secs.".".$microsecs;
 }
