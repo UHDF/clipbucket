@@ -11,45 +11,43 @@
 
 	Plugin videoJS pour lecture de flux HLS :
 	    <script src="{$baseurl}/player/videojs-contrib-hls.min.js"></script>
+
+	Norme WebVTT :
+		https://w3c.github.io/webvtt/
 -->
 
   
-<!--
-	  PLAYER CSS
--->
-<link href="{$upjv_player_url}/node_modules/video.js/dist/video-js.min.css" rel="stylesheet">
+<!-- PLAYER CSS -->
+<link href="{$upjv_player_url}/app/css/video-js.min.css" rel="stylesheet">
 
-
-<!--
-	  PLUGIN CSS
--->
-<link href="{$upjv_player_url}/node_modules/videojs-resolution-switcher/lib/videojs-resolution-switcher.css" rel="stylesheet">
-
+<link href="{$upjv_player_url}/app/css/video-js.custom.css" rel="stylesheet">
+<!-- PLUGIN CSS -->
+<link href="{$upjv_player_url}/app/css/videojs-resolution-switcher.css" rel="stylesheet">
 
 <!--
-	  PLAYER
+	  PLAYER JS
 -->
 {if $development_mode}
-<script src="{$upjv_player_url}/node_modules/video.js/dist/video.js"></script>
+<script src="{$upjv_player_url}/app/js/video.js"></script>
 {else}
-<script src="{$upjv_player_url}/node_modules/video.js/dist/video.min.js"></script>
+<script src="{$upjv_player_url}/app/js/video.min.js"></script>
 {/if}  
 
 
-<script src="{$upjv_player_url}/video_js_custom.js"></script>
+<script src="{$upjv_player_url}/app/js/video_js_custom.js"></script>
 
 
 <!--
-	  PLAYER PLUGIN
+	  PLAYER PLUGIN JS
 -->
-<script src="{$upjv_player_url}/node_modules/videojs-resolution-switcher/lib/videojs-resolution-switcher.js"></script>
+<script src="{$upjv_player_url}/app/js/videojs-resolution-switcher.js"></script>
 
 
 <!--
 	  PLAYER FLASH ALTERNATIVE
 -->
 <script>
-	videojs.options.flash.swf = "{$upjv_player_url}/node_modules/video.js/dist/video-js.swf"
+	videojs.options.flash.swf = "{$upjv_player_url}/app/swf/video-js.swf"
 </script>
 
 
@@ -74,6 +72,7 @@
 
 
 	{if $sub neq ''}
+		<!--<track kind="captions" src="{$sub}" srclang="fr" label="French" default>-->
 		<track kind="subtitles" src="{$sub}" srclang="fr" label="French" default>
 	{/if}
     
@@ -91,7 +90,6 @@
 	var availablePlaySpeed = {$availablePlaySpeed};
 </script>
 
-{literal}
 <script type="text/javascript">
 	var player = videojs('cb_video_js', {
 		plugins: {
@@ -101,14 +99,17 @@
 			}
 		},
 		playbackRates: availablePlaySpeed,
+		fluid: true,
 		LoadingSpinner: true,
 		BigPlayButton: true,
 		controlBar: {
 			muteToggle: false
+		},
+		html5: {
+			nativeTextTracks: false
 		}
 	});
 </script>
-{/literal}
 
 
 
