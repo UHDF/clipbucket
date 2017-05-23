@@ -10,8 +10,6 @@ Version: 1.0
 
 /** Check if user has admin acces */
 $userquery->admin_login_check();
-/** Check if user has admin acces to this plugin */
-//if ($cbplugin->is_installed('common_library.php'))	$userquery->login_check(getStoredPluginName("tag_selector"));
 
 /**
  * Define Plugin's uri constants. These constants represents folders or urls

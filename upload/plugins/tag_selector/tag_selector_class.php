@@ -2,7 +2,6 @@
 /*
  * This file contains TagSelector class
  */ 
-require_once PLUG_DIR.'/extend_search/extend_video_class.php';
 
 // Global Object $tagSelector is used in the plugin
 $tagSelector = new TagSelector();
