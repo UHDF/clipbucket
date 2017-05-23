@@ -1,0 +1,384 @@
+<h2>Subtitle maker</h2>
+
+<div class="row">
+	<!-- 	PLAYER VIDEO 	-->
+	<div class="col-md-6">
+		{FlashPlayer vdetails=$data width='100%' height='100%' }
+	</div>
+	<div class="col-md-6">
+
+		<!-- Button trigger modal -->
+		<button type="button" class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#helpSubtitle">{lang code="help"}</button>
+
+		<div id="soundFinder">
+
+			<input type="hidden" name="video" id="video" size="80" value="{$video_file}">
+			<input type="hidden" name="marker" id="marker" size="80" value="{$marker_file}">
+
+			<label for="threshold">Threshold : </label>
+			<input type="text" name="threshold" id="threshold" size="2" value="{$threshold}">dB<br>
+
+			<label for="durationSilence">Minimum duration of silence (between sound) : </label>
+			<input type="text" name="durationSilence" id="durationSilence" size="5" value="{$durationSilence}">secondes<br>
+
+			<label for="delayBefore">Starting play (seconds before sound starts) : </label>
+			<input type="text" name="delayBefore" id="delayBefore" size="5" value="{$delayBefore}">secondes<br>
+
+			<label for="delayAfter">Ending play (seconds after sound starts) : </label>
+			<input type="text" name="delayAfter" id="delayAfter" size="5" value="{$delayAfter}">secondes<br>
+
+			<button onclick="soundFinder();" title="Sound Finder">Sound Finder</button><br>
+			<br>
+		</div>
+		
+	</div>
+</div>
+
+<br>
+
+<div class="row">
+	<div class="col-md-12">
+
+
+
+		<div class="tabbable">
+			<ul class="nav nav-tabs" id="myTab">
+				<li class="{if $tabactive eq ''}active{/if}"><a data-toggle="tab" href="#draft">Brouillon</a></li>
+				<li class="{if $tabactive == 'final'}active{/if}"><a data-toggle="tab" href="#final">Final</a></li>
+			</ul>
+
+			<!-- 
+				Edition des sous titres
+			-->
+			<div class="tab-content">
+				<div id="draft" class="tab-pane{if $tabactive eq ''} active{/if}">
+					<h2>Brouillon</h2>
+
+					Etat : <span id="draftEtat">{$savedSub} / {$nbMarker}</span><br>
+					<progress id="draftProgressBar" value="{$savedSub}" max="{$nbMarker}" style="width: 100%;"></progress> 
+
+
+
+					<div id="soundFinderResult" style="overflow:scroll; overflow-x:hidden; height:400px;">
+
+						{if $marker neq ''}
+							<form method="POST" class="form-horizontal">
+
+								{foreach from=$marker item=data}
+
+									<div class="control-group">
+										<label for="phrase{$data[2]}" class="control-label">
+											{$data[6]} --> {$data[7]} - Durée : {$data[8]}
+										</label>
+
+										<div class="form-inline">
+
+											<input type="text"  class="form-control" name="phrase{$data[2]}" id="phrase{$data[2]}" onfocus="inputPlay({$data[0]}, {$data[1]});" onblur="inputStop();draftProgress();" onkeyup="infoSub({$data[2]});" value="{$data[3]}">
+
+
+
+											<!--
+												Positionnement du sous titre
+											-->
+<!--
+											<div class="btn-group colors" data-toggle="buttons">
+												<label class="btn btn-primary btn-xs">
+													<input type="radio" name="options{$data[2]}" value="left" autocomplete="off" checked> Gauche
+												</label>
+
+												<label class="btn btn-primary btn-xs active">
+													<input type="radio" name="options{$data[2]}" value="" autocomplete="off"> Centre
+												</label>
+
+												<label class="btn btn-primary btn-xs">
+													<input type="radio" name="options{$data[2]}" value="right" autocomplete="off"> Droite
+												</label>
+											</div>
+-->
+
+											<span id="subinfo{$data[2]}" class="help-inline"></span>
+										</div>
+
+
+									</div>
+
+								{/foreach}
+
+								<div class="control-group">
+									<input type="hidden" name="nbMarker" id="nbMarker" value="{$nbMarker}">
+									<input type="submit" name="saveMarker" class="btn btn-primary" value="Sauvegarder">
+								</div>
+
+							</form>
+						{/if}
+
+					</div>
+
+					<br>
+
+					<form method="POST">
+						<input type="submit" class="btn btn-primary" name="subtitlize" value="Generer le fichier de sous titres">
+					</form>
+
+				</div>
+
+				<!-- 
+					Fichier final
+				-->
+				<div id="final" class="tab-pane{if $tabactive == 'final'} active{/if}">
+					
+					<h2>Final</h2>
+					<p>Ici, vous pouvez corriger le fichier actuellement diffusé.</p>
+				
+					{if $subfile neq ''}
+						<form method="POST">
+							<div class="control-group">
+								<textarea name="subdata" id="subdata" cols="80" rows="20">{$subfile}</textarea><br>
+								<br>
+
+								<input type="submit" name="saveSubtitle" class="btn btn-primary" value="Enregistrer">
+							</div>
+						</form>
+					{/if}
+					
+				</div>
+
+
+			</div>
+		</div>
+
+
+
+
+
+	</div>
+</div>
+
+
+<style>
+	#cb_video_js .video-js .vjs-captions {
+		color: #FF0000;
+		font-family: 'tahoma';
+		font-size: 16px;
+	}
+
+	#cb_video_js .vjs-big-play-button {
+		background-color: #283150;
+		opacity: .6;
+	}
+</style>
+
+		
+
+<!-- Temporary help -->
+<div class="modal fade" id="helpSubtitle" tabindex="-1" role="dialog" aria-labelledby="helpSubtitleLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">Subtitle maker : Help</h4>
+			</div>
+
+			<div class="modal-body">
+				<h1>How does it works ?</h1>
+				<p>The sound finder will search the silence in the video file. Because of that we know that between silence there is sound.</p>
+
+				<h1>How to do ?</h1>
+				<h2>Find sentences</h2>
+				<p>First, you need to create the marker file. To do that, click on the "Sound Finder" button.</p>
+				<p>This will generate a list of input. This list may correspond to the sentence speaking in the video file.</p>
+				<p>If it is not the case, you can adjust the threshold and minimum duration of silence parameter.<br><br>Threshold : volume max to be consider as a silence.<br>Duration of silence : Time of the silence.</p>
+
+				<h2>Write the sentence</h2>
+				<p>Put the cursor in the input. The video will be playing while you sort the cursor. It is very helpful to write the sentence.</p>
+				<p>Validate with "enter" when you want in order to save your work.</p>
+				<p>Read the video by clicking in the player will play the video normally.</p>
+
+				<h2>Finish ?</h2>
+				<p>Click the generate subtitle file. It will publish the final and the public can use it.</p>
+
+			</div>
+
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+{literal}
+<script language="JavaScript">
+
+	// get selection
+	/*
+	$('.colors input[type=radio]').on('change', function() {
+		console.log(this.value);
+	});
+	*/
+
+
+
+	/**
+	*	Information about subtitle rules when input is modified.
+	*/
+	function draftProgress(){
+		var nb = document.querySelector("#nbMarker");
+		var progressBar = document.querySelector("#draftEtat");
+		var plop = document.querySelector("#draftProgressBar");
+
+
+		var how = 0;
+
+		for (i = 1; i <= parseInt(nb.value); i++){
+			if (document.querySelector("#phrase"+i).value != ''){
+				how = how + 1;
+			}
+		}
+
+		progressBar.innerHTML = how + " / " + nb.value;
+		plop.value = how;
+
+	}
+
+
+
+	/**
+	*	Information about subtitle rules when input is modified.
+	*/
+	function infoSub(id){
+//		console.log(id);
+		var input = document.querySelector("#phrase"+id);
+		var msg = document.querySelector("#subinfo"+id);
+		var error = '';
+
+		if (input.value.length > 72){
+			error = "Trop de caractère, scindé le sous-titre.";
+		}
+		else{
+			if (input.value.length > 36){
+				error = "2 lignes";
+			}
+		}
+
+		msg.innerHTML = error;
+	}
+
+
+	/**
+	*	MAIN PROGRAM
+	*/
+
+
+	/**
+	*	GENERAL VAR
+	*/
+	video = videojs('cb_video_js');
+	var timeListener;
+
+	/**
+	*	Stop looping on video
+	*/
+	function inputStop(){
+
+		if (timeListener) {
+			// Remove previous timeListener function, if there is one
+			// For HTML 5
+			// video.removeEventListener('timeupdate', timeListener, false);
+			// For Video JS 
+			video.off('timeupdate', timeListener);
+		}
+		video.pause();
+
+	}
+
+	/**
+	*	Loop on video
+	*/
+	function inputPlay(begin, end) {
+
+		// For Video JS
+		video.currentTime(begin);
+		// For HTML 5
+		// video.currentTime = begin;
+		video.play();
+
+		if (timeListener) {
+			// Remove previous timeListener function, if there is one
+			// For HTML 5
+			// video.removeEventListener('timeupdate', timeListener, false);
+			// For Video JS
+			video.off('timeupdate', timeListener);
+		}
+
+		// Make a new function and save it for later as timeListener
+		timeListener = function () {
+			if (video.currentTime() > end){
+				video.currentTime(begin);
+			}
+
+		};
+		// For HTML 5
+		// video.addEventListener('timeupdate', timeListener);
+		// For Video JS
+		video.on('timeupdate', timeListener);
+	}
+
+
+	/**
+	*	AJAX call the php script that will generate the marker file
+	*/
+	function soundFinder(){
+
+		var formData = {
+			video: $("#video").val(),
+			marker: $("#marker").val(),
+			threshold: $("#threshold").val(),
+			durationSilence: $("#durationSilence").val(),
+			delayBefore: $("#delayBefore").val(),
+			delayAfter: $("#delayAfter").val()
+		};
+
+		$("#soundFinderResult").html('<p>Traitement en cours...</p>');
+		$.ajax({
+			type	  	: "POST",
+			url 	  	: "../plugins/mk_subtitle/sound_finder.php",
+			data		: formData,
+			dataType	: "html",
+			success : function(q)
+			{	
+				$("#soundFinderResult").html(q);
+				
+			}
+		});
+	}
+</script>
+{/literal}
+
+
+
+<!--
+	CONFIGURATION PLAYER
+-->
+<script type="text/javascript">
+	var default_res = "HD";
+	var availablePlaySpeed = [1, 1.5, 2];
+
+	var player = videojs('cb_video_js', {
+		plugins: {
+			videoJsResolutionSwitcher: {
+				default: default_res,
+				dynamicLabel: false
+			}
+		},
+		playbackRates: availablePlaySpeed,
+		LoadingSpinner: true,
+		BigPlayButton: true,
+		controlBar: {
+			muteToggle: false
+		}
+	});
+</script>

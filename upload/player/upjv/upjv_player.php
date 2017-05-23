@@ -63,6 +63,16 @@ if (!function_exists('upjv_player'))
 	}
 
 	
+	/*
+	* This Function is written to get subtitle file if exist
+	*/
+	function get_upjv_subtitle($data){
+		$subfile = BASEDIR.'/files/subtitle/subtitle_'.$data['videoid'].'.vtt';
+		$suburl = BASEURL.'/files/subtitle/subtitle_'.$data['videoid'].'.vtt';
+		if (file_exists($subfile)){
+			return $suburl;
+		}
+	}
 	
 	
 	/*
@@ -99,10 +109,5 @@ if (!function_exists('upjv_player'))
 		
 	}
 
-	
-	
-	
-	
-	
 	register_actions_play_video('upjv_player');
 }
