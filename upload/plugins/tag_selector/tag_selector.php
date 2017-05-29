@@ -8,8 +8,6 @@ ClipBucket Version: 2.8.1
 Version: 1.0
 */
 
-/** Check if user has admin acces */
-$userquery->admin_login_check();
 
 /**
  * Define Plugin's uri constants. These constants represents folders or urls
