@@ -16,11 +16,17 @@ Régle de sous titrage :
 - Un sous-titre disparait au minimum 4 images avant un changement de plan, et il apparait minimum 4 images après le changement de plan.
 - Si besoin, un sous-titre peut cependant chevaucher un changement de plan, à la condition qu'il apparaisse ou disparaisse au moins 1 seconde avant ou après ce changement de plan.
 
-
-
-
 */
 
+// Use the already existing functions
+require_once '../includes/admin_config.php';
+$userquery->admin_login_check();
+$userquery->login_check('admin_access');
+$pages->page_redir();
+
+require_once '../includes/classes/video.class.php';
+require_once '../includes/functions_video.php';
+	
 
 // Require function file
 require(PLUG_DIR."/".SUBTITLE_MAKER_BASE."/functions.php");
@@ -31,25 +37,42 @@ $video = mysql_clean($_GET['video']);
 // Get the details of video
 $data = get_video_details($video);
 
+// Get list of URL for each files (sd, hd)
+$lst_vid = get_video_files($data);
+// video file
+if (is_array($lst_vid)){
+	$video_file = $lst_vid[0];
+	$video_file = str_replace(BASEURL, BASEDIR, $video_file);
+}
+else{
+	// video URL
+	$video_file = $data["remote_play_url"];
+}
+
+
+// Get the details of video
+//$data = get_video_details($video);
+
 // assign in order to use in template file
-Assign('data',$data);
+assign('data',$data);
+
 
 // Basic variable define
-$video = BASEDIR.'/files/videos/FE90C9AC15AE-B3274B-8D85F3-FB8C01E7.mp4';
+//$video = BASEDIR.'/files/videos/FE90C9AC15AE-B3274B-8D85F3-FB8C01E7.mp4';
 $marker = BASEDIR.'/files/marker/marker_'.$data['videoid'].'.txt';
 $marker_meta = BASEDIR.'/files/marker/marker_meta_'.$data['videoid'].'.txt';
 $subtitle = BASEDIR.'/files/subtitle/subtitle_'.$data['videoid'].'.vtt';
 
-// Pattern to find video file
-$file_video = BASEDIR."/files/videos/".$data['file_directory']."/".$data['file_name']."-*";
-
-// Search the bigger file
-$max_video_file_by_size = shell_exec('ls -S '.$file_video.' | head -n 1');
-$max_video_file_by_size = str_replace("\n", "", $max_video_file_by_size);
+// ffmpeg path
+$ffmpeg_path = $GLOBALS['Cbucket']->configs['ffmpegpath'];	
+assign('ffmpeg_path', $ffmpeg_path);
+	
 
 // Assign for template
-assign('video_file', $max_video_file_by_size);
+assign('video_file', $video_file);
 assign('marker_file', $marker);
+assign('savedSub', 0);
+assign('nbMarker', 0);
 
 // Number of caracter by line for one subtitle
 $nbcar_by_line = 70;

@@ -14,6 +14,7 @@
 
 			<input type="hidden" name="video" id="video" size="80" value="{$video_file}">
 			<input type="hidden" name="marker" id="marker" size="80" value="{$marker_file}">
+			<input type="hidden" name="ffmpeg_path" id="ffmpeg_path" size="80" value="{$ffmpeg_path}">
 
 			<label for="threshold">Threshold : </label>
 			<input type="text" name="threshold" id="threshold" size="2" value="{$threshold}">dB<br>
@@ -73,7 +74,7 @@
 
 										<div class="form-inline">
 
-											<input type="text"  class="form-control" name="phrase{$data[2]}" id="phrase{$data[2]}" onfocus="inputPlay({$data[0]}, {$data[1]});" onblur="inputStop();draftProgress();" onkeyup="infoSub({$data[2]});" value="{$data[3]}">
+											<input type="text"  class="form-control" name="phrase{$data[2]}" id="phrase{$data[2]}" onfocus="inputPlay({$data[0]}, {$data[1]});" onblur="inputStop();draftProgress();" onkeyup="infoSub({$data[2]});" value="{$data[3]}" spellcheck="true">
 
 
 
