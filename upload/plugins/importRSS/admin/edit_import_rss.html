@@ -264,15 +264,11 @@ echo '</pre>';
 			success : function(q)
 			{
 //				$("#crawl_result").html(q);
-				
+
 				var json = JSON.parse(q);
 				$("#lastcrawl-"+id).html(json["last_crawl"]);
 				$("#nbvid-"+id).html(json["nbvid"]);
 				$("#totrssvid").html(json["totvid"]);
-/*				
-				console.log("json : "+json);
-				console.log("last crawl : " + json["last_crawl"]);
-				console.log("nbvid : " + json["nbvid"]);*/
 			}
 		});
 	}

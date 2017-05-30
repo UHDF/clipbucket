@@ -26,29 +26,35 @@
 	}
 
 
-$month = array(
-"Jan"=>"01", "Feb"=>"02", "Mar"=>"03", "Apr"=>"04", 
-"Mai"=>"05", "Jun"=>"06", "Jul"=>"07", "Aug"=>"08", 
-"Sep"=>"09", "Oct"=>"10", "Nov"=>"11", "Dec"=>"12"
-);
+	$month = array(
+		"Jan"=>"01", "Feb"=>"02", "Mar"=>"03", "Apr"=>"04", 
+		"May"=>"05", "Jun"=>"06", "Jul"=>"07", "Aug"=>"08", 
+		"Sep"=>"09", "Oct"=>"10", "Nov"=>"11", "Dec"=>"12"
+	);
 
-// Get the file
-$xmlstr = file_get_contents($d['url_rss']);
+	// Add context for file_get_contents
+	$aContext = array(
+		'http' => array(
+			'proxy' => 'www-cache.u-picardie.fr:3128',
+			'request_fulluri' => true,
+		),
+	);
+	$cxContext = stream_context_create($aContext);
 
-// Small conversion
-$xmlstr = str_replace("media:thumbnail", "poster", $xmlstr);
-$xmlstr = str_replace("media:category", "tag", $xmlstr);
+	// Get the file
+	$xmlstr = file_get_contents($d['url_rss'], false, $cxContext);
 
-// XML Object
-$movies = new SimpleXMLElement($xmlstr);
+	// Small conversion
+	$xmlstr = str_replace("media:thumbnail", "poster", $xmlstr);
+	$xmlstr = str_replace("media:category", "tag", $xmlstr);
+
+	// XML Object
+	$movies = new SimpleXMLElement($xmlstr);
 
 
 	/**
-	*	Generate file name
+	*	Get last crawl date
 	*/
-// 	echo 'key : '.video_keygen().'<br>';
-// 	echo 'filename : '.time().RandomString(5).'<br>';
-
 	if ($d['last_crawl'] == '0000-00-00 00:00:00'){
 		$newlim = 0;
 	
@@ -69,7 +75,7 @@ foreach ($movies->channel->item as $video) {
 	$date = $video->pubDate;
 	// Date conversion
 	$date = explode(" ", str_replace(":", " ", str_replace(",", "", $date)));
-	
+
 	$islimit = mktime($date[4], $date[5], $date[6], $month[$date[2]], $date[1], $date[3]);
 	
 
@@ -105,12 +111,9 @@ foreach ($movies->channel->item as $video) {
 	}
 }
 
-
 	// Update value
 	$last_crawl = date("Y-m-d H:i:s");
 	$db->update(tbl('import_rss_config'), array('last_crawl', 'nb_new_vid_from_last_crawl'), array($last_crawl, $cpt), "id=".$_POST['id']);
-
-	
 	
 	/**
 	 * Count of queud video from rss for menu badge
