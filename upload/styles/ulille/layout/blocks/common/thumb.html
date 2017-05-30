@@ -1,10 +1,4 @@
 <!-- thumb -->
-<script>
-	var dcreated = new Date("{$video.datecreated}");
-	{literal}var options = {weekday: "long", year: "numeric", month: "long", day: "numeric"};{/literal}
-	var createdDate = dcreated.toLocaleDateString("FR-fr",options);
-</script>
-
 <div class="thumb">
 	<div class="image-holder">
 		<div class="image"><img nopin="nopin" src="{getThumb vdetails=$video size='768x432'}" alt="alt" class="img-responsive"></div>
@@ -24,7 +18,16 @@
 	</div>
 	<div class="details card">
 		<div class="published">
-			<script>document.write(createdDate);</script>
+			{if function_exists('get_video_field')}
+				{assign var=created value=get_video_field($video.videoid,"datecreated")}
+				{if $created != "1970-01-01"}
+					{$created|date_format:"%d %B %Y"}
+				{else}
+					{$video.date_added|date_format:"%d %B %Y"}
+				{/if}
+			{else}
+				{$video.date_added|date_format:"%d %B %Y"}
+			{/if}
 		</div>
 		<h4 class="reset"><a href="{videoLink($video)}">{$video.title|truncate:65}</a></h4>
 		<div class="description"></div>

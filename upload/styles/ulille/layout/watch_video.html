@@ -1,12 +1,6 @@
 {$video=$vdo}
 {$type='video'}
 
-<script>
-	var dcreated = new Date("{$video.datecreated}");
-	{literal}var options = {weekday: "long", year: "numeric", month: "long", day: "numeric"};{/literal}
-	var createdDate = dcreated.toLocaleDateString("FR-fr",options).toUpperCase();
-</script>
-
 
 <div id="player-container" class="clearfix" role="main">
 	<div class="row">
@@ -29,7 +23,7 @@
 					</div>
 					<h2 class="reset">{$video.title}</h2>
 					<!-- ajouter |niceTime derrière une date pour afficher "il y a X années" au lieu de Y-m-d-->
-					<div class="entry date-duration"><b><script>document.write(createdDate);</script></b> | Durée <b>{if $video.duration>1}{$video.duration|SetTime}{else}00:00{/if}</b> | Vues <b>{$vdo.views|number_format}</b></div>
+					<div class="entry date-duration"><b>{$video.datecreated|date_format:"%d %B %Y %R"|upper}</b> | Durée <b>{if $video.duration>1}{$video.duration|SetTime}{else}00:00{/if}</b> | Vues <b>{$vdo.views|number_format}</b></div>
 				</header>
 				<div class="more">
 					<button id="extend-button" class="btn btn-link btn-sm" type="button" data-toggle="collapse" data-target="#collapseMetas" aria-expanded="true" aria-controls="collapseMetas"><span class="glyphicon glyphicon-triangle-bottom"></span> infos</button>
