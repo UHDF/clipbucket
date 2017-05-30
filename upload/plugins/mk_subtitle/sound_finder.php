@@ -1,5 +1,6 @@
 <?php
 
+
 	/**
 	*	Some functions needed.
 	*/
@@ -12,6 +13,7 @@
 	// Get or define default parameters
 	$video = (isset($_POST['video'])) ? $_POST['video'] : '';
 	$output = (isset($_POST['marker'])) ? $_POST['marker'] : '../../files/marker/marker_no_video.txt';
+	$ffmpeg_path = (isset($_POST['ffmpeg_path'])) ? $_POST['ffmpeg_path'] : 'ffmpeg';
 	$threshold = (isset($_POST['threshold'])) ? $_POST['threshold'] : -26;
 	$durationSilence = (isset($_POST['durationSilence'])) ? $_POST['durationSilence'] : 0.1;
 	$delayBefore = (isset($_POST['delayBefore'])) ? $_POST['delayBefore'] : 0.200;
@@ -35,7 +37,7 @@
 		*
 		*
 		*/
-		$command = 'ffmpeg -i '.$video.' -af silencedetect=n='.$threshold.'dB:d='.$durationSilence.' -f null - 2>&1 | grep silence > ../../files/marker/tmp.txt';
+		$command = $ffmpeg_path.' -i '.$video.' -af silencedetect=n='.$threshold.'dB:d='.$durationSilence.' -f null - 2>&1 | grep silence > ../../files/marker/tmp.txt';
 
 		// Execute the command
 		$cmd = shell_exec($command);
@@ -184,7 +186,7 @@
 
 		}
 
-		echo '<input name="nbMarker" id="nbMarker" value="'.count($lines).'">';
+		echo '<input type="hidden" name="nbMarker" id="nbMarker" value="'.count($lines).'">';
 ?>
 
 		<input type="submit" name="envoyer" value="Envoyer">
