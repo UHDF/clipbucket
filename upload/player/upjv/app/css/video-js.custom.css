@@ -286,7 +286,7 @@ http://www.scriptsmashup.com/Video_Skin_Generator/Videojs/videojs-skin-generator
     /* letter outline*/
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000 !important;
     /* Display big letter */
-    font-size: 28px !important;
+    font-size: 110% !important;
     /* No need to change the color, this will be make dynamically */
     /*color: rgba(253, 252, 24, 1) !important;*/
     /* No background */
