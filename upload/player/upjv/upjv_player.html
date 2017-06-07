@@ -33,9 +33,9 @@
 <script src="{$upjv_player_v2_url}/app/js/video.min.js"></script>
 {/if}  
 
-
+<!--
 <script src="{$upjv_player_v2_url}/app/js/video_js_custom.js"></script>
-
+-->
 
 <!--
 	  PLAYER PLUGIN JS
@@ -54,7 +54,7 @@
 <!--
 	  BALISE VIDEO HTML 5
 -->
-<video id="cb_video_js" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="{$preload}" height="{$height}" width="{$width}" poster="{getThumb vdetails=$vdata size=big}">
+<video id="cb_video_js" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="{$preload}" width="{$width}"	  height="{$height}" poster="{getThumb vdetails=$vdata size=big}">
 
 
     {foreach $video_files as $file}
