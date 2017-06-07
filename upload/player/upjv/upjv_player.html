@@ -3,7 +3,7 @@
 -->
 {$default_quality = get_upjv_quality_type($video_files)}
 {$availablePlaySpeed = "[1, 1.5, 2]"}
-
+{$preload = "none"}
 <!--    
 	STREAMING INFO
 	Pour une lecture HLS (streaming), le type a indiquer n'est pas le même :
@@ -54,7 +54,7 @@
 <!--
 	  BALISE VIDEO HTML 5
 -->
-<video id="cb_video_js" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto" height="{$height}" width="{$width}" poster="{getThumb vdetails=$vdata size=big}">
+<video id="cb_video_js" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="{$preload}" height="{$height}" width="{$width}" poster="{getThumb vdetails=$vdata size=big}">
 
 
     {foreach $video_files as $file}
@@ -91,6 +91,14 @@
 </script>
 
 <script type="text/javascript">
+var preloadValue = "auto";
+
+var string = window.location.href, substring = "embed_player";
+
+if (string.indexOf(substring) !== -1){
+	preloadValue = "none";
+}
+
 	var player = videojs('cb_video_js', {
 		plugins: {
 			videoJsResolutionSwitcher: {
@@ -98,6 +106,7 @@
 				dynamicLabel: false
 			}
 		},
+		preload: preloadValue,
 		playbackRates: availablePlaySpeed,
 		fluid: true,
 		LoadingSpinner: true,
@@ -109,9 +118,8 @@
 			nativeTextTracks: false
 		}
 	});
+
 </script>
-
-
 
 <!--
 	  STYLE PLAYER
