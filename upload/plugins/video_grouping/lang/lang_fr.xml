@@ -60,5 +60,8 @@
 		<show_in_video_thumbnails>Afficher dans les vignettes des vidéos</show_in_video_thumbnails>
 		<in_thumbnails>Dans les vignettes</in_thumbnails>
 		<grouping_have_been_disconected>Les groupements ont été dissociés</grouping_have_been_disconected>
+		<in_homepage>En page d'accueil</in_homepage>
+		<show_in_homepage>Afficher en page d'accueil</show_in_homepage>
+		<hide_from_homepage>Enlever de la page d'accueil</hide_from_homepage>
 	</phrases>
 </clipbucket_language>

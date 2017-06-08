@@ -50,6 +50,13 @@ elseif (isset($_GET['setInMenu'])) {
 	$videoGrouping->setInMenu($id,$value);
 	assign('showedit2',false);
 }
+/** Modify the in_homepage attribute for the current grouping */
+elseif (isset($_GET['setInHomepage'])) {
+	$id = mysql_clean($_GET['id']);
+	$value = $_GET['setInHomepage']==1;
+	$videoGrouping->setInHomepage($id,$value);
+	assign('showedit2',false);
+}
 /** Edit the current grouping */
 elseif (isset($_GET['editGrouping'])) {
 	$id = mysql_clean($_GET['editGrouping']);
