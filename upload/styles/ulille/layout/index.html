@@ -15,10 +15,30 @@
 			<div class="col-xs-12">
 			<div id="videolist-container" class="clearfix grid videos">
 				<div class="grid-sizer"></div>
-				{if $editor_picks}
+				{if $videoGrouping}
+					{assign var="grps" value=$videoGrouping->getGroupingsInHomePage()}
+					{if $editor_picks and $grps|@count<$editor_picks|@count}
+						{math equation=floor($editor_picks|@count/$grps|@count) assign="frac"}
+						{assign var="cpt" value=0}
+						{assign var="indgrp" value=0}
+						{for $ind=0 to $editor_picks|@count-1}
+							{if $cpt>$frac}
+								{include file="$style_dir/blocks/videos/video-index.html" grp=$grps[$indgrp]}
+								{assign var="indgrp" value=$indgrp+1}
+							{/if}
+							{include file="$style_dir/blocks/videos/video-index.html" video=$editor_picks[$ind]}
+							{assign var="cpt" value=$cpt+1}
+						{/for}
+					{else}
+						{section name=ep_list loop=$grps}
+							{include file="$style_dir/blocks/videos/video-index.html" grp=$grps[ep_list]}
+						{/section}
+					{/if}
+				{elseif $editor_picks}
 					{section name=ep_list loop=$editor_picks}
-						{include file="$style_dir/blocks/videos/video-index.html" video=$editor_picks[ep_list] order="RAND()"}
+						{include file="$style_dir/blocks/videos/video-index.html" video=$editor_picks[ep_list]}
 					{/section}
+				{else}
 				{/if}
 				</div>
 			</div>

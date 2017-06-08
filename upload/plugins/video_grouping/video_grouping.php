@@ -146,5 +146,7 @@ if ($cbplugin->is_installed('common_library.php') &&
 	assign("videoid",$_GET['video']);
 	$Cbucket->add_admin_header(PLUG_DIR . '/video_grouping/admin/header2.html', 'global');
 }
+global $videoGrouping;
+Assign("videoGrouping", $videoGrouping)
 	
 ?>
