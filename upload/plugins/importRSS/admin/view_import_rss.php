@@ -43,20 +43,44 @@ if(!defined('SUB_PAGE')){
 	if(isset($_POST['delete_selected'])){
 		$cnt=count($_POST['check']);
 		if ($cnt>0){
-			for($id=0;$id<$cnt;$id++)
+			for($id=0;$id<$cnt;$id++){
 				deleteImportRssConfig($_POST['check'][$id]);
+			}
 		}
 		else
 			e(lang("no_link_selected"),"w");
 	}
 
+	/**
+	 *	DELETE MULTIPLE VIDEO
+	 */
+	if(isset($_POST['delete_selected_v'])){
+		$cnt=count($_POST['check_view']);
+		if ($cnt>0){
+			for($id=0;$id<$cnt;$id++){
+				deleteRssVideo($_POST['check_view'][$id]);
+			}
+		}
+		else{
+			e(lang("no_link_selected"),"w");
+		}
+	}
+
 
 	/**
-	 *	DELETE ONE
+	 *	DELETE ONE RSS CONFIG
 	 */
 	if (isset($_GET['delete'])) {
 		$del = mysql_clean($_GET['delete']);
 		deleteImportRssConfig($del);
+	}
+
+	/**
+	 *	DELETE ONE VIDEO
+	 */
+	if (isset($_GET['deletev'])) {
+		$del = mysql_clean($_GET['deletev']);
+		deleteRssVideo($del);
 	}
 
 

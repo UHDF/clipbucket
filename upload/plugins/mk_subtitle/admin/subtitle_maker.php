@@ -27,6 +27,14 @@ $pages->page_redir();
 require_once '../includes/classes/video.class.php';
 require_once '../includes/functions_video.php';
 	
+// Assigning page and subpage
+if(!defined('MAIN_PAGE')){
+    define('MAIN_PAGE', 'Videos');
+}
+
+if(!defined('SUB_PAGE')){
+    define('SUB_PAGE', 'Subtitle maker');
+}
 
 // Require function file
 require(PLUG_DIR."/".SUBTITLE_MAKER_BASE."/functions.php");
@@ -62,6 +70,7 @@ assign('data',$data);
 $marker = BASEDIR.'/files/marker/marker_'.$data['videoid'].'.txt';
 $marker_meta = BASEDIR.'/files/marker/marker_meta_'.$data['videoid'].'.txt';
 $subtitle = BASEDIR.'/files/subtitle/subtitle_'.$data['videoid'].'.vtt';
+$subtitle_draft = BASEDIR.'/files/subtitle/subtitle_draft_'.$data['videoid'].'.vtt';
 
 // ffmpeg path
 $ffmpeg_path = $GLOBALS['Cbucket']->configs['ffmpegpath'];	

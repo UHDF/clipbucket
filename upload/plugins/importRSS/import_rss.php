@@ -73,6 +73,26 @@ assign("rss_view",IMPORT_RSS_VIEWPAGE_URL);
 	}
 
 	
+	/**
+	 * Remove link from the database. 
+	 * if the link is associated to a video, then nothing is done, just an error message appears.
+	 *
+	 * @param int $id
+	 * 		the id of the link to be deleted 
+	 */
+	function deleteRssVideo($id){
+		global $db;
+
+		$test2=$db->execute("DELETE FROM ".tbl("import_rss_video_queued")." WHERE id='$id'");
+		
+		if (!$test2){
+			e(lang("cant_del_linked_link_msg")." id=".$id,"e");
+		}
+		else{
+			e(lang("link_del_msg")." id=".$id,"m");
+		}
+	}
+	
 	
 	
 	/**

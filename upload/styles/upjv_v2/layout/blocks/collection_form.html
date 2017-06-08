@@ -13,9 +13,16 @@
 					{/section}
 				</select>
 			</div>
+{*debug*}
+
+<pre>
+{php}
+{/php}
+</pre>
+
 
 			<div class="form-group clearfix">
-				<input type="button" name="add_to_playlist" value="{lang code='add_to_my_collection'}" class="btn btn-primary mtm btn-block" onclick="collection_actions('add_collection_form','add_new_item','{$id}','#collection_form_result','video');">
+				<input type="button" name="add_to_playlist" value="{lang code='add_to_my_collection'}" class="btn btn-primary mtm btn-block" onclick="collection_actions('add_collection_form','add_new_item','{$vdo['videoid']}','#collection_form_result','video');">
 			</div>
 		</form>
 	</div>
