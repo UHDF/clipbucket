@@ -189,7 +189,7 @@
 		echo '<input type="hidden" name="nbMarker" id="nbMarker" value="'.count($lines).'">';
 ?>
 
-		<input type="submit" name="envoyer" value="Envoyer">
+		<input type="submit" name="saveMarker" value="Envoyer">
 	</form>
 
 
