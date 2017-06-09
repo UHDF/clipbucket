@@ -3,6 +3,7 @@
 	// This script runs only via command line
 	//sleep(5);
 	include(dirname(__FILE__)."/../../includes/config.inc.php");
+	include(dirname(__FILE__)."/../../includes/functions.php");
 	include(dirname(__FILE__)."/functions_system.php");
 	
 	$videoRootFolder=BASEDIR."/files/videos/";
@@ -22,6 +23,9 @@
 	 * @var string $prefixAudio
 	 */
 	$prefixAudio="audio";
+	global $Cbucket;
+	$ffmpegpath = $Cbucket->configs['ffmpegpath'];
+	$ffprobegpath = $Cbucket->configs['ffprobepath'];
 	
 	global $db;
 	// get all enconded videos file that have been connected to a video data 
@@ -82,6 +86,12 @@
 				$query='UPDATE '.table("job").' SET `status` = "Completed" wHERE id="'.$res["id"].'"';
 				echo "\t".$query."\n";
 				$db->Execute($query);
+				
+				$durationCmd="ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 ".$dstFullpath;
+				$output = shell_output($durationCmd);
+				$query='UPDATE '.table("video").' SET `duration='.$output.'WHERE videoid`='.$res["idvideo"];
+				
+				
 			}
 		}
 	}
