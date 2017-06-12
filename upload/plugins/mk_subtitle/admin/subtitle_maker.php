@@ -16,6 +16,18 @@ Régle de sous titrage :
 - Un sous-titre disparait au minimum 4 images avant un changement de plan, et il apparait minimum 4 images après le changement de plan.
 - Si besoin, un sous-titre peut cependant chevaucher un changement de plan, à la condition qu'il apparaisse ou disparaisse au moins 1 seconde avant ou après ce changement de plan.
 
+
+
+Ajout internationnalisation :
+
+En Smarty :
+	{lang('ldap_update_config')}
+	{lang code="help"}
+
+En Php :
+	lang("speaker_already_exists")
+
+
 */
 
 // Use the already existing functions
@@ -114,6 +126,7 @@ if ($_POST['saveMarker']){
 */
 if ($_POST['subtitlize']){
 	makeSubtitleFile($marker, $subtitle);
+	assign('tabactive', 'final');
 }
 
 

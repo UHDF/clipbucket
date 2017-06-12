@@ -135,20 +135,9 @@ function deleteSubtitleFile($subtitle){
 
 }
 
-/*
-echo '<pre>';
-print_r($video);
-echo '</pre>';
-*/
 
 if ($cbplugin->is_installed('common_library.php') && $userquery->permission[getStoredPluginName("mk_subtitle")]=='yes'){
 	$cbvid->video_manager_link[]='addSubtitleMaker';
-
-/*
-	echo '<pre>';
-		var_dump($cbvid);
-	echo '</pre>';	
-	*/
 }
 
 ?>

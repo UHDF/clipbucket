@@ -191,9 +191,3 @@
 
 		<input type="submit" name="saveMarker" value="Envoyer">
 	</form>
-
-
-
-
-
-
