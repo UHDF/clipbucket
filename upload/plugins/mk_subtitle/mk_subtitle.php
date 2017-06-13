@@ -30,7 +30,7 @@ define("SUBTITLE_MAKER_URL",BASEURL.SITE_MODE."/plugin.php?folder=".SUBTITLE_MAK
 function addSubtitleMaker($vid){
 	$idtmp=$vid['videoid'];
 
-	return '<li><a role="menuitem" href="'.SUBTITLE_MAKER_URL.'&video='.$idtmp.'">Subtitle Maker</a></li>';
+	return '<li><a role="menuitem" href="'.SUBTITLE_MAKER_URL.'&video='.$idtmp.'">'.lang('mksub_title').'</a></li>';
 }
 
 
@@ -60,8 +60,6 @@ function updateMarkerFile($marker){
 	fclose($fp);									// Close file
 
 }
-
-
 
 
 /**
@@ -123,6 +121,23 @@ function updateSubtitleFile($subtitle){
 
 }
 
+/**
+ * Test file exist
+ *
+ * @param integer $vid The video database id (videoid)
+ */
+function isMarker($vid){
+	return (file_exists(FILES_DIR."/marker/marker_".$vid.".txt")) ? true : false;
+}
+
+/**
+ * Test file exist
+ *
+ * @param integer $vid The video database id (videoid)
+ */
+function isSubtitle($vid){
+	return (file_exists(FILES_DIR."/subtitle/subtitle_".$vid.".vtt")) ? true : false;
+}
 
 /**
  * Delete the subtitle file
@@ -136,8 +151,53 @@ function deleteSubtitleFile($subtitle){
 }
 
 
+
+
+
+
+
+
+
+
+
+/*
+
+Portion de code pour envoyer un email :
+
+	// Sending Email
+	global $cbemail,$userquery;
+
+	$tpl = $cbemail->get_template('video_activation_email');
+	#$user_fields = $userquery->get_user_field($video['userid'],"username,email");
+	
+	$more_var = array
+	(
+		'{username}'	=> $video['username'],
+		'{video_link}' => videoLink($video)
+	);
+	
+	if(!is_array($var))
+		$var = array();
+	
+	$var = array_merge($more_var,$var);
+	$subj = $cbemail->replace($tpl['email_template_subject'],$var);
+	$msg = nl2br($cbemail->replace($tpl['email_template'],$var));
+
+	//Now Finally Sending Email
+	cbmail(array('to'=>$video['email'], 'from'=>WEBSITE_EMAIL, 'subject'=>$subj, 'content'=>$msg));
+
+*/
+
+
+
+
+
+
+
 if ($cbplugin->is_installed('common_library.php') && $userquery->permission[getStoredPluginName("mk_subtitle")]=='yes'){
 	$cbvid->video_manager_link[]='addSubtitleMaker';
+	add_admin_menu('Videos',lang('mksub_title'),'lstvideo.php',SUBTITLE_MAKER_BASE.'/admin');
+
 }
 
 ?>

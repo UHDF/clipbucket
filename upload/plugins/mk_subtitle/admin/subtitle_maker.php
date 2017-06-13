@@ -78,14 +78,12 @@ $subtitle_draft = BASEDIR.'/files/subtitle/subtitle_draft_'.$data['videoid'].'.v
 // ffmpeg path
 $ffmpeg_path = $GLOBALS['Cbucket']->configs['ffmpegpath'];	
 assign('ffmpeg_path', $ffmpeg_path);
-	
 
 // Assign for template
 assign('video_file', $video_file);
 assign('marker_file', $marker);
 assign('savedSub', 0);
 assign('nbMarker', 0);
-
 
 /**
 *	Check if a silence finder metadata file is associated to the marker video file
@@ -112,14 +110,12 @@ else{
 	$delayAfter = 0.200;
 }
 
-
 /**
 *	Update the marker file
 */
 if ($_POST['saveMarker']){
 	updateMarkerFile($marker);
 }
-
 
 /**
 *	Generate the final file
@@ -128,7 +124,6 @@ if ($_POST['subtitlize']){
 	makeSubtitleFile($marker, $subtitle);
 	assign('tabactive', 'final');
 }
-
 
 /**
 *	If editing the final file
@@ -143,9 +138,6 @@ if ($_POST['saveSubtitle']){
 if ($_POST['deleteSubtitle']){
 	deleteSubtitleFile($subtitle);
 }
-
-
-
 
 /**
 *	Existing element
