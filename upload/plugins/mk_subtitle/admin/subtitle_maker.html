@@ -1,4 +1,4 @@
-<h2>Subtitle maker</h2>
+<h2>{lang code="mksub_title"}</h2>
 
 <div class="row">
 	<!-- 	PLAYER VIDEO 	-->
@@ -16,19 +16,16 @@
 			<input type="hidden" name="marker" id="marker" size="80" value="{$marker_file}">
 			<input type="hidden" name="ffmpeg_path" id="ffmpeg_path" size="80" value="{$ffmpeg_path}">
 
-			<label for="threshold">Threshold : </label>
+			<label for="threshold">{lang code="mksub_threshold"} : </label>
 			<input type="text" name="threshold" id="threshold" size="2" value="{$threshold}">dB<br>
+			<label for="durationSilence">{lang code="mksub_silencedurationmin"} : </label>
+			<input type="text" name="durationSilence" id="durationSilence" size="5" value="{$durationSilence}">{lang code="seconds"}<br>
+			<label for="delayBefore">{lang code="mksub_startplaying"} : </label>
+			<input type="text" name="delayBefore" id="delayBefore" size="5" value="{$delayBefore}">{lang code="seconds"}<br>
+			<label for="delayAfter">{lang code="mksub_stopplaying"} : </label>
+			<input type="text" name="delayAfter" id="delayAfter" size="5" value="{$delayAfter}">{lang code="seconds"}<br>
 
-			<label for="durationSilence">Minimum duration of silence (between sound) : </label>
-			<input type="text" name="durationSilence" id="durationSilence" size="5" value="{$durationSilence}">secondes<br>
-
-			<label for="delayBefore">Starting play (seconds before sound starts) : </label>
-			<input type="text" name="delayBefore" id="delayBefore" size="5" value="{$delayBefore}">secondes<br>
-
-			<label for="delayAfter">Ending play (seconds after sound starts) : </label>
-			<input type="text" name="delayAfter" id="delayAfter" size="5" value="{$delayAfter}">secondes<br>
-
-			<button onclick="soundFinder();" title="Sound Finder">Sound Finder</button><br>
+			<button onclick="soundFinder();" title="Sound Finder">{lang code="mksub_findsentences"}</button><br>
 			<br>
 		</div>
 		
@@ -40,12 +37,10 @@
 <div class="row">
 	<div class="col-md-12">
 
-
-
 		<div class="tabbable">
 			<ul class="nav nav-tabs" id="myTab">
-				<li class="{if $tabactive eq ''}active{/if}"><a data-toggle="tab" href="#draft">Brouillon</a></li>
-				<li class="{if $tabactive == 'final'}active{/if}"><a data-toggle="tab" href="#final">Final</a></li>
+				<li class="{if $tabactive eq ''}active{/if}"><a data-toggle="tab" href="#draft">{lang code="mksub_draft"}</a></li>
+				<li class="{if $tabactive == 'final'}active{/if}"><a data-toggle="tab" href="#final">{lang code="mksub_finalfile"}</a></li>
 			</ul>
 
 			<!-- 
@@ -53,30 +48,26 @@
 			-->
 			<div class="tab-content">
 				<div id="draft" class="tab-pane{if $tabactive eq ''} active{/if}">
-					<h2>Brouillon</h2>
+					<h2>{lang code="mksub_draft"}</h2>
 
-					Etat : <span id="draftEtat">{$savedSub} / {$nbMarker}</span><br>
+					{lang code="mksub_state"} : <span id="draftEtat">{$savedSub} / {$nbMarker}</span><br>
 					<progress id="draftProgressBar" value="{$savedSub}" max="{$nbMarker}" style="width: 100%;"></progress> 
 
 
-
-					<div id="soundFinderResult" style="overflow:scroll; overflow-x:hidden; height:400px;">
-
-						{if $marker neq ''}
-							<form method="POST" class="form-horizontal">
+					{if $marker neq ''}
+						<form method="POST" class="form-horizontal">
+							<div id="soundFinderResult" style="overflow:scroll; overflow-x:hidden; height:400px;margin-bottom:10px;">
 
 								{foreach from=$marker item=data}
 
 									<div class="control-group">
 										<label for="phrase{$data[2]}" class="control-label">
-											{$data[6]} --> {$data[7]} - Durée : {$data[8]}
+											{$data[6]} --> {$data[7]} - {lang code="duration"} : {$data[8]}
 										</label>
 
 										<div class="form-inline">
 
 											<input type="text"  class="form-control" name="phrase{$data[2]}" id="phrase{$data[2]}" onfocus="inputPlay({$data[0]}, {$data[1]});" onblur="inputStop();draftProgress();" onkeyup="infoSub({$data[2]});" value="{$data[3]}" spellcheck="true">
-
-
 
 											<!--
 												Positionnement du sous titre
@@ -99,27 +90,31 @@
 
 											<span id="subinfo{$data[2]}" class="help-inline"></span>
 										</div>
-
-
 									</div>
 
 								{/foreach}
+							</div>
 
-								<div class="control-group">
-									<input type="hidden" name="nbMarker" id="nbMarker" value="{$nbMarker}">
-									<input type="submit" name="saveMarker" class="btn btn-primary" value="Sauvegarder">
-								</div>
+							<div class="control-group">
+								<!-- For dynamically construct the subtitle -->
+								<input type="hidden" name="dataTime" id="dataTime" size="80" value="{foreach from=$marker item=data}{$data[2]},{$data[4]},{$data[5]};{/foreach}">
 
-							</form>
-						{/if}
+								<!-- To construct the file -->
+								<input type="hidden" name="nbMarker" id="nbMarker" value="{$nbMarker}">
+								<input type="submit" name="saveMarker" class="btn btn-primary" value="{lang('saving')}">
+								
+								<input type="button" name="btnOverview" id="btnOverview" class="btn btn-primary" value="{lang('mksub_preview')}">
 
-					</div>
+								<input type="submit" name="subtitlize" class="btn btn-primary" value="{lang('mksub_mksubfile')}">
+							</div>
+						</form>
+<!--
+		DEBUG
+						<a href="#" onclick="javascript:myAddCue();">Test addCue</a>
+						<a href="#" onclick="javascript:myRemoveCue();">Remove all Cue</a>
+-->
 
-					<br>
-
-					<form method="POST">
-						<input type="submit" class="btn btn-primary" name="subtitlize" value="Generer le fichier de sous titres">
-					</form>
+					{/if}
 
 				</div>
 
@@ -128,48 +123,29 @@
 				-->
 				<div id="final" class="tab-pane{if $tabactive == 'final'} active{/if}">
 					
-					<h2>Final</h2>
-					<p>Ici, vous pouvez corriger le fichier actuellement diffusé.</p>
+					<h2>{lang code="mksub_finalfile"}</h2>
+					<p>{lang code="mksub_finalfiledesc"}</p>
 				
 					{if $subfile neq ''}
 						<form method="POST">
 							<div class="control-group">
 								<textarea name="subdata" id="subdata" cols="80" rows="20">{$subfile}</textarea><br>
 								<br>
-
-								<input type="submit" name="saveSubtitle" class="btn btn-primary" value="Enregistrer">
+								<input type="submit" name="saveSubtitle" class="btn btn-primary" value="{lang('saving')}">
+								<input type="submit" name="deleteSubtitle" class="btn btn-primary" value="{lang('remove')}">
 							</div>
 						</form>
 					{/if}
 					
 				</div>
 
-
 			</div>
 		</div>
-
-
-
-
 
 	</div>
 </div>
 
 
-<style>
-	#cb_video_js .video-js .vjs-captions {
-		color: #FF0000;
-		font-family: 'tahoma';
-		font-size: 16px;
-	}
-
-	#cb_video_js .vjs-big-play-button {
-		background-color: #283150;
-		opacity: .6;
-	}
-</style>
-
-		
 
 <!-- Temporary help -->
 <div class="modal fade" id="helpSubtitle" tabindex="-1" role="dialog" aria-labelledby="helpSubtitleLabel">
@@ -178,10 +154,12 @@
 
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="myModalLabel">Subtitle maker : Help</h4>
+				<h4 class="modal-title" id="myModalLabel">{lang code="mksub_title"} : {lang code="help"}</h4>
 			</div>
 
 			<div class="modal-body">
+				{lang code="mksub_helpcontent"}
+<!--
 				<h1>How does it works ?</h1>
 				<p>The sound finder will search the silence in the video file. Because of that we know that between silence there is sound.</p>
 
@@ -198,11 +176,11 @@
 
 				<h2>Finish ?</h2>
 				<p>Click the generate subtitle file. It will publish the final and the public can use it.</p>
-
+-->
 			</div>
 
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">{lang code="mksub_close"}</button>
 			</div>
 		</div>
 	</div>
@@ -251,7 +229,6 @@
 	*	Information about subtitle rules when input is modified.
 	*/
 	function infoSub(id){
-//		console.log(id);
 		var input = document.querySelector("#phrase"+id);
 		var msg = document.querySelector("#subinfo"+id);
 		var error = '';
@@ -337,6 +314,7 @@
 		var formData = {
 			video: $("#video").val(),
 			marker: $("#marker").val(),
+			ffmpeg_path: $("#ffmpeg_path").val(),
 			threshold: $("#threshold").val(),
 			durationSilence: $("#durationSilence").val(),
 			delayBefore: $("#delayBefore").val(),
@@ -356,30 +334,72 @@
 			}
 		});
 	}
+
+
+	/*
+		Testing dynamically adding the subtitle.
+	*/
+	var track;
+
+	track = video.addTextTrack("subtitle", "Test", "test");
+//	track.mode = "showing";
+
+
+	function myAddCue(){
+
+		var nb = $("#nbMarker").val();		// Count of the input text.
+		var data =  $("#dataTime").val();	// Input with all the time in and out by ID.
+		var timecode = data.split(";");		// Explode the data to get an array for each phrase.
+
+		var b;	// The var to put the new cue.
+		for (i = 0; i < (timecode.length-1); i++){
+
+			var a = timecode[i].split(",");	// Explode the timecode
+			var phrase = $("#phrase"+a[0]).val();	// Get the content of timecode.
+
+			if (phrase != ''){	// If there is a content, we put it in the cue.
+				var b = new VTTCue(a[1], a[2], phrase);		// make the object cue.
+				track.addCue(b);	// add the object.
+			}
+		}
+
+		track.mode = "showing";	// Display/Select the track.
+	}
+
+
+	function myRemoveCue(){
+
+		var myCues = track.cues;		// array of current cues.
+		var i = myCues.length;			// Cues size
+
+        if (i > 0) {		// If array not empty
+			do {
+				track.removeCue(myCues[i]);	// Remove the object from cue list.
+				i = i - 1;
+			} while (i >= 0);
+        }
+
+		track.mode = "disabled";		// Hide the subtitle
+	}	// En of myRemoveCue
+
+
+/*
+
+	myCues[0].startTime						// Get time in of the cue
+	myCues[0].endTime						// Get time in of the cue
+	myCues[0].getCueAsHTML().textContent;	// Get the text of the cue
+
+*/
+
+	/*
+		Button Listener
+	*/
+
+	document.querySelector('#btnOverview').addEventListener('click', function(e){
+		myRemoveCue();
+		myAddCue();
+	});
+
+
 </script>
 {/literal}
-
-
-
-<!--
-	CONFIGURATION PLAYER
--->
-<script type="text/javascript">
-	var default_res = "HD";
-	var availablePlaySpeed = [1, 1.5, 2];
-
-	var player = videojs('cb_video_js', {
-		plugins: {
-			videoJsResolutionSwitcher: {
-				default: default_res,
-				dynamicLabel: false
-			}
-		},
-		playbackRates: availablePlaySpeed,
-		LoadingSpinner: true,
-		BigPlayButton: true,
-		controlBar: {
-			muteToggle: false
-		}
-	});
-</script>
