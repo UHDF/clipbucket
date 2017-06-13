@@ -2,9 +2,9 @@
 
 	// This script runs only via command line
 	//sleep(5);
-	include(dirname(__FILE__)."/../../includes/config.inc.php");
-	include(dirname(__FILE__)."/../../includes/functions.php");
-	include(dirname(__FILE__)."/functions_system.php");
+	include_once(dirname(__FILE__)."/../../includes/config.inc.php");
+	include_once(dirname(__FILE__)."/../../includes/functions.php");
+	include_once(dirname(__FILE__)."/functions_system.php");
 	
 	$videoRootFolder=BASEDIR."/files/videos/";
 	$originalRootFolder=BASEDIR."/files/original/";
