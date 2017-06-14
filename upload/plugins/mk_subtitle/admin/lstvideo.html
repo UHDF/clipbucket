@@ -1,22 +1,14 @@
 <div class="heading clearfix">
     <h2 class="pull-left">{lang code="mksub_title"}</h2>
 
-    {include file="$layout_dir/blocks/advanced_search.html" }
+    {*include file="$layout_dir/blocks/advanced_search.html" *}
 </div>
 
 <!-- Displaying Videos -->
 <form name="video_manage marginBottomLarge" method="post">
 
-    <div class="btn-group">
-        <input class="btn btn-primary btn-xs" type="submit" name="t1" value="Test 1" class="button">
-        <input class="btn btn-primary btn-xs" type="submit" name="t2" value="Test 2" class="button">
-    </div>
-
     <table class="table table-bordered table-striped manageUsersTable marginTop">
         <tr>
-            <td>
-                <input type="checkbox" name="checkall" onclick="checkUncheckAll(this);"/>
-			</td>
             <td>VID</td>
             <td>Videos Details</td>
             <td>&nbsp;</td>
@@ -25,9 +17,6 @@
 		{if $videos}
 			{foreach from=$videos item=video}
 		<tr>
-            <td>
-                <input name="check_video[]" type="checkbox" id="check_video" value="{$video.videoid}"/>
-            </td>
             <td>{$video.videoid}</td>
             <td>
                 <div class="row">
@@ -39,10 +28,10 @@
                             </div>
                             
 							<div class="col-md-9">
-                                <a href="{$baseurl}/admin_area/plugin.php?folder=mk_subtitle/admin&file=subtitle_maker.php&video={$video.videoid}">{$video.title|truncate:80}</a> 
+                                <a href="{$baseurl}/admin_area/plugin.php?folder=mk_subtitle/admin&file=subtitle_maker.php&video={$video.videoid}">{$video.title|truncate:80}</a> ({if
+                                $video.duration>1}{$video.duration|SetTime}{else}00:00{/if})
 								<br>
 
-                                
 								<div class="labels mtl">
 
 									Brouillon :
@@ -65,23 +54,12 @@
 											Non fait
 										{/if} 
                                     </span>
-                                       
-                                    {$quals = resString($video.video_files)} 
-                                    
-									{if $quals}
-                                        <span class="label label-primary">
-                                            {$quals}
-                                        </span>
-                                    {/if}
-                            
+
 							        <div class="clearfix"></div>
                                        
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-2">
-                        <a href="view_user.php?uid={$video.userid}">{$video.username}</a>
                     </div>
                 </div>
             </td>
@@ -106,14 +84,8 @@
 			</strong>
 		</div>
     {/if}
-    <div class="btn-group marginBotoomLarge marginTopLarge paddingBotoomLarge paddingTopLarge">
-        <input class="btn btn-primary btn-xs" type="submit" name="t1" value="Test 1" class="button">
-        <input class="btn btn-primary btn-xs" type="submit" name="t2" value="Test 2" class="button"/>
-    </div>
 </form>
 
 <!-- Displaying Videos Ends-->
 {include file="$style_dir/blocks/pagination.html" }
 <div class="marginBottomLarge"></div>
-
-
