@@ -32,9 +32,12 @@ if(!function_exists('timecode_link'))
 ob_start(); ?>
 <script>
   $(window).on('hashchange',function(){
-    //video_seek(parseInt(location.hash.match('[0-9]+')[0]));
-    document.getElementsByTagName("video")[0].currentTime = parseInt(location.hash.match('[0-9]+')[0]);
-    document.getElementsByTagName("video")[0].play();
+    if (location.hash){
+      //video_seek(parseInt(location.hash.match('[0-9]+')[0]));
+      console.log(parseInt(location.hash.match('[0-9]+')[0]));
+      document.getElementsByTagName("video")[0].currentTime = parseInt(location.hash.match('[0-9]+')[0]);
+      document.getElementsByTagName("video")[0].play();
+    }
   }).trigger('hashchange');
 </script>
 <?php 
