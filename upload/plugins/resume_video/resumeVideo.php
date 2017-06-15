@@ -66,7 +66,11 @@ var VideoPlayerTracker = {
 		this.player.on("play", this.onPlay.bind(this));
 		this.player.on("ended", this.onEnd.bind(this));
 		this.player.on("volumechange", this.onVolumeChange.bind(this));
-
+		// Event Listeners for Subtitles item
+		var subtitleButton = document.querySelector('.vjs-subtitles-button').firstChild.firstChild.childNodes;
+		for (var i = 0; i < subtitleButton.length; i++){
+			subtitleButton[i].addEventListener('click', this.onSubtitleChange.bind(this));
+		}
 		// Event Listeners for PlaybackRates item
 		var playbackrates = document.querySelectorAll('.vjs-menu-item');
 		for (var i = 0; i < playbackrates.length; i++){
@@ -75,7 +79,7 @@ var VideoPlayerTracker = {
 	},
 
 	onLoad: function(){
-		this.setStartPoint().setDefaultVolume().setDefaultPlaybackSpeed().prompUser();
+		this.setStartPoint().setDefaultVolume().setDefaultPlaybackSpeed().setDefaultSubtitle().prompUser();
 	},
 
 	onPlay: function(){
@@ -93,6 +97,21 @@ var VideoPlayerTracker = {
 		localStorage.setItem("webtv_volume", this.player.volume());
 	},
 
+	onSubtitleChange: function() {
+
+		var subtitle = "none";
+		var track = this.player.textTracks();
+
+		for (i = 0; i < track.length; i++){
+			console.log(track[i].label);
+			if (track[i].mode == 'showing'){
+				subtitle = track[i].label;
+			}
+		}
+
+		localStorage.setItem("webtv_subtitle", subtitle);
+	},
+
 	onPlaybackChange: function(){
 		localStorage.setItem("webtv_playback_speed", this.player.playbackRate());
 	},
@@ -108,6 +127,25 @@ var VideoPlayerTracker = {
 
 		if (currentVolume) {
 			this.player.volume(currentVolume);
+		}
+
+		return this;
+	},
+	
+	setDefaultSubtitle: function(){
+
+		var sub2 = localStorage.getItem("webtv_subtitle");
+		var track = this.player.textTracks();
+
+		if ( (sub2 != null) ) {
+			for (i = 0; i < track.length; i++){
+				console.log(track[i].label);
+				track[i].mode = "hidden";
+
+				if (track[i].label == sub2){
+					track[i].mode = "showing";
+				}
+			}
 		}
 
 		return this;
