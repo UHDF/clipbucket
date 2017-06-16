@@ -106,11 +106,10 @@ if(!defined('SUB_PAGE')){
 	}
 
 	$id = (isset($_GET['id'])) ? intval($_GET['id']) : 0;
+	Assign('rssid', $id);
 
-
-$rssvideo = getImportRssVideo($id);
-Assign('rssvideo', $rssvideo);
-
+	$rssvideo = getImportRssVideo($id);
+	Assign('rssvideo', $rssvideo);
 
 // Output
 template_files(PLUG_DIR.'/importRSS/admin/view_import_rss.html',true);

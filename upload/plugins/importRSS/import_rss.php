@@ -83,7 +83,7 @@ assign("rss_view",IMPORT_RSS_VIEWPAGE_URL);
 	function deleteRssVideo($id){
 		global $db;
 
-		$test2=$db->execute("DELETE FROM ".tbl("import_rss_video_queued")." WHERE id='$id'");
+		$test2=$db->execute("DELETE FROM ".tbl("import_rss_video_queued")." WHERE id='".$id."';");
 		
 		if (!$test2){
 			e(lang("cant_del_linked_link_msg")." id=".$id,"e");
