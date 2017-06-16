@@ -103,7 +103,7 @@ var VideoPlayerTracker = {
 		var track = this.player.textTracks();
 
 		for (i = 0; i < track.length; i++){
-			console.log(track[i].label);
+			// console.log(track[i].label);
 			if (track[i].mode == 'showing'){
 				subtitle = track[i].label;
 			}
@@ -139,7 +139,7 @@ var VideoPlayerTracker = {
 
 		if ( (sub2 != null) ) {
 			for (i = 0; i < track.length; i++){
-				console.log(track[i].label);
+				// console.log(track[i].label);
 				track[i].mode = "hidden";
 
 				if (track[i].label == sub2){
