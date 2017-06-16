@@ -104,7 +104,7 @@ assign("rss_view",IMPORT_RSS_VIEWPAGE_URL);
 		global $db;
 		
 		if ($id != 0){
-		$cond = ' WHERE id_rss_config = '.$id;
+			$cond = ' WHERE id_rss_config = '.$id.' ORDER BY date_uploaded DESC';
 		}
 
 		$videoqueued = $db->_select('SELECT * FROM '.tbl("import_rss_video_queued").$cond.';');

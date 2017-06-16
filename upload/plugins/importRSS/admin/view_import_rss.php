@@ -105,7 +105,7 @@ if(!defined('SUB_PAGE')){
 		assign('showadd',false);
 	}
 
-	$id = (isset($_GET['id'])) ? $_GET['id'] : 0;
+	$id = (isset($_GET['id'])) ? intval($_GET['id']) : 0;
 
 
 $rssvideo = getImportRssVideo($id);
