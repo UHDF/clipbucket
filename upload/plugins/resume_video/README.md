@@ -21,6 +21,10 @@ You can add some parameter in the URL :
     Format : string or number. Ex.: 23:45 or 240.
     Description : Position the video at time
 
+- stop :
+    Format : string or number. Ex.: 23:45 or 240.
+    Description : Stop the video at time
+
 - autoplay :
     Format : boolean. Ex.: true or false (or not present)
     Description : Start playing video
@@ -29,6 +33,10 @@ You can add some parameter in the URL :
 *- time :*
     *Format : chaine ou chiffre. Ex.: 23:45 ou 240.*
     *Description : Positionne la video au moment voulu*
+
+*- stop :*
+    *Format : chaine ou chiffre. Ex.: 23:45 ou 240.*
+    *Description : Arrête la video au moment voulu*
 
 *- autoplay :*
     *Format : booléen. Ex.: true ou false (ou non présent)*
