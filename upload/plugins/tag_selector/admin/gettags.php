@@ -1,11 +1,11 @@
 <?php
 require_once '../../../includes/admin_config.php';
-require_once VIDEO_EXTENSIONS_DIR.'/video_extensions_class.php';
+require_once TAGSELECTOR_DIR.'/tag_selector_class.php';
 
 /** Check if user has admin acces */
 $userquery->admin_login_check();
 /** Check if user has admin acces to this plugin */
-if ($cbplugin->is_installed('common_library.php'))	$userquery->login_check(getStoredPluginName("video_extensions"));
+if ($cbplugin->is_installed('common_library.php'))	$userquery->login_check(getStoredPluginName("tag_selector"));
 $pages->page_redir();
 
 
