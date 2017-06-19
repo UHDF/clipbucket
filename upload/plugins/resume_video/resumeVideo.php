@@ -49,10 +49,11 @@ var RequestUtils = {
 var PlayerRecordingLoop;
 
 var VideoPlayerTracker = {
-	initialize: function(player, time, autoplay){
+	initialize: function(player, time, stop, autoplay){
 		if (localStorageIsAvailable()) {
 			this.player = player;
 			this.time = time;
+			this.stop = stop;
 			this.autoplay = autoplay;
 			this.addEventListeners();
 		}
@@ -122,6 +123,10 @@ var VideoPlayerTracker = {
 		return this;
 	},
 
+	setStopPoint: function(){
+		return this.getVideoStopTime();
+	},
+
 	setDefaultVolume: function() {
 		var currentVolume = localStorage.getItem('webtv_volume');
 
@@ -161,6 +166,14 @@ var VideoPlayerTracker = {
 		return this;
 	},
 
+	stopPlay: function(){
+		if (!this.stop) return 1;
+
+		if (this.currentTime() > this.getVideoStopTime(this.stop)) {
+			this.player.pause();
+		}
+	},
+
 	prompUser: function(){
 		if (this.hasPreviouslyBeenWatched() && !this.time){
 			return this.promptUserToContinue();
@@ -196,7 +209,8 @@ var VideoPlayerTracker = {
 	beginRecordingPosition: function(){
 		PlayerRecordingLoop = setInterval(function(){
 			localStorage.setItem(this.id(), this.currentTime());
-		}.bind(this), 3000);
+			this.stopPlay();
+		}.bind(this), 1000);
 	},
 
 	stopRecordingPosition: function(){
@@ -217,7 +231,9 @@ var VideoPlayerTracker = {
 	},
 
 	id: function(){
-		return "webtv_id:" + document.URL;
+		var id = RequestUtils.queryParam("v");
+
+		return "webtv_id:" + id;
 	},
 
 	hasPreviouslyBeenWatched: function(){
@@ -239,6 +255,17 @@ var VideoPlayerTracker = {
 		}
 
 		return parseInt(this.time);
+	},
+
+	getVideoStopTime: function(){
+		if (!this.stop) return 1;
+
+		if (typeof this.stop === 'string' && this.stop.indexOf(":") > -1){
+			var t = this.stop.split(':');
+			return 60 * parseInt(t[0]) + parseInt(t[1]);
+		}
+
+		return parseInt(this.stop);
 	}
 
 }
@@ -247,6 +274,7 @@ var VideoPlayerTracker = {
 VideoPlayerTracker.initialize(
 	videojs('cb_video_js'),
 	RequestUtils.queryParam("time"),
+	RequestUtils.queryParam("stop"),
 	RequestUtils.queryParam("autoplay")
 );
 </script>
