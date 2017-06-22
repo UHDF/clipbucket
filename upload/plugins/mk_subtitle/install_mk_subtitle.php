@@ -21,7 +21,7 @@ function installSubtitleMaker(){
 	$subtitle = BASEDIR.'/files/subtitle';
 	$marker = BASEDIR.'/files/marker';
 	
-/*
+
  	if (!file_exists($subtitle)){
  		if (!mkdir($subtitle, 0775, true)) {
  			die('Failed to create folders...');
@@ -33,7 +33,7 @@ function installSubtitleMaker(){
  			die('Failed to create folders...');
  		}
 	}
-*/
+
 
 }
 
