@@ -12,7 +12,7 @@ function uninstallSubtitleMakerDirectory(){
 	$subtitle = BASEDIR.'/files/subtitle';
 	$marker = BASEDIR.'/files/marker';
 	
-/*
+
  	if (is_dir($subtitle)){
  		if (!rmdir($subtitle)) {
  			die('Failed to delete folders...');
@@ -24,7 +24,7 @@ function uninstallSubtitleMakerDirectory(){
  			die('Failed to delete folders...');
  		}
 	}
-*/
+
 
 }
 
