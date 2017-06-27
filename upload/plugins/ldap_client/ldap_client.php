@@ -53,6 +53,8 @@ Version: 0.1
 
 				$tab_retour['mail'] = $info[0]["mail"][0];	// Add the mail
 
+				$tab_retour['edupersonaffiliation'] = $info[0]["edupersonaffiliation"][0];	// Add user level
+
 				ldap_close($ds);		// Close connection
 
 				return $tab_retour;

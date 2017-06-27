@@ -19,6 +19,7 @@ Version: 1.0
 	define('CAS_CONTEXT',$config['cas_context']);			// Suite de l'URL du serveur CAS
 	define('CAS_PORT',$config['port']);						// Port du serveur CAS
 	define('CAS_CREATE_USER',$config['create_user']);		// Option de creation de l'utilisateur
+	define('CAS_USER_LEVEL', explode(";", $config['userlevel']));		// Niveau utilisateur autorisé (via LDAP)
 	
 	// Include phpCAS library
 	require(PLUG_DIR."/".AUTH_CAS."/CAS-1.3.4/CAS.php");
@@ -73,7 +74,7 @@ Version: 1.0
 			$url=BASEURL.'/signup.php?mode=login&auth_cas=bycas';
 			echo $url;
 		}
-		
+
 	} // End is_auth_cas
 		
 
@@ -104,17 +105,36 @@ Version: 1.0
 			header("Location: ".BASEURL);
 		}
 		else{
-			// Not yet inserted in db
-			if (CAS_CREATE_USER == 'yes'){
-				// Create the user
-				$userid = createUser($login);
+			// Default value, allow all
+			$authorization = true;
+			// If plugin ldap_client is installed
+			if ($cbplugin->is_installed('ldap_client.php')) {
+				// If CAS configuration have be made
+				if (CAS_USER_LEVEL){
+					// Search user in LDAP
+					$ldap_corresp = searchLdap($login);
+					// If user not in array
+					if (!in_array($ldap_corresp["edupersonaffiliation"], CAS_USER_LEVEL)){
+						// Deny access
+						$authorization = false;
+					}
+					
+				}
 			}
-			
-			// Check the user id and connect
-			if ($userid){
-				// Connect the user
-				$userquery->login_as_user($login, '');
-				header("Location: ".BASEURL);
+
+			if ($authorization){
+				// Not yet inserted in db
+				if (CAS_CREATE_USER == 'yes'){
+					// Create the user
+					$userid = createUser($login);
+				}
+				
+				// Check the user id and connect
+				if ($userid){
+					// Connect the user
+					$userquery->login_as_user($login, '');
+					header("Location: ".BASEURL);
+				}
 			}
 		}
 	}
@@ -133,14 +153,12 @@ Version: 1.0
 		$pass =  RandomString(10);		// create a random password
 
 		if($cbplugin->is_installed('ldap_client.php')) {
-			e("Les fonctions LDAP sont disponibles.<br />\n", "m");
 			$ldap_corresp = searchLdap($login);
 		}
 		else {
-			e("Les fonctions LDAP ne sont pas disponibles.<br />\n", "m");
 			$ldap_corresp = '';
 		}
-	
+
 		// Information to create the user 
 		$user_infos = array(
 			'username' => $login,
