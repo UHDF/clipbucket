@@ -3669,12 +3669,11 @@
 }
 
 #sidebar h2{
-	font-size:23px;
-	line-height:23px;
-	font-family:"source_sans_prosemibold",sans-serif;
-	color: #666;
-	font: 500 1.57143em Rockwell, rokkittregular, Tahoma, Verdana, Segoe, sans-serif;
-	margin:0 0 20px
+    font-size:23px;
+    line-height:23px;
+    font-family: arvoregular, Tahoma, Verdana, Segoe, sans-serif;
+    color: #666;
+    margin:0 0 20px 
 }
 
 #footer{
