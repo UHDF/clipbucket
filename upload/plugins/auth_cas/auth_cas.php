@@ -117,6 +117,7 @@ Version: 1.0
 					if (!in_array($ldap_corresp["edupersonaffiliation"], CAS_USER_LEVEL)){
 						// Deny access
 						$authorization = false;
+    					phpCAS::logoutWithRedirectService(BASEURL);
 					}
 					
 				}
