@@ -292,3 +292,8 @@ http://www.scriptsmashup.com/Video_Skin_Generator/Videojs/videojs-skin-generator
     /* No background */
     background-color: rgba(0, 0, 0, 0) !important;
 }
+
+
+.vjs-playback-rate .vjs-menu{
+    left: -5em;
+}
