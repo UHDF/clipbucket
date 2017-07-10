@@ -75,7 +75,7 @@
 					$dstFullpath=dirname(__FILE__)."/../../files/original/".$fileDirectory."/".$filename;
 				if ($table[0]==$prefixAudio)
 					$dstFullpath=dirname(__FILE__)."/../../files/videos/".$fileDirectory."/audio_".$filename;
-						else {
+				else {
 					$dstFullpath=dirname(__FILE__)."/../../files/videos/".$fileDirectory."/".$filename;
 					if ($table[0]!=$jobExtension)
 						$dstFullpath.="-".$table[0];
@@ -83,7 +83,7 @@
 				$dstFullpath.=".".$jobExtension;
 				echo "\tdstFullpath : ".$dstFullpath."\n";
 				$process = new Process("wget \"$srcFullpath\" -O \"$dstFullpath\"");
-				$query='UPDATE '.table("job").' SET `status` = "Completed" wHERE id="'.$res["id"].'"';
+				$query='UPDATE '.table("job").' SET `status` = "Completed" WHERE id="'.$res["id"].'"';
 				echo "\t".$query."\n";
 				$db->Execute($query);
 				
