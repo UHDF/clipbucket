@@ -23,12 +23,20 @@ if(!defined('SUB_PAGE')){
 		// BUG : je suis passé par un yes/no car le 0/1 réinitialise à 0 à chaque affichage de la page (même sans POST).
 		$tmp_config['create_user']	= ($_POST['create_user'] == 'yes') ? $_POST['create_user'] : 'no';	
 		
+		/* User level via LDAP */
+		$tmp_config['usrlevel'] = (isset($_POST['chk_userlevel'])) ? implode(";", $_POST['chk_userlevel']) :  '';
+
 		// Update table auth_cas_config
 		updateCasConfig($tmp_config);
 	}
 	
 	// get configuration
 	$config = getCasConfig();
+
+	// If usrlevel filtering is enabled
+	if ($config['usrlevel']){
+		$config['usrlevel'] = explode(";", $config['usrlevel']);
+	}
 	
 	// Loop the new config
 	foreach ($config as $key => $value){
@@ -39,6 +47,7 @@ if(!defined('SUB_PAGE')){
 	
 	if($cbplugin->is_installed('ldap_client.php')) {
 		e("Les fonctions LDAP sont disponibles.<br />\n", "m");
+		assign('ldap', true);
 	}
 	else {
 		e("Les fonctions LDAP ne sont pas disponibles.<br />\n", "w");

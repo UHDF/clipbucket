@@ -191,17 +191,18 @@ Portion de code pour envoyer un email :
 	/*
 	 * This Function generate anchors for  subtitle vtt file if exist
 	 */
-	function getSubtitleVtt(){
-		$data=$_GET["v"];
-		$subfile = BASEDIR.'/files/subtitle/subtitle_'.$data.'.vtt';
-		$suburl = BASEURL.'/files/subtitle/subtitle_'.$data.'.vtt';
-		$str="";
-		if (file_exists($subfile)){
-			$str= '<track kind="subtitles" src="'.$suburl.'" srclang="fr" label="French" default/>';
+	function getSubtitleVtt($data = ''){
+		if ($data['videoid']){
+			$subfile = BASEDIR.'/files/subtitle/subtitle_'.$data['videoid'].'.vtt';
+			$suburl = BASEURL.'/files/subtitle/subtitle_'.$data['videoid'].'.vtt';
+			$str="";
+			if (file_exists($subfile)){
+				$str= '<track kind="subtitles" src="'.$suburl.'" srclang="fr" label="French" default/>';
+			}
+			echo $str;
 		}
-		echo $str;
 	}
-	// use {ANCHOR place="getSubtitleVtt" data=$video} to add the HTML string into the file.
+	// use {ANCHOR place="getSubtitleVtt" data=$vdata} to add the HTML string into the file.
 	register_anchor_function('getSubtitleVtt','getSubtitleVtt');
 	
 
