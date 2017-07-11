@@ -89,7 +89,7 @@
 				
 				$durationCmd="ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 ".$dstFullpath;
 				$output = shell_output($durationCmd);
-				$query='UPDATE '.table("video").' SET `duration='.$output.', Processing = "Successful" WHERE videoid`='.$res["idvideo"];
+				$query='UPDATE '.table("video").' SET `duration='.$output.', status = "Successful" WHERE videoid`='.$res["idvideo"];
 				
 				
 			}
