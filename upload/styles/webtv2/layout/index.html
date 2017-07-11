@@ -1,11 +1,11 @@
-	  <div class="grid">
-		    <div class="col-2-3 "></div>
-		    <div class="col-1-3 ">
-		      <span class="alaunedesc">▶  Les vidéos à la une</span>
-	      </div>
-	  </div>
-	  
+
 <div class="alaunecont">
+<div class="grid">
+    <div class="col-2-3 "></div>
+    <div class="col-1-3 ">
+        <span class="alaunedesc">▶ Vidéos à la une</span>
+    </div>
+</div>
 {$featured=$cbvid->get_videos(["featured"=>"yes",'limit'=>4, "order"=>"datecreated DESC"])}
 {if $featured}
   {$video=$featured[0]}
@@ -35,15 +35,15 @@
   <div class="grid alaunevideoitems">
     <div class="col-1-3">
     {assign var="video" value=$featured[1]}
-    {include file="$style_dir/blocks/videos/video.html" display_type='videoitem'}
+    {include file="$style_dir/blocks/videos/video.html" display_type='videoitemhometop2'}
     </div>
     <div class="col-1-3">
     {assign var="video" value=$featured[2]}
-    {include file="$style_dir/blocks/videos/video.html" display_type='videoitem'}
+    {include file="$style_dir/blocks/videos/video.html" display_type='videoitemhometop2'}
     </div>
     <div class="col-1-3">
     {assign var="video" value=$featured[3]}
-    {include file="$style_dir/blocks/videos/video.html" display_type='videoitem'}
+    {include file="$style_dir/blocks/videos/video.html" display_type='videoitemhometop2'}
     </div>
   </div>
   
@@ -66,6 +66,7 @@
     {$last=$cbvid->get_videos(["category"=>$catid,'limit'=>1, "order"=>"datecreated DESC"])}
     <div class="col-1-3">
       {assign var="category_name" value=$catname}
+      {assign var="category_id" value=$catid}
       {assign var="video" value=$last[0]}
       {include file="$style_dir/blocks/videos/video.html" display_type='videocat'}
     </div>
@@ -77,7 +78,7 @@
 <div class="mostcont">
 	<div class="grid">
 	  <div class="col-1-1">
-	    <h1>Videos les + vues</h1>r
+	    <h1>Vidéos les + vues</h1>r
 	  </div>
   </div>
 {$most_viewed=$cbvid->get_videos(["order"=>"views DESC",'limit'=>3])}
@@ -86,7 +87,7 @@
 	<div class="grid">
     {foreach from=$most_viewed[0] item=video}
     <div class="col-1-3">
-      {include file="$style_dir/blocks/videos/video.html" display_type='videoitem'}
+      {include file="$style_dir/blocks/videos/video.html" display_type='videoitem2'}
     </div>
   	{/foreach}
  </div>
@@ -98,7 +99,7 @@
 <div class="likedcont">
 	<div class="grid">
 	  <div class="col-1-1">
-	    <h1>Videos les + aimées</h1>
+	    <h1>Vidéos les + aimées</h1>
 	  </div>
   </div>
 {$most_viewed=$cbvid->get_videos(["order"=>"views DESC",'limit'=>6])}
@@ -108,7 +109,7 @@
 	<div class="grid">
     {foreach from=$most_viewed[0] item=video}
     <div class="col-1-3">
-      {include file="$style_dir/blocks/videos/video.html" display_type='videoitem'}
+      {include file="$style_dir/blocks/videos/video.html" display_type='videoitem2'}
     </div>
   	{/foreach}
  </div>

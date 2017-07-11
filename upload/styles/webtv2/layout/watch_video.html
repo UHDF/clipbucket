@@ -3,12 +3,12 @@
 {$type='video'}
 {$channel = $userquery->get_user_details($video.userid)}
 
-<div class="alaunecont">
+<div class="watch">
   <div class="grid">
     <div class="col-1-1">
         <h1 style="margin-top:0em;">{$video.title|title}</h1></div></div>
             
-  <div class="alaunebigcont">
+  <div class="watchcont">
     <div class="grid">
       <div class="col-1-1">
         <div class="playercont">
@@ -29,7 +29,8 @@
           <a href="https://plus.google.com/share?url=https%3A%2F%2F{$smarty.server.HTTP_HOST|escape:'url'}{$smarty.server.REQUEST_URI|escape:'url'}" target="_blank"><img src="{$baseurl}/styles/webtv2/theme/images/gplus.png"/></a>
           <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3A%2F%2F{$smarty.server.HTTP_HOST|escape:'url'}{$smarty.server.REQUEST_URI|escape:'url'}&amp;title={$vdo.title|escape:'url'}%20%23Tv_utc&amp;summary={$vdo.title|escape:'url'}%20%23Tv_utc&amp;source=https%3A%2F%2F{$smarty.server.HTTP_HOST|escape:'url'}{$smarty.server.REQUEST_URI|escape:'url'}" target="_blank" ><img src="{$baseurl}/styles/webtv2/theme/images/lkin.png"/></a></span>
         <span class="cat">
-          {*{$vdo.category|@var_dump}*}
+          {*{$vdo.category|@var_dump} {$vdo|@var_dump}*}
+          
           TODO</span></div></div>
             
 
@@ -91,7 +92,7 @@
 	<div class="grid">
     {foreach from=$samecat[0] item=video}
     <div class="col-1-3">
-      {include file="$style_dir/blocks/videos/video.html" display_type='videoitem'}
+      {include file="$style_dir/blocks/videos/video.html" display_type='videoitem2'}
     </div>
   	{/foreach}
  </div>
@@ -116,7 +117,7 @@
     {foreach from=$sametags[0] item=video}
     <div class="col-1-3">
       {thumbzup_get($video.videoid)}
-      {include file="$style_dir/blocks/videos/video.html" display_type='videoitem'}
+      {include file="$style_dir/blocks/videos/video.html" display_type='videoitem2'}
     </div>
   	{/foreach}
  </div>
@@ -281,7 +282,7 @@ function thumbzup_callback(nblikes){
   <link href="{$theme}/css/videojs.suggestedVideoEndcap.css" type="text/css" rel="stylesheet" />
   <script src="{$theme}/js/videojs.suggestedVideoEndcap.js" type="text/javascript" charset="utf-8"></script>
     {$sametags=$cbvid->get_videos(["tags"=>$vtags,'limit'=>3, "order"=>"datecreated DESC", "exclude"=>$vid])}
-    {$sametags|@var_dump}
+    {*$sametags|@var_dump*}
     
 <style>
   .vjs-suggested-video-endcap-header {
