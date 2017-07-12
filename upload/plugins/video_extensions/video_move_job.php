@@ -83,7 +83,7 @@
 				$dstFullpath.=".".$jobExtension;
 				echo "\tdstFullpath : ".$dstFullpath."\n";
 				$process = new Process("wget \"$srcFullpath\" -O \"$dstFullpath\"");
-				//$query='UPDATE '.table("job").' SET `status` = "Completed" WHERE id="'.$res["id"].'"';
+				$query='UPDATE '.table("job").' SET `status` = "Completed" WHERE id="'.$res["id"].'"';
 				echo "\t".$query."\n";
 				$db->Execute($query);
 				
