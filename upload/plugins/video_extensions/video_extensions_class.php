@@ -169,12 +169,12 @@ class VideoExtension extends CBCategory{
 				}
 			}
 			
-			$query='SELECT * FROM '.table("job").' WHERE jobset="'.$jobset;
+			$query='SELECT * FROM '.table("job").' WHERE jobset="'.$jobset.'"';
 			$result=$db->_select($query);
 			if (count($result)>0){
 				
 				$originalVideoName=pathinfo($result[0]["originalsrc"],PATHINFO_BASENAME);
-				$query='UPDATE '.table("job").' SET idvideo = '.$vid.' WHERE jobset="'.$jobset;
+				$query='UPDATE '.table("job").' SET idvideo = '.$vid.' WHERE jobset="'.$jobset.'"';
 				$db->Execute($query);
 				$query='UPDATE '.table("video").' SET original_videoname = "'.$originalVideoName.'" WHERE videoid="'.$vid.'"';
 			
