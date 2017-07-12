@@ -87,8 +87,9 @@
 				echo "\t".$query."\n";
 				$db->Execute($query);
 				
-				$durationCmd="ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 ".$dstFullpath;
-				echo "\n\t".$durationCmd."\n";
+				//$durationCmd="ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 ".$dstFullpath;
+				$durationCmd="mediainfo --Inform='General;%Duration%' '".$dstFullpath."'";
+				echo "\n>>>\t".$durationCmd."\n";
 
 				$output = shell_output($durationCmd);
 				
