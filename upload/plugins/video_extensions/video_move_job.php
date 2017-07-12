@@ -91,12 +91,14 @@
 				$durationCmd="mediainfo --Inform='General;%Duration%' '".$dstFullpath."'";
 				echo "\n>>>\t".$durationCmd."\n";
 
-				$output = shell_output($durationCmd);
+				$output = floatval(shell_output($durationCmd))/1000;
+				//$output = shell_output($durationCmd);
 				
 				echo "\n\t".$output."\n";
 				
 				$query='UPDATE '.table("video").' SET `duration`='.$output.', `status` = "Successful" WHERE `videoid`='.$res["idvideo"];
 				echo "\n\t".$query."\n";
+				$db->Execute($query);
 				
 				
 			}
