@@ -320,9 +320,9 @@ class VideoGrouping extends CBCategory{
 				$cond .= " ".$params['cond']." ";
 		}
 		if(!$params['count_only']) {
-			$query="SELECT g.id,g.name,g.grouping_type_id,g.name,g.place,g.description,g.in_menu,g.in_homepage,g.color,
-				g.thumb_url,gt.name as grouping_type_name FROM ".tbl("vdogrouping") ." AS g ,".tbl("vdogrouping_type")." AS gt
-				WHERE g.grouping_type_id = gt.id ";
+			$query="SELECT g.id,g.name,g.grouping_type_id,g.place,g.description,g.in_menu,g.in_homepage,g.color,
+				g.thumb_url,gt.name as grouping_type_name FROM ".tbl("vdogrouping") ." AS g ".
+				"INNER JOIN ".tbl('vdogrouping_type')." AS gt ON g.grouping_type_id = gt.id WHERE 1 ";
 			
 			if ($cond)
 				$query .= ' AND '.$cond; // the "WHERE" statement is defined in the lines above
@@ -335,7 +335,7 @@ class VideoGrouping extends CBCategory{
 			$result = $db->_select($query);
 		}
 		if($params['count_only']){
-			$result = $db->count(tbl('vdogrouping')." AS vdogrouping ",'id',$cond);
+			$result = $db->count(tbl('vdogrouping')." AS g INNER JOIN ".tbl('vdogrouping_type')." AS gt ON g.grouping_type_id = gt.id",'g.id',$cond);
 		}
 		if($params['assign'])
 			assign($params['assign'],$result);
@@ -604,7 +604,12 @@ class VideoGrouping extends CBCategory{
 				$cond .= ' AND ';
 				$cond .= " ".$params['cond']." ";
 		}
-	
+		if($params['cond2']) {
+			if($cond!='')
+				$cond .= ' AND ';
+				$cond .= " ".$params['cond2']." ";
+		}
+		
 	
 		if(!$params['count_only']) {
 
@@ -628,8 +633,8 @@ class VideoGrouping extends CBCategory{
 					$result = $db->_select($query);
 		}
 		if($params['count_only']){
-			$result = $db->count(tbl('vdogrouping')." AS vdogrouping ",'*',$cond);
-		}
+			$result = $db->count(tbl('vdogrouping')." AS vdogrouping INNER JOIN ".tbl('vdogrouping_type')." AS vdogrouping_type ON vdogrouping.grouping_type_id = vdogrouping_type.id",'vdogrouping.id',$cond);
+			}
 		if($params['assign'])
 			assign($params['assign'],$result);
 			return $result;
