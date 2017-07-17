@@ -1428,7 +1428,7 @@
 	line-height:25 px;
 	margin:0 0 16px;
 	font: 500 2.14286em/1 arvoregular, Rockwell, rokkittregular, Tahoma, Verdana, Segoe, sans-serif;
-	color:#032e5a;
+	color:#002d59;
 }
 
 .view-details header.details .user-video-info,.video-details header.details .user-video-info{
@@ -3727,7 +3727,7 @@
 }
 
 #menu_pied_page {
-	background: #032e5a;
+	background: #002d59;
 	clear: both;
 	color: #fff;
 	list-style: none;
@@ -3790,7 +3790,7 @@
 
 
 #pied_page_retour {
-	color: #032e5a;
+	color: #002d59;
 	font-size: 14px;
 	text-transform: uppercase;
 	left: 2em;
@@ -3810,7 +3810,7 @@
 }
 
 #menu_langues {
-	color: #032e5a;
+	color: #002d59;
 	float: right;
 	font-size: 1.14286em;
 	line-height: 1.7;
@@ -3833,7 +3833,7 @@
 }
 
 #bandeau {
-	background: #032e5a;
+	background: #002d59;
 	color: #fff;
 	font-family: sansationregular, Tahoma, Verdana, Segoe, sans-serif;
 	margin: 0 0 2.5em;
@@ -3841,7 +3841,7 @@
 	padding: 0 1em;
 	position: relative;
 	text-transform: uppercase;
-	background-color: #032e5a;
+	background-color: #002d59;
 }
 
 #header > span {
@@ -3882,7 +3882,7 @@
 
 #reseaux_sociaux a {
 	color: #fff;
-	background: #032e5a;
+	background: #002d59;
 }
 
 #reseaux_sociaux img {
@@ -3890,7 +3890,7 @@
 }
 
 #portails_ent {
-	color: #032e5a;
+	color: #002d59;
 	float: right;
 	margin: -2.5em 0 0;
 	position: relative;
@@ -3932,7 +3932,7 @@
 }
 
 #meta_menu_tabs a {
-	color: #032e5a;
+	color: #002d59;
 }
 
 #meta_menu_tabs .meta_menu_contenu {
@@ -3987,13 +3987,13 @@
 #meta_menu_button > li {
 	background: transparent;
 	border: 0;
-	color: #032e5a;
+	color: #002d59;
 	margin: 0;
 }
 
 #meta_menu_button > li a {
 	background: #e5e5e5;
-	color: #032e5a;
+	color: #002d59;
 	font-size: .85714em;
 	line-height: 1.41667;
 	font-weight: 500;
@@ -4027,7 +4027,7 @@
 }
 
 #meta_menu ul:not([class]):not([id]) li:before{
-	background:url('../images/puce.svg') no-repeat scroll 0 0 #032e5a;
+	background:url('../images/puce.svg') no-repeat scroll 0 0 #002d59;
  	content:"";
 	display:inline-block;
 	height:6px;
@@ -4052,7 +4052,7 @@
 
 
 #portails_ent, #meta_menu_button > li, #meta_menu_button > li a, #meta_menu_tabs a {
-	color: #032e5a;
+	color: #002d59;
 }
 
 /* ******************************************************************
@@ -4093,7 +4093,7 @@ img{
 
 a{
 	text-decoration:none;
-	color:#032e5a
+	color:#002d59
 }
 
 a:hover{
@@ -4187,12 +4187,12 @@ select, textarea, input[type="submit"], input[type="reset"], input[type="button"
 select:focus, select:active, textarea:focus, textarea:active, input[type="submit"]:focus, input[type="submit"]:active, input[type="reset"]:focus, input[type="reset"]:active,
 input[type="button"]:focus, input[type="button"]:active, input[type="password"]:focus, input[type="password"]:active, input[type="text"]:focus, input[type="text"]:active,
 input[type="email"]:focus, input[type="email"]:active, input[readonly]:focus, input[readonly]:active, button:focus, button:active, .button:focus, .button:active {
-	border-color: #032e5a;
+	border-color: #002d59;
 }
 
 input[type="submit"], input[type="reset"], input[type="button"], .submit, .reset, .button, button {
-	border-color: #032e5a;
-	color: #032e5a;
+	border-color: #002d59;
+	color: #002d59;
 	background-color: #f4f4f4;
 	cursor: pointer;
 	display: inline-block;
@@ -4221,8 +4221,8 @@ h1, .h1 {
 
 h1{
 	font-size: 23px;
-/*	background: #032e5a;*/
-	color: #032e5a;
+/*	background: #002d59;*/
+	color: #002d59;
 	font: 500 2.14286em/1 arvoregular, Rockwell, rokkittregular, Tahoma, Verdana, Segoe, sans-serif;
 	line-height: 23px;
 	margin: 0 0 .7em;
@@ -4280,9 +4280,9 @@ Snippet code pour titre h1 :
 }
 .container_fleche h1 {
 	font: 500 1.78571em Rockwell,rokkittregular,Tahoma,Verdana,Segoe,sans-serif;
-	border-bottom: 1em solid #032e5a;
+	border-bottom: 1em solid #002d59;
 	/*border-bottom: 3em solid #148cbc;*/
-	color: #032e5a;
+	color: #002d59;
 	/*color: #148cbc;*/
 	font: 500 1.78571em arvoregular,Rockwell,rokkittregular,Tahoma,Verdana,Segoe,sans-serif;
 	padding: 0;
@@ -4373,7 +4373,7 @@ Snippet code pour titre h1 :
   
 	#recherche_simple input[type="text"] {
 		background: #fff;
-		border-color: #032e5a;
+		border-color: #002d59;
 		padding-right: 8%;
 		width: 100%;
 	}
@@ -4383,7 +4383,7 @@ Snippet code pour titre h1 :
 	}
 
 	#recherche_simple .icon-search {
-		color: #032e5a;
+		color: #002d59;
 	}
   
 	#recherche_simple .icon-search span {
@@ -4415,12 +4415,12 @@ Snippet code pour titre h1 :
 
 	#menu_principal > li > a:hover, #menu_principal > li > em > a:hover {
 		color: #fff;
-		background: #032e5a;
+		background: #002d59;
 	}
 
 	#menu_principal > li > em > a {
 		color: #fff;
-		background: #032e5a;
+		background: #002d59;
 	}
 
 	#menu_principal > li > em + ul {
@@ -4444,7 +4444,7 @@ Snippet code pour titre h1 :
 	}
 
 	#recherche_simple input[type="text"], #menu_principal > li > em + ul {
-		border-color: #032e5a;
+		border-color: #002d59;
 	}
 
 	#recherche_simple input[type="text"]:focus, #recherche_simple input[type="text"]:active {
@@ -4453,11 +4453,11 @@ Snippet code pour titre h1 :
 
 	#recherche_simple .icon-search, .icon-home:before,
 	button[data-unfold-trigger] {
-		color: #032e5a;
+		color: #002d59;
 	}
 
 	#menu_principal > li > a:hover, #menu_principal > li > em > a, #menu_principal > li > em > a:hover {
-		background-color: #032e5a;
+		background-color: #002d59;
 	}
 }
 
@@ -4515,7 +4515,7 @@ Snippet code pour titre h1 :
 
 	#menu_principal > li {
 		font-size: 1.28571em;
-		border-left: 1px solid #032e5a;
+		border-left: 1px solid #002d59;
 		display: inline-block;
 		margin: 0;
 		padding: .75em 0 .25em;
@@ -4569,7 +4569,7 @@ Snippet code pour titre h1 :
 	}
 
 	#menu_principal li:hover a, #menu_principal a:hover, #menu_principal a:focus, #menu_principal em a {
-		color: #032e5a;
+		color: #002d59;
 	}
 
 	#menu_principal li:hover li a, #menu_principal ul a {
@@ -4578,7 +4578,7 @@ Snippet code pour titre h1 :
 	}
 
 	#menu_principal li:hover li a:hover, #menu_principal ul a:hover, #menu_principal ul a:focus, #menu_principal ul em a {
-		background-color: #032e5a;
+		background-color: #002d59;
 	}
 
 	#menu_principal:hover li em + ul {
@@ -4603,7 +4603,7 @@ Snippet code pour titre h1 :
 	}
 
 	#menu_principal > li {
-		border-left-color: #032e5a;
+		border-left-color: #002d59;
 	}
 
 	#menu_principal ul {
@@ -4611,7 +4611,7 @@ Snippet code pour titre h1 :
 	}
 
 	#menu_principal a, #menu_principal li:hover a, #menu_principal a:hover, #menu_principal a:focus, #menu_principal em a {
-		color: #032e5a;
+		color: #002d59;
 	}
 
 	#menu_principal > li > a:hover, #menu_principal > li > em > a, #menu_principal > li:hover > em > a, #menu_principal li:hover > a {
@@ -4619,7 +4619,7 @@ Snippet code pour titre h1 :
 	}
 
 	#menu_principal li:hover li a:hover, #menu_principal ul a:hover, #menu_principal ul a:focus, #menu_principal ul em a {
-		background-color: #032e5a;
+		background-color: #002d59;
 		color: #fff;
 	}
 }
