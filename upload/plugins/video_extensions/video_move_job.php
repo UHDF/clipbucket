@@ -31,7 +31,7 @@
 	// get all enconded videos file that have been connected to a video data 
 	$query='SELECT * FROM '.table("job").' WHERE `status`="Encoded" AND `idvideo` IS NOT NULL AND `idvideo`<>0';
 	$result=$db->_select($query);
-
+	echo count($result);
 	if (count($result)>0){
 		foreach ($result as $res){
 			echo date("Y-m-d H:i:s"); 
@@ -75,7 +75,7 @@
 					$dstFullpath=dirname(__FILE__)."/../../files/original/".$fileDirectory."/".$filename;
 				if ($table[0]==$prefixAudio)
 					$dstFullpath=dirname(__FILE__)."/../../files/videos/".$fileDirectory."/audio_".$filename;
-						else {
+				else {
 					$dstFullpath=dirname(__FILE__)."/../../files/videos/".$fileDirectory."/".$filename;
 					if ($table[0]!=$jobExtension)
 						$dstFullpath.="-".$table[0];
@@ -83,13 +83,22 @@
 				$dstFullpath.=".".$jobExtension;
 				echo "\tdstFullpath : ".$dstFullpath."\n";
 				$process = new Process("wget \"$srcFullpath\" -O \"$dstFullpath\"");
-				$query='UPDATE '.table("job").' SET `status` = "Completed" wHERE id="'.$res["id"].'"';
+				$query='UPDATE '.table("job").' SET `status` = "Completed" WHERE id="'.$res["id"].'"';
 				echo "\t".$query."\n";
 				$db->Execute($query);
 				
-				$durationCmd="ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 ".$dstFullpath;
-				$output = shell_output($durationCmd);
-				$query='UPDATE '.table("video").' SET `duration='.$output.'WHERE videoid`='.$res["idvideo"];
+				//$durationCmd="ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 ".$dstFullpath;
+				$durationCmd="mediainfo --Inform='General;%Duration%' '".$dstFullpath."'";
+				echo "\n>>>\t".$durationCmd."\n";
+
+				$output = floatval(shell_output($durationCmd))/1000;
+				//$output = shell_output($durationCmd);
+				
+				echo "\n\t".$output."\n";
+				
+				$query='UPDATE '.table("video").' SET `duration`='.$output.', `status` = "Successful" WHERE `videoid`='.$res["idvideo"];
+				echo "\n\t".$query."\n";
+				$db->Execute($query);
 				
 				
 			}

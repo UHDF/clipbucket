@@ -146,32 +146,39 @@ class VideoExtension extends CBCategory{
 		if (count($result)>0){
 			$fileName=$result[0]["file_name"];
 			$fileDirectory=$result[0]["file_directory"];
-			$query='SELECT * FROM '.table("job").' WHERE jobset="'.$jobset.'" AND (idvideo IS NULL OR idvideo=0)';
+			$query='SELECT * FROM '.table("job").' WHERE idvideo="'.$vid.'" AND jobset<>"'.$jobset.'"';
 			$result=$db->_select($query);
 			if (count($result)>0){
+				foreach ($result as $res) {
 
-				//Remove file of the same same if still exists
-				$jobName=$result[0]["name"];
-				$jobExtension=$result[0]["extension"];
-				$table=explode("_", $jobName);
-				if ($table[0]=="original")
-					$dstFullpath=dirname(__FILE__)."/../../files/original/".$fileDirectory."/".$fileName;
-				if ($table[0]=="audio")
-					$dstFullpath=dirname(__FILE__)."/../../files/videos/".$fileDirectory."/audio_".$fileName;
-				else {
-					$dstFullpath=dirname(__FILE__)."/../../files/videos/".$fileDirectory."/".$fileName;
-					if ($table[0]!=$jobExtension)
-						$dstFullpath.="-".$table[0];
+					//Remove file of the same same if still exists
+					$jobName=$res["name"];
+					$jobExtension=$res["extension"];
+					$table=explode("_", $jobName);
+					if ($table[0]=="original")
+						$dstFullpath=dirname(__FILE__)."/../../files/original/".$fileDirectory."/".$fileName;
+					if ($table[0]=="audio")
+						$dstFullpath=dirname(__FILE__)."/../../files/videos/".$fileDirectory."/audio_".$fileName;
+					else {
+						$dstFullpath=dirname(__FILE__)."/../../files/videos/".$fileDirectory."/".$fileName;
+						if ($table[0]!=$jobExtension)
+							$dstFullpath.="-".$table[0];
+					}
+					$dstFullpath.=".".$jobExtension;
+					unlink($dstFullpath);
 				}
-				$dstFullpath.=".".$jobExtension;
-				unlink($dstFullpath);
+			}
+			
+			$query='SELECT * FROM '.table("job").' WHERE jobset="'.$jobset.'"';
+			$result=$db->_select($query);
+			if (count($result)>0){
 				
 				$originalVideoName=pathinfo($result[0]["originalsrc"],PATHINFO_BASENAME);
-				$query='UPDATE '.table("job").' SET idvideo = '.$vid.' WHERE jobset="'.$jobset.'" AND (idvideo IS NULL OR idvideo=0)';
-				//$db->Execute($query);
+				$query='UPDATE '.table("job").' SET idvideo = '.$vid.' WHERE jobset="'.$jobset.'"';
+				$db->Execute($query);
 				$query='UPDATE '.table("video").' SET original_videoname = "'.$originalVideoName.'" WHERE videoid="'.$vid.'"';
 			
-				//$db->Execute($query);
+				$db->Execute($query);
 			}
 		}
 		

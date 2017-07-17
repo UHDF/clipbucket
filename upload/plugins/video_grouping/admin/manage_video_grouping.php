@@ -140,8 +140,9 @@ elseif(isset($_POST['updateGrouping'])){
 }
 /** Run after a post action called 'filter' (used to filter list of external documents) */
 elseif(isset($_POST['filter'])){
-	$filtercond=" g.name like '%".$_POST['name']."%'";
+	$filtercond=" g.name like '%".$_POST['name']."%' AND gt.name LIKE '%".$_POST['type']."%'";
 	assign('searchname',$_POST['name']);
+	assign('searchtype',$_POST['type']);
 	assign('showfilter',true);
 	assign('showedit2',false);
 }
@@ -163,6 +164,7 @@ $grp = $videoGrouping->getGroupings($result_array);
 /** Collecting Data for Pagination */
 $mcount = $array;
 $mcount['count_only'] = true;
+if ($filtercond) $mcount['cond']=$filtercond;
 $total_rows  = $videoGrouping->getGroupings($mcount);
 $total_pages = count_pages($total_rows,RESULTS);
 /** Pagination */

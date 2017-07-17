@@ -11,24 +11,52 @@
 	</script>
 		{$row = $myquery->Get_Website_Details()}
 		<!-- YB home selection -->
+									aaaaa{$editor_picks|@count}
 		<div class="row">
 			<div class="col-xs-12">
 			<div id="videolist-container" class="clearfix grid videos">
 				<div class="grid-sizer"></div>
 				{if $videoGrouping}
 					{assign var="grps" value=$videoGrouping->getGroupingsInHomePage()}
-					{if $editor_picks and $grps|@count<$editor_picks|@count}
+					{if $grps|@count<1}
+						{if $editor_picks}
+							{section name=ep_list loop=$editor_picks}
+								{include file="$style_dir/blocks/videos/video-index.html" video=$editor_picks[ep_list]}
+							{/section}
+						{else}
+						{/if}
+					{elseif $editor_picks and $grps|@count<=$editor_picks|@count}
 						{math equation=floor($editor_picks|@count/$grps|@count) assign="frac"}
 						{assign var="cpt" value=0}
 						{assign var="indgrp" value=0}
 						{for $ind=0 to $editor_picks|@count-1}
-							{if $cpt>$frac}
+							{if $cpt>=$frac}
 								{include file="$style_dir/blocks/videos/video-index.html" grp=$grps[$indgrp]}
 								{assign var="indgrp" value=$indgrp+1}
+								{assign var="cpt" value=0}
 							{/if}
 							{include file="$style_dir/blocks/videos/video-index.html" video=$editor_picks[$ind]}
 							{assign var="cpt" value=$cpt+1}
 						{/for}
+						{if $indgrp<$grps|@count}
+							{include file="$style_dir/blocks/videos/video-index.html" grp=$grps[$indgrp]}
+						{/if}
+					{elseif $editor_picks and $grps|@count>$editor_picks|@count}
+						{math equation=floor($grps|@count)/$editor_picks|@count assign="frac"}
+						{assign var="cpt" value=0}
+						{assign var="indgrp" value=0}
+						{for $ind=0 to $grps|@count-1}
+							{if $cpt>=$frac}
+								{include file="$style_dir/blocks/videos/video-index.html" video=$editor_picks[$indgrp]}
+								{assign var="indgrp" value=$indgrp+1}
+								{assign var="cpt" value=0}
+							{/if}
+							{include file="$style_dir/blocks/videos/video-index.html" grp=$grps[$ind]}
+							{assign var="cpt" value=$cpt+1}
+						{/for}
+						{if $indgrp<$editor_picks|@count}
+								{include file="$style_dir/blocks/videos/video-index.html" video=$editor_picks[$indgrp]}
+						{/if}
 					{else}
 						{section name=ep_list loop=$grps}
 							{include file="$style_dir/blocks/videos/video-index.html" grp=$grps[ep_list]}
