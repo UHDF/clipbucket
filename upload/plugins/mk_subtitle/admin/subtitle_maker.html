@@ -51,10 +51,9 @@
 					<h2>{lang code="mksub_draft"}</h2>
 
 					{lang code="mksub_state"} : <span id="draftEtat">{$savedSub} / {$nbMarker}</span><br>
-					<progress id="draftProgressBar" value="{$savedSub}" max="{$nbMarker}" style="width: 100%;"></progress> 
+					<progress id="draftProgressBar" value="{$savedSub}" max="{$nbMarker}" style="width: 100%;"></progress>
 
-
-					{if $marker neq ''}
+					{*if $marker neq ''*}
 						<form method="POST" class="form-horizontal">
 							<div id="soundFinderResult" style="overflow:scroll; overflow-x:hidden; height:400px;margin-bottom:10px;">
 
@@ -114,7 +113,7 @@
 						<a href="#" onclick="javascript:myRemoveCue();">Remove all Cue</a>
 -->
 
-					{/if}
+					{*/if*}
 
 				</div>
 
@@ -309,13 +308,40 @@
 			url 	  	: "../plugins/mk_subtitle/sound_finder.php",
 			data		: formData,
 			dataType	: "html",
+			beforeSend : function(q){
+				document.querySelector("#draftProgressBar").removeAttribute('value');
+			},
 			success : function(q)
 			{	
-				$("#soundFinderResult").html(q);
-				
+				var result = q;
+				var i = 0;
+				var ret = '';
+
+				var object = $.parseJSON(result);
+
+				for (i = 0; i < object.phrases.length; i++){
+					ret += mkInput(object.phrases[i].id, object.phrases[i].humanbegin, object.phrases[i].begin, object.phrases[i].humanend, object.phrases[i].end, object.phrases[i].duration, object.phrases[i].onfocus);
+				}
+
+				$("#soundFinderResult").html(ret);
+				$("#nbMarker").val(object.nbmarker);
+
+				$("#draftEtat").html('0 / ' + object.nbmarker);
+				document.querySelector("#draftProgressBar").max = object.nbmarker;
+				document.querySelector("#draftProgressBar").value = 0;
 			}
 		});
 	}
+
+
+	function mkInput(id, humanbegin, begin, humanend, end, duration, onfocus){
+
+		return '<div class="control-group"><label for="phrase'+id+'" class="control-label">'+humanbegin+' --> '+humanend+' - duration : '+duration+'</label><div class="form-inline"><input type="text"  class="form-control" name="phrase'+id+'" id="phrase'+id+'" onfocus="'+onfocus+';" onblur="inputStop();draftProgress();" onkeyup="infoSub('+id+');" value="" spellcheck="true"><span id="subinfo'+id+'" class="help-inline"></span></div></div>';
+
+	}
+
+
+
 
 
 	/*

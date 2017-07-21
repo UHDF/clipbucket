@@ -1,11 +1,8 @@
 <?php
-
-
 	/**
 	*	Some functions needed.
 	*/
 	require("functions.php");
-
 
 	/**
 	 *	Detect where audio on video by the silencedetect ffmpeg filter
@@ -35,14 +32,11 @@
 		*		[silencedetect @ 0x3316c80] silence_end: 11.0063 | silence_duration: 11.0276
 		*		[silencedetect @ 0x3316c80] silence_start: 14.0964
 		*
-		*
 		*/
 		$command = $ffmpeg_path.' -i '.$video.' -af silencedetect=n='.$threshold.'dB:d='.$durationSilence.' -f null - 2>&1 | grep silence > ../../files/marker/tmp.txt';
 
 		// Execute the command
 		$cmd = shell_exec($command);
-
-
 
 		/**
 		*	Processing the temporary files
@@ -107,10 +101,6 @@
 			$arr[] = $t;
 		}
 
-
-
-
-
 		/**
 		*	Replace and delete where difference less than 1 seconds.
 		*/
@@ -124,8 +114,6 @@
 				}
 			}
 		}
-
-
 
 		/**
 		*	Write the marker file.
@@ -148,46 +136,41 @@
 
 	}
 	else{
-		echo 'No video found !';
+//		echo 'No video found !';
 	}
-
-
 ?>
 
-	<form method="POST">
-		
-	<?php
+{"phrases":[
+<?php
 
-		// Read the file (FILE_IGNORE_NEW_LINES delete the carriage return at end of line).
-		$lines = file($output, FILE_IGNORE_NEW_LINES);
+	// Read the file (FILE_IGNORE_NEW_LINES delete the carriage return at end of line).
+	$lines = file($output, FILE_IGNORE_NEW_LINES);
 
-		foreach ($lines as $line_num => $line) {
+	foreach ($lines as $line_num => $line) {
 
-			$t = explode("\t", $line);
+		$t = explode("\t", $line);
 
-			$begin = substr($t[0],0,(strpos($t[0], ".")+4));
-			$end = substr($t[1],0,(strpos($t[1], ".")+4));
+		$begin = substr($t[0],0,(strpos($t[0], ".")+4));
+		$end = substr($t[1],0,(strpos($t[1], ".")+4));
 
-			echo '<div class="control-group">';
-				echo '<label for="phrase'.$t[2].'" class="control-label">';
+		echo '
+			{
+				"id": "'.$t[2].'",
+				"humanbegin": "'.$t[0].'",
+				"humanend": "'.$t[1].'",
+				"begin": "'.$begin.'",
+				"end": "'.$end.'",
+				"duration": "'.round(($end-$begin), 2).'",
+				"onfocus":"inputPlay(\''.($t[0]-$delayBefore).'\', \''.($t[1]+$delayAfter).'\')"
+			}
+		';
 
-					echo secondToTime($begin).' --> '.secondToTime($end).' - Durée : '.round(($end-$begin), 2).'<br>';
-				echo '</label>';
-
-				echo '<div class="form-inline">';
-
-					echo "\n";
-					echo '<input type="text" class="form-control" name="phrase'.$t[2].'" id="phrase'.$t[2].'" size="80" onfocus="inputPlay('.($t[0]-$delayBefore).', '.($t[1]+$delayAfter).');" onblur="inputStop();" '.((isset($t[3])) ? 'value ="'.$t[3].'"' : '').'><br>';
-					echo "\n";
-
-					echo '<span id="subinfo'.$t[2].'" class="help-inline"></span>';
-				echo '</div>';
-			echo '</div>';
-
+		if ($line_num < (count($lines)-1)){
+			echo ',';
 		}
+	}	// end foreach
 
-		echo '<input type="hidden" name="nbMarker" id="nbMarker" value="'.count($lines).'">';
+	echo '],';
+	echo '"nbmarker": "'.count($lines).'",';		// nbMarker
 ?>
-
-		<input type="submit" name="saveMarker" value="Envoyer">
-	</form>
+"datatime": ""}
