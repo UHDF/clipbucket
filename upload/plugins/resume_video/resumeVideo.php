@@ -271,12 +271,21 @@ var VideoPlayerTracker = {
 }
 
 
-VideoPlayerTracker.initialize(
-	videojs('cb_video_js'),
-	RequestUtils.queryParam("time"),
-	RequestUtils.queryParam("stop"),
-	RequestUtils.queryParam("autoplay")
-);
+/* 
+* Use only if the video id is the one we want. 
+* Due to rtmp modification, a switch write a 
+* video tag with other id
+*/
+if (document.querySelector("#cb_video_js")){
+
+	VideoPlayerTracker.initialize(
+		videojs('cb_video_js'),
+		RequestUtils.queryParam("time"),
+		RequestUtils.queryParam("stop"),
+		RequestUtils.queryParam("autoplay")
+	);
+
+}
 </script>
 
 <?php 

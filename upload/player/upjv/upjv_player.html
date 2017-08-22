@@ -33,6 +33,12 @@
 <script src="{$upjv_player_v2_url}/app/js/video.min.js"></script>
 {/if}  
 
+
+
+
+
+
+
 <!-- 
 <script src="{$upjv_player_v2_url}/app/js/video_js_custom.js"></script>
  -->
@@ -51,29 +57,60 @@
 </script>
 
 
-<!--
-	  BALISE VIDEO HTML 5 height="{$height}" width="{$width}"
--->
-<video id="cb_video_js" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="{$preload}" poster="{getThumb vdetails=$vdata size=big}">
+<!-- RESSOURCES -->
+{if substr($video_files[0], 0,4) neq 'rtmp'}
+	<!--
+		BALISE VIDEO HTML 5 height="{$height}" width="{$width}"
+	-->
+	<video id="cb_video_js" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="{$preload}" poster="{getThumb vdetails=$vdata size=big}">
+
+		{foreach $video_files as $file}
+			{$quality = get_upjv_quality($file)}
+
+			{if $flv_vid == true}
+			<source src='{$file}' type="video/x-flv" />
+			{else}
+			<source src='{$file}' type="video/mp4" label="{strtoupper($quality)}" res="{$quality}" />
+			{/if}
+		{/foreach}
+
+		<!-- Use by Subtitle Maker plugin -->
+		{ANCHOR place="getSubtitleVtt" data=$vdata}
+
+		{ANCHOR place="play_def_sub"}
+
+		<p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+	</video>
+
+<!-- STREAMING -->
+{else}
+
+	<video
+		id="my-video"
+		class="video-js vjs-default-skin vjs-big-play-centered"
+		controls
+		preload="none"
+		width="640"
+		height="480"
+		poster="{getThumb vdetails=$vdata size=big}"
+		data-setup='{ldelim}"techOrder": ["flash", "html5"],
+				"nativeControlsForTouch": true,
+				"controlBar": {ldelim} "muteToggle": false, "volumeControl": false,
+				"timeDivider": false,
+				"durationDisplay": false,
+				"progressControl": false {rdelim} {rdelim}'>
+		<source src="{$video_files[0]}" type="rtmp/mp4">
+
+		<p class="vjs-no-js">
+			To view this video please enable JavaScript, and
+			consider upgrading to a web browser that
+			<a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+		</p>
+	</video>
 
 
-    {foreach $video_files as $file}
-	    {$quality = get_upjv_quality($file)}
+{/if}
 
-	    {if $flv_vid == true}
-		<source src='{$file}' type="video/x-flv" />
-	    {else}
-		<source src='{$file}' type="video/mp4" label="{strtoupper($quality)}" res="{$quality}" />
-	    {/if}
-    {/foreach}
-	
-	<!-- Use by Subtitle Maker plugin -->
-    {ANCHOR place="getSubtitleVtt" data=$vdata}
-
-    {ANCHOR place="play_def_sub"}
-
-    <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
-</video>
 
 
 <!--
@@ -82,55 +119,69 @@
 <script type="text/javascript">
 	var default_res = "{$default_quality}";
 	var availablePlaySpeed = {$availablePlaySpeed};
+	var preloadValue = "auto";
+
+	var string = window.location.href, substring = "embed_player";
+
+	if (string.indexOf(substring) !== -1){
+		preloadValue = "none";
+	}
 </script>
 
-<script type="text/javascript">
-var preloadValue = "auto";
 
-var string = window.location.href, substring = "embed_player";
 
-if (string.indexOf(substring) !== -1){
-	preloadValue = "none";
-}
 
-	var player = videojs('cb_video_js', {
-		plugins: {
-			videoJsResolutionSwitcher: {
-				default: default_res,
-				dynamicLabel: false
+
+
+
+
+
+
+
+
+
+{if substr($video_files[0], 0,4) neq 'rtmp'}
+	<script type="text/javascript">
+		var player = videojs('cb_video_js', {
+			plugins: {
+				videoJsResolutionSwitcher: {
+					default: default_res,
+					dynamicLabel: false
+				}
+			},
+			preload: preloadValue,
+			playbackRates: availablePlaySpeed,
+			fluid: true,
+			LoadingSpinner: true,
+			BigPlayButton: true,
+			controlBar: {
+				muteToggle: false
+			},
+			html5: {
+				nativeTextTracks: false
 			}
-		},
-		preload: preloadValue,
-		playbackRates: availablePlaySpeed,
-		fluid: true,
-		LoadingSpinner: true,
-		BigPlayButton: true,
-		controlBar: {
-			muteToggle: false
-		},
-		html5: {
-			nativeTextTracks: false
-		}
+		});
+	</script>
+{/if}
+
+
+
+<script type="text/javascript">
+	$( document ).ready(function() {
+		//	var myplayer = videojs('cb_video_js');
+		//	console.log("Yep");
+		//	console.log(player);.buffered.length
+		/*
+			var buf = player.buffered();
+			var bufe = player.bufferedEnd();
+			var bufp = player.bufferedPercent();
+
+
+			setInterval(function(){
+				console.log("Buff : " + buf + " End : " + bufe + " % : " + bufp );
+			}, 1000);
+		*/
 	});
-
-
-$( document ).ready(function() {
-
-//	var myplayer = videojs('cb_video_js');
-//	console.log("Yep");
-//	console.log(player);.buffered.length
-
-	var buf = player.buffered();
-	var bufe = player.bufferedEnd();
-	var bufp = player.bufferedPercent();
-
-
-	setInterval(function(){
-		console.log("Buff : " + buf + " End : " + bufe + " % : " + bufp );
-	}, 1000);
-
-});
-
 </script>
 
 <!--
