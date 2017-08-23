@@ -160,6 +160,8 @@
 				"humanend": "'.$t[1].'",
 				"begin": "'.$begin.'",
 				"end": "'.$end.'",
+				"tbegin": "'.secondToTime($begin).'",
+				"tend": "'.secondToTime($end).'",
 				"duration": "'.round(($end-$begin), 2).'",
 				"onfocus":"inputPlay(\''.($t[0]-$delayBefore).'\', \''.($t[1]+$delayAfter).'\')"
 			}

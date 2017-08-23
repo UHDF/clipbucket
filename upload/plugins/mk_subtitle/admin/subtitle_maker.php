@@ -167,10 +167,12 @@ if (file_exists($marker)){
 			$end,						// 5 : Converted end
 			secondToTime($begin),		// 6 : Human reading converted begin
 			secondToTime($end),			// 7 : Human reading Converted end
-			round(($end-$begin), 2)		// 8 : Duration
+			round(($end-$begin), 2),	// 8 : Duration
+			$t[4]						// 9 : Subtitle alignement
 		);
 
-		if (isset($t[3])){
+		if (!empty($t[3])){
+//		if (isset($t[3])){
 			$savedSub++;
 		}
 

@@ -41,6 +41,20 @@ function addSubtitleMaker($vid){
  */
 function updateMarkerFile($marker){
 
+	$fp = fopen($marker, "w+");						// Open the draft file
+	fwrite($fp, $_POST["submarker"]);				// Write
+	fclose($fp);									// Close file
+
+}
+
+
+/**
+ * Update the draft file
+ *
+ * @param string $marker Path to the marker file
+ */
+function updateMarkerFileOLD($marker){
+
 	// Read files in array
 	$lines = file($marker, FILE_IGNORE_NEW_LINES);	// Read file in array (without break line)
 
@@ -95,7 +109,14 @@ function makeSubtitleFile($marker, $subtitle, $nbcar_by_line = 70){
 
 			// If sentence exist, write in subtitle file
 			if ($t[3] <> ''){
-				fwrite($fp, secondToTime($t[0])." --> ".secondToTime($t[1])."\n".$t[3]."\n\n");
+				$subline = secondToTime($t[0])." --> ".secondToTime($t[1]);
+				if (!empty($t[4])){
+					$subline .= " align:".$t[4]."";
+				}
+				$subline .= "\n".$t[3]."\n\n";
+				
+				fwrite($fp, $subline);
+
 			}
 
 		}

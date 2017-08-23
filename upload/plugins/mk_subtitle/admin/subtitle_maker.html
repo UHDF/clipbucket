@@ -53,67 +53,82 @@
 					{lang code="mksub_state"} : <span id="draftEtat">{$savedSub} / {$nbMarker}</span><br>
 					<progress id="draftProgressBar" value="{$savedSub}" max="{$nbMarker}" style="width: 100%;"></progress>
 
-					{*if $marker neq ''*}
-						<form method="POST" class="form-horizontal">
-							<div id="soundFinderResult" style="overflow:scroll; overflow-x:hidden; height:400px;margin-bottom:10px;">
+					<div id="soundFinderResult" style="overflow:scroll; overflow-x:hidden; height:400px;margin-bottom:10px;">
+						
+						{foreach from=$marker item=data}
+						
+						<div class="control-group">
+							<div class="row">
+								<div class="col-md-12">
+									<label for="phrase{$data[2]}" class="control-label">
+										{$data[6]} --> {$data[7]} - {lang code="duration"} : {$data[8]}
+									</label>
+								</div>
+							</div>
+							
+							<div class="row">
+								<div class="col-md-9">
 
-								{foreach from=$marker item=data}
-
-									<div class="control-group">
-										<label for="phrase{$data[2]}" class="control-label">
-											{$data[6]} --> {$data[7]} - {lang code="duration"} : {$data[8]}
-										</label>
-
-										<div class="form-inline">
-
-											<input type="text"  class="form-control" name="phrase{$data[2]}" id="phrase{$data[2]}" onfocus="inputPlay({$data[0]}, {$data[1]});" onblur="inputStop();draftProgress();" onkeyup="infoSub({$data[2]});" value="{$data[3]}" spellcheck="true">
-
-											<!--
-												Positionnement du sous titre
-											-->
-<!--
-											<div class="btn-group colors" data-toggle="buttons">
-												<label class="btn btn-primary btn-xs">
-													<input type="radio" name="options{$data[2]}" value="left" autocomplete="off" checked> Gauche
-												</label>
-
-												<label class="btn btn-primary btn-xs active">
-													<input type="radio" name="options{$data[2]}" value="" autocomplete="off"> Centre
-												</label>
-
-												<label class="btn btn-primary btn-xs">
-													<input type="radio" name="options{$data[2]}" value="right" autocomplete="off"> Droite
-												</label>
-											</div>
--->
-
-											<span id="subinfo{$data[2]}" class="help-inline"></span>
-										</div>
+									<div class="form-inline">
+										
+										<input type="text"  class="form-control" name="phrase{$data[2]}" id="phrase{$data[2]}" onfocus="inputPlay({$data[0]}, {$data[1]});" onblur="inputStop();draftProgress();" onkeyup="infoSub({$data[2]});" value="{$data[3]}" spellcheck="true">
+										
+										<span id="subinfo{$data[2]}" class="help-inline"></span>
 									</div>
-
-								{/foreach}
-							</div>
-
-							<div class="control-group">
-								<!-- For dynamically construct the subtitle -->
-								<input type="hidden" name="dataTime" id="dataTime" size="80" value="{foreach from=$marker item=data}{$data[2]},{$data[4]},{$data[5]};{/foreach}">
-
-								<!-- To construct the file -->
-								<input type="hidden" name="nbMarker" id="nbMarker" value="{$nbMarker}">
-								<input type="submit" name="saveMarker" class="btn btn-primary" value="{lang('saving')}">
 								
-								<input type="button" name="btnOverview" id="btnOverview" class="btn btn-primary" value="{lang('mksub_preview')}">
+								</div>
+								<div class="col-md-3">
+										<!--
+											Positionnement du sous titre
+										-->
+										<div class="btn-group colors" data-toggle="buttons">
+											<label class="btn btn-primary btn-xs{if $data[9] eq 'left'} active{/if}">
+												<input type="radio" name="options{$data[2]}" value="left" autocomplete="off"{if $data[9] eq 'left'} checked{/if}> Gauche
+											</label>
+											
+											<label class="btn btn-primary btn-xs{if $data[9] eq ''} active{/if}">
+											<input type="radio" name="options{$data[2]}" value="" autocomplete="off"{if $data[9] eq ''} checked{/if}> Centre
+											</label>
+											
+											<label class="btn btn-primary btn-xs{if $data[9] eq 'right'} active{/if}">
+												<input type="radio" name="options{$data[2]}" value="right" autocomplete="off"{if $data[9] eq 'right'} checked{/if}> Droite
+											</label>
+										</div>
 
-								<input type="submit" name="subtitlize" class="btn btn-primary" value="{lang('mksub_mksubfile')}">
+								</div>
+
 							</div>
+
+						</div>
+						
+						{/foreach}
+					</div>
+					
+					<div class="control-group">
+
+						<form method="POST" class="form-horizontal" onsubmit="movemarker();">
+							<!-- For dynamically construct the subtitle -->
+							<input type="hidden" name="dataTime" id="dataTime" size="80" value="{foreach from=$marker item=data}{$data[2]},{$data[4]},{$data[5]};{/foreach}">
+
+							<textarea name="submarker" id="submarker" cols="80" rows="20" style="display:none;left:-100000000px;"></textarea>
+							<br>
+
+							<!-- To construct the file -->
+							<input type="hidden" name="nbMarker" id="nbMarker" value="{$nbMarker}">
+							<input type="submit" name="saveMarker" class="btn btn-primary" value="{lang('saving')}">
+							
+							<input type="button" name="btnOverview" id="btnOverview" class="btn btn-primary" value="{lang('mksub_preview')}">
+
+							<input type="submit" name="subtitlize" class="btn btn-primary" value="{lang('mksub_mksubfile')}">
+
 						</form>
+					</div>
+
 <!--
 		DEBUG
 						<a href="#" onclick="javascript:myAddCue();">Test addCue</a>
 						<a href="#" onclick="javascript:myRemoveCue();">Remove all Cue</a>
 -->
-
-					{*/if*}
 
 				</div>
 
@@ -172,6 +187,41 @@
 
 {literal}
 <script language="JavaScript">
+
+
+	/**
+	*	Migrate the input into one textarea
+	*	The purpose of this function is to avoid the post input limit
+	*/
+	function movemarker(){
+		var nb = document.querySelector("#nbMarker");
+		var data = document.querySelector("#dataTime");
+		var submarker = document.querySelector("#submarker");
+		
+		var prevdata = data.value.split(";");
+
+		submarker.value = '';
+		
+		for (i = 0; i < parseInt(nb.value); i++){
+
+			var id = i+1;
+			console.log(i);
+			var tmpdata = prevdata[i].split(",");
+			var phrase = document.querySelector("#phrase"+id).value;
+			var subpos = $('input[name="options'+id+'"]:checked').val();
+
+			submarker.value += tmpdata[1]+"\t"+tmpdata[2]+"\t"+tmpdata[0]+"\t"+phrase.trim()+"\t";
+
+			if (subpos != "undefined"){
+				submarker.value += subpos;
+			}
+
+			submarker.value += "\n";
+
+		}
+
+	}
+
 
 	// get selection
 	/*
@@ -317,10 +367,18 @@
 				var i = 0;
 				var ret = '';
 
+				var dataTime = document.querySelector("#dataTime");
+
+				dataTime.value = '';
+
+
 				var object = $.parseJSON(result);
 
 				for (i = 0; i < object.phrases.length; i++){
-					ret += mkInput(object.phrases[i].id, object.phrases[i].humanbegin, object.phrases[i].begin, object.phrases[i].humanend, object.phrases[i].end, object.phrases[i].duration, object.phrases[i].onfocus);
+
+					ret += mkInput(object.phrases[i].id, object.phrases[i].humanbegin, object.phrases[i].begin, object.phrases[i].tbegin, object.phrases[i].humanend, object.phrases[i].end, object.phrases[i].tend, object.phrases[i].duration, object.phrases[i].onfocus);
+
+					dataTime.value += object.phrases[i].id+","+object.phrases[i].begin+","+object.phrases[i].end+";";
 				}
 
 				$("#soundFinderResult").html(ret);
@@ -334,9 +392,9 @@
 	}
 
 
-	function mkInput(id, humanbegin, begin, humanend, end, duration, onfocus){
+	function mkInput(id, humanbegin, begin, tbegin, humanend, end, tend, duration, onfocus){
 
-		return '<div class="control-group"><label for="phrase'+id+'" class="control-label">'+humanbegin+' --> '+humanend+' - duration : '+duration+'</label><div class="form-inline"><input type="text"  class="form-control" name="phrase'+id+'" id="phrase'+id+'" onfocus="'+onfocus+';" onblur="inputStop();draftProgress();" onkeyup="infoSub('+id+');" value="" spellcheck="true"><span id="subinfo'+id+'" class="help-inline"></span></div></div>';
+		return '<div class="control-group"><label for="phrase'+id+'" class="control-label">'+tbegin+' --> '+tend+' - duration : '+duration+'</label><div class="form-inline"><input type="text"  class="form-control" name="phrase'+id+'" id="phrase'+id+'" onfocus="'+onfocus+';" onblur="inputStop();draftProgress();" onkeyup="infoSub('+id+');" value="" spellcheck="true"><div class="btn-group colors" data-toggle="buttons"><label class="btn btn-primary btn-xs"><input type="radio" name="options'+id+'" value="left" autocomplete="off"> Gauche</label><label class="btn btn-primary btn-xs active"><input type="radio" name="options'+id+'" value="" autocomplete="off" checked> Centre</label><label class="btn btn-primary btn-xs"><input type="radio" name="options'+id+'" value="right" autocomplete="off"> Droite</label></div><span id="subinfo'+id+'" class="help-inline"></span></div></div>';
 
 	}
 
