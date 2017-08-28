@@ -33,8 +33,7 @@
 <script src="{$upjv_player_v2_url}/app/js/video.min.js"></script>
 {/if}  
 
-
-
+<script src="{$baseurl}/player/upjv/app/js/node_modules/videojs-contrib-hls/dist/videojs-contrib-hls.min.js"></script>
 
 
 
@@ -56,21 +55,43 @@
 	videojs.options.flash.swf = "{$upjv_player_v2_url}/app/swf/video-js.swf"
 </script>
 
+{assign var="vmimetype" value="video/mp4"}
+{assign var="playerid" value="cb_video_js"}
+{assign var="streamtype" value="mp4"}
+
+<!-- STREAMING -->
+{if substr($video_files[0], 0,4) eq 'rtmp'}
+	{assign var="vmimetype" value="rtmp/mp4"}
+	{assign var="playerid" value="video_js_rtmp"}
+	{assign var="streamtype" value="rtmp"}
+{/if}
+
+{if substr($video_files[0], (strlen($video_files[0])-4),4) eq 'm3u8'}
+	{assign var="vmimetype" value="application/x-mpegURL"}
+	{assign var="playerid" value="video_js_hls"}
+	{assign var="streamtype" value="hls"}
+{/if}
 
 <!-- RESSOURCES -->
 {if substr($video_files[0], 0,4) neq 'rtmp'}
 	<!--
 		BALISE VIDEO HTML 5 height="{$height}" width="{$width}"
 	-->
-	<video id="cb_video_js" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="{$preload}" poster="{getThumb vdetails=$vdata size=big}">
+	<video id="{$playerid}" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="{$preload}" poster="{getThumb vdetails=$vdata size=big}" height="480">
 
 		{foreach $video_files as $file}
 			{$quality = get_upjv_quality($file)}
 
 			{if $flv_vid == true}
-			<source src='{$file}' type="video/x-flv" />
+				<source src='{$file}' type="video/x-flv" />
 			{else}
-			<source src='{$file}' type="video/mp4" label="{strtoupper($quality)}" res="{$quality}" />
+			
+				{if substr($video_files[0], (strlen($video_files[0])-4),4) neq 'm3u8'}
+					<source src='{$file}' type="video/mp4" label="{strtoupper($quality)}" res="{$quality}" />
+				{else}
+					<source src='{$file}' type="{$vmimetype}" label="{strtoupper($quality)}" res="{$quality}" />
+				{/if}
+
 			{/if}
 		{/foreach}
 
@@ -85,21 +106,10 @@
 <!-- STREAMING -->
 {else}
 
-	<video
-		id="my-video"
-		style="width:100%"
-		class="video-js vjs-default-skin vjs-big-play-centered"
-		controls
-		preload="none"
-		width="640"
-		height="480"
+	<video id="{$playerid}" class="video-js vjs-default-skin vjs-big-play-centered"
+		controls preload="none"
 		poster="{getThumb vdetails=$vdata size=big}"
-		data-setup='{ldelim}"techOrder": ["flash", "html5"],
-				"nativeControlsForTouch": true,
-				"controlBar": {ldelim} "muteToggle": false, "volumeControl": false,
-				"timeDivider": false,
-				"durationDisplay": false,
-				"progressControl": false {rdelim} {rdelim}'>
+		style="width:100%" width="640" height="480">
 		<source src="{$video_files[0]}" type="rtmp/mp4">
 
 		<p class="vjs-no-js">
@@ -130,18 +140,7 @@
 </script>
 
 
-
-
-
-
-
-
-
-
-
-
-
-{if substr($video_files[0], 0,4) neq 'rtmp'}
+{if $streamtype eq 'mp4'}
 	<script type="text/javascript">
 		var player = videojs('cb_video_js', {
 			plugins: {
@@ -166,6 +165,27 @@
 {/if}
 
 
+{if $streamtype eq 'rtmp'}
+	<script type="text/javascript">
+		var player = videojs('video_js_rtmp', {
+			techOrder: ["flash", "html5"],
+			nativeControlsForTouch: true,
+			controlBar: {
+				muteToggle: false, "volumeControl": false,
+				timeDivider: false,
+				durationDisplay: false,
+				progressControl: false 
+			} 
+		});
+	</script>
+{/if}
+
+
+{if $streamtype eq 'hls'}
+	<script type="text/javascript">
+		var player = videojs('video_js_hls', '');
+	</script>
+{/if}
 
 <script type="text/javascript">
 	$( document ).ready(function() {
