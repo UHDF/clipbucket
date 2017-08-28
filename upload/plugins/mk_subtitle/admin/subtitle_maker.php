@@ -27,7 +27,6 @@ En Smarty :
 En Php :
 	lang("speaker_already_exists")
 
-
 */
 
 // Use the already existing functions
@@ -70,8 +69,8 @@ assign('data',$data);
 
 // Basic variable define
 //$video = BASEDIR.'/files/videos/FE90C9AC15AE-B3274B-8D85F3-FB8C01E7.mp4';
-$marker = BASEDIR.'/files/marker/marker_'.$data['videoid'].'.txt';
-$marker_meta = BASEDIR.'/files/marker/marker_meta_'.$data['videoid'].'.txt';
+$marker = BASEDIR.'/files/subtitle/marker/marker_'.$data['videoid'].'.txt';
+$marker_meta = BASEDIR.'/files/subtitle/marker/marker_meta_'.$data['videoid'].'.txt';
 $subtitle = BASEDIR.'/files/subtitle/subtitle_'.$data['videoid'].'.vtt';
 $subtitle_draft = BASEDIR.'/files/subtitle/subtitle_draft_'.$data['videoid'].'.vtt';
 

@@ -9,7 +9,7 @@
 	 */
 	// Get or define default parameters
 	$video = (isset($_POST['video'])) ? $_POST['video'] : '';
-	$output = (isset($_POST['marker'])) ? $_POST['marker'] : '../../files/marker/marker_no_video.txt';
+	$output = (isset($_POST['marker'])) ? $_POST['marker'] : '../../files/subtitle/marker/marker_no_video.txt';
 	$ffmpeg_path = (isset($_POST['ffmpeg_path'])) ? $_POST['ffmpeg_path'] : 'ffmpeg';
 	$threshold = (isset($_POST['threshold'])) ? $_POST['threshold'] : -26;
 	$durationSilence = (isset($_POST['durationSilence'])) ? $_POST['durationSilence'] : 0.1;
@@ -33,8 +33,8 @@
 		*		[silencedetect @ 0x3316c80] silence_start: 14.0964
 		*
 		*/
-		$command = $ffmpeg_path.' -i '.$video.' -af silencedetect=n='.$threshold.'dB:d='.$durationSilence.' -f null - 2>&1 | grep silence > ../../files/marker/tmp.txt';
-
+		$command = $ffmpeg_path.' -i '.$video.' -af silencedetect=n='.$threshold.'dB:d='.$durationSilence.' -f null - 2>&1 | grep silence > ../../files/subtitle/marker/tmp.txt';
+		
 		// Execute the command
 		$cmd = shell_exec($command);
 
@@ -42,7 +42,7 @@
 		*	Processing the temporary files
 		*/
 		// Read file (each line is a cell).
-		$lines = file('../../files/marker/tmp.txt');
+		$lines = file('../../files/subtitle/marker/tmp.txt');
 
 		$firstEnd = 0;
 		$cpt = 0;

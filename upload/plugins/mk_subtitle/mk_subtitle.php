@@ -148,7 +148,7 @@ function updateSubtitleFile($subtitle){
  * @param integer $vid The video database id (videoid)
  */
 function isMarker($vid){
-	return (file_exists(FILES_DIR."/marker/marker_".$vid.".txt")) ? true : false;
+	return (file_exists(FILES_DIR."/subtitle/marker/marker_".$vid.".txt")) ? true : false;
 }
 
 /**

@@ -19,7 +19,7 @@ if ($cbplugin->is_installed('common_library.php')){
 function installSubtitleMaker(){
 	// Create folder
 	$subtitle = BASEDIR.'/files/subtitle';
-	$marker = BASEDIR.'/files/marker';
+	$marker = BASEDIR.'/files/subtitle/marker';
 	
 
  	if (!file_exists($subtitle)){

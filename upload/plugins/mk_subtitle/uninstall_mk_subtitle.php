@@ -10,7 +10,7 @@ require_once('../includes/common.php');
 function uninstallSubtitleMakerDirectory(){
 	// Create folder
 	$subtitle = BASEDIR.'/files/subtitle';
-	$marker = BASEDIR.'/files/marker';
+	$marker = BASEDIR.'/files/subtitle/marker';
 	
 
  	if (is_dir($subtitle)){
