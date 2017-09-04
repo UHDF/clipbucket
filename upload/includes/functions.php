@@ -615,7 +615,7 @@
 			$cond .= $params['cond'];
 		}
 
-        $query = "SELECT * FROM ".tbl("comments".($params['sectionTable']?",".$params['sectionTable']:NULL));
+        $query = "SELECT *".", ".tbl("comments.userid")." AS "."c_userid"." FROM ".tbl("comments".($params['sectionTable']?",".$params['sectionTable']:NULL));
 
         if($cond) {
             $query .= " WHERE ".$cond;
@@ -627,16 +627,25 @@
         if($limit) {
             $query .=" LIMIT ".$limit;
         }
-
+        // pr($query,true);
 		if(!$params['count_only']) {
             $result = db_select($query);
         }
-
+        // pr($result,true);
 		if($params['count_only']) {
+			$cond = tbl("comments.type")."= '". $params['type'] ."'";
 			$result = $db->count(tbl("comments"),"*",$cond);
 		}
+		// pr($result,true);
 		if($result) {
+			
+
+			foreach ($result as $key=>$val) 
+			{
+			  $result[$key]['comment'] = html_entity_decode(stripslashes($result[$key]['comment']));
+			}
 			return $result;
+			
 		} else {
 			return false;						
 		}
@@ -2275,7 +2284,9 @@
 
 	function show_playlist_form($array) {
 		global $cbvid;
+		
 		assign('params',$array);
+		assign('type',$array['type']);
 		// decides to show all or user only playlists
 		// depending on the parameters passed to it
 		if (!empty($array['user'])) {
@@ -3156,6 +3167,8 @@
 				'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.2) Gecko/20070219 Firefox/3.0.0.2');
 				curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
 				curl_setopt($ch,CURLOPT_FOLLOWLOCATION,true);
+				curl_setopt($ch, CURLOPT_CONNECTTIMEOUT ,0); 
+				curl_setopt($ch, CURLOPT_TIMEOUT_MS, 600);
 				$contents = curl_exec($ch);
 				curl_close($ch);
 				
@@ -4582,6 +4595,17 @@
 				$cbfeeds->addFeed($feed);
 			}
 			break;
+			case "add_comment":
+			{
+
+				$feed['action'] = 'add_comment';
+				$feed['object'] = $array['object'];
+				$feed['object_id'] = $array['object_id'];		
+				$feed['uid'] = $userid;;
+				
+				$cbfeeds->addFeed($feed);
+			}
+			break;
 			case "upload_video":
 			case "add_favorite":
 			{
@@ -5403,7 +5427,7 @@
 	        "SA" => "South America"
 	    );
 	    if (filter_var($ip, FILTER_VALIDATE_IP) && in_array($purpose, $support)) {
-	        $ipdat = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=" . $ip));
+	        $ipdat = @json_decode(cb_curl("http://www.geoplugin.net/json.gp?ip=" . $ip));
 	        if (@strlen(trim($ipdat->geoplugin_countryCode)) == 2) {
 	            switch ($purpose) {
 	                case "location":
@@ -5823,6 +5847,21 @@
     		echo 'Caught exception: ',  $e->getMessage(), "\n";
     	}
 	}
+
+
+	function cb_curl($url)
+	{
+	  $ch = curl_init();
+	  $timeout = 5;
+	  curl_setopt($ch,CURLOPT_URL,$url);
+	  curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+	  curl_setopt($ch,CURLOPT_CONNECTTIMEOUT,$timeout);
+	  $data = curl_exec($ch);
+	  curl_close($ch);
+	  return $data;
+	}
+
+	
 
 
     include( 'functions_db.php' );
