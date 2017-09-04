@@ -61,7 +61,7 @@ class CBvideo extends CBCategory
             'videoid', 'videokey', 'userid', 'title','server_ip', 'description', 'tags', 'category','file_directory',
             'active', 'date_added', 'broadcast', 'rating', 'file_server_path', 'files_thumbs_path',
             'file_thumbs_count', 'duration', 'has_hq', 'has_mobile', 'views', 'file_name', 'rated_by',
-            'default_thumb', 'comments_count', 'last_viewed', 'featured', 'featured_date', 'status','re_conv_status','conv_progress'
+            'default_thumb', 'comments_count', 'last_viewed', 'featured', 'featured_date', 'status','re_conv_status','conv_progress','embed_code'
         );
 
         $cb_columns->object( 'videos' )->register_columns( $basic_fields );
@@ -476,10 +476,17 @@ class CBvideo extends CBCategory
 					$query_val[] = $array['embed_code'];
 				}
 			}
+			//changes made
+			//title index
 			$query_val[0] = str_replace('&lt;!--', '', $query_val[0]);
+			$query_val[0] = str_replace("'", "’", $query_val[0]);
+			//description index
 			$query_val[1] = str_replace('&lt;!--', '', $query_val[1]);
+			$query_val[1] = str_replace("'", "’", $query_val[1]);
+			//Tag index
 			$query_val[3] = strtolower($query_val[3]);
-
+			// $query_val[3] = str_replace("'", "’", $query_val[3]);
+			//changes made
 
 			
 			if(!userid())
@@ -1605,6 +1612,7 @@ class CBvideo extends CBCategory
 		$total 		= $params['total'];
 		$id 			= $params['id'];
 		$type 		= $params['type'];
+		$data_only 		= $params['data_only'];
 		
 		if (empty($ratings)) {
 			$ratings = $params['rated_by'];
@@ -1637,7 +1645,21 @@ class CBvideo extends CBCategory
 				$rating_msg = '<span class="msg">'.$rating_msg[0].'</span>';
 			}
 		}
-		
+			
+		if($data_only){
+			$data = array(
+					'perc'=>$perc,
+					'disperc'=>$disperc,
+					'id'=>$id,
+					'type'=>$type,
+					'id'=>$id,
+					'rating_msg'=>$rating_msg,
+					'likes'=>$likes,
+					'dislikes'=>($ratings-$likes),
+					'disable'=>$params['disable']
+				);
+			return $data;	
+		}
 		assign('perc',$perc);
 		assign('disperc',$disperc);
 		assign('id',$id);
