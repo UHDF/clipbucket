@@ -1,0 +1,17 @@
+<script type="text/javascript">
+{literal}
+
+$( document ).ready( function() {
+	$("#duration").parent().parent().prev().append("<div class=\"row\"><a class=\"btn btn-primary btn-sm dropdown-toggle pull-right\" style=\"margin:30px;\" onclick=\"getDuration(\'cb_video_js\');\" title=\"Recuperer le temps total de la video (en secondes)\">Renseigner le temps total de la video</a></div>");
+});
+
+
+function getDuration(player) {
+
+	theplayer = videojs(player);
+	var duration = theplayer.duration(); // Temps ecoule
+  console.log("duration : " + duration);
+	$("#duration").val(duration);	// *** On met la valeur de temps dans le champ input
+}
+{/literal}
+</script>
