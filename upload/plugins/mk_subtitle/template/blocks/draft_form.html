@@ -10,46 +10,40 @@
 		
 		<div class="control-group">
 			<div class="row">
-				<div class="col-md-12">
-					<label for="phrase{$data[2]}" class="control-label">
-						{$data[6]} --> {$data[7]} - {lang code="duration"} : {$data[8]}
-					</label>
-				</div>
-			</div>
-			
-			<div class="row">
 				<div class="col-md-9">
+					<div class="form-group">
+						<label for="phrase{$data[2]}" class="control-label">
+							{$data[6]} --> {$data[7]} - {lang code="duration"} : {$data[8]}
+						</label>
 
-					<div class="form-inline">
-						
 						<input type="text"  class="form-control" name="phrase{$data[2]}" id="phrase{$data[2]}" onfocus="inputPlay({$data[0]}, {$data[1]});" onblur="inputStop();draftProgress();" onkeyup="infoSub({$data[2]});" value="{$data[3]}" spellcheck="true">
 						
 						<span id="subinfo{$data[2]}" class="help-inline"></span>
 					</div>
-				
 				</div>
 				<div class="col-md-3">
-						<!--
-							Positionnement du sous titre
-						-->
-						<div class="btn-group colors" data-toggle="buttons">
-							<label class="btn btn-primary btn-xs{if $data[9] eq 'left'} active{/if}">
-								<input type="radio" name="options{$data[2]}" value="left" autocomplete="off"{if $data[9] eq 'left'} checked{/if}> Gauche
-							</label>
-							
-							<label class="btn btn-primary btn-xs{if $data[9] eq ''} active{/if}">
-							<input type="radio" name="options{$data[2]}" value="" autocomplete="off"{if $data[9] eq ''} checked{/if}> Centre
-							</label>
-							
-							<label class="btn btn-primary btn-xs{if $data[9] eq 'right'} active{/if}">
-								<input type="radio" name="options{$data[2]}" value="right" autocomplete="off"{if $data[9] eq 'right'} checked{/if}> Droite
-							</label>
-						</div>
+					<!--
+						Positionnement du sous titre
+					-->
+					<label class="control-label">
+						Position
+					</label>
 
+					<div class="btn-group colors" data-toggle="buttons">
+						<label class="btn btn-primary btn-xs{if $data[9] eq 'left'} active{/if}">
+							<input type="radio" name="options{$data[2]}" value="left" autocomplete="off"{if $data[9] eq 'left'} checked{/if}> Gauche
+						</label>
+						
+						<label class="btn btn-primary btn-xs{if $data[9] eq ''} active{/if}">
+						<input type="radio" name="options{$data[2]}" value="" autocomplete="off"{if $data[9] eq ''} checked{/if}> Centre
+						</label>
+						
+						<label class="btn btn-primary btn-xs{if $data[9] eq 'right'} active{/if}">
+							<input type="radio" name="options{$data[2]}" value="right" autocomplete="off"{if $data[9] eq 'right'} checked{/if}> Droite
+						</label>
+					</div>
 				</div>
-
 			</div>
-
 		</div>
 		
 		{/foreach}
