@@ -43,4 +43,4 @@ $pages->paginate($total_pages, $page);
 subtitle("Subtitle maker");
 
 // Output
-template_files(PLUG_DIR.'/mk_subtitle/admin/lstvideo.html',true);
+template_files(PLUG_DIR.'/mk_subtitle/template/lstvideo.html',true);
