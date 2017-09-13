@@ -1,190 +1,3 @@
-<h2>{lang code="mksub_title"}</h2>
-
-<div class="row">
-	<!-- 	PLAYER VIDEO 	-->
-	<div class="col-md-6">
-		{FlashPlayer vdetails=$data width='100%' height='100%' }
-	</div>
-	<div class="col-md-6">
-
-		<!-- Button trigger modal -->
-		<button type="button" class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#helpSubtitle">{lang code="help"}</button>
-
-		<div id="soundFinder">
-
-			<input type="hidden" name="video" id="video" size="80" value="{$video_file}">
-			<input type="hidden" name="marker" id="marker" size="80" value="{$marker_file}">
-			<input type="hidden" name="ffmpeg_path" id="ffmpeg_path" size="80" value="{$ffmpeg_path}">
-
-			<label for="threshold">{lang code="mksub_threshold"} : </label>
-			<input type="text" name="threshold" id="threshold" size="2" value="{$threshold}">dB<br>
-			<label for="durationSilence">{lang code="mksub_silencedurationmin"} : </label>
-			<input type="text" name="durationSilence" id="durationSilence" size="5" value="{$durationSilence}">{lang code="seconds"}<br>
-			<label for="delayBefore">{lang code="mksub_startplaying"} : </label>
-			<input type="text" name="delayBefore" id="delayBefore" size="5" value="{$delayBefore}">{lang code="seconds"}<br>
-			<label for="delayAfter">{lang code="mksub_stopplaying"} : </label>
-			<input type="text" name="delayAfter" id="delayAfter" size="5" value="{$delayAfter}">{lang code="seconds"}<br>
-
-			<button onclick="soundFinder();" title="Sound Finder">{lang code="mksub_findsentences"}</button><br>
-			<br>
-		</div>
-		
-	</div>
-</div>
-
-<br>
-
-<div class="row">
-	<div class="col-md-12">
-
-		<div class="tabbable">
-			<ul class="nav nav-tabs" id="myTab">
-				<li class="{if $tabactive eq ''}active{/if}"><a data-toggle="tab" href="#draft">{lang code="mksub_draft"}</a></li>
-				<li class="{if $tabactive == 'final'}active{/if}"><a data-toggle="tab" href="#final">{lang code="mksub_finalfile"}</a></li>
-			</ul>
-
-			<!-- 
-				Edition des sous titres
-			-->
-			<div class="tab-content">
-				<div id="draft" class="tab-pane{if $tabactive eq ''} active{/if}">
-					<h2>{lang code="mksub_draft"}</h2>
-
-					{lang code="mksub_state"} : <span id="draftEtat">{$savedSub} / {$nbMarker}</span><br>
-					<progress id="draftProgressBar" value="{$savedSub}" max="{$nbMarker}" style="width: 100%;"></progress>
-
-					<div id="soundFinderResult" style="overflow:scroll; overflow-x:hidden; height:400px;margin-bottom:10px;">
-						
-						{foreach from=$marker item=data}
-						
-						<div class="control-group">
-							<div class="row">
-								<div class="col-md-12">
-									<label for="phrase{$data[2]}" class="control-label">
-										{$data[6]} --> {$data[7]} - {lang code="duration"} : {$data[8]}
-									</label>
-								</div>
-							</div>
-							
-							<div class="row">
-								<div class="col-md-9">
-
-									<div class="form-inline">
-										
-										<input type="text"  class="form-control" name="phrase{$data[2]}" id="phrase{$data[2]}" onfocus="inputPlay({$data[0]}, {$data[1]});" onblur="inputStop();draftProgress();" onkeyup="infoSub({$data[2]});" value="{$data[3]}" spellcheck="true">
-										
-										<span id="subinfo{$data[2]}" class="help-inline"></span>
-									</div>
-								
-								</div>
-								<div class="col-md-3">
-										<!--
-											Positionnement du sous titre
-										-->
-										<div class="btn-group colors" data-toggle="buttons">
-											<label class="btn btn-primary btn-xs{if $data[9] eq 'left'} active{/if}">
-												<input type="radio" name="options{$data[2]}" value="left" autocomplete="off"{if $data[9] eq 'left'} checked{/if}> Gauche
-											</label>
-											
-											<label class="btn btn-primary btn-xs{if $data[9] eq ''} active{/if}">
-											<input type="radio" name="options{$data[2]}" value="" autocomplete="off"{if $data[9] eq ''} checked{/if}> Centre
-											</label>
-											
-											<label class="btn btn-primary btn-xs{if $data[9] eq 'right'} active{/if}">
-												<input type="radio" name="options{$data[2]}" value="right" autocomplete="off"{if $data[9] eq 'right'} checked{/if}> Droite
-											</label>
-										</div>
-
-								</div>
-
-							</div>
-
-						</div>
-						
-						{/foreach}
-					</div>
-					
-					<div class="control-group">
-
-						<form method="POST" class="form-horizontal" onsubmit="movemarker();">
-							<!-- For dynamically construct the subtitle -->
-							<input type="hidden" name="dataTime" id="dataTime" size="80" value="{foreach from=$marker item=data}{$data[2]},{$data[4]},{$data[5]};{/foreach}">
-
-							<textarea name="submarker" id="submarker" cols="80" rows="20" style="display:none;left:-100000000px;"></textarea>
-							<br>
-
-							<!-- To construct the file -->
-							<input type="hidden" name="nbMarker" id="nbMarker" value="{$nbMarker}">
-							<input type="submit" name="saveMarker" class="btn btn-primary" value="{lang('saving')}">
-							
-							<input type="button" name="btnOverview" id="btnOverview" class="btn btn-primary" value="{lang('mksub_preview')}">
-
-							<input type="submit" name="subtitlize" class="btn btn-primary" value="{lang('mksub_mksubfile')}">
-
-						</form>
-					</div>
-
-<!--
-		DEBUG
-						<a href="#" onclick="javascript:myAddCue();">Test addCue</a>
-						<a href="#" onclick="javascript:myRemoveCue();">Remove all Cue</a>
--->
-
-				</div>
-
-				<!-- 
-					Fichier final
-				-->
-				<div id="final" class="tab-pane{if $tabactive == 'final'} active{/if}">
-					
-					<h2>{lang code="mksub_finalfile"}</h2>
-					<p>{lang code="mksub_finalfiledesc"}</p>
-				
-					{if $subfile neq ''}
-						<form method="POST">
-							<div class="control-group">
-								<textarea name="subdata" id="subdata" cols="80" rows="20">{$subfile}</textarea><br>
-								<br>
-								<input type="submit" name="saveSubtitle" class="btn btn-primary" value="{lang('saving')}">
-								<input type="submit" name="deleteSubtitle" class="btn btn-primary" value="{lang('remove')}">
-							</div>
-						</form>
-					{/if}
-					
-				</div>
-
-			</div>
-		</div>
-
-	</div>
-</div>
-
-
-
-<!-- Temporary help -->
-<div class="modal fade" id="helpSubtitle" tabindex="-1" role="dialog" aria-labelledby="helpSubtitleLabel">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="myModalLabel">{lang code="mksub_title"} : {lang code="help"}</h4>
-			</div>
-
-			<div class="modal-body">
-				{lang code="mksub_helpcontent"}
-			</div>
-
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">{lang code="mksub_close"}</button>
-			</div>
-		</div>
-	</div>
-</div>
-
-
-
-
 {literal}
 <script language="JavaScript">
 
@@ -355,7 +168,7 @@
 		$("#soundFinderResult").html('<p>Traitement en cours...</p>');
 		$.ajax({
 			type	  	: "POST",
-			url 	  	: "../plugins/mk_subtitle/sound_finder.php",
+			url 	  	: "{/literal}{$baseurl}{literal}/plugins/mk_subtitle/sound_finder.php",
 			data		: formData,
 			dataType	: "html",
 			beforeSend : function(q){
@@ -399,9 +212,6 @@
 	}
 
 
-
-
-
 	/*
 		Testing dynamically adding the subtitle.
 	*/
@@ -434,12 +244,12 @@
 		var myCues = track.cues;		// array of current cues.
 		var i = myCues.length;			// Cues size
 
-        if (i > 0) {		// If array not empty
+		if (i > 0) {		// If array not empty
 			do {
 				track.removeCue(myCues[i]);	// Remove the object from cue list.
 				i = i - 1;
 			} while (i >= 0);
-        }
+		}
 
 		track.mode = "disabled";		// Hide the subtitle
 	}	// En of myRemoveCue

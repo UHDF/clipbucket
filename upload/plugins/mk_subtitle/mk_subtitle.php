@@ -33,6 +33,16 @@ function addSubtitleMaker($vid){
 	return '<li><a role="menuitem" href="'.SUBTITLE_MAKER_URL.'&video='.$idtmp.'">'.lang('mksub_title').'</a></li>';
 }
 
+/**
+ *	Test for public subtitlize
+ */
+function addPublicSubtitleMaker($vid){
+	$idtmp=$vid['videoid'];
+
+	return '<li><a role="menuitem" href="'.BASEURL.'/plugins/'.SUBTITLE_MAKER_BASE.'/public/subtitle_maker.php?video='.$idtmp.'">'.lang('mksub_title').'</a></li>';
+
+}
+
 
 /**
  * Update the draft file
@@ -235,7 +245,8 @@ Portion de code pour envoyer un email :
 if ($cbplugin->is_installed('common_library.php') && $userquery->permission[getStoredPluginName("mk_subtitle")]=='yes'){
 	$cbvid->video_manager_link[]='addSubtitleMaker';
 	add_admin_menu('Videos',lang('mksub_title'),'lstvideo.php',SUBTITLE_MAKER_BASE.'/admin');
-
+	
 }
 
+$cbvid->video_manager_links[]='addPublicSubtitleMaker';
 ?>

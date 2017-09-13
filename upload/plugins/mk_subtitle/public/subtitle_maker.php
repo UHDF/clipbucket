@@ -30,15 +30,45 @@ En Php :
 */
 
 // Use the already existing functions
-require_once '../includes/admin_config.php';
+/*
+require_once '../includes/config.inc.php';
 $userquery->admin_login_check();
 $userquery->login_check('admin_access');
 $pages->page_redir();
+*/
+
+
+
+
+
+define("THIS_PAGE","edit_video");
+define("PARENT_PAGE",'videos');
+
+require '../../../includes/config.inc.php';
+$userquery->logincheck();
+$pages->page_redir();
+
+
+$udetails = $userquery->get_user_details(userid());
+assign('user',$udetails);
+assign('p',$userquery->get_user_profile($udetails['userid']));
+
+$vid = mysql_clean($_GET['vid']);
+//get video details
+$vdetails = $cbvid->get_video_details($vid);
+
+
+
+/*
 
 require_once '../includes/classes/video.class.php';
 require_once '../includes/functions_video.php';
+
+*/
 	
 // Assigning page and subpage
+/*
+
 if(!defined('MAIN_PAGE')){
     define('MAIN_PAGE', 'Videos');
 }
@@ -46,6 +76,8 @@ if(!defined('MAIN_PAGE')){
 if(!defined('SUB_PAGE')){
     define('SUB_PAGE', 'Subtitle maker');
 }
+
+*/
 
 require(PLUG_DIR."/".SUBTITLE_MAKER_BASE."/functions.php");		// Require function file
 $video = mysql_clean($_GET['video']);							// Get th id of video
@@ -188,6 +220,7 @@ if (file_exists($subtitle)){
 	assign('subfile', $subdata);
 }
 
+subtitle(lang("vdo_edit_vdo"));
+template_files(PLUG_DIR.'/mk_subtitle/template/subtitle_maker_public.html');
+display_it();
 
-// Output
-template_files(PLUG_DIR.'/mk_subtitle/template/subtitle_maker_admin.html',true);
