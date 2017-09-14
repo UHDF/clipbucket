@@ -184,6 +184,12 @@
 									<input type="checkbox" {if $showedit2==true and $currentGroup.in_menu==1}checked{/if} name="groupingInMenu"> {lang("show_in_the_main_menu")}
 								</label>
 							</div>
+							<div class="checkbox">
+								<label> 
+									<input type="checkbox" {if $showedit2==true and $currentGroup.in_homepage==1}checked{/if} name="groupingInHomepage"> {lang("show_in_homepage")}
+								</label>
+							</div>
+							
 						</div>
 						<div class="col-sm-6">
 		
@@ -226,6 +232,8 @@
 							<div class="form-group">
 								<label for="title">{lang('name')} </label> 
 								<input name="name" class="form-control" type="text" class="input" id="name" value="{$searchname}" />
+								<label for="title">{lang('grouping_type')} </label> 
+								<input name="type" class="form-control" type="text" class="input" id="type" value="{$searchtype}" />
 							</div>
 						</div>
 					</div>
@@ -249,6 +257,7 @@
 							<th class="center-text">{lang("order")}</th>
 							<th>{lang("description")}</th>
 							<th class="center-text">{lang("in_the_menu")}</th>
+							<th class="head">{lang('in_homepage')}</th>
 							<th class="center-text">{lang("grouping_type")}</th>
 							<th class="center-text">{lang("thumbnail")}</th>
 							<th class="center-text">{lang("color")}</th>
@@ -268,6 +277,13 @@
 						<td>{$grp.description}</td>
 						<td class="center-text">
 							{if $grp.in_menu == '1'}
+								<span class="glyphicon glyphicon-ok"></span><span class="sr-only">oui</span>
+							{else}
+								<span class="glyphicon glyphicon-remove"></span><span class="sr-only">non</span>
+							{/if}
+						</td>
+						<td class="center-text">
+							{if $grp.in_homepage == '1'}
 								<span class="glyphicon glyphicon-ok"></span><span class="sr-only">oui</span>
 							{else}
 								<span class="glyphicon glyphicon-remove"></span><span class="sr-only">non</span>
@@ -297,6 +313,15 @@
 								{else if $video_groupings[list].in_menu == 0}
 									<li>
 										<a href="{$video_grouping_manage_page}&setInMenu=1&id={$grp.id}"><span class="glyphicon glyphicon-eye-open"></span> {lang("show_in_menu")}</a>
+									</li>
+								{/if}
+								{if $grp.in_homepage == 1}
+									<li>
+										<a href="{$video_grouping_manage_page}&setInHomepage=0&id={$grp.id}"><span class="glyphicon glyphicon-eye-close"></span> {lang("hide_from_homepage")}</a>
+									</li>
+								{else}
+									<li>
+										<a href="{$video_grouping_manage_page}&setInHomepage=1&id={$grp.id}"><span class="glyphicon glyphicon-eye-open"></span> {lang("show_in_homepage")}</a>
 									</li>
 								{/if}
 								<li>

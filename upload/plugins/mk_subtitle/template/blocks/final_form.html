@@ -1,0 +1,20 @@
+<!-- 
+	Fichier final
+-->
+<div id="final" class="tab-pane{if $tabactive == 'final'} active{/if}">
+	
+	<h2>{lang code="mksub_finalfile"}</h2>
+	<p>{lang code="mksub_finalfiledesc"}</p>
+
+	{if $subfile neq ''}
+		<form method="POST">
+			<div class="control-group">
+				<textarea name="subdata" id="subdata" cols="80" rows="20">{$subfile}</textarea><br>
+				<br>
+				<input type="submit" name="saveSubtitle" class="btn btn-primary" value="{lang('saving')}">
+				<input type="submit" name="deleteSubtitle" class="btn btn-primary" value="{lang('remove')}">
+			</div>
+		</form>
+	{/if}
+	
+</div>

@@ -1,5 +1,7 @@
 {$video=$vdo}
 {$type='video'}
+
+
 <div id="player-container" class="clearfix" role="main">
 	<div class="row">
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 html5_player_enlarge">
@@ -28,7 +30,7 @@
 				</div>
 				<div class="collapse row" id="collapseMetas" aria-expanded="false">
 					<section class="col-sm-8 col-xs-12">
-						<p>{description($video.description)}</p>
+						<p>{AutoLinkUrls($video.description|unescape:"html")}</p>
 						<ul class="documents nolist well">
 							<li>
 								<h5><span class="glyphicon glyphicon glyphicon-download-alt"></span> Téléchargements</h5>
@@ -64,7 +66,7 @@
 							<li>
 								<h5><span class="glyphicon glyphicon glyphicon-file"></span> Documents</h5>
 								<ul class="reset nolist">
-									<li><span class="no-link">{ANCHOR place="externalDocumentList" data=$video}</span></li>
+									{ANCHOR place="externalDocumentList" data=$video}
 								</ul>
 							</li>
 							<li>

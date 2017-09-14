@@ -29,6 +29,9 @@ function installChaptersTable() {
 		);
 }
 
+/**
+ * Add a Tab to the Edit Video Page
+ */
 function installChaptersEditTab() {
 	global $db;
 	$sql = 'INSERT INTO '.tbl("expand_video_manager")." (`evm_id`, `evm_plugin_url`, `evm_zone`, `evm_is_new_tab`, `evm_tab_title`)".

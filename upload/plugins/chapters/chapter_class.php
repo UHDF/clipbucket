@@ -4,13 +4,13 @@
  */ 
 require_once PLUG_DIR.'/extend_search/extend_video_class.php';
 
-// Global Object $speakerquery is used in the plugin
+// Global Object $chapter is used in the plugin
 $chapter = new Chapter();
 $Smarty->assign_by_ref('chapter', $chapter);
 
 
 /**
- * Class Containing actions for the speaker plugin 
+ * Class Containing actions for the chapter plugin 
  */
 class Chapter extends CBCategory{
 	private $basic_fields = array();
@@ -22,42 +22,20 @@ class Chapter extends CBCategory{
 		global $cb_columns;
 		$basic_fields = array('id', 'time','title', 'videoid');
 		$cb_columns->object( 'chapters' )->register_columns( $basic_fields );
-	}
-
-	/**
-	 * Function used to test if a speakers exists.
-	 * This function is testing the existance of firstname & lastname fields
-	 * 
-	 * @param array $array
-	 * 		a dictionnary that contains fields for a speaker. $_POST is used if empty
-	 * @return bool
-	 * 		true if speaker exists , otherwise false
-	 */
-	function searchChapter($array=NULL){
-		global $db;
-		if($array==NULL)
-			$array = $_POST;
-		$this->validateFormFields($array,false);
-		if(!error()) {
-			$firstname=$array['firstname'];
-			$lastname=$array['lastname'];
-			$req=" firstname like '%".$firstname."%' AND lastname like '%".$lastname."%'";
-			$res=$db->select(tbl('speaker'),'*',$req,false,false,false);
-			// test speaker's unicity
-			if (count($res)>0){
-				$s="";
-				for ($i=0; $i<count($res); $i++)
-					$s=$s.$res[$i]['firstname'].' '.$res[$i]['lastname'].', ';
-				e(lang("speaker_already_exists")." : ".$s,"w");
-				return true;
-			}
-			else {
-				e(lang("speaker_does_not_exist"),"m");
-				return false;
-			}
-		}
+		$this->init();
 	}
 	
+	/**
+	 * Call the parent init function and set a new search engine for videoGrouping into the global $CBucket variable
+	 */
+	function init() {
+		global $Cbucket;
+		$Cbucket->search_types['chapter'] = "chapter";
+		$Cbucket->configs['chapterSection']='yes';
+		global $multicategories;
+		$multicategories->addSearchObject("chapter");
+	}
+		
 	/**
 	 * Get all chapters of the specified video id 
 	 *
@@ -178,70 +156,9 @@ class Chapter extends CBCategory{
 		}
 	}
 	
-	/**
-	 * Test if speaker's id exists or not 
-	 *
-	 * @param int $id
-	 * 		the speaker's id
-	 * @return bool
-	 * 		true if speaker exists otherwise false
-	 */
-	function speakerExists($id){
-		global $db;
-		$result = $db->count(tbl('speaker'),"id"," id='".$id."'");
-		return ($result>0);
-	}
 	
-	
-	/**
-	 * Function used to get speaker details using it's id 
-	 *
-	 * @param int $id 
-	 * 		the speaker's id
-	 * @return array|bool 
-	 * 		a dictionary containig each fields for a speaker, false if no speaker found
-	 */
-	function getChapterDetails($id=NULL)	{
-		global $db;
-		$fields = tbl_fields(array('speaker' => array('*')));
-		$query = "SELECT $fields FROM ".cb_sql_table('speaker');
-		$query .= " WHERE speaker.id = '$id'";
-		$result = select($query);
-		Assign('speaker', $result);
-		
-		if ($result) {
-			$details = $result[0];
-			$fields = tbl_fields(array('speakerfunction' => array('id','description')));
-			$query = "SELECT $fields FROM ".cb_sql_table('speakerfunction');
-			$query .= " WHERE speakerfunction.speaker_id = '$id'";
-			$result = select($query);
-			for ($i=0; $i<count($result); $i++){
-				$arr=$result[$i];
-				$keys=array_keys($arr);
-				for ($j=0; $j<count($keys); $j++){
-					if ($keys[$j]=='id') $keys[$j]='role_id';
-					$details[$keys[$j]]=[];
-				}
-			}
-			for ($i=0; $i<count($result); $i++){
-				$arr=$result[$i];
-				$keys=array_keys($arr);
-				$values=array_values($arr);
-				for ($j=0; $j<count($keys); $j++){
-					if ($keys[$j]=='id') $keys[$j]='role_id';
-					$details[$keys[$j]][]=$values[$j];
-				}
-			}
-				
-			return $details;
-		}
-		return false;
-	}
-	
-
-
 /**
- 	 * Create initial array for speaker fields 
+ 	 * Create initial array for chapter fields 
  	 *
 	 * this will tell
 	 * array(
@@ -261,7 +178,7 @@ class Chapter extends CBCategory{
 	 *      )
 	 *
  	 * @param array $input 
- 	 * 		a dictionary with speaker's informations (if null $_POST is used)
+ 	 * 		a dictionary with chapter's informations (if null $_POST is used)
 	 * @param bool $strict
 	 * 		if true then field is requiered in the data form
  	 *	@return array 
@@ -315,10 +232,10 @@ class Chapter extends CBCategory{
 
 
 	/**
-	 * Validate speaker's administrion form fields (Add and Edit forms) 
+	 * Validate chapter's administrion form fields (Add and Edit forms) 
 	 *
  	 * @param  array $input 
- 	 * 		a dictionary with speaker's informations (if null $_POST is used)
+ 	 * 		a dictionary with chapter's informations (if null $_POST is used)
 	 *	@param bool $strict
 	 *		if true then field is requiered in the data form
 	 * @return 
@@ -364,10 +281,10 @@ class Chapter extends CBCategory{
 	 *
 	 * This variable can be extended extrernally
 	 */
-	var $reqTbls=array('video','users', 'speaker', 'speakerfunction', 'video_speaker');
+	var $reqTbls=array('video','users', 'chapters');
 	
 	/**
-	 * Array that contains all requiered table and fields fo a sql join
+	 * Array that contains all requiered table and fields for a sql join
 	 * 
 	 * each value of this table is an array like :
 	 * array('table1'=>'table1_name'.'field1' => 'field1_name', 'table2'=>'table2_name'.'field2' => 'field2_name')
@@ -375,9 +292,7 @@ class Chapter extends CBCategory{
 	 * This variable can be extended extrernally
 	 */
 	var $reqTblsJoin=array(array('table1'=>'users', 'field1'=>'userid','table2'=>'video','field2'=>'userid'),
-			array('table1'=>'speaker', 'field1'=>'id','table2'=>'speakerfunction','field2'=>'speaker_id'),
-			array('table1'=>'speakerfunction', 'field1'=>'id','table2'=>'video_speaker','field2'=>'speakerfunction_id'),
-			array('table1'=>'video_speaker', 'field1'=>'video_id','table2'=>'video','field2'=>'videoid')
+			array('table1'=>'chapters', 'field1'=>'videoid','table2'=>'video','field2'=>'videoid')
 		);
 
 	/**
@@ -386,7 +301,7 @@ class Chapter extends CBCategory{
 	 * in order to make a post treatment for requests that contains single quotes
 	 *
 	 */
-	var $reqFields="video.*,speaker.firstname,speaker.lastname,speaker.slug,users.userid,users.username";
+	var $reqFields="video.*,chapters.title,users.userid,users.username";
 	
 	/**
 	 * This method initilize the search engine for this class
@@ -409,7 +324,7 @@ class Chapter extends CBCategory{
 				'favorites'	=> " favorites DeSC"
 		);
 		$this->search->sort_by = 'datecreated';
-		$this->search->search_type['speaker'] = array('title'=>lang('speakers'));
+		$this->search->search_type['chapter'] = array('title'=>lang('chapter'));
 		//set tables for this plugin in extended search plugin
 		$this->search->reqTbls=$this->reqTbls;
 		//set tables associations for this plugin in extended search plugin
@@ -418,9 +333,7 @@ class Chapter extends CBCategory{
 		$this->search->searchFields=$this->reqFields;
 		//set search fields for this plugin in extended search plugin
 		$this->search->columns =array(
-			array('table'=>'speaker', 'field'=>'firstname','type'=>'LIKE','var'=>'%{KEY}%','op'=>'OR'),
-			array('table'=>'speaker', 'field'=>'lastname','type'=>'LIKE','var'=>'%{KEY}%','op'=>'OR'),
-			array('table'=>'speaker', 'field'=>'slug','type'=>'LIKE','var'=>'%{KEY}%','op'=>'OR'),
+			array('table'=>'chapters', 'field'=>'title','type'=>'LIKE','var'=>'%{KEY}%','op'=>'OR'),
 			array('field'=>'broadcast','type'=>'!=','var'=>'unlisted','op'=>'AND','value'=>'static'),
 			array('field'=>'status','type'=>'=','var'=>'Successful','op'=>'AND','value'=>'static')
 		);

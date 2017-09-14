@@ -136,6 +136,15 @@ function addLinkPendingVideoMenuEntry($vid){
 if ($cbplugin->is_installed('common_library.php') && $userquery->permission[getStoredPluginName("video_extensions")]=='yes')
 	$cbvid->video_manager_link[]='addLinkPendingVideoMenuEntry';
 
+/**
+ * insert js code into the HEADER of the edit_video.php page in order to add the "Link Pending video" into th "Actions" menu entry 
+ */
+if ($cbplugin->is_installed('common_library.php') &&
+		$userquery->permission[getStoredPluginName("video_extensions")]=='yes' &&
+		substr($_SERVER['SCRIPT_NAME'], -14, 14) == "edit_video.php"){
+			assign("videoid",$_GET['video']);
+			$Cbucket->add_admin_header(PLUG_DIR . '/video_extensions/admin/header2.html', 'global');
+}
 
 
 ?>

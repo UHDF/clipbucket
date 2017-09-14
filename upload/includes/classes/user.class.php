@@ -87,8 +87,13 @@ class userquery extends CBCategory{
 
 		$udetails = "";
 		
-		if($this->userid)
+		if($this->userid){
 			$udetails = $this->get_user_details($this->userid,true);
+			$user_profile = $this->get_user_profile($this->userid);
+			if ($udetails && $user_profile){
+				$udetails['profile'] = $user_profile;
+			}
+		}
 
 
 
@@ -1604,9 +1609,19 @@ class userquery extends CBCategory{
 				'is_remote' => $remote,
 			);
 
+			//pr($Cbucket->custom_user_thumb,true);
 			if( count( $Cbucket->custom_user_thumb ) > 0 ) {
 				
 		        $functions = $Cbucket->custom_user_thumb;
+
+		        if (in_array("social_app_avatar", $functions)) {
+				    $params["thumb_name"] = $udetails["avatar"];
+				    if ( empty($params["thumb_name"]) ){
+				    	$params["thumb_name"] = "no_avatar.png";
+				    }else{
+				    	$params["thumb_path"] = $params["thumb_path"].$udetails['userid']."/"; 
+				    }
+				}
 		        foreach( $functions as $func ) {
 		            if( function_exists( $func ) ) {
 		                $func_data = $func( $params );
@@ -3964,7 +3979,14 @@ class userquery extends CBCategory{
 				$cond .= ' AND ';
 			$cond .= " users.featured = '".$params['featured']."' ";
 		}
-		
+
+		if(!empty($params['search_username']))
+		{
+			if($cond!='')
+				$cond .= ' AND ';
+			$cond .= " users.username LIKE '%".$params['search_username']."%'";
+		}
+
 		//Email
 		if(!empty($params['username']))
 		{
@@ -4026,7 +4048,7 @@ class userquery extends CBCategory{
 
             $fields = array(
                 'users' => get_user_fields(),
-                'profile' => array( 'rating', 'rated_by', 'voters', 'first_name', 'last_name', 'profile_title', 'profile_desc'),
+                'profile' => array( 'rating', 'rated_by', 'voters', 'first_name', 'last_name', 'profile_title', 'profile_desc','city','hometown'),
             );
             $fields['users'][] = 'last_active';
             $fields['users'][] = 'total_collections';

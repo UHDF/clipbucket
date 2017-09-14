@@ -1,0 +1,84 @@
+<h2>{lang code="mksub_title"}</h2>
+
+<div class="row">
+	<!-- 	PLAYER VIDEO 	-->
+	<div class="col-md-6">
+		{FlashPlayer vdetails=$data width='100%' height='100%' }
+	</div>
+	<div class="col-md-6">
+
+		<!-- Button trigger modal -->
+		<button type="button" class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#helpSubtitle">{lang code="help"}</button>
+
+
+		<!-- 
+			Formulaire de configuration
+		-->
+		{include file="./blocks/soundfinder_form.html"}
+		
+	</div>
+</div>
+
+<br>
+
+<div class="row">
+	<div class="col-md-12">
+
+		<div class="tabbable">
+			<ul class="nav nav-tabs" id="myTab">
+				<li class="{if $tabactive eq ''}active{/if}"><a data-toggle="tab" href="#draft">{lang code="mksub_draft"}</a></li>
+				<li class="{if $tabactive == 'final'}active{/if}"><a data-toggle="tab" href="#final">{lang code="mksub_finalfile"}</a></li>
+			</ul>
+
+			<!-- 
+				Edition des sous titres
+			-->
+			<div class="tab-content">
+				
+				<!-- 
+					Edition des sous titres
+				-->
+				<div class="tab-content">
+					{include file="./blocks/draft_form.html"}
+					
+					<!-- 
+						Fichier final
+					-->
+					{include file="./blocks/final_form.html"}
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+</div>
+
+
+
+<!-- Temporary help -->
+<div class="modal fade" id="helpSubtitle" tabindex="-1" role="dialog" aria-labelledby="helpSubtitleLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">{lang code="mksub_title"} : {lang code="help"}</h4>
+			</div>
+
+			<div class="modal-body">
+				{lang code="mksub_helpcontent"}
+			</div>
+
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">{lang code="mksub_close"}</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<!-- 
+	Javascript
+-->
+{include file="./blocks/script.html"}

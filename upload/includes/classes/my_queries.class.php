@@ -691,6 +691,13 @@ class myquery {
 				$type='p';
 			}
 			break;
+
+			case "social":
+			case "s":
+			{
+				$type='s';
+			}
+			break;
 			
 			case "topic":
 			case "t":
@@ -778,7 +785,12 @@ class myquery {
 			$query .= " LIMIT $limit";
 
 			$results = db_select($query);
-                         
+            
+            foreach ($results as $key=>$val) 
+			{
+			  $results[$key]['comment'] = html_entity_decode(stripslashes($results[$key]['comment']));
+			}
+
 			 if(!$results)
 			 	return false;
 			 
@@ -792,6 +804,12 @@ class myquery {
 					$query = "SELECT * FROM ".tbl('comments');
 					$query .= " WHERE type='$type' $typeid_query AND parent_id='".$result['comment_id']."' ";
 					$replies = db_select($query);
+
+					foreach ($replies as $key=>$val) 
+					{
+					  $replies[$key]['comment'] = html_entity_decode(stripslashes($replies[$key]['comment']));
+					}
+					
 					if ($replies )
 					{
 						$replies = array("comments"=>$replies);

@@ -39,5 +39,5 @@
 		
 	}
 	else{
-		console.log(lang("chapter_no_action"));
+		//console.log(lang("chapter_no_action"));
 	}

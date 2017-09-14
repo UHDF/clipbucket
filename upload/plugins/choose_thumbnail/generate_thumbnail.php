@@ -150,8 +150,64 @@
 				else{
 				
 					$protocol = substr($data['remote_play_url'], 0, strpos($data['remote_play_url'], ":"));
-					//echo $protocol;
 					$protocol_enabled = shell_exec($ffmpeg_path." -protocols | grep ".$protocol);
+					
+					$pattern = '/'.$protocol.'/';
+					
+					if (preg_match($pattern, $protocol_enabled)){
+
+
+						// protocol OK
+
+
+						/**
+						*	On a toutes les informations, lancement de ffmpeg iminent !
+						*/
+						// Pour chaque dimensions
+						foreach ($thumbs_settings_28 as $key => $thumbs_size) {
+								
+							if ($key == 'original'){
+								// Nom du fichier final
+								$output = THUMBS_DIR.'/'.$file_name.'-original-'.$counter.'.jpg';
+								$command = $ffmpeg_path." -ss ".$time." -i ".$data['remote_play_url']." -f image2 -vframes 1 ".$output;
+							}
+							else{
+							
+								//$original = THUMBS_DIR.'/'.$file_dir.'/'.$file_name.'-original-'.$counter.'.jpg';
+
+								$original = THUMBS_DIR.'/'.$file_name.'-original-'.$counter.'.jpg';
+
+								$height_setting = $thumbs_size[1];
+								$width_setting = $thumbs_size[0];
+								$output = THUMBS_DIR.'/'.$file_name.'-'.$width_setting.'x'.$height_setting.'-'.$counter.'.jpg';
+							
+								// Pour eviter d'utiliser le fichier video
+								if (file_exists($original)){
+									$command = $ffmpeg_path." -i ".$original." -vf scale=".$width_setting.":".$height_setting." ".$output;
+								}
+								else{
+
+									$command = $ffmpeg_path." -ss ".$time." -i ".$data['remote_play_url']." -vf scale=".$width_setting.":".$height_setting." -an -r 1 -y -f image2 -vframes 1 ".$output;
+
+								}
+							}
+
+							/**
+							*	Creation des vignettes
+							*/
+							$cmd = shell_exec($command);
+
+						}
+
+
+
+
+					}
+					else{
+						// protocol KO
+					}
+
+
 				}
 			}
 			else{

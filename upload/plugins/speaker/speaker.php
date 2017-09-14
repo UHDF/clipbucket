@@ -36,7 +36,7 @@ define("SPEAKER_LINKPAGE_URL",BASEURL.SITE_MODE."/plugin.php?folder=".SPEAKER_BA
 assign("speaker_linkpage",SPEAKER_LINKPAGE_URL);
 
 
-// Connect the speaker search ngine to the mulitisearch object in order to extend the relust of the video search result to speakers.
+// Connect the speaker search engine to the mulitisearch object in order to extend the relust of the video search result to speakers.
 if ($cbplugin->is_installed('extend_search.php')) { 
 	global $multicategories;
 	$multicategories->addSearchObject("speakerquery");

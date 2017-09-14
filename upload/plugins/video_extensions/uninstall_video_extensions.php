@@ -34,6 +34,16 @@ function uninstallJobEncoderTable() {
 }
 
 /**
+ * Remove Tab from the Edit Video Page
+ */
+function uninstallEncodingEditTab() {
+	global $db;
+	$query='DELETE FROM '.tbl("expand_video_manager").' WHERE `evm_plugin_url` =
+			\''.BASEDIR.'/plugins/video_extensions/admin/show_encoding.php\';';
+	$db->Execute($query);
+}
+
+/**
  *Remove the field original_videoname from the video table
  */
 function removeOriginalVideoname() {
@@ -46,6 +56,7 @@ uninstallJobTypeTable();
 uninstallJobEncoderTable();
 uninstallPluginAdminPermissions("video_extensions");
 removeOriginalVideoname();
+uninstallEncodingEditTab();
 
 /**
  * remove locales for this plugin

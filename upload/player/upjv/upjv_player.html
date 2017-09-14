@@ -3,7 +3,7 @@
 -->
 {$default_quality = get_upjv_quality_type($video_files)}
 {$availablePlaySpeed = "[1, 1.5, 2]"}
-
+{$preload = "none"}
 <!--    
 	STREAMING INFO
 	Pour une lecture HLS (streaming), le type a indiquer n'est pas le même :
@@ -11,77 +11,117 @@
 
 	Plugin videoJS pour lecture de flux HLS :
 	    <script src="{$baseurl}/player/videojs-contrib-hls.min.js"></script>
--->
 
+	Norme WebVTT :
+		https://w3c.github.io/webvtt/
+-->
 
   
+<!-- PLAYER CSS -->
+<link href="{$upjv_player_v2_url}/app/css/video-js.min.css" rel="stylesheet">
 
-  
-<!--
-	  PLAYER CSS
--->
-<link href="{$upjv_player_url}/node_modules/video.js/dist/video-js.min.css" rel="stylesheet">
-
-
-<!--
-	  PLUGIN CSS
--->
-<link href="{$upjv_player_url}/node_modules/videojs-resolution-switcher/lib/videojs-resolution-switcher.css" rel="stylesheet">
-
-
+<link href="{$upjv_player_v2_url}/app/css/video-js.custom.css" rel="stylesheet">
+<!-- PLUGIN CSS -->
+<link href="{$upjv_player_v2_url}/app/css/videojs-resolution-switcher.css" rel="stylesheet">
 
 <!--
-	  PLAYER
+	  PLAYER JS
 -->
 {if $development_mode}
-<script src="{$upjv_player_url}/node_modules/video.js/dist/video.js"></script>
+<script src="{$upjv_player_v2_url}/app/js/video.js"></script>
 {else}
-<script src="{$upjv_player_url}/node_modules/video.js/dist/video.min.js"></script>
+<script src="{$upjv_player_v2_url}/app/js/video.min.js"></script>
 {/if}  
 
+<script src="{$baseurl}/player/upjv/app/js/node_modules/videojs-contrib-hls/dist/videojs-contrib-hls.min.js"></script>
 
-<script src="{$upjv_player_url}/video_js_custom.js"></script>
 
 
+
+<!-- 
+<script src="{$upjv_player_v2_url}/app/js/video_js_custom.js"></script>
+ -->
 
 <!--
-	  PLAYER PLUGIN
+	  PLAYER PLUGIN JS
 -->
-<script src="{$upjv_player_url}/node_modules/videojs-resolution-switcher/lib/videojs-resolution-switcher.js"></script>
-
-
-
+<script src="{$upjv_player_v2_url}/app/js/videojs-resolution-switcher.js"></script>
 
 
 <!--
 	  PLAYER FLASH ALTERNATIVE
 -->
 <script>
-	videojs.options.flash.swf = "{$upjv_player_url}/node_modules/video.js/dist/video-js.swf"
+	videojs.options.flash.swf = "{$upjv_player_v2_url}/app/swf/video-js.swf"
 </script>
 
+{assign var="vmimetype" value="video/mp4"}
+{assign var="playerid" value="cb_video_js"}
+{assign var="streamtype" value="mp4"}
+
+<!-- STREAMING -->
+{if substr($video_files[0], 0,4) eq 'rtmp'}
+	{assign var="vmimetype" value="rtmp/mp4"}
+	{assign var="playerid" value="video_js_rtmp"}
+	{assign var="streamtype" value="rtmp"}
+{/if}
+
+{if substr($video_files[0], (strlen($video_files[0])-4),4) eq 'm3u8'}
+	{assign var="vmimetype" value="application/x-mpegURL"}
+	{assign var="playerid" value="video_js_hls"}
+	{assign var="streamtype" value="hls"}
+{/if}
+
+<!-- RESSOURCES -->
+{if substr($video_files[0], 0,4) neq 'rtmp'}
+	<!--
+		BALISE VIDEO HTML 5 height="{$height}" width="{$width}"
+	-->
+	<video id="{$playerid}" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="{$preload}" poster="{getThumb vdetails=$vdata size=big}" height="480">
+
+		{foreach $video_files as $file}
+			{$quality = get_upjv_quality($file)}
+
+			{if $flv_vid == true}
+				<source src='{$file}' type="video/x-flv" />
+			{else}
+			
+				{if substr($video_files[0], (strlen($video_files[0])-4),4) neq 'm3u8'}
+					<source src='{$file}' type="video/mp4" label="{strtoupper($quality)}" res="{$quality}" />
+				{else}
+					<source src='{$file}' type="{$vmimetype}" label="{strtoupper($quality)}" res="{$quality}" />
+				{/if}
+
+			{/if}
+		{/foreach}
+
+		<!-- Use by Subtitle Maker plugin -->
+		{ANCHOR place="getSubtitleVtt" data=$vdata}
+
+		{ANCHOR place="play_def_sub"}
+
+		<p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+	</video>
+
+<!-- STREAMING -->
+{else}
+
+	<video id="{$playerid}" class="video-js vjs-default-skin vjs-big-play-centered"
+		controls preload="none"
+		poster="{getThumb vdetails=$vdata size=big}"
+		style="width:100%" width="640" height="480">
+		<source src="{$video_files[0]}" type="rtmp/mp4">
+
+		<p class="vjs-no-js">
+			To view this video please enable JavaScript, and
+			consider upgrading to a web browser that
+			<a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+		</p>
+	</video>
 
 
+{/if}
 
-<!--
-	  BALISE VIDEO HTML 5
--->
-<video id="cb_video_js" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto" height="{$height}" width="{$width}" poster="{getThumb vdetails=$vdata size=big}">
-
-    {foreach $video_files as $file}
-	    {$quality = get_upjv_quality($file)}
-
-	    {if $flv_vid == true}
-		<source src='{$file}' type="video/x-flv" />
-	    {else}
-		<source src='{$file}' type="video/mp4" label="{strtoupper($quality)}" res="{$quality}" />
-	    {/if}
-    {/foreach}
-    
-    {ANCHOR place="play_def_sub"}
-
-    <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
-</video>
 
 
 <!--
@@ -90,29 +130,80 @@
 <script type="text/javascript">
 	var default_res = "{$default_quality}";
 	var availablePlaySpeed = {$availablePlaySpeed};
+	var preloadValue = "auto";
+
+	var string = window.location.href, substring = "embed_player";
+
+	if (string.indexOf(substring) !== -1){
+		preloadValue = "none";
+	}
 </script>
 
-{literal}
-<script type="text/javascript">
-	var player = videojs('cb_video_js', {
-		plugins: {
-			videoJsResolutionSwitcher: {
-				default: default_res,
-				dynamicLabel: false
+
+{if $streamtype eq 'mp4'}
+	<script type="text/javascript">
+		var player = videojs('cb_video_js', {
+			plugins: {
+				videoJsResolutionSwitcher: {
+					default: default_res,
+					dynamicLabel: false
+				}
+			},
+			preload: preloadValue,
+			playbackRates: availablePlaySpeed,
+			fluid: true,
+			LoadingSpinner: true,
+			BigPlayButton: true,
+			controlBar: {
+				muteToggle: false
+			},
+			html5: {
+				nativeTextTracks: false
 			}
-		},
-		playbackRates: availablePlaySpeed,
-		LoadingSpinner: true,
-		BigPlayButton: true,
-		controlBar: {
-			muteToggle: false
-		}
+		});
+	</script>
+{/if}
+
+
+{if $streamtype eq 'rtmp'}
+	<script type="text/javascript">
+		var player = videojs('video_js_rtmp', {
+			techOrder: ["flash", "html5"],
+			nativeControlsForTouch: true,
+			controlBar: {
+				muteToggle: false, "volumeControl": false,
+				timeDivider: false,
+				durationDisplay: false,
+				progressControl: false 
+			} 
+		});
+	</script>
+{/if}
+
+
+{if $streamtype eq 'hls'}
+	<script type="text/javascript">
+		var player = videojs('video_js_hls', '');
+	</script>
+{/if}
+
+<script type="text/javascript">
+	$( document ).ready(function() {
+		//	var myplayer = videojs('cb_video_js');
+		//	console.log("Yep");
+		//	console.log(player);.buffered.length
+		/*
+			var buf = player.buffered();
+			var bufe = player.bufferedEnd();
+			var bufp = player.bufferedPercent();
+
+
+			setInterval(function(){
+				console.log("Buff : " + buf + " End : " + bufe + " % : " + bufp );
+			}, 1000);
+		*/
 	});
 </script>
-{/literal}
-
-
-
 
 <!--
 	  STYLE PLAYER

@@ -41,6 +41,10 @@ function installJobTypeTable() {
 	  		`parameters` varchar(1024) NOT NULL
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8;'
 		);
+	$db->Execute("INSERT INTO ".tbl("job_type")."` (`id`, `name`, `command`, `parameters`) VALUES
+		(1, 'mv_original', 'mv', '{\"cle1\":\"val1\",\"cle2\":\"val2\"}'),
+		(2, 'X264', 'ffmpeg', '{\"-c:v\":\"libx264\",\"-preset\":\"medium\",\"-b:v\":\"2600k\",\"-c:a\":\"aac\",\"-b:a\":\"128k\",\"-vf\":\"format=yuv420p\"}'),
+		(3, 'MP3', 'ffmpeg', '{\"-a\":\"mp3\"}');");
 }
 
 /**
@@ -70,6 +74,16 @@ function installJobTable() {
 			);
 }
 
+/**
+ * Add a Tab to the Edit Video Page
+ */
+function installEncodingEditTab() {
+	global $db;
+	$sql = 'INSERT INTO '.tbl("expand_video_manager")." (`evm_id`, `evm_plugin_url`, `evm_zone`, `evm_is_new_tab`, `evm_tab_title`)".
+			" VALUES ('', '".BASEDIR."/plugins/video_extensions/admin/show_encoding.php', ".
+			"'expand_video_manager_right_panel', 1, '".lang("Encoding")."');";
+	$db->Execute($sql);
+}
 
 /**
  * Add a field to the video table
@@ -85,4 +99,5 @@ installJobEncoderTable();
 installJobTable();
 installJobTypeTable();
 addOriginalVideoname();
+installEncodingEditTab();
 ?>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clipbucket_language>
+	<name>English</name>
+	<iso_code>en</iso_code>
+	<phrases>
+		<mksub_title>Subtitle maker</mksub_title>
+		<mksub_threshold>Threshold</mksub_threshold>
+		<mksub_silencedurationmin>Minimum duration of silence (between sound)</mksub_silencedurationmin>
+		<mksub_startplaying>Starting play (seconds before sound starts)</mksub_startplaying>
+		<mksub_stopplaying>Ending play (seconds after sound starts)</mksub_stopplaying>
+		<mksub_findsentences>Find sentences</mksub_findsentences>
+		<mksub_draft>Draft</mksub_draft>
+		<mksub_state>Etat</mksub_state>
+		<mksub_finalfile>Final file</mksub_finalfile>
+		<mksub_preview>Preview</mksub_preview>
+		<mksub_mksubfile>Generate the subtitle file</mksub_mksubfile>
+		<mksub_finalfiledesc>Here, vous can modify the file acutally inline.</mksub_finalfiledesc>
+		<mksub_close>Close</mksub_close>
+		<mksub_helpcontent>&lt;h1&gt;How does it works ?&lt;/h1&gt;&lt;p&gt;The sound finder will search the silence in the video file. Because of that we know that between silence there is sound.&lt;/p&gt;&lt;h1&gt;How to do ?&lt;/h1&gt;&lt;h2&gt;Find sentences&lt;/h2&gt;&lt;p&gt;First, you need to create the marker file. To do that, click on the \"Sound Finder\" button.&lt;/p&gt;&lt;p&gt;This will generate a list of input. This list may correspond to the sentence speaking in the video file.&lt;/p&gt;&lt;p&gt;If it is not the case, you can adjust the threshold and minimum duration of silence parameter.&lt;br&gt;&lt;br&gt;Threshold : volume max to be consider as a silence.&lt;br&gt;Duration of silence : Time of the silence.&lt;/p&gt;&lt;h2&gt;Write the sentence&lt;/h2&gt;&lt;p&gt;Put the cursor in the input. The video will be playing while you sort the cursor. It is very helpful to write the sentence.&lt;/p&gt;&lt;p&gt;Validate with \"enter\" when you want in order to save your work.&lt;/p&gt;&lt;p&gt;Read the video by clicking in the player will play the video normally.&lt;/p&gt;&lt;h2&gt;Finish ?&lt;/h2&gt;&lt;p&gt;Click the generate subtitle file. It will publish the final and the public can use it.&lt;/p&gt;</mksub_helpcontent>
+	</phrases>
+</clipbucket_language>

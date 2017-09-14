@@ -2,8 +2,9 @@
 
 	// This script runs only via command line
 	//sleep(5);
-	include(dirname(__FILE__)."/../../includes/config.inc.php");
-	include(dirname(__FILE__)."/functions_system.php");
+	include_once(dirname(__FILE__)."/../../includes/config.inc.php");
+	include_once(dirname(__FILE__)."/../../includes/functions.php");
+	include_once(dirname(__FILE__)."/functions_system.php");
 	
 	$videoRootFolder=BASEDIR."/files/videos/";
 	$originalRootFolder=BASEDIR."/files/original/";
@@ -22,31 +23,35 @@
 	 * @var string $prefixAudio
 	 */
 	$prefixAudio="audio";
+	global $Cbucket;
+	$ffmpegpath = $Cbucket->configs['ffmpegpath'];
+	$ffprobegpath = $Cbucket->configs['ffprobepath'];
 	
 	global $db;
 	// get all enconded videos file that have been connected to a video data 
 	$query='SELECT * FROM '.table("job").' WHERE `status`="Encoded" AND `idvideo` IS NOT NULL AND `idvideo`<>0';
 	$result=$db->_select($query);
-
+	echo count($result);
 	if (count($result)>0){
 		foreach ($result as $res){
+			echo date("Y-m-d H:i:s"); 
 			$jobName=$res["name"];
-			echo "job name : ".$jobName."\n";
+			echo " job name : ".$jobName."\n";
 			$jobExtension=$res["extension"];
-			echo "job extension : ".$jobExtension."\n";
+			echo "\tjob extension : ".$jobExtension."\n";
 			// Create the full path of the file to be donwloaded
 			$srcFullpath= $res["encodedsrc"].$jobName.'.'.$jobExtension;
-			echo "src fullpath : ".$srcFullpath."\n";
+			echo "\tsrc fullpath : ".$srcFullpath."\n";
 				
 			$query='SELECT * FROM '.table("video").' WHERE `videoid`='.$res["idvideo"];
 			$vresult=$db->_select($query);
-			echo "idvideo : ".$res["idvideo"]."\n";
+			echo "\tidvideo : ".$res["idvideo"]."\n";
 				
 			if (count($vresult>0)){
 				$filename=$vresult[0]["file_name"];
-				echo "filename : ".$filename."\n";
+				echo "\tfilename : ".$filename."\n";
 				$fileDirectory=$vresult[0]['file_directory'];
-				echo "fileDirectory : ".$fileDirectory."\n";
+				echo "\tfileDirectory : ".$fileDirectory."\n";
 				/**
 				 * $jobName is formated like this : "prefix_uniquekey". The prefix may be a video format size (480,720,1080...) 
 				 * or the "audio" string for audio files or the "original" string for the full quality file. 
@@ -70,22 +75,36 @@
 					$dstFullpath=dirname(__FILE__)."/../../files/original/".$fileDirectory."/".$filename;
 				if ($table[0]==$prefixAudio)
 					$dstFullpath=dirname(__FILE__)."/../../files/videos/".$fileDirectory."/audio_".$filename;
-						else {
+				else {
 					$dstFullpath=dirname(__FILE__)."/../../files/videos/".$fileDirectory."/".$filename;
 					if ($table[0]!=$jobExtension)
 						$dstFullpath.="-".$table[0];
 				}
 				$dstFullpath.=".".$jobExtension;
-				echo "dstFullpath : ".$dstFullpath."\n";
+				echo "\tdstFullpath : ".$dstFullpath."\n";
 				$process = new Process("wget \"$srcFullpath\" -O \"$dstFullpath\"");
-				$query='UPDATE '.table("job").' SET `status` = "Completed" wHERE id="'.$res["id"].'"';
-				echo $query."\n";
+				$query='UPDATE '.table("job").' SET `status` = "Completed" WHERE id="'.$res["id"].'"';
+				echo "\t".$query."\n";
 				$db->Execute($query);
-			echo "\n";
+				
+				//$durationCmd="ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 ".$dstFullpath;
+				$durationCmd="mediainfo --Inform='General;%Duration%' '".$dstFullpath."'";
+				echo "\n>>>\t".$durationCmd."\n";
+
+				$output = floatval(shell_output($durationCmd))/1000;
+				//$output = shell_output($durationCmd);
+				
+				echo "\n\t".$output."\n";
+				
+				$query='UPDATE '.table("video").' SET `duration`='.$output.', `status` = "Successful" WHERE `videoid`='.$res["idvideo"];
+				echo "\n\t".$query."\n";
+				$db->Execute($query);
+				
+				
 			}
 		}
 	}
 	else {
-		echo "Pas de vidéo à transferer\n";
+		//echo "Pas de vidéo à transferer\n";
 	}
 	

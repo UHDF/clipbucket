@@ -177,7 +177,7 @@ echo '</pre>';
 						<div class="col-md-10">
 							<div class="row">
 								<div class="col-md-9">
-									<div id="nbvid-{$u.id}"><a href="{$rss_view}&id={$u.id}"">{$u.nb_new_vid_from_last_crawl}</a></div>
+									<div id="nbvid-{$u.id}"><a href="{$rss_view}&id={$u.id}">{$u.nb_new_vid_from_last_crawl}</a></div>
 								</div>
 							</div>
 						</div>
@@ -264,15 +264,11 @@ echo '</pre>';
 			success : function(q)
 			{
 //				$("#crawl_result").html(q);
-				
+
 				var json = JSON.parse(q);
 				$("#lastcrawl-"+id).html(json["last_crawl"]);
 				$("#nbvid-"+id).html(json["nbvid"]);
 				$("#totrssvid").html(json["totvid"]);
-/*				
-				console.log("json : "+json);
-				console.log("last crawl : " + json["last_crawl"]);
-				console.log("nbvid : " + json["nbvid"]);*/
 			}
 		});
 	}

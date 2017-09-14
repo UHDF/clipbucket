@@ -18,6 +18,8 @@ define('CHAPTER_URL',PLUG_URL.'/'.CHAPTER_BASE);
 define('CHAPTER_ADMIN_DIR',CHAPTER_DIR.'/admin');
 define('CHAPTER_ADMIN_URL',CHAPTER_URL.'/admin');
 
+require_once CHAPTER_DIR.'/chapter_class.php';
+
 if(!function_exists('getVTTFile')){
 	/**
 	 * Define the Anchor for adding vtt file into the videojs player if it exists

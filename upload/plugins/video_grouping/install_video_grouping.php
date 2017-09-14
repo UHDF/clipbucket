@@ -43,6 +43,7 @@ function installVdogrouping() {
 		`place` bigint(5) NOT NULL DEFAULT '1',
 		`description` varchar(2048) NOT NULL DEFAULT 'Default',
 		`in_menu` BOOLEAN NOT NULL DEFAULT '1',
+		`in_homepage` BOOLEAN NOT NULL DEFAULT '0',
 		`color` varchar(50) NOT NULL DEFAULT '#999999',
 		`thumb` BOOLEAN DEFAULT '1',
 		`thumb_url` varchar(255) NOT NULL DEFAULT 'default.png'

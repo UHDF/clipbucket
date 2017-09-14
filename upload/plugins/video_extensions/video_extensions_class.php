@@ -124,6 +124,7 @@ class VideoExtension extends CBCategory{
 		return $PendingVideos;
 	}
 	
+
 	/**
 	 * Associate a pending video to the selected video data
 	 * 
@@ -133,17 +134,89 @@ class VideoExtension extends CBCategory{
 	 * 		A string found into the "job" table in the "jobset" field. $jobset is used to retrieve the original video filename.
 	 */
 	function setVideoFile($vid, $jobset){
+		$uploaddir = BASEDIR."/files/";
+		/*$files = glob($uploaddir.'/*'); // get all file names
+		foreach($files as $file){ // iterate files
+			if(is_file($file))
+				unlink($file); // delete file
+		}*/
 		global $db;
-		$query='SELECT * FROM '.table("job").' WHERE jobset="'.$jobset.'" AND (idvideo IS NULL OR idvideo=0)';
+		$query='SELECT * FROM '.table("video").' WHERE videoid="'.$vid.'"';
 		$result=$db->_select($query);
 		if (count($result)>0){
-			$originalVideoName=pathinfo($result[0]["originalsrc"],PATHINFO_BASENAME);
-			$query='UPDATE '.table("job").' SET idvideo = '.$vid.' wHERE jobset="'.$jobset.'" AND (idvideo IS NULL OR idvideo=0)';
-			$db->Execute($query);
-			$query='UPDATE '.table("video").' SET original_videoname = "'.$originalVideoName.'" WHERE videoid="'.$vid.'"';
-			$db->Execute($query);
+			$fileName=$result[0]["file_name"];
+			$fileDirectory=$result[0]["file_directory"];
+			$query='SELECT * FROM '.table("job").' WHERE idvideo="'.$vid.'" AND jobset<>"'.$jobset.'"';
+			$result=$db->_select($query);
+			if (count($result)>0){
+				foreach ($result as $res) {
+
+					//Remove file of the same same if still exists
+					$jobName=$res["name"];
+					$jobExtension=$res["extension"];
+					$table=explode("_", $jobName);
+					if ($table[0]=="original")
+						$dstFullpath=dirname(__FILE__)."/../../files/original/".$fileDirectory."/".$fileName;
+					if ($table[0]=="audio")
+						$dstFullpath=dirname(__FILE__)."/../../files/videos/".$fileDirectory."/audio_".$fileName;
+					else {
+						$dstFullpath=dirname(__FILE__)."/../../files/videos/".$fileDirectory."/".$fileName;
+						if ($table[0]!=$jobExtension)
+							$dstFullpath.="-".$table[0];
+					}
+					$dstFullpath.=".".$jobExtension;
+					unlink($dstFullpath);
+				}
+			}
+			
+			$query='SELECT * FROM '.table("job").' WHERE jobset="'.$jobset.'"';
+			$result=$db->_select($query);
+			if (count($result)>0){
+				
+				$originalVideoName=pathinfo($result[0]["originalsrc"],PATHINFO_BASENAME);
+				$query='UPDATE '.table("job").' SET idvideo = '.$vid.' WHERE jobset="'.$jobset.'"';
+				$db->Execute($query);
+				$query='UPDATE '.table("video").' SET original_videoname = "'.$originalVideoName.'" WHERE videoid="'.$vid.'"';
+			
+				$db->Execute($query);
+			}
 		}
 		
+	}
+
+	/**
+	 * get the HTML that display the encoding state of a video
+	 * @param int $video
+	 * 		the video id
+	 * @return string
+	 * 		The HTML string containing all the encoding progress bars
+	 */
+	function generateHTMLEncoding($video){
+		global $db;
+		$query="SELECT * from ".tbl("job")." WHERE idvideo=".$video." AND status!='Completed'";
+		$result=$db->_select($query);
+		if (count($result)>0){
+			$output= "";
+			foreach ($result as $encod){
+				$str=explode("_",$encod["name"])[0];
+				if ($str!="original"){
+					if ($str=="audio") {
+						$output.="<span>".$str." ".$encod["extension"]." : </span>";
+					}
+					else {
+						$output.="<span>".$encod["extension"]." ".$str." : </span>";
+					}
+					$output.='<div class="progress">
+					<div class="progress-bar" role="progressbar" aria-valuenow="'.$encod["progress"].'"
+							aria-valuemin="0" aria-valuemax="100" style="width:'.$encod["progress"].'%">
+							<span>'.$encod["progress"].'%</span></div></div>';
+				}
+			}
+		}
+		else {
+			$output=lang("no_encoding_in_progress");
+		}
+		return $output;
 	}
 }
 

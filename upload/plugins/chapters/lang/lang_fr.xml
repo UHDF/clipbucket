@@ -4,5 +4,13 @@
 	<iso_code>fr</iso_code>
 	<phrases>
 		<Chapters>Chapitrage</Chapters>
+		<add_a_chapter>Ajouter un chapitre</add_a_chapter>
+		<save_chapters>Enregistrer le chapitrage</save_chapters>
+		<divide_into_chapters>Chapitrer</divide_into_chapters>
+		<delete>Supprimer</delete>
+		<time>Temps</time>
+		<chapter>Chapitre</chapter>
+		<chapter_deleted>Chapitre supprimé</chapter_deleted>
+		<chapters_saved>Chapitrage enregistré</chapters_saved>
 	</phrases>
 </clipbucket_language>
