@@ -3866,6 +3866,27 @@
 	vertical-align: bottom;
 }
 
+#soustitre{
+	font-family: sansation_lightlight, Tahoma, Verdana, Segoe, sans-serif;
+	font-size: 2.85714em;
+	font-weight:bold;
+	margin: 1em;
+}
+
+#soustitre a{
+	color: #DDDDDD;
+}
+
+#soustitre a:hover{
+	text-decoration: none;
+}
+
+#catdetails{
+	color: #002d59;
+	border: 0px solid red;
+	margin: 0em 1em 1em 1em;
+}
+
 #reseaux_sociaux {
 	bottom: .2em;
 	list-style: none;
@@ -3903,7 +3924,8 @@
 
 #menu_principal {
 	z-index:1;
-	font: 500 1em arvoregular, Tahoma, Verdana, Segoe, sans-serif;
+	font: 500 1em sansation_lightlight, Tahoma, Verdana, Segoe, sans-serif;
+	font-weight: bold;
 	list-style: none;
 	margin: 0;
 	padding: 0;
@@ -4094,6 +4116,7 @@ img{
 a{
 	text-decoration:none;
 	color:#002d59
+	outline: 1px solid #002d59;
 }
 
 a:hover{
@@ -4102,17 +4125,17 @@ a:hover{
 
 a:active{
 	background-color:transparent;
-	outline:none !important;
+	outline: 1px solid #002d59;
 	text-decoration:none
 }
 
 a:focus{
-	outline:none !important;
+	outline: 1px solid #002d59;
 	text-decoration:none
 }
 
 button:focus,button:active{
-	outline:none !important
+	outline: 1px solid #002d59;
 }
 
 input,textarea,select{

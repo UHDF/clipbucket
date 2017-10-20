@@ -14,54 +14,9 @@
 			</div>
 			{$row = $myquery->Get_Website_Details()}
 			
-			{if is_installed('editorspick')}
-			{if $editor_picks}
-			<div class="clearfix editorpick">
-				<div class="editorpick-holder">
-					<!-- Editor Pick Video Main Container START //-->
-					<div class="absolute-div">
-						<div id="ep_video_container">
-							{if is_installed('editorspick')}
-							{section name=e_list loop=$editor_picks max=1}
-							{include file="$style_dir/blocks/editor_pick/video_block.html" video=$editor_picks[e_list]}
-							{sectionelse}
-							There is no video in editor's pick, Please Add Videos In Editor's Pick<br />Videos Manager > Add to editor's pick
-							{/section}
-							{/if}
-						</div>
-					</div>
-					<!-- Editor Pick Video Main Container END //-->
-					<img src="{$theme}/images/player-ratio.png" class="playerRatio">
-				</div>
 
-				<!-- Editor Pick Videos Slider Container START //-->
-				<div class="editorpick-videos custom-elements">
-					<div class="scrollable-area vscrollable">
-						{section name=e_list loop=$editor_picks}
-						{include file="$style_dir/blocks/editor_pick/index_featured_video.html" video=$editor_picks[e_list]}
-						{/section}
-					</div>
-				</div>
-				<!-- Editor Pick Videos Slider Container END //-->
-			</div>
-			{/if}
-			{/if}
-			<!-- ******************************************* -->
-			<!-- ************ EDITORS BLOCK END ************ -->
-			<!-- ******************************************* -->
-			
-			
-			
-			{*debug*}
-			
-			
-			
-			
-			
-			
-			
-			
-			
+
+
 			<section class="clearfix featured-videos">
 				
 				<!--<h1>{lang code="featured_videos"}</h1>-->
@@ -74,7 +29,43 @@
 						</h1>
 					</div>
 				</div>
-
+				
+				{if is_installed('editorspick')}
+				{if $editor_picks}
+				<div class="clearfix editorpick">
+					<div class="editorpick-holder">
+						<!-- Editor Pick Video Main Container START //-->
+						<div class="absolute-div">
+							<div id="ep_video_container">
+								{if is_installed('editorspick')}
+								{section name=e_list loop=$editor_picks max=1}
+								{include file="$style_dir/blocks/editor_pick/video_block.html" video=$editor_picks[e_list]}
+								{sectionelse}
+								There is no video in editor's pick, Please Add Videos In Editor's Pick<br />Videos Manager > Add to editor's pick
+								{/section}
+								{/if}
+							</div>
+						</div>
+						<!-- Editor Pick Video Main Container END //-->
+						<img src="{$theme}/images/player-ratio.png" class="playerRatio">
+					</div>
+	
+					<!-- Editor Pick Videos Slider Container START //-->
+					<div class="editorpick-videos custom-elements">
+						<div class="scrollable-area vscrollable">
+							{section name=e_list loop=$editor_picks}
+							{include file="$style_dir/blocks/editor_pick/index_featured_video.html" video=$editor_picks[e_list]}
+							{/section}
+						</div>
+					</div>
+					<!-- Editor Pick Videos Slider Container END //-->
+				</div>
+				{/if}
+				{/if}
+				<!-- ******************************************* -->
+				<!-- ************ EDITORS BLOCK END ************ -->
+				<!-- ******************************************* -->
+	
 				<div id="featured_vid_sec" class="clearfix row">
 				
 				</div>

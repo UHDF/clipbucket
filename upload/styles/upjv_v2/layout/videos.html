@@ -5,12 +5,20 @@
 		<section id="content" class="clearfix videos">
 
 			{$category = $smarty.get.cat}
-			{$catname = $cbvid->get_category_name($category)}
-			{$catname = $catname.category_name}
+			{$catdetails = $cbvid->get_category($category)}
+			{$catname = $catdetails.category_name}
+			{$catdesc = $catdetails.category_desc}
 
 			<div class="row">
-			<h1>{$catname}</h1>
+				<h1>{$catname}</h1>
 			</div>
+
+			<div class="row">
+				<div id="catdetails">
+					{$catdesc|unescape:'html'}
+				</div>
+			</div>
+
 
 			<div class="clearfix leaderboard-ad ad">
 				{AD place='ad_728x90'}
