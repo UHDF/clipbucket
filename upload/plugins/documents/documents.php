@@ -44,7 +44,12 @@ if(!function_exists('externalDocumentList')){
 			//$str.='<li><a target="_blank" href="'.BASEURL.'/files/documents/'.$lnk['storedfilename'].'">'.$lnk['title'] .'</a></li>';
 			$str.='<li><a target="_blank" href="'.DOCUMENT_URL.'/download.php?download='.$documentquery->encode_key($lnk['documentkey']).'">'.$lnk['title'] .'</a></li>';
 			//return BASEURL."/download_photo.php?download=".$documentquery->encode_key($details['photo_key']);
-			}
+		}
+
+		if ($str != ''){
+			$str = '<h2>'.lang("document").' :</h2><ul>'.$str.'</ul>';
+		}
+
 		echo $str;	
 	}
 	// use {ANCHOR place="externalDocumentList" data=$video} to display the formatted list above
