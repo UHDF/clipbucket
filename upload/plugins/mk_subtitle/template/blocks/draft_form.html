@@ -16,7 +16,7 @@
 							{$data[6]} --> {$data[7]} - {lang code="duration"} : {$data[8]}
 						</label>
 
-						<input type="text"  class="form-control" name="phrase{$data[2]}" id="phrase{$data[2]}" onfocus="inputPlay({$data[0]}, {$data[1]});" onblur="inputStop();draftProgress();" onkeyup="infoSub({$data[2]});" value="{$data[3]}" spellcheck="true">
+						<input type="text"  class="form-control" name="phrase{$data[2]}" id="phrase{$data[2]}" onfocus="inputPlay({$data[0]}, {$data[1]});" onblur="inputStop();draftProgress();" onkeyup="infoSub({$data[2]});" onkeypress="enterPostForm(event);" value="{$data[3]}" spellcheck="true">
 						
 						<span id="subinfo{$data[2]}" class="help-inline"></span>
 					</div>
@@ -51,7 +51,7 @@
 	
 	<div class="control-group">
 
-		<form method="POST" class="form-horizontal" onsubmit="movemarker();">
+		<form method="POST" class="form-horizontal" onsubmit="return movemarker();" id="realDraftForm">
 			<!-- For dynamically construct the subtitle -->
 			<input type="hidden" name="dataTime" id="dataTime" size="80" value="{foreach from=$marker item=data}{$data[2]},{$data[4]},{$data[5]};{/foreach}">
 
