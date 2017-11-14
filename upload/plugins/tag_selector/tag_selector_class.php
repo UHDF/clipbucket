@@ -77,7 +77,30 @@ class TagSelector extends CBCategory{
 		return $output;
 	}
 	
-	
+	/**
+	 * Get all tags by video category
+	 *
+	 * @return array
+	 * 		an array of all category id with array of all tags
+	 */
+	function getTagsByCat()	{
+		$dic=[];
+
+		$query = " SELECT tags, category FROM ".tbl('video')." WHERE tags <> 'no-tag' GROUP BY tags, category; ";
+		$result = select( $query );
+
+		foreach ($result as $key => $value){
+			$tags = explode(',', $value["tags"]);
+			$cats = explode('#', str_replace("# #", "#", substr(trim($value["category"]), 1, -1)));
+			
+			foreach ($cats as $value){
+				$dic[$value] = array_merge($tags);
+			}
+		}
+
+		return $dic;
+	}
+
 	
 }
 
