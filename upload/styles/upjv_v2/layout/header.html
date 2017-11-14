@@ -167,15 +167,30 @@ class="ui-state-default"
 					<li>
 						<a href="{$baseurl}">Accueil</a>
 					</li>
+
+					 and $catname[$main@key].category_id < 70
+					 
 					-->
 
+					{$tagcat = $tagSelector->getTagsByCat()}
+
 					{foreach from=$catname item=main}
-						{if $catname[$main@key].parent_id eq 0}
+						{if ($catname[$main@key].parent_id eq 0 and $catname[$main@key].category_id neq 37 and $catname[$main@key].category_id < 70)}
 							<li><a href="{cblink(['name'=>'category','data'=>$catname[$main@key],'type'=>'video'])}">{$catname[$main@key].category_name}</a>
 								<ul>
 									{foreach from=$catname item=sub}
 										{if $catname[$sub@key].parent_id eq $catname[$main@key].category_id}
-											<li><a href="{cblink(['name'=>'category','data'=>$catname[$sub@key],'type'=>'video'])}">{$catname[$sub@key].category_name}</a></li>
+											<li>
+												<a href="{cblink(['name'=>'category','data'=>$catname[$sub@key],'type'=>'video'])}">		{$catname[$sub@key].category_name}
+													{if array_key_exists($catname[$sub@key].category_id, $tagcat)}
+														<br>
+														<span>
+															{$tagstring = implode(", ", $tagcat[$catname[$sub@key].category_id])}
+															{$tagstring}
+														</span>
+													{/if}
+												</a>
+											</li>
 										{/if}
 									{/foreach}
 								</ul>
