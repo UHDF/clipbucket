@@ -169,13 +169,13 @@ class="ui-state-default"
 					</li>
 
 					 and $catname[$main@key].category_id < 70
-					 
+					  and $catname[$main@key].category_id >= 70)
 					-->
 
 					{$tagcat = $tagSelector->getTagsByCat()}
 
 					{foreach from=$catname item=main}
-						{if ($catname[$main@key].parent_id eq 0 and $catname[$main@key].category_id neq 37 and $catname[$main@key].category_id < 70)}
+						{if ($catname[$main@key].parent_id eq 0 and $catname[$main@key].category_id neq 37)}
 							<li><a href="{cblink(['name'=>'category','data'=>$catname[$main@key],'type'=>'video'])}">{$catname[$main@key].category_name}</a>
 								<ul>
 									{foreach from=$catname item=sub}
