@@ -93,9 +93,14 @@ class TagSelector extends CBCategory{
 			$tags = explode(',', $value["tags"]);
 			$cats = explode('#', str_replace("# #", "#", substr(trim($value["category"]), 1, -1)));
 			
-			foreach ($cats as $value){
-				$dic[$value] = array_merge($tags);
+			foreach ($cats as $val){
+				$dic[$val] = (
+					$dic[$val] ? 
+					array_unique(array_merge($dic[$val], $tags)) : 
+					$tags
+				);
 			}
+
 		}
 
 		return $dic;
