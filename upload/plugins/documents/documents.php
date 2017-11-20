@@ -27,6 +27,7 @@ define("DOCUMENT_LINKPAGE_URL",BASEURL.SITE_MODE."/plugin.php?folder=".DOCUMENT_
 assign("document_linkpage",DOCUMENT_LINKPAGE_URL);
 define("DOCUMENT_DOWNLOAD_DIR",BASEDIR."/files/documents");
 
+
 if(!function_exists('externalDocumentList')){
 	/**
 	 * Define the Anchor to display documents into description of a video main page
@@ -46,15 +47,33 @@ if(!function_exists('externalDocumentList')){
 			//return BASEURL."/download_photo.php?download=".$documentquery->encode_key($details['photo_key']);
 		}
 
-		if ($str != ''){
+		/*if ($str != ''){
 			$str = '<h2>'.lang("document").' :</h2><ul>'.$str.'</ul>';
-		}
+		}*/
 
 		echo $str;	
 	}
 	// use {ANCHOR place="externalDocumentList" data=$video} to display the formatted list above
 	register_anchor_function('externalDocumentList','externalDocumentList');
 }	
+
+function externalDocumentCount(){
+	global $Smarty;
+	global $documentquery;
+	//$vid=$Smarty->getTemplateVars('videoid');
+	//var_dump($vid);
+	if ($_GET["v"]){
+		$vid=$_GET["v"];
+		$data=["videoid"=> $vid, "selected" => "yes","count_only"=>True];
+		$cnt=$documentquery->getDocumentForVideo($data);
+		return intval($cnt);
+	}
+	else return 0;
+}
+global $Smarty;
+$Smarty->register_function('externalDocumentCount','externalDocumentCount');
+
+Assign("documentcount", externalDocumentCount);
 
 /**
  * Remove associate between any documents and a video

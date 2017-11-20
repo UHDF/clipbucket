@@ -11,7 +11,7 @@
 
 	define("THIS_PAGE",'watch_video');
 	define("PARENT_PAGE",'videos');
-	require 'includes/config.inc.php';
+	require_once 'includes/config.inc.php';
 	global $cbvid;
 	$userquery->perm_check('view_video',true);
 	$pages->page_redir();

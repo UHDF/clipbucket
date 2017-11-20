@@ -64,10 +64,15 @@
 								</ul>
 							</li>
 							<li>
-								<h5><span class="glyphicon glyphicon glyphicon-file"></span> Documents</h5>
-								<ul class="reset nolist">
-									{ANCHOR place="externalDocumentList" data=$video}
-								</ul>
+							{assign var="videoid" value=$video}
+							{*externalDocumentCount*}
+							{if externalDocumentCount() > 0}
+								{*if $documentcount>0*}
+									<h5><span class="glyphicon glyphicon glyphicon-file"></span> Documents</h5>
+									<ul class="reset nolist">
+										{ANCHOR place="externalDocumentList" data=$video}
+									</ul>
+								{/if}
 							</li>
 							<li>
 								<h5><span class="glyphicon glyphicon glyphicon-link"></span> Liens</h5>
