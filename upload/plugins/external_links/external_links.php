@@ -51,6 +51,30 @@ if(!function_exists('externalLinkList')){
 	register_anchor_function('externalLinkList','externalLinkList');
 }	
 
+if(!function_exists('externalLinkCount')){
+	/**
+	 * Get external links count for the current video
+	 *
+	 * This function is registrered in smarty to be used directly into the template
+	 * @return int
+	 * 		the number of external urls linked to the current video
+	 * @see Document.getLinkForVideo() function for more details
+	 */
+	function externalLinkCount(){
+		global $Smarty;
+		global $linkquery;
+		if ($_GET["v"]){
+			$vid=$_GET["v"];
+			$data=["videoid"=> $vid, "selected" => "yes","count_only"=>True];
+			$cnt=$linkquery->getLinkForVideo($data);
+			return intval($cnt);
+		}
+		else return 0;
+	}
+	global $Smarty;
+	$Smarty->register_function('externalLinkCount','externalLinkCount');
+}
+
 /**
  * Remove associate between any external links and a video
  *

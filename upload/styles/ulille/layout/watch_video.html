@@ -64,10 +64,7 @@
 								</ul>
 							</li>
 							<li>
-							{assign var="videoid" value=$video}
-							{*externalDocumentCount*}
-							{if externalDocumentCount() > 0}
-								{*if $documentcount>0*}
+								{if externalDocumentCount() > 0}
 									<h5><span class="glyphicon glyphicon glyphicon-file"></span> Documents</h5>
 									<ul class="reset nolist">
 										{ANCHOR place="externalDocumentList" data=$video}
@@ -75,10 +72,12 @@
 								{/if}
 							</li>
 							<li>
-								<h5><span class="glyphicon glyphicon glyphicon-link"></span> Liens</h5>
-								<ul class="reset nolist">
-									{ANCHOR place="externalLinkList" data=$video}
-								</ul>
+								{if externalLinkCount() > 0}
+									<h5><span class="glyphicon glyphicon glyphicon-link"></span> Liens</h5>
+									<ul class="reset nolist">
+										{ANCHOR place="externalLinkList" data=$video}
+									</ul>
+								{/if}
 							</li>
 						</ul>
 					</section>

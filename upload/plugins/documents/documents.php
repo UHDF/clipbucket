@@ -46,34 +46,35 @@ if(!function_exists('externalDocumentList')){
 			$str.='<li><a target="_blank" href="'.DOCUMENT_URL.'/download.php?download='.$documentquery->encode_key($lnk['documentkey']).'">'.$lnk['title'] .'</a></li>';
 			//return BASEURL."/download_photo.php?download=".$documentquery->encode_key($details['photo_key']);
 		}
-
-		/*if ($str != ''){
-			$str = '<h2>'.lang("document").' :</h2><ul>'.$str.'</ul>';
-		}*/
-
 		echo $str;	
 	}
 	// use {ANCHOR place="externalDocumentList" data=$video} to display the formatted list above
 	register_anchor_function('externalDocumentList','externalDocumentList');
 }	
 
-function externalDocumentCount(){
-	global $Smarty;
-	global $documentquery;
-	//$vid=$Smarty->getTemplateVars('videoid');
-	//var_dump($vid);
-	if ($_GET["v"]){
-		$vid=$_GET["v"];
-		$data=["videoid"=> $vid, "selected" => "yes","count_only"=>True];
-		$cnt=$documentquery->getDocumentForVideo($data);
-		return intval($cnt);
+if(!function_exists('externalDocumentCount')){
+	/**
+	 * Get external documents count for the current video
+	 *
+	 * This function is registrered in smarty to be used directly into the template
+	 * @return int
+	 * 		the number of document linked to the current video
+	 * @see Document.getLinkForVideo() function for more details
+	 */
+	function externalDocumentCount(){
+		global $Smarty;
+		global $documentquery;
+		if ($_GET["v"]){
+			$vid=$_GET["v"];
+			$data=["videoid"=> $vid, "selected" => "yes","count_only"=>True];
+			$cnt=$documentquery->getDocumentForVideo($data);
+			return intval($cnt);
+		}
+		else return 0;
 	}
-	else return 0;
+	global $Smarty;
+	$Smarty->register_function('externalDocumentCount','externalDocumentCount');
 }
-global $Smarty;
-$Smarty->register_function('externalDocumentCount','externalDocumentCount');
-
-Assign("documentcount", externalDocumentCount);
 
 /**
  * Remove associate between any documents and a video
