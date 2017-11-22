@@ -64,8 +64,11 @@ if(!function_exists('externalDocumentCount')){
 	function externalDocumentCount(){
 		global $Smarty;
 		global $documentquery;
+		global $db;
 		if ($_GET["v"]){
 			$vid=$_GET["v"];
+			$result=$db->_select("SELECT `videoid` FROM ".tbl('video')." WHERE `videokey`='".$vid."'");
+			if (count($result)==1) $vid=$result[0]['videoid'];
 			$data=["videoid"=> $vid, "selected" => "yes","count_only"=>True];
 			$cnt=$documentquery->getDocumentForVideo($data);
 			return intval($cnt);
