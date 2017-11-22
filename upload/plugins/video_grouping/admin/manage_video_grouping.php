@@ -15,6 +15,7 @@ if(!defined('SUB_PAGE')){
     define('SUB_PAGE', lang('manage_video_grouping'));
 }
 
+assign('showfilter',true);
 
 /** Edit the current groupingType */
 if(isset($_GET['editGroupingType'])){
