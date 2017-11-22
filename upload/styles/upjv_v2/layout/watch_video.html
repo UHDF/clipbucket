@@ -122,7 +122,12 @@
 						<!-- INFO SECTION TAB -->
 						<div class="tab-pane fade in clearfix active" id="cb-item-info">
 							<div class="clearfix watch-vid-details">
-								<h2>{description($video.description)}</h2>
+								<h2>
+									Description
+								</h2>
+								<p>
+									{description($video.description)}
+								</p>
 								<ul class="clearfix desc-list">
 									<li><strong>{lang code='category'}</strong>:&nbsp;{$vdo.category|categories:video}</li>
 									<li><strong>{lang code='duration'}</strong>:&nbsp;{if $video.duration>1}{$video.duration|SetTime}{else}00:00{/if}</li>
@@ -132,9 +137,17 @@
 										<span class="pull-left">{$vdo.tags|tags:videos}</span>
 									</li>
 								</ul>
+
+								<br>
 								
+								{*assign var="videoid" value=$vdo.videokey*}
 								<!-- Plugin Documents -->
-								{ANCHOR place="externalDocumentList" data=$video}
+								{if externalDocumentCount() > 0}
+									<h2><span class="glyphicon glyphicon glyphicon-file"></span> Documents</h2>
+									<ul>
+										{ANCHOR place="externalDocumentList" data=$video}
+									</ul>
+								{/if}
 
 							</div>
 						</div>
