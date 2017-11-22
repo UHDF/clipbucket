@@ -76,7 +76,7 @@ if(!function_exists("groupingThumbOutput")) {
 		$txt="";
 		foreach ($res as $r){
 			if ($r['in_thumb'])
-				$txt.= '<a href="'.BASEURL."/search_result.php?type=videogrouping&query=".$r['id'].'&gtype='.$r['grouping_type_id'].'" style="color:'.$r['color'].';border-color:'.$r['color'].'">'.$r['name'].'</a>';	
+				$txt.= '<a href="'.BASEURL."/search_result.php?type=videogrouping&query=".$r['name'].'&gtype='.$r['grouping_type_id'].'" style="color:'.$r['color'].';border-color:'.$r['color'].'">'.$r['name'].'</a>';	
 				}
 		echo $txt;
 	}
