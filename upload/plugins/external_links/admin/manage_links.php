@@ -14,11 +14,34 @@ if(!defined('SUB_PAGE')){
 	define('SUB_PAGE', lang('external_links_manager'));
 }
 
-
-/** Run after a post action called 'deleteLink' */
-if (isset($_GET['deleteLink'])) {
-	$dellink = mysql_clean($_GET['deleteLink']);
-	$linkquery->deleteLink($dellink);
+if (count($_POST)==0){
+	/** Run after a post action called 'deleteLink' */
+	if (isset($_GET['deleteLink'])) {
+		$dellink = mysql_clean($_GET['deleteLink']);
+		$linkquery->deleteLink($dellink);
+	}
+	/** Run after a post action called 'editLink' */
+	else if (isset($_GET['editLink'])) {
+		if (error()){
+			$details=$_POST;
+			$details['id']=$details['linkid'];
+		}
+		else {
+			$id = $_GET['editLink'];
+			$details = $linkquery->getLinkDetails($id);
+		}
+	
+		if ($details){
+			assign('link',$details);
+		}
+		assign('showedit',true);
+		assign('showfilter',false);
+		assign('showadd',false);
+	}
+	else {
+		assign('showfilter',true);
+	}
+	
 }
 
 /** Run after a post action called 'delete_selected' (Deleting Multiple links) */
@@ -47,29 +70,10 @@ if(isset($_POST['addLink'])){
 	if($linkquery->addLink($_POST))	{
 		e(lang("new_link_added"),"m");
 		$_POST = '';
-		assign('showfilter',false);
+		assign('showfilter',true);
 		assign('showadd',false);
 		assign('showedit',false);
 	}
-}
-
-/** Run after a post action called 'editLink' */
-if (isset($_GET['editLink'])) {
-	if (error()){
-		$details=$_POST;
-		$details['id']=$details['linkid'];
-	}
-	else {
-		$id = $_GET['editLink'];
-		$details = $linkquery->getLinkDetails($id);
-	}
-
-	if ($details){
-		assign('link',$details);
-	}
-	assign('showedit',true);
-	assign('showfilter',false);
-	assign('showadd',false);
 }
 
 /** Run after a post action called 'updateLink' */
@@ -77,7 +81,7 @@ if(isset($_POST['updateLink'])){
 	if ($linkquery->updateLink($_POST)) {
 		e(lang("update_link"),"m");
 		$_POST = '';
-		assign('showfilter',false);
+		assign('showfilter',true);
 		assign('showadd',false);
 		assign('showedit',false);
 		assign('link',false);

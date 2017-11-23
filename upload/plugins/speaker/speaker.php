@@ -75,8 +75,11 @@ if(!function_exists('speakerCount')){
 	function speakerCount(){
 		global $Smarty;
 		global $speakerquery;
+		global $db;
 		if ($_GET["v"]){
 			$vid=$_GET["v"];
+			$result=$db->_select("SELECT `videoid` FROM ".tbl('video')." WHERE `videokey`='".$vid."'");
+			if (count($result)==1) $vid=$result[0]['videoid'];
 			$data=["videoid"=> $vid, "selected" => "yes","count_only"=>True];
 			$cnt=$speakerquery->getSpeakerAndRoles($data);
 			return intval($cnt);

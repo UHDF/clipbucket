@@ -25,10 +25,11 @@
 					<!-- ajouter |niceTime derrière une date pour afficher "il y a X années" au lieu de Y-m-d-->
 					<div class="entry date-duration"><b>{$video.datecreated|date_format:"%d %B %Y %R"|upper}</b> | Durée <b>{if $video.duration>1}{$video.duration|SetTime}{else}00:00{/if}</b> | Vues <b>{$vdo.views|number_format}</b></div>
 				</header>
-				<div class="more">
+				<!--div class="more">
 					<button id="extend-button" class="btn btn-link btn-sm" type="button" data-toggle="collapse" data-target="#collapseMetas" aria-expanded="true" aria-controls="collapseMetas"><span class="glyphicon glyphicon-triangle-bottom"></span> infos</button>
 				</div>
-				<div class="collapse row" id="collapseMetas" aria-expanded="false">
+				<div class="collapse row" id="collapseMetas" aria-expanded="false"-->
+				<div class="row" id="collapseMetas" aria-expanded="false"-->
 					<section class="col-sm-8 col-xs-12">
 						<p>{AutoLinkUrls($video.description|unescape:"html")}</p>
 						<ul class="documents nolist well">
