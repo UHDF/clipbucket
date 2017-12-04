@@ -1052,7 +1052,6 @@ H3.myHeading {
   background: #000;
   background-color: rgba(0, 0, 0, 0.4);
 }
-\
 a.captionOrange,
 A.captionOrange:active,
 A.captionOrange:visited {
@@ -4149,7 +4148,7 @@ nav.navbar .container-fluid ul.nav.navbar-nav > li > a:active {
 #player-container .video-player {
   position: relative;
   display: block;
-  padding: 10.8% 0 0 0;
+  padding: 0;
   overflow: hidden;
   background: #000;
   margin-bottom: 16px;
@@ -4528,6 +4527,11 @@ nav.navbar .container-fluid ul.nav.navbar-nav > li > a:active {
 .thumb .image-holder:hover .duration-anchor {
   visibility: visible;
   opacity: 1;
+}
+.thumb .image-holder svg.grp_svg {
+  position: absolute;
+  top: 16px;
+  right: 16px;
 }
 .thumb .details {
   border-top: 1px solid #666;
@@ -5514,5 +5518,3 @@ nav.navbar .container-fluid ul.nav.navbar-nav > li > a:active {
   z-index: 10000;
   font-size: 1.5em;
 }
-
-/*# sourceMappingURL=main.css.map */

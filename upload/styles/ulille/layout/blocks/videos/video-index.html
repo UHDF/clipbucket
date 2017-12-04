@@ -1,4 +1,12 @@
 <!-- thumb index -->
+{assign var="grp_svg" value='
+<svg class="grp_svg" viewBox="0 0 30 22" width="30px" height="22px" aria-label="icon" role="img">
+<style>rect, path{ fill: none; stroke-width: 2; stroke: #ae2573; }</style>
+    <rect x="2" y="7" width="20" height="14" />
+    <path d="M 5,7 v -3 h 20 v 14 h -3" />
+    <path d="M 8,4 v -3 h 20 v 14 h -3" />
+</svg>'}
+
 {if $display_type=='normal' || $display_type==''}
 {if $video.featured == 'yes'}
 <div class="thumb spotlight">
@@ -7,9 +15,10 @@
 {/if}
 {if $grp}
 	<div class="image-holder">
-		<div class="image"><img nopin="nopin" src="{$video_grouping_thumbdir}/{$grp.thumb_url}" alt="alt" class="img-responsive"></div>
+		<div class="image"><img nopin="nopin" src="{$video_grouping_thumbdir}/{$grp.thumb_url}" alt="alt" class="img-responsive">/div>
 		<div class="image-overlay fade1s"></div>
 		<a href="{$baseurl}/search_result.php?type=videogrouping&query={$grp.name}&gtype={$grp.grouping_type_id}" class="play-anchor fade1s"><span href="#" class="glyphicon  text-card"></span></a>
+                {$grp_svg}
 	</div>
 	<div class="details card">
 		<h4 class="reset">
