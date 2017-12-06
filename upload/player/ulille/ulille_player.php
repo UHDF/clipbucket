@@ -29,7 +29,7 @@ if (!function_exists('ulille_player'))
 		$vdetails = $in['vdetails'];
 
 		$video_play = get_video_files($vdetails,true,true);
-	
+                
 		vids_assign($video_play);
 
 		if(!strstr($in['width'],"%"))
@@ -82,8 +82,8 @@ if (!function_exists('ulille_player'))
 					$res[] = get_ulille_quality($file);
 				}
 				$all_res = $res;
-				if (in_array('360', $all_res)){
-					$quality = '360';
+				if (in_array('720', $all_res)){
+					$quality = '720';
 				}
 				else{
 					$quality = 'low';
@@ -98,8 +98,25 @@ if (!function_exists('ulille_player'))
 		}
 		
 	}
-
-	
+        
+        /*
+         * Tri inversé des sources en fonction des qualités (1080 -> 720 -> 480 -> 360)
+         */
+	function sort_ulille_src($video_files){
+            $sorted = array();
+            foreach($video_files as $f){
+                $q = substr($f, strrpos($f, '-') + 1);
+                $q = substr($q, 0, strrpos($q, '.'));
+                $sorted[$q] = $f;
+            }
+            ksort($sorted);
+            $video_files = array();
+            foreach($sorted as $f){
+                array_unshift($video_files, $f);
+            }
+            
+            return $video_files;
+        }
 	
 	
 	
