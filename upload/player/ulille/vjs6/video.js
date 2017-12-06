@@ -1,18 +1,18 @@
-<meta http-equiv="content-type" content="text/html; charset=utf-8"><pre style="color: rgb(0, 0, 0); font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial; word-wrap: break-word; white-space: pre-wrap;">/**
+/**
  * @license
- * Video.js 6.4.0 &lt;http://videojs.com/&gt;
- * Copyright Brightcove, Inc. &lt;https://www.brightcove.com/&gt;
+ * Video.js 6.4.0 <http://videojs.com/>
+ * Copyright Brightcove, Inc. <https://www.brightcove.com/>
  * Available under Apache License Version 2.0
- * &lt;https://github.com/videojs/video.js/blob/master/LICENSE&gt;
+ * <https://github.com/videojs/video.js/blob/master/LICENSE>
  *
- * Includes vtt.js &lt;https://github.com/mozilla/vtt.js&gt;
+ * Includes vtt.js <https://github.com/mozilla/vtt.js>
  * Available under Apache License Version 2.0
- * &lt;https://github.com/mozilla/vtt.js/blob/master/LICENSE&gt;
+ * <https://github.com/mozilla/vtt.js/blob/master/LICENSE>
  */
 
 (function (global, factory) {
-	typeof exports === 'object' &amp;&amp; typeof module !== 'undefined' ? module.exports = factory() :
-	typeof define === 'function' &amp;&amp; define.amd ? define(factory) :
+	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+	typeof define === 'function' && define.amd ? define(factory) :
 	(global.videojs = factory());
 }(this, (function () {
 
@@ -49,7 +49,7 @@ var empty$1 = (Object.freeze || Object)({
 	'default': empty
 });
 
-var minDoc = ( empty$1 &amp;&amp; empty ) || empty$1;
+var minDoc = ( empty$1 && empty ) || empty$1;
 
 var topLevel = typeof commonjsGlobal !== 'undefined' ? commonjsGlobal :
     typeof window !== 'undefined' ? window : {};
@@ -73,7 +73,7 @@ var document_1 = doccy;
  * @file browser.js
  * @module browser
  */
-var USER_AGENT = window_1.navigator &amp;&amp; window_1.navigator.userAgent || '';
+var USER_AGENT = window_1.navigator && window_1.navigator.userAgent || '';
 var webkitVersionMap = /AppleWebKit\/([\d.]+)/i.exec(USER_AGENT);
 var appleWebkitVersion = webkitVersionMap ? parseFloat(webkitVersionMap.pop()) : null;
 
@@ -89,14 +89,14 @@ var IS_IPAD = /iPad/i.test(USER_AGENT);
 // The Facebook app's UIWebView identifies as both an iPhone and iPad, so
 // to identify iPhones, we need to exclude iPads.
 // http://artsy.github.io/blog/2012/10/18/the-perils-of-ios-user-agent-sniffing/
-var IS_IPHONE = /iPhone/i.test(USER_AGENT) &amp;&amp; !IS_IPAD;
+var IS_IPHONE = /iPhone/i.test(USER_AGENT) && !IS_IPAD;
 var IS_IPOD = /iPod/i.test(USER_AGENT);
 var IS_IOS = IS_IPHONE || IS_IPAD || IS_IPOD;
 
 var IOS_VERSION = function () {
   var match = USER_AGENT.match(/OS (\d+)_/i);
 
-  if (match &amp;&amp; match[1]) {
+  if (match && match[1]) {
     return match[1];
   }
   return null;
@@ -112,10 +112,10 @@ var ANDROID_VERSION = function () {
     return null;
   }
 
-  var major = match[1] &amp;&amp; parseFloat(match[1]);
-  var minor = match[2] &amp;&amp; parseFloat(match[2]);
+  var major = match[1] && parseFloat(match[1]);
+  var minor = match[2] && parseFloat(match[2]);
 
-  if (major &amp;&amp; minor) {
+  if (major && minor) {
     return parseFloat(match[1] + '.' + match[2]);
   } else if (major) {
     return major;
@@ -124,16 +124,16 @@ var ANDROID_VERSION = function () {
 }();
 
 // Old Android is defined as Version older than 2.3, and requiring a webkit version of the android browser
-var IS_OLD_ANDROID = IS_ANDROID &amp;&amp; /webkit/i.test(USER_AGENT) &amp;&amp; ANDROID_VERSION &lt; 2.3;
-var IS_NATIVE_ANDROID = IS_ANDROID &amp;&amp; ANDROID_VERSION &lt; 5 &amp;&amp; appleWebkitVersion &lt; 537;
+var IS_OLD_ANDROID = IS_ANDROID && /webkit/i.test(USER_AGENT) && ANDROID_VERSION < 2.3;
+var IS_NATIVE_ANDROID = IS_ANDROID && ANDROID_VERSION < 5 && appleWebkitVersion < 537;
 
 var IS_FIREFOX = /Firefox/i.test(USER_AGENT);
 var IS_EDGE = /Edge/i.test(USER_AGENT);
-var IS_CHROME = !IS_EDGE &amp;&amp; /Chrome/i.test(USER_AGENT);
+var IS_CHROME = !IS_EDGE && /Chrome/i.test(USER_AGENT);
 var CHROME_VERSION = function () {
   var match = USER_AGENT.match(/Chrome\/(\d+)/);
 
-  if (match &amp;&amp; match[1]) {
+  if (match && match[1]) {
     return parseFloat(match[1]);
   }
   return null;
@@ -141,9 +141,9 @@ var CHROME_VERSION = function () {
 var IS_IE8 = /MSIE\s8\.0/.test(USER_AGENT);
 var IE_VERSION = function () {
   var result = /MSIE\s(\d+)\.\d/.exec(USER_AGENT);
-  var version = result &amp;&amp; parseFloat(result[1]);
+  var version = result && parseFloat(result[1]);
 
-  if (!version &amp;&amp; /Trident\/7.0/i.test(USER_AGENT) &amp;&amp; /rv:11.0/.test(USER_AGENT)) {
+  if (!version && /Trident\/7.0/i.test(USER_AGENT) && /rv:11.0/.test(USER_AGENT)) {
     // IE 11 has a different user agent string than other IE versions
     version = 11.0;
   }
@@ -151,12 +151,12 @@ var IE_VERSION = function () {
   return version;
 }();
 
-var IS_SAFARI = /Safari/i.test(USER_AGENT) &amp;&amp; !IS_CHROME &amp;&amp; !IS_ANDROID &amp;&amp; !IS_EDGE;
+var IS_SAFARI = /Safari/i.test(USER_AGENT) && !IS_CHROME && !IS_ANDROID && !IS_EDGE;
 var IS_ANY_SAFARI = IS_SAFARI || IS_IOS;
 
-var TOUCH_ENABLED = isReal() &amp;&amp; ('ontouchstart' in window_1 || window_1.DocumentTouch &amp;&amp; window_1.document instanceof window_1.DocumentTouch);
+var TOUCH_ENABLED = isReal() && ('ontouchstart' in window_1 || window_1.DocumentTouch && window_1.document instanceof window_1.DocumentTouch);
 
-var BACKGROUND_SIZE_SUPPORTED = isReal() &amp;&amp; 'backgroundSize' in window_1.document.createElement('video').style;
+var BACKGROUND_SIZE_SUPPORTED = isReal() && 'backgroundSize' in window_1.document.createElement('video').style;
 
 var browser = (Object.freeze || Object)({
 	IS_IPAD: IS_IPAD,
@@ -180,10 +180,10 @@ var browser = (Object.freeze || Object)({
 	BACKGROUND_SIZE_SUPPORTED: BACKGROUND_SIZE_SUPPORTED
 });
 
-var _typeof = typeof Symbol === "function" &amp;&amp; typeof Symbol.iterator === "symbol" ? function (obj) {
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
   return typeof obj;
 } : function (obj) {
-  return obj &amp;&amp; typeof Symbol === "function" &amp;&amp; obj.constructor === Symbol &amp;&amp; obj !== Symbol.prototype ? "symbol" : typeof obj;
+  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
 };
 
 
@@ -213,11 +213,11 @@ var classCallCheck = function (instance, Constructor) {
 
 
 var inherits = function (subClass, superClass) {
-  if (typeof superClass !== "function" &amp;&amp; superClass !== null) {
+  if (typeof superClass !== "function" && superClass !== null) {
     throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
   }
 
-  subClass.prototype = Object.create(superClass &amp;&amp; superClass.prototype, {
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
     constructor: {
       value: subClass,
       enumerable: false,
@@ -243,7 +243,7 @@ var possibleConstructorReturn = function (self, call) {
     throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
   }
 
-  return call &amp;&amp; (typeof call === "object" || typeof call === "function") ? call : self;
+  return call && (typeof call === "object" || typeof call === "function") ? call : self;
 };
 
 
@@ -342,7 +342,7 @@ function each(object, fn) {
  *         The final accumulated value.
  */
 function reduce(object, fn) {
-  var initial = arguments.length &gt; 2 &amp;&amp; arguments[2] !== undefined ? arguments[2] : 0;
+  var initial = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
 
   return keys(object).reduce(function (accum, key) {
     return fn(accum, object[key], key);
@@ -357,7 +357,7 @@ function reduce(object, fn) {
  * @return {Object}
  */
 function assign(target) {
-  for (var _len = arguments.length, sources = Array(_len &gt; 1 ? _len - 1 : 0), _key = 1; _key &lt; _len; _key++) {
+  for (var _len = arguments.length, sources = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
     sources[_key - 1] = arguments[_key];
   }
 
@@ -389,7 +389,7 @@ function assign(target) {
  * @return {Boolean}
  */
 function isObject(value) {
-  return !!value &amp;&amp; (typeof value === 'undefined' ? 'undefined' : _typeof(value)) === 'object';
+  return !!value && (typeof value === 'undefined' ? 'undefined' : _typeof(value)) === 'object';
 }
 
 /**
@@ -400,7 +400,7 @@ function isObject(value) {
  * @return {Boolean}
  */
 function isPlain(value) {
-  return isObject(value) &amp;&amp; toString.call(value) === '[object Object]' &amp;&amp; value.constructor === Object;
+  return isObject(value) && toString.call(value) === '[object Object]' && value.constructor === Object;
 }
 
 /**
@@ -430,7 +430,7 @@ var history = [];
  *         but this is exposed as a parameter to facilitate testing.
  */
 var logByType = function logByType(type, args) {
-  var stringify = arguments.length &gt; 2 &amp;&amp; arguments[2] !== undefined ? arguments[2] : !!IE_VERSION &amp;&amp; IE_VERSION &lt; 11;
+  var stringify = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : !!IE_VERSION && IE_VERSION < 11;
 
   var lvl = log.levels[level];
   var lvlRegExp = new RegExp('^(' + lvl + ')$');
@@ -455,7 +455,7 @@ var logByType = function logByType(type, args) {
   // Was setting these once outside of this function, but containing them
   // in the function makes it easier to test cases where console doesn't exist
   // when the module is executed.
-  var fn = window_1.console &amp;&amp; window_1.console[type];
+  var fn = window_1.console && window_1.console[type];
 
   // Bail out if there's no console or if this type is not allowed by the
   // current logging level.
@@ -498,7 +498,7 @@ var logByType = function logByType(type, args) {
  *           One or more messages or objects that should be logged.
  */
 log = function log() {
-  for (var _len = arguments.length, args = Array(_len), _key = 0; _key &lt; _len; _key++) {
+  for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
     args[_key] = arguments[_key];
   }
 
@@ -600,7 +600,7 @@ log.history.enable = function () {
  *        One or more messages or objects that should be logged as an error
  */
 log.error = function () {
-  for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 &lt; _len2; _key2++) {
+  for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
     args[_key2] = arguments[_key2];
   }
 
@@ -614,7 +614,7 @@ log.error = function () {
  *        One or more messages or objects that should be logged as a warning.
  */
 log.warn = function () {
-  for (var _len3 = arguments.length, args = Array(_len3), _key3 = 0; _key3 &lt; _len3; _key3++) {
+  for (var _len3 = arguments.length, args = Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
     args[_key3] = arguments[_key3];
   }
 
@@ -632,7 +632,7 @@ var tsml = function tsml (sa) {
   var s = ''
     , i = 0;
 
-  for (; i &lt; arguments.length; i++)
+  for (; i < arguments.length; i++)
     s += clean(sa[i]) + (arguments[i + 1] || '');
 
   return s
@@ -692,7 +692,7 @@ var _templateObject = taggedTemplateLiteralLoose(['Setting attributes in the sec
  *
  */
 function isNonBlankString(str) {
-  return typeof str === 'string' &amp;&amp; /\S/.test(str);
+  return typeof str === 'string' && /\S/.test(str);
 }
 
 /**
@@ -735,9 +735,9 @@ function isReal() {
   return (
 
     // Both document and window will never be undefined thanks to `global`.
-    document_1 === window_1.document &amp;&amp;
+    document_1 === window_1.document &&
 
-    // In IE &lt; 9, DOM methods return "object" as their type, so all we can
+    // In IE < 9, DOM methods return "object" as their type, so all we can
     // confidently check is that it exists.
     typeof document_1.createElement !== 'undefined'
   );
@@ -754,7 +754,7 @@ function isReal() {
  *         - False otherwise
  */
 function isEl(value) {
-  return isObject(value) &amp;&amp; value.nodeType === 1;
+  return isObject(value) && value.nodeType === 1;
 }
 
 /**
@@ -794,7 +794,7 @@ function createQuerier(method) {
 
     var ctx = isEl(context) ? context : document_1;
 
-    return ctx[method] &amp;&amp; ctx[method](selector);
+    return ctx[method] && ctx[method](selector);
   };
 }
 
@@ -817,9 +817,9 @@ function createQuerier(method) {
  *         The element that was created.
  */
 function createEl() {
-  var tagName = arguments.length &gt; 0 &amp;&amp; arguments[0] !== undefined ? arguments[0] : 'div';
-  var properties = arguments.length &gt; 1 &amp;&amp; arguments[1] !== undefined ? arguments[1] : {};
-  var attributes = arguments.length &gt; 2 &amp;&amp; arguments[2] !== undefined ? arguments[2] : {};
+  var tagName = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'div';
+  var properties = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  var attributes = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
   var content = arguments[3];
 
   var el = document_1.createElement(tagName);
@@ -1069,10 +1069,10 @@ function getAttributes(tag) {
   // won't know about HTML5 boolean attributes that we still read from
   var knownBooleans = ',' + 'autoplay,controls,playsinline,loop,muted,default,defaultMuted' + ',';
 
-  if (tag &amp;&amp; tag.attributes &amp;&amp; tag.attributes.length &gt; 0) {
+  if (tag && tag.attributes && tag.attributes.length > 0) {
     var attrs = tag.attributes;
 
-    for (var i = attrs.length - 1; i &gt;= 0; i--) {
+    for (var i = attrs.length - 1; i >= 0; i--) {
       var attrName = attrs[i].name;
       var attrVal = attrs[i].value;
 
@@ -1176,7 +1176,7 @@ function unblockTextSelection() {
  *         Always returns a plain
  */
 function getBoundingClientRect(el) {
-  if (el &amp;&amp; el.getBoundingClientRect &amp;&amp; el.parentNode) {
+  if (el && el.getBoundingClientRect && el.parentNode) {
     var rect = el.getBoundingClientRect();
     var result = {};
 
@@ -1226,7 +1226,7 @@ function getBoundingClientRect(el) {
 function findPosition(el) {
   var box = void 0;
 
-  if (el.getBoundingClientRect &amp;&amp; el.parentNode) {
+  if (el.getBoundingClientRect && el.parentNode) {
     box = el.getBoundingClientRect();
   }
 
@@ -1315,7 +1315,7 @@ function getPointerPosition(el, event) {
  *         - False otherwise
  */
 function isTextNode(value) {
-  return isObject(value) &amp;&amp; value.nodeType === 3;
+  return isObject(value) && value.nodeType === 3;
 }
 
 /**
@@ -1377,7 +1377,7 @@ function normalizeContent(content) {
       return value;
     }
 
-    if (typeof value === 'string' &amp;&amp; /\S/.test(value)) {
+    if (typeof value === 'string' && /\S/.test(value)) {
       return document_1.createTextNode(value);
     }
   }).filter(function (value) {
@@ -1646,7 +1646,7 @@ function _cleanUpEvents(elem, type) {
   }
 
   // Remove the events object if there are no types left
-  if (Object.getOwnPropertyNames(data.handlers).length &lt;= 0) {
+  if (Object.getOwnPropertyNames(data.handlers).length <= 0) {
     delete data.handlers;
     delete data.dispatcher;
     delete data.disabled;
@@ -1717,10 +1717,10 @@ function fixEvent(event) {
       // Safari 6.0.3 warns you if you try to copy deprecated layerX/Y
       // Chrome warns you if you try to copy deprecated keyboardEvent.keyLocation
       // and webkitMovementX/Y
-      if (key !== 'layerX' &amp;&amp; key !== 'layerY' &amp;&amp; key !== 'keyLocation' &amp;&amp; key !== 'webkitMovementX' &amp;&amp; key !== 'webkitMovementY') {
+      if (key !== 'layerX' && key !== 'layerY' && key !== 'keyLocation' && key !== 'webkitMovementX' && key !== 'webkitMovementY') {
         // Chrome 32+ warns if you try to copy deprecated returnValue, but
         // we still want to if preventDefault isn't supported (IE8).
-        if (!(key === 'returnValue' &amp;&amp; old.preventDefault)) {
+        if (!(key === 'returnValue' && old.preventDefault)) {
           event[key] = old[key];
         }
       }
@@ -1772,12 +1772,12 @@ function fixEvent(event) {
     event.isImmediatePropagationStopped = returnFalse;
 
     // Handle mouse position
-    if (event.clientX !== null &amp;&amp; event.clientX !== undefined) {
+    if (event.clientX !== null && event.clientX !== undefined) {
       var doc = document_1.documentElement;
       var body = document_1.body;
 
-      event.pageX = event.clientX + (doc &amp;&amp; doc.scrollLeft || body &amp;&amp; body.scrollLeft || 0) - (doc &amp;&amp; doc.clientLeft || body &amp;&amp; body.clientLeft || 0);
-      event.pageY = event.clientY + (doc &amp;&amp; doc.scrollTop || body &amp;&amp; body.scrollTop || 0) - (doc &amp;&amp; doc.clientTop || body &amp;&amp; body.clientTop || 0);
+      event.pageX = event.clientX + (doc && doc.scrollLeft || body && body.scrollLeft || 0) - (doc && doc.clientLeft || body && body.clientLeft || 0);
+      event.pageY = event.clientY + (doc && doc.scrollTop || body && body.scrollTop || 0) - (doc && doc.clientTop || body && body.clientTop || 0);
     }
 
     // Handle key presses
@@ -1785,12 +1785,12 @@ function fixEvent(event) {
 
     // Fix button for mouse clicks:
     // 0 == left; 1 == middle; 2 == right
-    if (event.button !== null &amp;&amp; event.button !== undefined) {
+    if (event.button !== null && event.button !== undefined) {
 
       // The following is disabled because it does not pass videojs-standard
       // and... yikes.
       /* eslint-disable */
-      event.button = event.button &amp; 1 ? 0 : event.button &amp; 4 ? 1 : event.button &amp; 2 ? 2 : 0;
+      event.button = event.button & 1 ? 0 : event.button & 4 ? 1 : event.button & 2 ? 2 : 0;
       /* eslint-enable */
     }
   }
@@ -1877,7 +1877,7 @@ function on(elem, type, fn) {
         // Copy handlers so if handlers are added/removed during the process it doesn't throw everything off.
         var handlersCopy = handlers.slice(0);
 
-        for (var m = 0, n = handlersCopy.length; m &lt; n; m++) {
+        for (var m = 0, n = handlersCopy.length; m < n; m++) {
           if (event.isImmediatePropagationStopped()) {
             break;
           } else {
@@ -1896,7 +1896,7 @@ function on(elem, type, fn) {
     if (elem.addEventListener) {
       var options = false;
 
-      if (_supportsPassive &amp;&amp; passiveEvents.indexOf(type) &gt; -1) {
+      if (_supportsPassive && passiveEvents.indexOf(type) > -1) {
         options = { passive: true };
       }
       elem.addEventListener(type, data.dispatcher, options);
@@ -1967,7 +1967,7 @@ function off(elem, type, fn) {
 
   // We're only removing a single handler
   if (fn.guid) {
-    for (var n = 0; n &lt; handlers.length; n++) {
+    for (var n = 0; n < handlers.length; n++) {
       if (handlers[n].guid === fn.guid) {
         handlers.splice(n--, 1);
       }
@@ -2016,11 +2016,11 @@ function trigger(elem, event, hash) {
 
   // Unless explicitly stopped or the event does not bubble (e.g. media events)
   // recursively calls this function to bubble the event up the DOM.
-  if (parent &amp;&amp; !event.isPropagationStopped() &amp;&amp; event.bubbles === true) {
+  if (parent && !event.isPropagationStopped() && event.bubbles === true) {
     trigger.call(null, parent, event, hash);
 
     // If at the top of the DOM, triggers the default action unless disabled.
-  } else if (!parent &amp;&amp; !event.defaultPrevented) {
+  } else if (!parent && !event.defaultPrevented) {
     var targetData = getData(event.target);
 
     // Checks if the target has a default action for this event.
@@ -2104,28 +2104,28 @@ var autoSetup = function autoSetup() {
   var audios = document_1.getElementsByTagName('audio');
   var mediaEls = [];
 
-  if (vids &amp;&amp; vids.length &gt; 0) {
-    for (var i = 0, e = vids.length; i &lt; e; i++) {
+  if (vids && vids.length > 0) {
+    for (var i = 0, e = vids.length; i < e; i++) {
       mediaEls.push(vids[i]);
     }
   }
 
-  if (audios &amp;&amp; audios.length &gt; 0) {
-    for (var _i = 0, _e = audios.length; _i &lt; _e; _i++) {
+  if (audios && audios.length > 0) {
+    for (var _i = 0, _e = audios.length; _i < _e; _i++) {
       mediaEls.push(audios[_i]);
     }
   }
 
   // Check if any media elements exist
-  if (mediaEls &amp;&amp; mediaEls.length &gt; 0) {
+  if (mediaEls && mediaEls.length > 0) {
 
-    for (var _i2 = 0, _e2 = mediaEls.length; _i2 &lt; _e2; _i2++) {
+    for (var _i2 = 0, _e2 = mediaEls.length; _i2 < _e2; _i2++) {
       var mediaEl = mediaEls[_i2];
 
       // Check if element exists, has getAttribute func.
       // IE seems to consider typeof el.getAttribute == 'object' instead of
       // 'function' like expected, at least when loading the player immediately.
-      if (mediaEl &amp;&amp; mediaEl.getAttribute) {
+      if (mediaEl && mediaEl.getAttribute) {
 
         // Make sure this player hasn't already been set up.
         if (mediaEl.player === undefined) {
@@ -2170,7 +2170,7 @@ function autoSetupTimeout(wait, vjs) {
   window_1.setTimeout(autoSetup, wait);
 }
 
-if (isReal() &amp;&amp; document_1.readyState === 'complete') {
+if (isReal() && document_1.readyState === 'complete') {
   _windowLoaded = true;
 } else {
   /**
@@ -2281,7 +2281,7 @@ var throttle = function throttle(fn, wait) {
   var throttled = function throttled() {
     var now = Date.now();
 
-    if (now - last &gt;= wait) {
+    if (now - last >= wait) {
       fn.apply(undefined, arguments);
       last = now;
     }
@@ -2326,7 +2326,7 @@ var EventTarget = function EventTarget() {};
 /**
  * An object containing event names as keys and booleans as values.
  *
- * &gt; NOTE: If an event name is set to a true value here {@link EventTarget#trigger}
+ * > NOTE: If an event name is set to a true value here {@link EventTarget#trigger}
  *         will have extra functionality. See that function for more information.
  *
  * @property EventTarget.prototype.allowedEvents_
@@ -2432,7 +2432,7 @@ EventTarget.prototype.trigger = function (event) {
   }
   event = fixEvent(event);
 
-  if (this.allowedEvents_[type] &amp;&amp; this['on' + type]) {
+  if (this.allowedEvents_[type] && this['on' + type]) {
     this['on' + type](event);
   }
 
@@ -2462,7 +2462,7 @@ EventTarget.prototype.dispatchEvent = EventTarget.prototype.trigger;
  *         Whether or not the object appears to be evented.
  */
 var isEvented = function isEvented(object) {
-  return object instanceof EventTarget || !!object.eventBusEl_ &amp;&amp; ['on', 'one', 'off', 'trigger'].every(function (k) {
+  return object instanceof EventTarget || !!object.eventBusEl_ && ['on', 'one', 'off', 'trigger'].every(function (k) {
     return typeof object[k] === 'function';
   });
 };
@@ -2481,7 +2481,7 @@ var isValidEventType = function isValidEventType(type) {
   return (
     // The regex here verifies that the `type` contains at least one non-
     // whitespace character.
-    typeof type === 'string' &amp;&amp; /\S/.test(type) || Array.isArray(type) &amp;&amp; !!type.length
+    typeof type === 'string' && /\S/.test(type) || Array.isArray(type) && !!type.length
   );
 };
 
@@ -2496,7 +2496,7 @@ var isValidEventType = function isValidEventType(type) {
  *         The object to test.
  */
 var validateTarget = function validateTarget(target) {
-  if (!target.nodeName &amp;&amp; !isEvented(target)) {
+  if (!target.nodeName && !isEvented(target)) {
     throw new Error('Invalid target; must be a DOM node or evented object.');
   }
 };
@@ -2552,7 +2552,7 @@ var normalizeListenArgs = function normalizeListenArgs(self, args) {
 
   // If the number of arguments is less than 3, the target is always the
   // evented object itself.
-  var isTargetingSelf = args.length &lt; 3 || args[0] === self || args[0] === self.eventBusEl_;
+  var isTargetingSelf = args.length < 3 || args[0] === self || args[0] === self.eventBusEl_;
   var target = void 0;
   var type = void 0;
   var listener = void 0;
@@ -2562,7 +2562,7 @@ var normalizeListenArgs = function normalizeListenArgs(self, args) {
 
     // Deal with cases where we got 3 arguments, but we are still listening to
     // the evented object itself.
-    if (args.length &gt;= 3) {
+    if (args.length >= 3) {
       args.shift();
     }
 
@@ -2644,7 +2644,7 @@ var EventedMixin = {
   on: function on$$1() {
     var _this = this;
 
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key &lt; _len; _key++) {
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
 
@@ -2711,7 +2711,7 @@ var EventedMixin = {
   one: function one$$1() {
     var _this2 = this;
 
-    for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 &lt; _len2; _key2++) {
+    for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
       args[_key2] = arguments[_key2];
     }
 
@@ -2730,7 +2730,7 @@ var EventedMixin = {
       // Targeting another evented object.
     } else {
       var wrapper = function wrapper() {
-        for (var _len3 = arguments.length, largs = Array(_len3), _key3 = 0; _key3 &lt; _len3; _key3++) {
+        for (var _len3 = arguments.length, largs = Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
           largs[_key3] = arguments[_key3];
         }
 
@@ -2834,7 +2834,7 @@ var EventedMixin = {
  *         The target object.
  */
 function evented(target) {
-  var options = arguments.length &gt; 1 &amp;&amp; arguments[1] !== undefined ? arguments[1] : {};
+  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
   var eventBusKey = options.eventBusKey;
 
   // Set or create the eventBusEl_.
@@ -2919,7 +2919,7 @@ var StatefulMixin = {
     // Only trigger "statechange" if there were changes AND we have a trigger
     // function. This allows us to not require that the target object be an
     // evented object.
-    if (changes &amp;&amp; isEvented(this)) {
+    if (changes && isEvented(this)) {
 
       /**
        * An event triggered on an object that is both
@@ -2968,7 +2968,7 @@ function stateful(target, defaultState) {
   target.state = assign({}, target.state, defaultState);
 
   // Auto-bind the `handleStateChanged` method of the target object if it exists.
-  if (typeof target.handleStateChanged === 'function' &amp;&amp; isEvented(target)) {
+  if (typeof target.handleStateChanged === 'function' && isEvented(target)) {
     target.on('statechanged', target.handleStateChanged);
   }
 
@@ -3030,7 +3030,7 @@ function titleCaseEquals(str1, str2) {
 function mergeOptions() {
   var result = {};
 
-  for (var _len = arguments.length, sources = Array(_len), _key = 0; _key &lt; _len; _key++) {
+  for (var _len = arguments.length, sources = Array(_len), _key = 0; _key < _len; _key++) {
     sources[_key] = arguments[_key];
   }
 
@@ -3102,7 +3102,7 @@ var Component = function () {
 
 
     // The component might be the player itself and we can't pass `this` to super
-    if (!player &amp;&amp; this.play) {
+    if (!player && this.play) {
       this.player_ = player = this; // eslint-disable-line
     } else {
       this.player_ = player;
@@ -3115,12 +3115,12 @@ var Component = function () {
     options = this.options_ = mergeOptions(this.options_, options);
 
     // Get ID from options or options element if one is supplied
-    this.id_ = options.id || options.el &amp;&amp; options.el.id;
+    this.id_ = options.id || options.el && options.el.id;
 
     // If there was no ID from the options, generate one
     if (!this.id_) {
       // Don't require the player ID function in the case of mock players
-      var id = player &amp;&amp; player.id &amp;&amp; player.id() || 'no_player';
+      var id = player && player.id && player.id() || 'no_player';
 
       this.id_ = id + '_component_' + newGUID();
     }
@@ -3179,7 +3179,7 @@ var Component = function () {
 
     // Dispose all children.
     if (this.children_) {
-      for (var i = this.children_.length - 1; i &gt;= 0; i--) {
+      for (var i = this.children_.length - 1; i >= 0; i--) {
         if (this.children_[i].dispose) {
           this.children_[i].dispose();
         }
@@ -3216,7 +3216,7 @@ var Component = function () {
 
   /**
    * Deep merge of options objects with new options.
-   * &gt; Note: When both `obj` and `options` contain properties whose values are objects.
+   * > Note: When both `obj` and `options` contain properties whose values are objects.
    *         The two properties get merged using {@link module:mergeOptions}
    *
    * @param {Object} obj
@@ -3314,19 +3314,19 @@ var Component = function () {
 
 
   Component.prototype.localize = function localize(string, tokens) {
-    var defaultValue = arguments.length &gt; 2 &amp;&amp; arguments[2] !== undefined ? arguments[2] : string;
+    var defaultValue = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : string;
 
-    var code = this.player_.language &amp;&amp; this.player_.language();
-    var languages = this.player_.languages &amp;&amp; this.player_.languages();
-    var language = languages &amp;&amp; languages[code];
-    var primaryCode = code &amp;&amp; code.split('-')[0];
-    var primaryLang = languages &amp;&amp; languages[primaryCode];
+    var code = this.player_.language && this.player_.language();
+    var languages = this.player_.languages && this.player_.languages();
+    var language = languages && languages[code];
+    var primaryCode = code && code.split('-')[0];
+    var primaryLang = languages && languages[primaryCode];
 
     var localizedString = defaultValue;
 
-    if (language &amp;&amp; language[string]) {
+    if (language && language[string]) {
       localizedString = language[string];
-    } else if (primaryLang &amp;&amp; primaryLang[string]) {
+    } else if (primaryLang && primaryLang[string]) {
       localizedString = primaryLang[string];
     }
 
@@ -3453,8 +3453,8 @@ var Component = function () {
 
 
   Component.prototype.addChild = function addChild(child) {
-    var options = arguments.length &gt; 1 &amp;&amp; arguments[1] !== undefined ? arguments[1] : {};
-    var index = arguments.length &gt; 2 &amp;&amp; arguments[2] !== undefined ? arguments[2] : this.children_.length;
+    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+    var index = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : this.children_.length;
 
     var component = void 0;
     var componentName = void 0;
@@ -3468,7 +3468,7 @@ var Component = function () {
       // Set name through options
       options.name = componentName;
 
-      // Create a new object &amp; element for this controls set
+      // Create a new object & element for this controls set
       // If there's no .player_, this is a player
       var ComponentClass = Component.getComponent(componentClassName);
 
@@ -3499,7 +3499,7 @@ var Component = function () {
 
     // If a name wasn't used to create the component, check if we can use the
     // name function of the component
-    componentName = componentName || component.name &amp;&amp; toTitleCase(component.name());
+    componentName = componentName || component.name && toTitleCase(component.name());
 
     if (componentName) {
       this.childNameIndex_[componentName] = component;
@@ -3507,7 +3507,7 @@ var Component = function () {
 
     // Add the UI object's element to the container div (box)
     // Having an element is not required
-    if (typeof component.el === 'function' &amp;&amp; component.el()) {
+    if (typeof component.el === 'function' && component.el()) {
       var childNodes = this.contentEl().children;
       var refNode = childNodes[index] || null;
 
@@ -3538,7 +3538,7 @@ var Component = function () {
 
     var childFound = false;
 
-    for (var i = this.children_.length - 1; i &gt;= 0; i--) {
+    for (var i = this.children_.length - 1; i >= 0; i--) {
       if (this.children_[i] === component) {
         childFound = true;
         this.children_.splice(i, 1);
@@ -3555,7 +3555,7 @@ var Component = function () {
 
     var compEl = component.el();
 
-    if (compEl &amp;&amp; compEl.parentNode === this.contentEl()) {
+    if (compEl && compEl.parentNode === this.contentEl()) {
       this.contentEl().removeChild(component.el());
     }
   };
@@ -3652,7 +3652,7 @@ var Component = function () {
         // See https://github.com/videojs/video.js/issues/2772
         var c = Component.getComponent(child.opts.componentClass || toTitleCase(child.name));
 
-        return c &amp;&amp; !Tech.isTech(c);
+        return c && !Tech.isTech(c);
       }).forEach(handleAdd);
     }
   };
@@ -3684,7 +3684,7 @@ var Component = function () {
 
 
   Component.prototype.ready = function ready(fn) {
-    var sync = arguments.length &gt; 1 &amp;&amp; arguments[1] !== undefined ? arguments[1] : false;
+    var sync = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
 
     if (!fn) {
       return;
@@ -3721,7 +3721,7 @@ var Component = function () {
       // Reset Ready Queue
       this.readyQueue_ = [];
 
-      if (readyQueue &amp;&amp; readyQueue.length &gt; 0) {
+      if (readyQueue && readyQueue.length > 0) {
         readyQueue.forEach(function (fn) {
           fn.call(this);
         }, this);
@@ -4093,7 +4093,7 @@ var Component = function () {
   Component.prototype.currentDimension = function currentDimension(widthOrHeight) {
     var computedWidthOrHeight = 0;
 
-    if (widthOrHeight !== 'width' &amp;&amp; widthOrHeight !== 'height') {
+    if (widthOrHeight !== 'width' && widthOrHeight !== 'height') {
       throw new Error('currentDimension only accepts width or height value');
     }
 
@@ -4236,7 +4236,7 @@ var Component = function () {
 
     this.on('touchmove', function (event) {
       // If more than one finger, don't consider treating this as a click
-      if (event.touches.length &gt; 1) {
+      if (event.touches.length > 1) {
         couldBeTap = false;
       } else if (firstTouch) {
         // Some devices will throw touchmoves for all but the slightest of taps.
@@ -4245,7 +4245,7 @@ var Component = function () {
         var ydiff = event.touches[0].pageY - firstTouch.pageY;
         var touchDistance = Math.sqrt(xdiff * xdiff + ydiff * ydiff);
 
-        if (touchDistance &gt; tapMovementThreshold) {
+        if (touchDistance > tapMovementThreshold) {
           couldBeTap = false;
         }
       }
@@ -4269,7 +4269,7 @@ var Component = function () {
         var touchTime = new Date().getTime() - touchStart;
 
         // Make sure the touch was less than the threshold to be considered a tap
-        if (touchTime &lt; touchTimeThreshold) {
+        if (touchTime < touchTimeThreshold) {
           // Don't let browser turn this into a click
           event.preventDefault();
           /**
@@ -4359,7 +4359,7 @@ var Component = function () {
    *    {@link Component#dispose} gets called.
    * 2. The function callback will gets turned into a {@link Component~GenericCallback}
    *
-   * &gt; Note: You can use `window.clearTimeout` on the id returned by this function. This
+   * > Note: You can use `window.clearTimeout` on the id returned by this function. This
    *         will cause its dispose listener not to get cleaned up! Please use
    *         {@link Component#clearTimeout} or {@link Component#dispose}.
    *
@@ -4580,11 +4580,11 @@ var Component = function () {
   /**
    * Register a `Component` with `videojs` given the name and the component.
    *
-   * &gt; NOTE: {@link Tech}s should not be registered as a `Component`. {@link Tech}s
+   * > NOTE: {@link Tech}s should not be registered as a `Component`. {@link Tech}s
    *         should be registered using {@link Tech.registerTech} or
    *         {@link videojs:videojs.registerTech}.
    *
-   * &gt; NOTE: This function can also be seen on videojs as
+   * > NOTE: This function can also be seen on videojs as
    *         {@link videojs:videojs.registerComponent}.
    *
    * @param {string} name
@@ -4606,7 +4606,7 @@ var Component = function () {
     var Tech = Component.getComponent('Tech');
 
     // We need to make sure this check is only done if Tech has been registered.
-    var isTech = Tech &amp;&amp; Tech.isTech(ComponentToRegister);
+    var isTech = Tech && Tech.isTech(ComponentToRegister);
     var isComp = Component === ComponentToRegister || Component.prototype.isPrototypeOf(ComponentToRegister.prototype);
 
     if (isTech || !isComp) {
@@ -4629,7 +4629,7 @@ var Component = function () {
 
     var Player = Component.getComponent('Player');
 
-    if (name === 'Player' &amp;&amp; Player &amp;&amp; Player.players) {
+    if (name === 'Player' && Player && Player.players) {
       var players = Player.players;
       var playerNames = Object.keys(players);
 
@@ -4637,7 +4637,7 @@ var Component = function () {
       // in Players.players. So, we must loop through and verify that the value
       // for each item is not null. This allows registration of the Player component
       // after all players have been disposed or before any were created.
-      if (players &amp;&amp; playerNames.length &gt; 0 &amp;&amp; playerNames.map(function (pname) {
+      if (players && playerNames.length > 0 && playerNames.map(function (pname) {
         return players[pname];
       }).every(Boolean)) {
         throw new Error('Can not register Player component after player has been created.');
@@ -4672,7 +4672,7 @@ var Component = function () {
 
     name = toTitleCase(name);
 
-    if (Component.components_ &amp;&amp; Component.components_[name]) {
+    if (Component.components_ && Component.components_[name]) {
       return Component.components_[name];
     }
   };
@@ -4690,7 +4690,7 @@ var Component = function () {
  */
 
 
-Component.prototype.supportsRaf_ = typeof window_1.requestAnimationFrame === 'function' &amp;&amp; typeof window_1.cancelAnimationFrame === 'function';
+Component.prototype.supportsRaf_ = typeof window_1.requestAnimationFrame === 'function' && typeof window_1.cancelAnimationFrame === 'function';
 
 Component.registerComponent('Component', Component);
 
@@ -4746,7 +4746,7 @@ Component.registerComponent('Component', Component);
  * @throws {Error} if the timeRanges provided are over the maxIndex
  */
 function rangeCheck(fnName, index, maxIndex) {
-  if (typeof index !== 'number' || index &lt; 0 || index &gt; maxIndex) {
+  if (typeof index !== 'number' || index < 0 || index > maxIndex) {
     throw new Error('Failed to execute \'' + fnName + '\' on \'TimeRanges\': The index provided (' + index + ') is non-numeric or out of bounds (0-' + maxIndex + ').');
   }
 }
@@ -4852,12 +4852,12 @@ function bufferedPercent(buffered, duration) {
     buffered = createTimeRanges(0, 0);
   }
 
-  for (var i = 0; i &lt; buffered.length; i++) {
+  for (var i = 0; i < buffered.length; i++) {
     start = buffered.start(i);
     end = buffered.end(i);
 
     // buffered end can be bigger than duration by a very small fraction
-    if (end &gt; duration) {
+    if (end > duration) {
       end = duration;
     }
 
@@ -4896,7 +4896,7 @@ var specApi = apiMap[0];
 var browserApi = void 0;
 
 // determine the supported set of functions
-for (var i = 0; i &lt; apiMap.length; i++) {
+for (var i = 0; i < apiMap.length; i++) {
   // check for exitFullscreen function
   if (apiMap[i][1] in document_1) {
     browserApi = apiMap[i];
@@ -4906,7 +4906,7 @@ for (var i = 0; i &lt; apiMap.length; i++) {
 
 // map the browser API names to the spec API names
 if (browserApi) {
-  for (var _i = 0; _i &lt; browserApi.length; _i++) {
+  for (var _i = 0; _i < browserApi.length; _i++) {
     FullscreenApi[specApi[_i]] = browserApi[_i];
   }
 }
@@ -5017,7 +5017,7 @@ MediaError.defaultMessages = {
 
 // Add types as properties on MediaError
 // e.g. MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED = 4;
-for (var errNum = 0; errNum &lt; MediaError.errorTypes.length; errNum++) {
+for (var errNum = 0; errNum < MediaError.errorTypes.length; errNum++) {
   MediaError[MediaError.errorTypes[errNum]] = errNum;
   // values should be accessible on both the class and instance
   MediaError.prototype[MediaError.errorTypes[errNum]] = errNum;
@@ -5065,7 +5065,7 @@ var trackToJson_ = function trackToJson_(track) {
 
     return acc;
   }, {
-    cues: track.cues &amp;&amp; Array.prototype.map.call(track.cues, function (cue) {
+    cues: track.cues && Array.prototype.map.call(track.cues, function (cue) {
       return {
         startTime: cue.startTime,
         endTime: cue.endTime,
@@ -5126,7 +5126,7 @@ var jsonToTextTracks = function jsonToTextTracks(json, tech) {
   json.forEach(function (track) {
     var addedTrack = tech.addRemoteTextTrack(track).track;
 
-    if (!track.src &amp;&amp; track.cues) {
+    if (!track.src && track.cues) {
       track.cues.forEach(function (cue) {
         return addedTrack.addCue(cue);
       });
@@ -5263,7 +5263,7 @@ var ModalDialog = function (_Component) {
 
 
   ModalDialog.prototype.handleKeyPress = function handleKeyPress(e) {
-    if (e.which === ESC &amp;&amp; this.closeable()) {
+    if (e.which === ESC && this.closeable()) {
       this.close();
     }
   };
@@ -5323,7 +5323,7 @@ var ModalDialog = function (_Component) {
 
       // Fill content if the modal has never opened before and
       // never been filled.
-      if (this.options_.fillAlways || !this.hasBeenOpened_ &amp;&amp; !this.hasBeenFilled_) {
+      if (this.options_.fillAlways || !this.hasBeenOpened_ && !this.hasBeenFilled_) {
         this.fill();
       }
 
@@ -5331,7 +5331,7 @@ var ModalDialog = function (_Component) {
       // playing state.
       this.wasPlaying_ = !player.paused();
 
-      if (this.options_.pauseOnOpen &amp;&amp; this.wasPlaying_) {
+      if (this.options_.pauseOnOpen && this.wasPlaying_) {
         player.pause();
       }
 
@@ -5400,7 +5400,7 @@ var ModalDialog = function (_Component) {
     this.trigger('beforemodalclose');
     this.opened_ = false;
 
-    if (this.wasPlaying_ &amp;&amp; this.options_.pauseOnOpen) {
+    if (this.wasPlaying_ && this.options_.pauseOnOpen) {
       player.play();
     }
 
@@ -5446,7 +5446,7 @@ var ModalDialog = function (_Component) {
       var close = this.getChild('closeButton');
 
       // If this is being made closeable and has no close button, add one.
-      if (closeable &amp;&amp; !close) {
+      if (closeable && !close) {
 
         // The close button should be a child of the modal - not its
         // content element, so temporarily change the content element.
@@ -5459,7 +5459,7 @@ var ModalDialog = function (_Component) {
       }
 
       // If this is being made uncloseable and has a close button, remove it.
-      if (!closeable &amp;&amp; close) {
+      if (!closeable && close) {
         this.off(close, 'close', this.close);
         this.removeChild(close);
         close.dispose();
@@ -5638,7 +5638,7 @@ var ModalDialog = function (_Component) {
     var activeEl = this.el_.querySelector(':focus');
     var focusIndex = void 0;
 
-    for (var i = 0; i &lt; focusableEls.length; i++) {
+    for (var i = 0; i < focusableEls.length; i++) {
       if (activeEl === focusableEls[i]) {
         focusIndex = i;
         break;
@@ -5649,10 +5649,10 @@ var ModalDialog = function (_Component) {
       focusIndex = 0;
     }
 
-    if (event.shiftKey &amp;&amp; focusIndex === 0) {
+    if (event.shiftKey && focusIndex === 0) {
       focusableEls[focusableEls.length - 1].focus();
       event.preventDefault();
-    } else if (!event.shiftKey &amp;&amp; focusIndex === focusableEls.length - 1) {
+    } else if (!event.shiftKey && focusIndex === focusableEls.length - 1) {
       focusableEls[0].focus();
       event.preventDefault();
     }
@@ -5669,7 +5669,7 @@ var ModalDialog = function (_Component) {
     var allChildren = this.el_.querySelectorAll('*');
 
     return Array.prototype.filter.call(allChildren, function (child) {
-      return (child instanceof window_1.HTMLAnchorElement || child instanceof window_1.HTMLAreaElement) &amp;&amp; child.hasAttribute('href') || (child instanceof window_1.HTMLInputElement || child instanceof window_1.HTMLSelectElement || child instanceof window_1.HTMLTextAreaElement || child instanceof window_1.HTMLButtonElement) &amp;&amp; !child.hasAttribute('disabled') || child instanceof window_1.HTMLIFrameElement || child instanceof window_1.HTMLObjectElement || child instanceof window_1.HTMLEmbedElement || child.hasAttribute('tabindex') &amp;&amp; child.getAttribute('tabindex') !== -1 || child.hasAttribute('contenteditable');
+      return (child instanceof window_1.HTMLAnchorElement || child instanceof window_1.HTMLAreaElement) && child.hasAttribute('href') || (child instanceof window_1.HTMLInputElement || child instanceof window_1.HTMLSelectElement || child instanceof window_1.HTMLTextAreaElement || child instanceof window_1.HTMLButtonElement) && !child.hasAttribute('disabled') || child instanceof window_1.HTMLIFrameElement || child instanceof window_1.HTMLObjectElement || child instanceof window_1.HTMLEmbedElement || child.hasAttribute('tabindex') && child.getAttribute('tabindex') !== -1 || child.hasAttribute('contenteditable');
     });
   };
 
@@ -5716,11 +5716,11 @@ var TrackList = function (_EventTarget) {
    * @abstract
    */
   function TrackList() {
-    var tracks = arguments.length &gt; 0 &amp;&amp; arguments[0] !== undefined ? arguments[0] : [];
+    var tracks = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 
     var _ret;
 
-    var list = arguments.length &gt; 1 &amp;&amp; arguments[1] !== undefined ? arguments[1] : null;
+    var list = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
     classCallCheck(this, TrackList);
 
     var _this = possibleConstructorReturn(this, _EventTarget.call(this));
@@ -5751,7 +5751,7 @@ var TrackList = function (_EventTarget) {
       }
     });
 
-    for (var i = 0; i &lt; tracks.length; i++) {
+    for (var i = 0; i < tracks.length; i++) {
       list.addTrack(tracks[i]);
     }
 
@@ -5812,7 +5812,7 @@ var TrackList = function (_EventTarget) {
   TrackList.prototype.removeTrack = function removeTrack(rtrack) {
     var track = void 0;
 
-    for (var i = 0, l = this.length; i &lt; l; i++) {
+    for (var i = 0, l = this.length; i < l; i++) {
       if (this[i] === rtrack) {
         track = this[i];
         if (track.off) {
@@ -5856,7 +5856,7 @@ var TrackList = function (_EventTarget) {
   TrackList.prototype.getTrackById = function getTrackById(id) {
     var result = null;
 
-    for (var i = 0, l = this.length; i &lt; l; i++) {
+    for (var i = 0, l = this.length; i < l; i++) {
       var track = this[i];
 
       if (track.id === id) {
@@ -5913,7 +5913,7 @@ for (var event in TrackList.prototype.allowedEvents_) {
  * @private
  */
 var disableOthers = function disableOthers(list, track) {
-  for (var i = 0; i &lt; list.length; i++) {
+  for (var i = 0; i < list.length; i++) {
     if (!Object.keys(list[i]).length || track.id === list[i].id) {
       continue;
     }
@@ -5941,14 +5941,14 @@ var AudioTrackList = function (_TrackList) {
   function AudioTrackList() {
     var _this, _ret;
 
-    var tracks = arguments.length &gt; 0 &amp;&amp; arguments[0] !== undefined ? arguments[0] : [];
+    var tracks = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
     classCallCheck(this, AudioTrackList);
 
     var list = void 0;
 
     // make sure only 1 track is enabled
     // sorted from last index to first index
-    for (var i = tracks.length - 1; i &gt;= 0; i--) {
+    for (var i = tracks.length - 1; i >= 0; i--) {
       if (tracks[i].enabled) {
         disableOthers(tracks, tracks[i]);
         break;
@@ -6036,7 +6036,7 @@ var AudioTrackList = function (_TrackList) {
  * @private
  */
 var disableOthers$1 = function disableOthers(list, track) {
-  for (var i = 0; i &lt; list.length; i++) {
+  for (var i = 0; i < list.length; i++) {
     if (!Object.keys(list[i]).length || track.id === list[i].id) {
       continue;
     }
@@ -6064,14 +6064,14 @@ var VideoTrackList = function (_TrackList) {
   function VideoTrackList() {
     var _this, _ret;
 
-    var tracks = arguments.length &gt; 0 &amp;&amp; arguments[0] !== undefined ? arguments[0] : [];
+    var tracks = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
     classCallCheck(this, VideoTrackList);
 
     var list = void 0;
 
     // make sure only 1 track is enabled
     // sorted from last index to first index
-    for (var i = tracks.length - 1; i &gt;= 0; i--) {
+    for (var i = tracks.length - 1; i >= 0; i--) {
       if (tracks[i].selected) {
         disableOthers$1(tracks, tracks[i]);
         break;
@@ -6103,7 +6103,7 @@ var VideoTrackList = function (_TrackList) {
      */
     Object.defineProperty(list, 'selectedIndex', {
       get: function get$$1() {
-        for (var _i = 0; _i &lt; this.length; _i++) {
+        for (var _i = 0; _i < this.length; _i++) {
           if (this[_i].selected) {
             return _i;
           }
@@ -6179,7 +6179,7 @@ var TextTrackList = function (_TrackList) {
   function TextTrackList() {
     var _this, _ret;
 
-    var tracks = arguments.length &gt; 0 &amp;&amp; arguments[0] !== undefined ? arguments[0] : [];
+    var tracks = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
     classCallCheck(this, TextTrackList);
 
     var list = void 0;
@@ -6254,7 +6254,7 @@ var HtmlTrackElementList = function () {
    *        A list of `HtmlTrackElement` to instantiate the list with.
    */
   function HtmlTrackElementList() {
-    var trackElements = arguments.length &gt; 0 &amp;&amp; arguments[0] !== undefined ? arguments[0] : [];
+    var trackElements = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
     classCallCheck(this, HtmlTrackElementList);
 
     var list = this; // eslint-disable-line
@@ -6283,7 +6283,7 @@ var HtmlTrackElementList = function () {
       }
     });
 
-    for (var i = 0, length = trackElements.length; i &lt; length; i++) {
+    for (var i = 0, length = trackElements.length; i < length; i++) {
       list.addTrackElement_(trackElements[i]);
     }
 
@@ -6336,7 +6336,7 @@ var HtmlTrackElementList = function () {
   HtmlTrackElementList.prototype.getTrackElementByTrack_ = function getTrackElementByTrack_(track) {
     var trackElement_ = void 0;
 
-    for (var i = 0, length = this.trackElements_.length; i &lt; length; i++) {
+    for (var i = 0, length = this.trackElements_.length; i < length; i++) {
       if (track === this.trackElements_[i].track) {
         trackElement_ = this.trackElements_[i];
 
@@ -6358,7 +6358,7 @@ var HtmlTrackElementList = function () {
 
 
   HtmlTrackElementList.prototype.removeTrackElement_ = function removeTrackElement_(trackElement) {
-    for (var i = 0, length = this.trackElements_.length; i &lt; length; i++) {
+    for (var i = 0, length = this.trackElements_.length; i < length; i++) {
       if (trackElement === this.trackElements_[i]) {
         this.trackElements_.splice(i, 1);
 
@@ -6468,10 +6468,10 @@ var TextTrackCueList = function () {
       }
     };
 
-    if (oldLength &lt; l) {
+    if (oldLength < l) {
       i = oldLength;
 
-      for (; i &lt; l; i++) {
+      for (; i < l; i++) {
         defineProp.call(this, i);
       }
     }
@@ -6491,7 +6491,7 @@ var TextTrackCueList = function () {
   TextTrackCueList.prototype.getCueById = function getCueById(id) {
     var result = null;
 
-    for (var i = 0, l = this.length; i &lt; l; i++) {
+    for (var i = 0, l = this.length; i < l; i++) {
       var cue = this[i];
 
       if (cue.id === id) {
@@ -6577,7 +6577,7 @@ var TextTrackMode = {
  * A Track class that contains all of the common functionality for {@link AudioTrack},
  * {@link VideoTrack}, and {@link TextTrack}.
  *
- * &gt; Note: This class should not be used directly
+ * > Note: This class should not be used directly
  *
  * @see {@link https://html.spec.whatwg.org/multipage/embedded-content.html}
  * @extends EventTarget
@@ -6610,7 +6610,7 @@ var Track = function (_EventTarget) {
   function Track() {
     var _ret;
 
-    var options = arguments.length &gt; 0 &amp;&amp; arguments[0] !== undefined ? arguments[0] : {};
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     classCallCheck(this, Track);
 
     var _this = possibleConstructorReturn(this, _EventTarget.call(this));
@@ -6738,12 +6738,12 @@ var parseUrl = function parseUrl(url) {
   // IE8 (and 9?) Fix
   // ie8 doesn't parse the URL correctly until the anchor is actually
   // added to the body, and an innerHTML is needed to trigger the parsing
-  var addToBody = a.host === '' &amp;&amp; a.protocol !== 'file:';
+  var addToBody = a.host === '' && a.protocol !== 'file:';
   var div = void 0;
 
   if (addToBody) {
     div = document_1.createElement('div');
-    div.innerHTML = '&lt;a href="' + url + '"&gt;&lt;/a&gt;';
+    div.innerHTML = '<a href="' + url + '"></a>';
     a = div.firstChild;
     // prevent the div from affecting layout
     div.setAttribute('style', 'display:none; position:absolute;');
@@ -6755,7 +6755,7 @@ var parseUrl = function parseUrl(url) {
   // properties when it's removed from the dom
   var details = {};
 
-  for (var i = 0; i &lt; props.length; i++) {
+  for (var i = 0; i < props.length; i++) {
     details[props[i]] = a[props[i]];
   }
 
@@ -6798,7 +6798,7 @@ var getAbsoluteURL = function getAbsoluteURL(url) {
     // Convert to absolute URL. Flash hosted off-site needs an absolute URL.
     var div = document_1.createElement('div');
 
-    div.innerHTML = '&lt;a href="' + url + '"&gt;x&lt;/a&gt;';
+    div.innerHTML = '<a href="' + url + '">x</a>';
     url = div.firstChild.href;
   }
 
@@ -6866,8 +6866,8 @@ var toString$1 = Object.prototype.toString;
 function isFunction (fn) {
   var string = toString$1.call(fn);
   return string === '[object Function]' ||
-    (typeof fn === 'function' &amp;&amp; string !== '[object RegExp]') ||
-    (typeof window !== 'undefined' &amp;&amp;
+    (typeof fn === 'function' && string !== '[object RegExp]') ||
+    (typeof window !== 'undefined' &&
      // IE8 and below
      (fn === window.setTimeout ||
       fn === window.alert ||
@@ -6901,7 +6901,7 @@ function forEach(list, iterator, context) {
         throw new TypeError('iterator must be a function')
     }
 
-    if (arguments.length &lt; 3) {
+    if (arguments.length < 3) {
         context = this;
     }
     
@@ -6914,7 +6914,7 @@ function forEach(list, iterator, context) {
 }
 
 function forEachArray$1(array, iterator, context) {
-    for (var i = 0, len = array.length; i &lt; len; i++) {
+    for (var i = 0, len = array.length; i < len; i++) {
         if (hasOwnProperty.call(array, i)) {
             iterator.call(context, array[i], i, array);
         }
@@ -6922,7 +6922,7 @@ function forEachArray$1(array, iterator, context) {
 }
 
 function forEachString(string, iterator, context) {
-    for (var i = 0, len = string.length; i &lt; len; i++) {
+    for (var i = 0, len = string.length; i < len; i++) {
         // no such thing as a sparse string.
         iterator.call(context, string.charAt(i), i, string);
     }
@@ -6973,7 +6973,7 @@ var hasOwnProperty$1 = Object.prototype.hasOwnProperty;
 function extend() {
     var target = {};
 
-    for (var i = 0; i &lt; arguments.length; i++) {
+    for (var i = 0; i < arguments.length; i++) {
         var source = arguments[i];
 
         for (var key in source) {
@@ -6999,7 +6999,7 @@ forEachArray(["get", "put", "post", "patch", "head", "delete"], function(method)
 });
 
 function forEachArray(array, iterator) {
-    for (var i = 0; i &lt; array.length; i++) {
+    for (var i = 0; i < array.length; i++) {
         iterator(array[i]);
     }
 }
@@ -7079,12 +7079,12 @@ function _createXHR(options) {
         return callback(evt, failureResponse)
     }
 
-    // will load the data &amp; process the response in a special response object
+    // will load the data & process the response in a special response object
     function loadFunc() {
         if (aborted) return
         var status;
         clearTimeout(timeoutTimer);
-        if(options.useXDR &amp;&amp; xhr.status===undefined) {
+        if(options.useXDR && xhr.status===undefined) {
             //IE8 CORS GET successful response doesn't have a status field, but body is fine
             status = 200;
         } else {
@@ -7139,10 +7139,10 @@ function _createXHR(options) {
         rawRequest: xhr
     };
 
-    if ("json" in options &amp;&amp; options.json !== false) {
+    if ("json" in options && options.json !== false) {
         isJson = true;
         headers["accept"] || headers["Accept"] || (headers["Accept"] = "application/json"); //Don't override existing accept header declared by user
-        if (method !== "GET" &amp;&amp; method !== "HEAD") {
+        if (method !== "GET" && method !== "HEAD") {
             headers["content-type"] || headers["Content-Type"] || (headers["Content-Type"] = "application/json"); //Don't override existing accept header declared by user
             body = JSON.stringify(options.json === true ? body : options.json);
         }
@@ -7167,7 +7167,7 @@ function _createXHR(options) {
     // Cannot set timeout with sync request
     // not setting timeout on the xhr object, because of old webkits etc. not handling that correctly
     // both npm's request and jquery 1.x use this kind of timeout, so this is being consistent
-    if (!sync &amp;&amp; options.timeout &gt; 0 ) {
+    if (!sync && options.timeout > 0 ) {
         timeoutTimer = setTimeout(function(){
             if (aborted) return
             aborted = true;//IE9 may still call readystatechange
@@ -7184,7 +7184,7 @@ function _createXHR(options) {
                 xhr.setRequestHeader(key, headers[key]);
             }
         }
-    } else if (options.headers &amp;&amp; !isEmpty(options.headers)) {
+    } else if (options.headers && !isEmpty(options.headers)) {
         throw new Error("Headers cannot be set on an XDomainRequest object")
     }
 
@@ -7192,7 +7192,7 @@ function _createXHR(options) {
         xhr.responseType = options.responseType;
     }
 
-    if ("beforeSend" in options &amp;&amp;
+    if ("beforeSend" in options &&
         typeof options.beforeSend === "function"
     ) {
         options.beforeSend(xhr);
@@ -7212,8 +7212,8 @@ function getXml(xhr) {
     if (xhr.responseType === "document") {
         return xhr.responseXML
     }
-    var firefoxBugTakenEffect = xhr.responseXML &amp;&amp; xhr.responseXML.documentElement.nodeName === "parsererror";
-    if (xhr.responseType === "" &amp;&amp; !firefoxBugTakenEffect) {
+    var firefoxBugTakenEffect = xhr.responseXML && xhr.responseXML.documentElement.nodeName === "parsererror";
+    if (xhr.responseType === "" && !firefoxBugTakenEffect) {
         return xhr.responseXML
     }
 
@@ -7256,14 +7256,14 @@ var parseCues = function parseCues(srcContent, track) {
   };
 
   parser.parse(srcContent);
-  if (errors.length &gt; 0) {
-    if (window_1.console &amp;&amp; window_1.console.groupCollapsed) {
+  if (errors.length > 0) {
+    if (window_1.console && window_1.console.groupCollapsed) {
       window_1.console.groupCollapsed('Text Track parsing errors for ' + track.src);
     }
     errors.forEach(function (error) {
       return log$1.error(error);
     });
-    if (window_1.console &amp;&amp; window_1.console.groupEnd) {
+    if (window_1.console && window_1.console.groupEnd) {
       window_1.console.groupEnd();
     }
   }
@@ -7366,7 +7366,7 @@ var TextTrack = function (_Track) {
   function TextTrack() {
     var _this, _ret;
 
-    var options = arguments.length &gt; 0 &amp;&amp; arguments[0] !== undefined ? arguments[0] : {};
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     classCallCheck(this, TextTrack);
 
     if (!options.tech) {
@@ -7469,7 +7469,7 @@ var TextTrack = function (_Track) {
          * An event that fires when mode changes on this track. This allows
          * the TextTrackList that holds this track to act accordingly.
          *
-         * &gt; Note: This is not part of the spec!
+         * > Note: This is not part of the spec!
          *
          * @event TextTrack#modechange
          * @type {EventTarget~Event}
@@ -7515,12 +7515,12 @@ var TextTrack = function (_Track) {
         var ct = this.tech_.currentTime();
         var active = [];
 
-        for (var i = 0, l = this.cues.length; i &lt; l; i++) {
+        for (var i = 0, l = this.cues.length; i < l; i++) {
           var cue = this.cues[i];
 
-          if (cue.startTime &lt;= ct &amp;&amp; cue.endTime &gt;= ct) {
+          if (cue.startTime <= ct && cue.endTime >= ct) {
             active.push(cue);
-          } else if (cue.startTime === cue.endTime &amp;&amp; cue.startTime &lt;= ct &amp;&amp; cue.startTime + 0.5 &gt;= ct) {
+          } else if (cue.startTime === cue.endTime && cue.startTime <= ct && cue.startTime + 0.5 >= ct) {
             active.push(cue);
           }
         }
@@ -7530,7 +7530,7 @@ var TextTrack = function (_Track) {
         if (active.length !== this.activeCues_.length) {
           changed = true;
         } else {
-          for (var _i = 0; _i &lt; active.length; _i++) {
+          for (var _i = 0; _i < active.length; _i++) {
             if (this.activeCues_.indexOf(active[_i]) === -1) {
               changed = true;
             }
@@ -7566,7 +7566,7 @@ var TextTrack = function (_Track) {
   TextTrack.prototype.addCue = function addCue(originalCue) {
     var cue = originalCue;
 
-    if (window_1.vttjs &amp;&amp; !(originalCue instanceof window_1.vttjs.VTTCue)) {
+    if (window_1.vttjs && !(originalCue instanceof window_1.vttjs.VTTCue)) {
       cue = new window_1.vttjs.VTTCue(originalCue.startTime, originalCue.endTime, originalCue.text);
 
       for (var prop in originalCue) {
@@ -7582,7 +7582,7 @@ var TextTrack = function (_Track) {
 
     var tracks = this.tech_.textTracks();
 
-    for (var i = 0; i &lt; tracks.length; i++) {
+    for (var i = 0; i < tracks.length; i++) {
       if (tracks[i] !== this) {
         tracks[i].removeCue(cue);
       }
@@ -7606,7 +7606,7 @@ var TextTrack = function (_Track) {
     while (i--) {
       var cue = this.cues_[i];
 
-      if (cue === _removeCue || cue.originalCue_ &amp;&amp; cue.originalCue_ === _removeCue) {
+      if (cue === _removeCue || cue.originalCue_ && cue.originalCue_ === _removeCue) {
         this.cues_.splice(i, 1);
         this.cues.setCues_(this.cues_);
         break;
@@ -7662,7 +7662,7 @@ var AudioTrack = function (_Track) {
   function AudioTrack() {
     var _this, _ret;
 
-    var options = arguments.length &gt; 0 &amp;&amp; arguments[0] !== undefined ? arguments[0] : {};
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     classCallCheck(this, AudioTrack);
 
     var settings = mergeOptions(options, {
@@ -7704,7 +7704,7 @@ var AudioTrack = function (_Track) {
          * An event that fires when enabled changes on this track. This allows
          * the AudioTrackList that holds this track to act accordingly.
          *
-         * &gt; Note: This is not part of the spec! Native tracks will do
+         * > Note: This is not part of the spec! Native tracks will do
          *         this internally without an event.
          *
          * @event AudioTrack#enabledchange
@@ -7762,7 +7762,7 @@ var VideoTrack = function (_Track) {
   function VideoTrack() {
     var _this, _ret;
 
-    var options = arguments.length &gt; 0 &amp;&amp; arguments[0] !== undefined ? arguments[0] : {};
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     classCallCheck(this, VideoTrack);
 
     var settings = mergeOptions(options, {
@@ -7806,7 +7806,7 @@ var VideoTrack = function (_Track) {
          * An event that fires when selected changes on this track. This allows
          * the VideoTrackList that holds this track to act accordingly.
          *
-         * &gt; Note: This is not part of the spec! Native tracks will do
+         * > Note: This is not part of the spec! Native tracks will do
          *         this internally without an event.
          *
          * @event VideoTrack#selectedchange
@@ -7888,7 +7888,7 @@ var HTMLTrackElement = function (_EventTarget) {
    *        If this track should default to on or off.
    */
   function HTMLTrackElement() {
-    var options = arguments.length &gt; 0 &amp;&amp; arguments[0] !== undefined ? arguments[0] : {};
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     classCallCheck(this, HTMLTrackElement);
 
     var _this = possibleConstructorReturn(this, _EventTarget.call(this));
@@ -8093,7 +8093,7 @@ function parseTimeStamp(input) {
   if (m[3]) {
     // Timestamp takes the form of [hours]:[minutes]:[seconds].[milliseconds]
     return computeSeconds(m[1], m[2], m[3].replace(":", ""), m[4]);
-  } else if (m[1] &gt; 59) {
+  } else if (m[1] > 59) {
     // Timestamp takes the form of [hours]:[minutes].[milliseconds]
     // First position is hours as it's over 59.
     return computeSeconds(m[1], m[2], 0,  m[4]);
@@ -8112,7 +8112,7 @@ function Settings() {
 Settings.prototype = {
   // Only accept the first assignment to any key.
   set: function(k, v) {
-    if (!this.get(k) &amp;&amp; v !== "") {
+    if (!this.get(k) && v !== "") {
       this.values[k] = v;
     }
   },
@@ -8133,7 +8133,7 @@ Settings.prototype = {
   },
   // Accept a setting if its one of the given alternatives.
   alt: function(k, v, a) {
-    for (var n = 0; n &lt; a.length; ++n) {
+    for (var n = 0; n < a.length; ++n) {
       if (v === a[n]) {
         this.set(k, v);
         break;
@@ -8151,7 +8151,7 @@ Settings.prototype = {
     var m;
     if ((m = v.match(/^([\d]{1,3})(\.[\d]*)?%$/))) {
       v = parseFloat(v);
-      if (v &gt;= 0 &amp;&amp; v &lt;= 100) {
+      if (v >= 0 && v <= 100) {
         this.set(k, v);
         return true;
       }
@@ -8201,7 +8201,7 @@ function parseCue(input, cue, regionList) {
       switch (k) {
       case "region":
         // Find the last region we parsed with the same region id.
-        for (var i = regionList.length - 1; i &gt;= 0; i--) {
+        for (var i = regionList.length - 1; i >= 0; i--) {
           if (regionList[i].id === v) {
             settings.set(k, regionList[i].region);
             break;
@@ -8269,9 +8269,9 @@ function parseCue(input, cue, regionList) {
   skipWhitespace();
   cue.startTime = consumeTimeStamp();   // (1) collect cue start time
   skipWhitespace();
-  if (input.substr(0, 3) !== "--&gt;") {     // (3) next characters must match "--&gt;"
+  if (input.substr(0, 3) !== "-->") {     // (3) next characters must match "-->"
     throw new ParsingError(ParsingError.Errors.BadTimeStamp,
-                           "Malformed time stamp (time stamps must be separated by '--&gt;'): " +
+                           "Malformed time stamp (time stamps must be separated by '-->'): " +
                            oInput);
   }
   input = input.substr(3);
@@ -8284,12 +8284,12 @@ function parseCue(input, cue, regionList) {
 }
 
 var ESCAPE = {
-  "&amp;amp;": "&amp;",
-  "&amp;lt;": "&lt;",
-  "&amp;gt;": "&gt;",
-  "&amp;lrm;": "\u200e",
-  "&amp;rlm;": "\u200f",
-  "&amp;nbsp;": "\u00a0"
+  "&amp;": "&",
+  "&lt;": "<",
+  "&gt;": ">",
+  "&lrm;": "\u200e",
+  "&rlm;": "\u200f",
+  "&nbsp;": "\u00a0"
 };
 
 var TAG_NAME = {
@@ -8326,7 +8326,7 @@ function parseContent(window, input) {
       return result;
     }
 
-    var m = input.match(/^([^&lt;]*)(&lt;[^&gt;]+&gt;?)?/);
+    var m = input.match(/^([^<]*)(<[^>]+>?)?/);
     // If there is some text before the next tag, return it, otherwise return
     // the tag.
     return consume(m[1] ? m[1] : m[2]);
@@ -8337,7 +8337,7 @@ function parseContent(window, input) {
     return ESCAPE[e];
   }
   function unescape(s) {
-    while ((m = s.match(/&amp;(amp|lt|gt|lrm|rlm|nbsp);/))) {
+    while ((m = s.match(/&(amp|lt|gt|lrm|rlm|nbsp);/))) {
       s = s.replace(m[0], unescape1);
     }
     return s;
@@ -8357,7 +8357,7 @@ function parseContent(window, input) {
     var element = window.document.createElement(tagName);
     element.localName = tagName;
     var name = TAG_ANNOTATION[type];
-    if (name &amp;&amp; annotation) {
+    if (name && annotation) {
       element[name] = annotation.trim();
     }
     return element;
@@ -8369,11 +8369,11 @@ function parseContent(window, input) {
       tagStack = [];
 
   while ((t = nextToken()) !== null) {
-    if (t[0] === '&lt;') {
+    if (t[0] === '<') {
       if (t[1] === "/") {
         // If the closing tag matches, move back up to the parent node.
-        if (tagStack.length &amp;&amp;
-            tagStack[tagStack.length - 1] === t.substr(2).replace("&gt;", "")) {
+        if (tagStack.length &&
+            tagStack[tagStack.length - 1] === t.substr(2).replace(">", "")) {
           tagStack.pop();
           current = current.parentNode;
         }
@@ -8388,7 +8388,7 @@ function parseContent(window, input) {
         current.appendChild(node);
         continue;
       }
-      var m = t.match(/^&lt;([^.\s/0-9&gt;]+)(\.[^\s\\&gt;]+)?([^&gt;\\]+)?(\\?)&gt;?$/);
+      var m = t.match(/^<([^.\s/0-9>]+)(\.[^\s\\>]+)?([^>\\]+)?(\\?)>?$/);
       // If we can't parse the tag, skip to the next tag.
       if (!m) {
         continue;
@@ -8454,9 +8454,9 @@ var strongRTLRanges = [[0x5be, 0x5be], [0x5c0, 0x5c0], [0x5c3, 0x5c3], [0x5c6, 0
  [0x1eea1, 0x1eea3], [0x1eea5, 0x1eea9], [0x1eeab, 0x1eebb], [0x10fffd, 0x10fffd]];
 
 function isStrongRTLChar(charCode) {
-  for (var i = 0; i &lt; strongRTLRanges.length; i++) {
+  for (var i = 0; i < strongRTLRanges.length; i++) {
     var currentRange = strongRTLRanges[i];
-    if (charCode &gt;= currentRange[0] &amp;&amp; charCode &lt;= currentRange[1]) {
+    if (charCode >= currentRange[0] && charCode <= currentRange[1]) {
       return true;
     }
   }
@@ -8474,7 +8474,7 @@ function determineBidi(cueDiv) {
   }
 
   function pushNodes(nodeStack, node) {
-    for (var i = node.childNodes.length - 1; i &gt;= 0; i--) {
+    for (var i = node.childNodes.length - 1; i >= 0; i--) {
       nodeStack.push(node.childNodes[i]);
     }
   }
@@ -8507,7 +8507,7 @@ function determineBidi(cueDiv) {
 
   pushNodes(nodeStack, cueDiv);
   while ((text = nextTextNode(nodeStack))) {
-    for (var i = 0; i &lt; text.length; i++) {
+    for (var i = 0; i < text.length; i++) {
       charCode = text.charCodeAt(i);
       if (isStrongRTLChar(charCode)) {
         return "rtl";
@@ -8518,8 +8518,8 @@ function determineBidi(cueDiv) {
 }
 
 function computeLinePos(cue) {
-  if (typeof cue.line === "number" &amp;&amp;
-      (cue.snapToLines || (cue.line &gt;= 0 &amp;&amp; cue.line &lt;= 100))) {
+  if (typeof cue.line === "number" &&
+      (cue.snapToLines || (cue.line >= 0 && cue.line <= 100))) {
     return cue.line;
   }
   if (!cue.track || !cue.track.textTrackList ||
@@ -8529,7 +8529,7 @@ function computeLinePos(cue) {
   var track = cue.track,
       trackList = track.textTrackList,
       count = 0;
-  for (var i = 0; i &lt; trackList.length &amp;&amp; trackList[i] !== track; i++) {
+  for (var i = 0; i < trackList.length && trackList[i] !== track; i++) {
     if (trackList[i].mode === "showing") {
       count++;
     }
@@ -8679,14 +8679,14 @@ function BoxPosition(obj) {
     width = obj.div.offsetWidth;
     top = obj.div.offsetTop;
 
-    var rects = (rects = obj.div.childNodes) &amp;&amp; (rects = rects[0]) &amp;&amp;
-                rects.getClientRects &amp;&amp; rects.getClientRects();
+    var rects = (rects = obj.div.childNodes) && (rects = rects[0]) &&
+                rects.getClientRects && rects.getClientRects();
     obj = obj.div.getBoundingClientRect();
     // In certain cases the outter div will be slightly larger then the sum of
     // the inner div's lines. This could be due to bold text, etc, on some platforms.
     // In this case we should get the average line height and use that. This will
     // result in the desired behaviour.
-    lh = rects ? Math.max((rects[0] &amp;&amp; rects[0].height) || 0, obj.height / rects.length)
+    lh = rects ? Math.max((rects[0] && rects[0].height) || 0, obj.height / rects.length)
                : 0;
 
   }
@@ -8698,7 +8698,7 @@ function BoxPosition(obj) {
   this.width = obj.width || width;
   this.lineHeight = lh !== undefined ? lh : obj.lineHeight;
 
-  if (isIE8 &amp;&amp; !this.lineHeight) {
+  if (isIE8 && !this.lineHeight) {
     this.lineHeight = 13;
   }
 }
@@ -8730,15 +8730,15 @@ BoxPosition.prototype.move = function(axis, toMove) {
 
 // Check if this box overlaps another box, b2.
 BoxPosition.prototype.overlaps = function(b2) {
-  return this.left &lt; b2.right &amp;&amp;
-         this.right &gt; b2.left &amp;&amp;
-         this.top &lt; b2.bottom &amp;&amp;
-         this.bottom &gt; b2.top;
+  return this.left < b2.right &&
+         this.right > b2.left &&
+         this.top < b2.bottom &&
+         this.bottom > b2.top;
 };
 
 // Check if this box overlaps any other boxes in boxes.
 BoxPosition.prototype.overlapsAny = function(boxes) {
-  for (var i = 0; i &lt; boxes.length; i++) {
+  for (var i = 0; i < boxes.length; i++) {
     if (this.overlaps(boxes[i])) {
       return true;
     }
@@ -8748,10 +8748,10 @@ BoxPosition.prototype.overlapsAny = function(boxes) {
 
 // Check if this box is within another box.
 BoxPosition.prototype.within = function(container) {
-  return this.top &gt;= container.top &amp;&amp;
-         this.bottom &lt;= container.bottom &amp;&amp;
-         this.left &gt;= container.left &amp;&amp;
-         this.right &lt;= container.right;
+  return this.top >= container.top &&
+         this.bottom <= container.bottom &&
+         this.left >= container.left &&
+         this.right <= container.right;
 };
 
 // Check if this box is entirely within the container or it is overlapping
@@ -8761,13 +8761,13 @@ BoxPosition.prototype.within = function(container) {
 BoxPosition.prototype.overlapsOppositeAxis = function(container, axis) {
   switch (axis) {
   case "+x":
-    return this.left &lt; container.left;
+    return this.left < container.left;
   case "-x":
-    return this.right &gt; container.right;
+    return this.right > container.right;
   case "+y":
-    return this.top &lt; container.top;
+    return this.top < container.top;
   case "-y":
-    return this.bottom &gt; container.bottom;
+    return this.bottom > container.bottom;
   }
 };
 
@@ -8830,9 +8830,9 @@ function moveBoxToLinePosition(window, styleBox, containerBox, boxPositions) {
         specifiedPosition = new BoxPosition(b),
         percentage = 1; // Highest possible so the first thing we get is better.
 
-    for (var i = 0; i &lt; axis.length; i++) {
+    for (var i = 0; i < axis.length; i++) {
       while (b.overlapsOppositeAxis(containerBox, axis[i]) ||
-             (b.within(containerBox) &amp;&amp; b.overlapsAny(boxPositions))) {
+             (b.within(containerBox) && b.overlapsAny(boxPositions))) {
         b.move(axis[i]);
       }
       // We found a spot where we aren't overlapping anything. This is our
@@ -8843,7 +8843,7 @@ function moveBoxToLinePosition(window, styleBox, containerBox, boxPositions) {
       var p = b.intersectPercentage(containerBox);
       // If we're outside the container box less then we were on our last try
       // then remember this position as the best position.
-      if (percentage &gt; p) {
+      if (percentage > p) {
         bestPosition = new BoxPosition(b);
         percentage = p;
       }
@@ -8884,8 +8884,8 @@ function moveBoxToLinePosition(window, styleBox, containerBox, boxPositions) {
     // If the specified intial position is greater then the max position then
     // clamp the box to the amount of steps it would take for the box to
     // reach the max position.
-    if (Math.abs(position) &gt; maxPosition) {
-      position = position &lt; 0 ? -1 : 1;
+    if (Math.abs(position) > maxPosition) {
+      position = position < 0 ? -1 : 1;
       position *= Math.ceil(maxPosition / step) * step;
     }
 
@@ -8893,7 +8893,7 @@ function moveBoxToLinePosition(window, styleBox, containerBox, boxPositions) {
     // relative to the bottom of the video instead of the top. Therefore, we
     // need to increase our initial position by the length or width of the
     // video, depending on the writing direction, and reverse our axis directions.
-    if (linePos &lt; 0) {
+    if (linePos < 0) {
       position += cue.vertical === "" ? containerBox.height : containerBox.width;
       axis = axis.reverse();
     }
@@ -9001,7 +9001,7 @@ WebVTT$1.processCues = function(window, cues, overlay) {
   // be the case if a cue's state has been changed since the last computation or
   // if it has not been computed yet.
   function shouldCompute(cues) {
-    for (var i = 0; i &lt; cues.length; i++) {
+    for (var i = 0; i < cues.length; i++) {
       if (cues[i].hasBeenReset || !cues[i].displayState) {
         return true;
       }
@@ -9011,7 +9011,7 @@ WebVTT$1.processCues = function(window, cues, overlay) {
 
   // We don't need to recompute the cues' display states. Just reuse them.
   if (!shouldCompute(cues)) {
-    for (var i = 0; i &lt; cues.length; i++) {
+    for (var i = 0; i < cues.length; i++) {
       paddedOverlay.appendChild(cues[i].displayState);
     }
     return;
@@ -9027,7 +9027,7 @@ WebVTT$1.processCues = function(window, cues, overlay) {
   (function() {
     var styleBox, cue;
 
-    for (var i = 0; i &lt; cues.length; i++) {
+    for (var i = 0; i < cues.length; i++) {
       cue = cues[i];
 
       // Compute the intial position and styles of the cue div.
@@ -9068,7 +9068,7 @@ WebVTT$1.Parser.prototype = {
   // possible. If it's not a ParsingError then throw it like normal.
   reportOrThrowError: function(e) {
     if (e instanceof ParsingError) {
-      this.onparsingerror &amp;&amp; this.onparsingerror(e);
+      this.onparsingerror && this.onparsingerror(e);
     } else {
       throw e;
     }
@@ -9087,7 +9087,7 @@ WebVTT$1.Parser.prototype = {
     function collectNextLine() {
       var buffer = self.buffer;
       var pos = 0;
-      while (pos &lt; buffer.length &amp;&amp; buffer[pos] !== '\r' &amp;&amp; buffer[pos] !== '\n') {
+      while (pos < buffer.length && buffer[pos] !== '\r' && buffer[pos] !== '\n') {
         ++pos;
       }
       var line = buffer.substr(0, pos);
@@ -9152,7 +9152,7 @@ WebVTT$1.Parser.prototype = {
         region.viewportAnchorY = settings.get("viewportanchorY", 100);
         region.scroll = settings.get("scroll", "");
         // Register the region.
-        self.onregion &amp;&amp; self.onregion(region);
+        self.onregion && self.onregion(region);
         // Remember the VTTRegion for later in case we parse any VTTCues that
         // reference it.
         self.regionList.push({
@@ -9179,7 +9179,7 @@ WebVTT$1.Parser.prototype = {
         }
       }, /[^\d]:/, /,/);
 
-      self.ontimestampmap &amp;&amp; self.ontimestampmap({
+      self.ontimestampmap && self.ontimestampmap({
         "MPEGTS": settings.get("MPEGTS"),
         "LOCAL": settings.get("LOCAL")
       });
@@ -9270,7 +9270,7 @@ WebVTT$1.Parser.prototype = {
           self.cue = new (self.vttjs.VTTCue || self.window.VTTCue)(0, 0, "");
           self.state = "CUE";
           // 30-39 - Check if self line contains an optional identifier or timing data.
-          if (line.indexOf("--&gt;") === -1) {
+          if (line.indexOf("-->") === -1) {
             self.cue.id = line;
             continue;
           }
@@ -9290,14 +9290,14 @@ WebVTT$1.Parser.prototype = {
           self.state = "CUETEXT";
           continue;
         case "CUETEXT":
-          var hasSubstring = line.indexOf("--&gt;") !== -1;
+          var hasSubstring = line.indexOf("-->") !== -1;
           // 34 - If we have an empty line then report the cue.
-          // 35 - If we have the special substring '--&gt;' then report the cue,
+          // 35 - If we have the special substring '-->' then report the cue,
           // but do not collect the line as we need to process the current
           // one as a new cue.
-          if (!line || hasSubstring &amp;&amp; (alreadyCollectedLine = true)) {
+          if (!line || hasSubstring && (alreadyCollectedLine = true)) {
             // We are done parsing self cue.
-            self.oncue &amp;&amp; self.oncue(self.cue);
+            self.oncue && self.oncue(self.cue);
             self.cue = null;
             self.state = "ID";
             continue;
@@ -9319,7 +9319,7 @@ WebVTT$1.Parser.prototype = {
       self.reportOrThrowError(e);
 
       // If we are currently parsing a cue, report what we have.
-      if (self.state === "CUETEXT" &amp;&amp; self.cue &amp;&amp; self.oncue) {
+      if (self.state === "CUETEXT" && self.cue && self.oncue) {
         self.oncue(self.cue);
       }
       self.cue = null;
@@ -9348,7 +9348,7 @@ WebVTT$1.Parser.prototype = {
     } catch(e) {
       self.reportOrThrowError(e);
     }
-    self.onflush &amp;&amp; self.onflush();
+    self.onflush && self.onflush();
     return this;
   }
 };
@@ -9403,7 +9403,7 @@ function findAlignSetting(value) {
 
 function extend$1(obj) {
   var i = 1;
-  for (; i &lt; arguments.length; i++) {
+  for (; i < arguments.length; i++) {
     var cobj = arguments[i];
     for (var p in cobj) {
       obj[p] = cobj[p];
@@ -9557,7 +9557,7 @@ function VTTCue(startTime, endTime, text) {
         return _line;
       },
       set: function(value) {
-        if (typeof value !== "number" &amp;&amp; value !== autoKeyword) {
+        if (typeof value !== "number" && value !== autoKeyword) {
           throw new SyntaxError("An invalid number or illegal string was specified.");
         }
         _line = value;
@@ -9586,7 +9586,7 @@ function VTTCue(startTime, endTime, text) {
         return _position;
       },
       set: function(value) {
-        if (value &lt; 0 || value &gt; 100) {
+        if (value < 0 || value > 100) {
           throw new Error("Position must be between 0 and 100.");
         }
         _position = value;
@@ -9615,7 +9615,7 @@ function VTTCue(startTime, endTime, text) {
         return _size;
       },
       set: function(value) {
-        if (value &lt; 0 || value &gt; 100) {
+        if (value < 0 || value > 100) {
           throw new Error("Size must be between 0 and 100.");
         }
         _size = value;
@@ -9639,7 +9639,7 @@ function VTTCue(startTime, endTime, text) {
     }));
 
   /**
-   * Other &lt;track&gt; spec defined properties
+   * Other <track> spec defined properties
    */
 
   // http://www.whatwg.org/specs/web-apps/current-work/multipage/the-video-element.html#text-track-cue-display-state
@@ -9691,7 +9691,7 @@ function findScrollSetting(value) {
 }
 
 function isValidPercentValue(value) {
-  return typeof value === "number" &amp;&amp; (value &gt;= 0 &amp;&amp; value &lt;= 100);
+  return typeof value === "number" && (value >= 0 && value <= 100);
 }
 
 // VTTRegion shim http://dev.w3.org/html5/webvtt/#vttregion-interface
@@ -9892,7 +9892,7 @@ if (!window_1.VTTCue) {
  *          The text track that was created.
  */
 function createTrackHelper(self, kind, label, language) {
-  var options = arguments.length &gt; 4 &amp;&amp; arguments[4] !== undefined ? arguments[4] : {};
+  var options = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : {};
 
   var tracks = self.textTracks();
 
@@ -9933,8 +9933,8 @@ var Tech = function (_Component) {
    *        Callback function to call when the `HTML5` Tech is ready.
    */
   function Tech() {
-    var options = arguments.length &gt; 0 &amp;&amp; arguments[0] !== undefined ? arguments[0] : {};
-    var ready = arguments.length &gt; 1 &amp;&amp; arguments[1] !== undefined ? arguments[1] : function () {};
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    var ready = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : function () {};
     classCallCheck(this, Tech);
 
     // we don't want the tech to report user activity automatically.
@@ -9956,7 +9956,7 @@ var Tech = function (_Component) {
     ALL.names.forEach(function (name) {
       var props = ALL[name];
 
-      if (options &amp;&amp; options[props.getterName]) {
+      if (options && options[props.getterName]) {
         _this[props.privateName] = options[props.getterName];
       }
     });
@@ -10039,7 +10039,7 @@ var Tech = function (_Component) {
    * sets an interval function that will be called every 500 milliseconds to check if the
    * buffer end percent has changed.
    *
-   * &gt; This function is called by {@link Tech#manualProgressOn}
+   * > This function is called by {@link Tech#manualProgressOn}
    *
    * @param {EventTarget~Event} event
    *        The `ready` event that caused this to run.
@@ -10224,8 +10224,8 @@ var Tech = function (_Component) {
   /**
    * Clear out a single `TrackList` or an array of `TrackLists` given their names.
    *
-   * &gt; Note: Techs without source handlers should call this between sources for `video`
-   *         &amp; `audio` tracks. You don't want to use them between tracks!
+   * > Note: Techs without source handlers should call this between sources for `video`
+   *         & `audio` tracks. You don't want to use them between tracks!
    *
    * @param {string[]|string} types
    *        TrackList names to clear, valid names are `video`, `audio`, and
@@ -10301,7 +10301,7 @@ var Tech = function (_Component) {
   /**
    * Returns the `TimeRange`s that have been played through for the current source.
    *
-   * &gt; NOTE: This implementation is incomplete. It does not track the played `TimeRange`.
+   * > NOTE: This implementation is incomplete. It does not track the played `TimeRange`.
    *         It only checks wether the source has played at all or not.
    *
    * @return {TimeRange}
@@ -10414,7 +10414,7 @@ var Tech = function (_Component) {
       // load via require if available and vtt.js script location was not passed in
       // as an option. novtt builds will turn the above require call into an empty object
       // which will cause this if check to always fail.
-      if (!this.options_['vtt.js'] &amp;&amp; isPlain(browserIndex) &amp;&amp; Object.keys(browserIndex).length &gt; 0) {
+      if (!this.options_['vtt.js'] && isPlain(browserIndex) && Object.keys(browserIndex).length > 0) {
         this.trigger('vttjsloaded');
         return;
       }
@@ -10485,7 +10485,7 @@ var Tech = function (_Component) {
     var textTracksChanges = function textTracksChanges() {
       updateDisplay();
 
-      for (var i = 0; i &lt; tracks.length; i++) {
+      for (var i = 0; i < tracks.length; i++) {
         var track = tracks[i];
 
         track.removeEventListener('cuechange', updateDisplay);
@@ -10507,7 +10507,7 @@ var Tech = function (_Component) {
       tracks.removeEventListener('addtrack', textTracksChanges);
       tracks.removeEventListener('removetrack', textTracksChanges);
 
-      for (var i = 0; i &lt; tracks.length; i++) {
+      for (var i = 0; i < tracks.length; i++) {
         var track = tracks[i];
 
         track.removeEventListener('cuechange', updateDisplay);
@@ -10574,7 +10574,7 @@ var Tech = function (_Component) {
   /**
    * Creates a remote text track object and returns an html track element.
    *
-   * &gt; Note: This can be an emulated {@link HTMLTrackElement} or a native one.
+   * > Note: This can be an emulated {@link HTMLTrackElement} or a native one.
    *
    * @param {Object} options
    *        See {@link Tech#createRemoteTextTrack} for more detailed properties.
@@ -10596,12 +10596,12 @@ var Tech = function (_Component) {
   Tech.prototype.addRemoteTextTrack = function addRemoteTextTrack() {
     var _this6 = this;
 
-    var options = arguments.length &gt; 0 &amp;&amp; arguments[0] !== undefined ? arguments[0] : {};
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     var manualCleanup = arguments[1];
 
     var htmlTrackElement = this.createRemoteTextTrack(options);
 
-    if (manualCleanup !== true &amp;&amp; manualCleanup !== false) {
+    if (manualCleanup !== true && manualCleanup !== false) {
       // deprecation warning
       log$1.warn('Calling addRemoteTextTrack without explicitly setting the "manualCleanup" parameter to `true` is deprecated and default to `false` in future version of video.js');
       manualCleanup = true;
@@ -10665,7 +10665,7 @@ var Tech = function (_Component) {
   Tech.prototype.setPoster = function setPoster() {};
 
   /**
-   * A method to check for the presence of the 'playsinine' &lt;video&gt; attribute.
+   * A method to check for the presence of the 'playsinine' <video> attribute.
    *
    * @abstract
    */
@@ -10674,7 +10674,7 @@ var Tech = function (_Component) {
   Tech.prototype.playsinline = function playsinline() {};
 
   /**
-   * A method to set or unset the 'playsinine' &lt;video&gt; attribute.
+   * A method to set or unset the 'playsinine' <video> attribute.
    *
    * @abstract
    */
@@ -10807,11 +10807,11 @@ var Tech = function (_Component) {
 
     name = toTitleCase(name);
 
-    if (Tech.techs_ &amp;&amp; Tech.techs_[name]) {
+    if (Tech.techs_ && Tech.techs_[name]) {
       return Tech.techs_[name];
     }
 
-    if (window_1 &amp;&amp; window_1.videojs &amp;&amp; window_1.videojs[name]) {
+    if (window_1 && window_1.videojs && window_1.videojs[name]) {
       log$1.warn('The ' + name + ' tech was added to the videojs object when it should be registered using videojs.registerTech(name, tech)');
       return window_1.videojs[name];
     }
@@ -10997,7 +10997,7 @@ Tech.withSourceHandlers = function (_Tech) {
     var handlers = _Tech.sourceHandlers || [];
     var can = void 0;
 
-    for (var i = 0; i &lt; handlers.length; i++) {
+    for (var i = 0; i < handlers.length; i++) {
       can = handlers[i].canPlayType(type);
 
       if (can) {
@@ -11027,7 +11027,7 @@ Tech.withSourceHandlers = function (_Tech) {
     var handlers = _Tech.sourceHandlers || [];
     var can = void 0;
 
-    for (var i = 0; i &lt; handlers.length; i++) {
+    for (var i = 0; i < handlers.length; i++) {
       can = handlers[i].canHandleSource(source, options);
 
       if (can) {
@@ -11088,7 +11088,7 @@ Tech.withSourceHandlers = function (_Tech) {
     }
 
     this[fnName] = function () {
-      if (this.sourceHandler_ &amp;&amp; this.sourceHandler_[fnName]) {
+      if (this.sourceHandler_ && this.sourceHandler_[fnName]) {
         return this.sourceHandler_[fnName].apply(this.sourceHandler_, arguments);
       }
       return originalFn.apply(this, arguments);
@@ -11185,7 +11185,7 @@ function setSource(player, src, next) {
 
 function setTech(middleware, tech) {
   middleware.forEach(function (mw) {
-    return mw.setTech &amp;&amp; mw.setTech(tech);
+    return mw.setTech && mw.setTech(tech);
   });
 }
 
@@ -11220,12 +11220,12 @@ function middlewareIterator(method) {
 }
 
 function setSourceHelper() {
-  var src = arguments.length &gt; 0 &amp;&amp; arguments[0] !== undefined ? arguments[0] : {};
-  var middleware = arguments.length &gt; 1 &amp;&amp; arguments[1] !== undefined ? arguments[1] : [];
+  var src = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var middleware = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
   var next = arguments[2];
   var player = arguments[3];
-  var acc = arguments.length &gt; 4 &amp;&amp; arguments[4] !== undefined ? arguments[4] : [];
-  var lastRun = arguments.length &gt; 5 &amp;&amp; arguments[5] !== undefined ? arguments[5] : false;
+  var acc = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : [];
+  var lastRun = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : false;
   var mwFactory = middleware[0],
       mwrest = middleware.slice(1);
 
@@ -11295,10 +11295,10 @@ var filterSource = function filterSource(src) {
     });
 
     src = newsrc;
-  } else if (typeof src === 'string' &amp;&amp; src.trim()) {
+  } else if (typeof src === 'string' && src.trim()) {
     // convert string into object
     src = [{ src: src }];
-  } else if (isObject(src) &amp;&amp; typeof src.src === 'string' &amp;&amp; src.src &amp;&amp; src.src.trim()) {
+  } else if (isObject(src) && typeof src.src === 'string' && src.src && src.src.trim()) {
     // src is already valid
     src = [src];
   } else {
@@ -11346,7 +11346,7 @@ var MediaLoader = function (_Component) {
     var _this = possibleConstructorReturn(this, _Component.call(this, player, options_, ready));
 
     if (!options.playerOptions.sources || options.playerOptions.sources.length === 0) {
-      for (var i = 0, j = options.playerOptions.techOrder; i &lt; j.length; i++) {
+      for (var i = 0, j = options.playerOptions.techOrder; i < j.length; i++) {
         var techName = toTitleCase(j[i]);
         var tech = Tech.getTech(techName);
 
@@ -11357,7 +11357,7 @@ var MediaLoader = function (_Component) {
         }
 
         // Check if the browser supports this technology
-        if (tech &amp;&amp; tech.isSupported()) {
+        if (tech && tech.isSupported()) {
           player.loadTech_(techName);
           break;
         }
@@ -11428,12 +11428,12 @@ var ClickableComponent = function (_Component) {
 
 
   ClickableComponent.prototype.createEl = function createEl$$1() {
-    var tag = arguments.length &gt; 0 &amp;&amp; arguments[0] !== undefined ? arguments[0] : 'div';
-    var props = arguments.length &gt; 1 &amp;&amp; arguments[1] !== undefined ? arguments[1] : {};
-    var attributes = arguments.length &gt; 2 &amp;&amp; arguments[2] !== undefined ? arguments[2] : {};
+    var tag = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'div';
+    var props = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+    var attributes = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
 
     props = assign({
-      innerHTML: '&lt;span aria-hidden="true" class="vjs-icon-placeholder"&gt;&lt;/span&gt;',
+      innerHTML: '<span aria-hidden="true" class="vjs-icon-placeholder"></span>',
       className: this.buildCSSClass(),
       tabIndex: 0
     }, props);
@@ -11499,7 +11499,7 @@ var ClickableComponent = function (_Component) {
 
 
   ClickableComponent.prototype.controlText = function controlText(text) {
-    var el = arguments.length &gt; 1 &amp;&amp; arguments[1] !== undefined ? arguments[1] : this.el();
+    var el = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.el();
 
     if (!text) {
       return this.controlText_ || 'Need Text';
@@ -11895,7 +11895,7 @@ var TextTrackDisplay = function (_Component) {
     // Should probably be moved to an external track loader when we support
     // tracks that don't need a display.
     player.ready(bind(_this, function () {
-      if (player.tech_ &amp;&amp; player.tech_.featuresNativeTextTracks) {
+      if (player.tech_ && player.tech_.featuresNativeTextTracks) {
         this.hide();
         return;
       }
@@ -11904,7 +11904,7 @@ var TextTrackDisplay = function (_Component) {
 
       var tracks = this.options_.playerOptions.tracks || [];
 
-      for (var i = 0; i &lt; tracks.length; i++) {
+      for (var i = 0; i < tracks.length; i++) {
         this.player_.addRemoteTextTrack(tracks[i], true);
       }
 
@@ -11932,10 +11932,10 @@ var TextTrackDisplay = function (_Component) {
     var firstCaptions = void 0;
     var preferredTrack = void 0;
 
-    for (var i = 0; i &lt; trackList.length; i++) {
+    for (var i = 0; i < trackList.length; i++) {
       var track = trackList[i];
 
-      if (userPref &amp;&amp; userPref.enabled &amp;&amp; userPref.language === track.language) {
+      if (userPref && userPref.enabled && userPref.language === track.language) {
         // Always choose the track that matches both language and kind
         if (track.kind === userPref.kind) {
           preferredTrack = track;
@@ -11945,14 +11945,14 @@ var TextTrackDisplay = function (_Component) {
         }
 
         // clear everything if offTextTrackMenuItem was clicked
-      } else if (userPref &amp;&amp; !userPref.enabled) {
+      } else if (userPref && !userPref.enabled) {
         preferredTrack = null;
         firstDesc = null;
         firstCaptions = null;
       } else if (track['default']) {
-        if (track.kind === 'descriptions' &amp;&amp; !firstDesc) {
+        if (track.kind === 'descriptions' && !firstDesc) {
           firstDesc = track;
-        } else if (track.kind in modes &amp;&amp; !firstCaptions) {
+        } else if (track.kind in modes && !firstCaptions) {
           firstCaptions = track;
         }
       }
@@ -11982,7 +11982,7 @@ var TextTrackDisplay = function (_Component) {
 
 
   TextTrackDisplay.prototype.toggleDisplay = function toggleDisplay() {
-    if (this.player_.tech_ &amp;&amp; this.player_.tech_.featuresNativeTextTracks) {
+    if (this.player_.tech_ && this.player_.tech_.featuresNativeTextTracks) {
       this.hide();
     } else {
       this.show();
@@ -12080,7 +12080,7 @@ var TextTrackDisplay = function (_Component) {
     var overrides = this.player_.textTrackSettings.getValues();
     var cues = [];
 
-    for (var _i = 0; _i &lt; track.activeCues.length; _i++) {
+    for (var _i = 0; _i < track.activeCues.length; _i++) {
       cues.push(track.activeCues[_i]);
     }
 
@@ -12127,7 +12127,7 @@ var TextTrackDisplay = function (_Component) {
           cueDiv.firstChild.style.textShadow = '0 0 4px ' + darkGray + ', 0 0 4px ' + darkGray + ', 0 0 4px ' + darkGray + ', 0 0 4px ' + darkGray;
         }
       }
-      if (overrides.fontPercent &amp;&amp; overrides.fontPercent !== 1) {
+      if (overrides.fontPercent && overrides.fontPercent !== 1) {
         var fontSize = window_1.parseFloat(cueDiv.style.fontSize);
 
         cueDiv.style.fontSize = fontSize * overrides.fontPercent + 'px';
@@ -12135,7 +12135,7 @@ var TextTrackDisplay = function (_Component) {
         cueDiv.style.top = 'auto';
         cueDiv.style.bottom = '2px';
       }
-      if (overrides.fontFamily &amp;&amp; overrides.fontFamily !== 'default') {
+      if (overrides.fontFamily && overrides.fontFamily !== 'default') {
         if (overrides.fontFamily === 'small-caps') {
           cueDiv.firstChild.style.fontVariant = 'small-caps';
         } else {
@@ -12219,13 +12219,13 @@ var Button = function (_ClickableComponent) {
    *         The element that gets created.
    */
   Button.prototype.createEl = function createEl(tag) {
-    var props = arguments.length &gt; 1 &amp;&amp; arguments[1] !== undefined ? arguments[1] : {};
-    var attributes = arguments.length &gt; 2 &amp;&amp; arguments[2] !== undefined ? arguments[2] : {};
+    var props = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+    var attributes = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
 
     tag = 'button';
 
     props = assign({
-      innerHTML: '&lt;span aria-hidden="true" class="vjs-icon-placeholder"&gt;&lt;/span&gt;',
+      innerHTML: '<span aria-hidden="true" class="vjs-icon-placeholder"></span>',
       className: this.buildCSSClass()
     }, props);
 
@@ -12265,7 +12265,7 @@ var Button = function (_ClickableComponent) {
 
 
   Button.prototype.addChild = function addChild(child) {
-    var options = arguments.length &gt; 1 &amp;&amp; arguments[1] !== undefined ? arguments[1] : {};
+    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
     var className = this.constructor.name;
 
@@ -12377,12 +12377,12 @@ var BigPlayButton = function (_Button) {
     var playPromise = this.player_.play();
 
     // exit early if clicked via the mouse
-    if (this.mouseused_ &amp;&amp; event.clientX &amp;&amp; event.clientY) {
+    if (this.mouseused_ && event.clientX && event.clientY) {
       return;
     }
 
     var cb = this.player_.getChild('controlBar');
-    var playToggle = cb &amp;&amp; cb.getChild('playToggle');
+    var playToggle = cb && cb.getChild('playToggle');
 
     if (!playToggle) {
       this.player_.focus();
@@ -12393,7 +12393,7 @@ var BigPlayButton = function (_Button) {
       return playToggle.focus();
     };
 
-    if (playPromise &amp;&amp; playPromise.then) {
+    if (playPromise && playPromise.then) {
       var ignoreRejectedPlayPromise = function ignoreRejectedPlayPromise() {};
 
       playPromise.then(playFocus, ignoreRejectedPlayPromise);
@@ -12454,7 +12454,7 @@ var CloseButton = function (_Button) {
 
     var _this = possibleConstructorReturn(this, _Button.call(this, player, options));
 
-    _this.controlText(options &amp;&amp; options.controlText || _this.localize('Close'));
+    _this.controlText(options && options.controlText || _this.localize('Close'));
     return _this;
   }
 
@@ -12680,9 +12680,9 @@ Component.registerComponent('PlayToggle', PlayToggle);
  *         Time formatted as H:MM:SS or M:SS
  */
 function formatTime(seconds) {
-  var guide = arguments.length &gt; 1 &amp;&amp; arguments[1] !== undefined ? arguments[1] : seconds;
+  var guide = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : seconds;
 
-  seconds = seconds &lt; 0 ? 0 : seconds;
+  seconds = seconds < 0 ? 0 : seconds;
   var s = Math.floor(seconds % 60);
   var m = Math.floor(seconds / 60 % 60);
   var h = Math.floor(seconds / 3600);
@@ -12691,20 +12691,20 @@ function formatTime(seconds) {
 
   // handle invalid times
   if (isNaN(seconds) || seconds === Infinity) {
-    // '-' is false for all relational operators (e.g. &lt;, &gt;=) so this setting
+    // '-' is false for all relational operators (e.g. <, >=) so this setting
     // will add the minimum number of fields specified by the guide
     h = m = s = '-';
   }
 
   // Check if we need to show hours
-  h = h &gt; 0 || gh &gt; 0 ? h + ':' : '';
+  h = h > 0 || gh > 0 ? h + ':' : '';
 
   // If hours are showing, we may need to add a leading zero.
   // Always show at least one digit of minutes.
-  m = ((h || gm &gt;= 10) &amp;&amp; m &lt; 10 ? '0' + m : m) + ':';
+  m = ((h || gm >= 10) && m < 10 ? '0' + m : m) + ':';
 
   // Check if leading zero is need for seconds
-  s = s &lt; 10 ? '0' + s : s;
+  s = s < 10 ? '0' + s : s;
 
   return h + m + s;
 }
@@ -13016,7 +13016,7 @@ var DurationDisplay = function (_TimeDisplay) {
   DurationDisplay.prototype.updateContent = function updateContent(event) {
     var duration = this.player_.duration();
 
-    if (duration &amp;&amp; this.duration_ !== duration) {
+    if (duration && this.duration_ !== duration) {
       this.duration_ = duration;
       this.updateFormattedTime_(duration);
     }
@@ -13064,7 +13064,7 @@ var TimeDivider = function (_Component) {
   TimeDivider.prototype.createEl = function createEl() {
     return _Component.prototype.createEl.call(this, 'div', {
       className: 'vjs-time-control vjs-time-divider',
-      innerHTML: '&lt;div&gt;&lt;span&gt;/&lt;/span&gt;&lt;/div&gt;'
+      innerHTML: '<div><span>/</span></div>'
     });
   };
 
@@ -13240,7 +13240,7 @@ var LiveDisplay = function (_Component) {
 
     this.contentEl_ = createEl('div', {
       className: 'vjs-live-display',
-      innerHTML: '&lt;span class="vjs-control-text"&gt;' + this.localize('Stream Type') + '&lt;/span&gt;' + this.localize('LIVE')
+      innerHTML: '<span class="vjs-control-text">' + this.localize('Stream Type') + '</span>' + this.localize('LIVE')
     }, {
       'aria-live': 'off'
     });
@@ -13399,8 +13399,8 @@ var Slider = function (_Component) {
 
 
   Slider.prototype.createEl = function createEl$$1(type) {
-    var props = arguments.length &gt; 1 &amp;&amp; arguments[1] !== undefined ? arguments[1] : {};
-    var attributes = arguments.length &gt; 2 &amp;&amp; arguments[2] !== undefined ? arguments[2] : {};
+    var props = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+    var attributes = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
 
     // Add the slider element class to all sub classes
     props.className = props.className + ' vjs-slider';
@@ -13536,7 +13536,7 @@ var Slider = function (_Component) {
     }
 
     // Protect against no duration and other division issues
-    if (typeof progress !== 'number' || progress !== progress || progress &lt; 0 || progress === Infinity) {
+    if (typeof progress !== 'number' || progress !== progress || progress < 0 || progress === Infinity) {
       progress = 0;
     }
 
@@ -13716,7 +13716,7 @@ var LoadProgressBar = function (_Component) {
   LoadProgressBar.prototype.createEl = function createEl$$1() {
     return _Component.prototype.createEl.call(this, 'div', {
       className: 'vjs-load-progress',
-      innerHTML: '&lt;span class="vjs-control-text"&gt;&lt;span&gt;' + this.localize('Loaded') + '&lt;/span&gt;: 0%&lt;/span&gt;'
+      innerHTML: '<span class="vjs-control-text"><span>' + this.localize('Loaded') + '</span>: 0%</span>'
     });
   };
 
@@ -13741,14 +13741,14 @@ var LoadProgressBar = function (_Component) {
       // no NaN
       var percent = time / end || 0;
 
-      return (percent &gt;= 1 ? 1 : percent) * 100 + '%';
+      return (percent >= 1 ? 1 : percent) * 100 + '%';
     };
 
     // update the width of the progress bar
     this.el_.style.width = percentify(bufferedEnd, duration);
 
     // add child elements to represent the individual buffered time ranges
-    for (var i = 0; i &lt; buffered.length; i++) {
+    for (var i = 0; i < buffered.length; i++) {
       var start = buffered.start(i);
       var end = buffered.end(i);
       var part = children[i];
@@ -13764,7 +13764,7 @@ var LoadProgressBar = function (_Component) {
     }
 
     // remove unused buffered range elements
-    for (var _i = children.length; _i &gt; buffered.length; _i--) {
+    for (var _i = children.length; _i > buffered.length; _i--) {
       this.el_.removeChild(children[_i - 1]);
     }
     children.length = buffered.length;
@@ -13845,18 +13845,18 @@ var TimeTooltip = function (_Component) {
 
     // Adjust the `pullTooltipBy` distance to the left or right depending on
     // the results of the space calculations above.
-    if (spaceLeftOfPoint &lt; pullTooltipBy) {
+    if (spaceLeftOfPoint < pullTooltipBy) {
       pullTooltipBy += pullTooltipBy - spaceLeftOfPoint;
-    } else if (spaceRightOfPoint &lt; pullTooltipBy) {
+    } else if (spaceRightOfPoint < pullTooltipBy) {
       pullTooltipBy = spaceRightOfPoint;
     }
 
     // Due to the imprecision of decimal/ratio based calculations and varying
     // rounding behaviors, there are cases where the spacing adjustment is off
     // by a pixel or two. This adds insurance to these calculations.
-    if (pullTooltipBy &lt; 0) {
+    if (pullTooltipBy < 0) {
       pullTooltipBy = 0;
-    } else if (pullTooltipBy &gt; tooltipRect.width) {
+    } else if (pullTooltipBy > tooltipRect.width) {
       pullTooltipBy = tooltipRect.width;
     }
 
@@ -13896,7 +13896,7 @@ var PlayProgressBar = function (_Component) {
   PlayProgressBar.prototype.createEl = function createEl() {
     return _Component.prototype.createEl.call(this, 'div', {
       className: 'vjs-play-progress vjs-slider-bar',
-      innerHTML: '&lt;span class="vjs-control-text"&gt;&lt;span&gt;' + this.localize('Progress') + '&lt;/span&gt;: 0%&lt;/span&gt;'
+      innerHTML: '<span class="vjs-control-text"><span>' + this.localize('Progress') + '</span>: 0%</span>'
     });
   };
 
@@ -13949,7 +13949,7 @@ PlayProgressBar.prototype.options_ = {
 };
 
 // Time tooltips should not be added to a player on mobile devices or IE8
-if ((!IE_VERSION || IE_VERSION &gt; 8) &amp;&amp; !IS_IOS &amp;&amp; !IS_ANDROID) {
+if ((!IE_VERSION || IE_VERSION > 8) && !IS_IOS && !IS_ANDROID) {
   PlayProgressBar.prototype.options_.children.push('timeTooltip');
 }
 
@@ -14190,7 +14190,7 @@ var SeekBar = function (_Slider) {
   SeekBar.prototype.getPercent = function getPercent() {
     var percent = this.getCurrentTime_() / this.player_.duration();
 
-    return percent &gt;= 1 ? 1 : percent;
+    return percent >= 1 ? 1 : percent;
   };
 
   /**
@@ -14352,7 +14352,7 @@ SeekBar.prototype.options_ = {
 };
 
 // MouseTimeDisplay tooltips should not be added to a player on mobile devices or IE8
-if ((!IE_VERSION || IE_VERSION &gt; 8) &amp;&amp; !IS_IOS &amp;&amp; !IS_ANDROID) {
+if ((!IE_VERSION || IE_VERSION > 8) && !IS_IOS && !IS_ANDROID) {
   SeekBar.prototype.options_.children.splice(1, 0, 'mouseTimeDisplay');
 }
 
@@ -14434,9 +14434,9 @@ var ProgressControl = function (_Component) {
     // The default skin has a gap on either side of the `SeekBar`. This means
     // that it's possible to trigger this behavior outside the boundaries of
     // the `SeekBar`. This ensures we stay within it at all times.
-    if (seekBarPoint &gt; 1) {
+    if (seekBarPoint > 1) {
       seekBarPoint = 1;
-    } else if (seekBarPoint &lt; 0) {
+    } else if (seekBarPoint < 0) {
       seekBarPoint = 0;
     }
 
@@ -14492,7 +14492,7 @@ var ProgressControl = function (_Component) {
 
   ProgressControl.prototype.disable = function disable() {
     this.children().forEach(function (child) {
-      return child.disable &amp;&amp; child.disable();
+      return child.disable && child.disable();
     });
 
     if (!this.enabled()) {
@@ -14515,7 +14515,7 @@ var ProgressControl = function (_Component) {
 
   ProgressControl.prototype.enable = function enable() {
     this.children().forEach(function (child) {
-      return child.enable &amp;&amp; child.enable();
+      return child.enable && child.enable();
     });
 
     if (this.enabled()) {
@@ -14697,7 +14697,7 @@ Component.registerComponent('FullscreenToggle', FullscreenToggle);
  */
 var checkVolumeSupport = function checkVolumeSupport(self, player) {
   // hide volume controls when they're not supported by the current tech
-  if (player.tech_ &amp;&amp; !player.tech_.featuresVolumeControl) {
+  if (player.tech_ && !player.tech_.featuresVolumeControl) {
     self.addClass('vjs-hidden');
   }
 
@@ -14736,7 +14736,7 @@ var VolumeLevel = function (_Component) {
   VolumeLevel.prototype.createEl = function createEl() {
     return _Component.prototype.createEl.call(this, 'div', {
       className: 'vjs-volume-level',
-      innerHTML: '&lt;span class="vjs-control-text"&gt;&lt;/span&gt;'
+      innerHTML: '<span class="vjs-control-text"></span>'
     });
   };
 
@@ -14956,7 +14956,7 @@ var VolumeControl = function (_Component) {
    *        The key/value store of player options.
    */
   function VolumeControl(player) {
-    var options = arguments.length &gt; 1 &amp;&amp; arguments[1] !== undefined ? arguments[1] : {};
+    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
     classCallCheck(this, VolumeControl);
 
     options.vertical = options.vertical || false;
@@ -15149,7 +15149,7 @@ var MuteToggle = function (_Button) {
     var lastVolume = this.player_.lastVolume_();
 
     if (vol === 0) {
-      var volumeToSet = lastVolume &lt; 0.1 ? 0.1 : lastVolume;
+      var volumeToSet = lastVolume < 0.1 ? 0.1 : lastVolume;
 
       this.player_.volume(volumeToSet);
       this.player_.muted(false);
@@ -15195,14 +15195,14 @@ var MuteToggle = function (_Button) {
 
     if (vol === 0 || this.player_.muted()) {
       level = 0;
-    } else if (vol &lt; 0.33) {
+    } else if (vol < 0.33) {
       level = 1;
-    } else if (vol &lt; 0.67) {
+    } else if (vol < 0.67) {
       level = 2;
     }
 
     // TODO improve muted icon classes
-    for (var i = 0; i &lt; 4; i++) {
+    for (var i = 0; i < 4; i++) {
       removeClass(this.el_, 'vjs-vol-' + i);
     }
     addClass(this.el_, 'vjs-vol-' + level);
@@ -15265,7 +15265,7 @@ var VolumePanel = function (_Component) {
    *        The key/value store of player options.
    */
   function VolumePanel(player) {
-    var options = arguments.length &gt; 1 &amp;&amp; arguments[1] !== undefined ? arguments[1] : {};
+    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
     classCallCheck(this, VolumePanel);
 
     if (typeof options.inline !== 'undefined') {
@@ -15514,19 +15514,19 @@ var Menu = function (_Component) {
 
 
   Menu.prototype.focus = function focus() {
-    var item = arguments.length &gt; 0 &amp;&amp; arguments[0] !== undefined ? arguments[0] : 0;
+    var item = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
 
     var children = this.children().slice();
-    var haveTitle = children.length &amp;&amp; children[0].className &amp;&amp; /vjs-menu-title/.test(children[0].className);
+    var haveTitle = children.length && children[0].className && /vjs-menu-title/.test(children[0].className);
 
     if (haveTitle) {
       children.shift();
     }
 
-    if (children.length &gt; 0) {
-      if (item &lt; 0) {
+    if (children.length > 0) {
+      if (item < 0) {
         item = 0;
-      } else if (item &gt;= children.length) {
+      } else if (item >= children.length) {
         item = children.length - 1;
       }
 
@@ -15563,7 +15563,7 @@ var MenuButton = function (_Component) {
    *        The key/value store of player options.
    */
   function MenuButton(player) {
-    var options = arguments.length &gt; 1 &amp;&amp; arguments[1] !== undefined ? arguments[1] : {};
+    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
     classCallCheck(this, MenuButton);
 
     var _this = possibleConstructorReturn(this, _Component.call(this, player, options));
@@ -15618,7 +15618,7 @@ var MenuButton = function (_Component) {
     this.buttonPressed_ = false;
     this.menuButton_.el_.setAttribute('aria-expanded', 'false');
 
-    if (this.items &amp;&amp; this.items.length &lt;= this.hideThreshold_) {
+    if (this.items && this.items.length <= this.hideThreshold_) {
       this.hide();
     } else {
       this.show();
@@ -15664,7 +15664,7 @@ var MenuButton = function (_Component) {
 
     if (this.items) {
       // Add menu items to the menu
-      for (var i = 0; i &lt; this.items.length; i++) {
+      for (var i = 0; i < this.items.length; i++) {
         menu.addItem(this.items[i]);
       }
     }
@@ -15743,7 +15743,7 @@ var MenuButton = function (_Component) {
   /**
    * Get or set the localized control text that will be used for accessibility.
    *
-   * &gt; NOTE: This will come from the internal `menuButton_` element.
+   * > NOTE: This will come from the internal `menuButton_` element.
    *
    * @param {string} [text]
    *        Control text for element.
@@ -15757,7 +15757,7 @@ var MenuButton = function (_Component) {
 
 
   MenuButton.prototype.controlText = function controlText(text) {
-    var el = arguments.length &gt; 1 &amp;&amp; arguments[1] !== undefined ? arguments[1] : this.menuButton_.el();
+    var el = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.menuButton_.el();
 
     return this.menuButton_.controlText(text, el);
   };
@@ -15913,7 +15913,7 @@ var MenuButton = function (_Component) {
 
       // set the focus into the submenu, except on iOS where it is resulting in
       // undesired scrolling behavior when the player is in an iframe
-      if (!IS_IOS &amp;&amp; !isInFrame()) {
+      if (!IS_IOS && !isInFrame()) {
         this.menu.focus();
       }
     }
@@ -15991,7 +15991,7 @@ var TrackButton = function (_MenuButton) {
 
     var _this = possibleConstructorReturn(this, _MenuButton.call(this, player, options));
 
-    if (_this.items.length &lt;= 1) {
+    if (_this.items.length <= 1) {
       _this.hide();
     }
 
@@ -16021,7 +16021,7 @@ Component.registerComponent('TrackButton', TrackButton);
  * @file menu-item.js
  */
 /**
- * The component for a menu item. `&lt;li&gt;`
+ * The component for a menu item. `<li>`
  *
  * @extends ClickableComponent
  */
@@ -16081,7 +16081,7 @@ var MenuItem = function (_ClickableComponent) {
 
     return _ClickableComponent.prototype.createEl.call(this, 'li', assign({
       className: 'vjs-menu-item',
-      innerHTML: '&lt;span class="vjs-menu-item-text"&gt;' + this.localize(this.options_.label) + '&lt;/span&gt;',
+      innerHTML: '<span class="vjs-menu-item-text">' + this.localize(this.options_.label) + '</span>',
       tabIndex: -1
     }, props), attrs);
   };
@@ -16237,10 +16237,10 @@ var TextTrackMenuItem = function (_MenuItem) {
       return;
     }
 
-    for (var i = 0; i &lt; tracks.length; i++) {
+    for (var i = 0; i < tracks.length; i++) {
       var track = tracks[i];
 
-      if (track === this.track &amp;&amp; kinds.indexOf(track.kind) &gt; -1) {
+      if (track === this.track && kinds.indexOf(track.kind) > -1) {
         if (track.mode !== 'showing') {
           track.mode = 'showing';
         }
@@ -16269,7 +16269,7 @@ var TextTrackMenuItem = function (_MenuItem) {
       var selectedLanguage = this.player_.cache_.selectedLanguage;
 
       // Don't replace the kind of track across the same language
-      if (selectedLanguage &amp;&amp; selectedLanguage.enabled &amp;&amp; selectedLanguage.language === this.track.language &amp;&amp; selectedLanguage.kind !== this.track.kind) {
+      if (selectedLanguage && selectedLanguage.enabled && selectedLanguage.language === this.track.language && selectedLanguage.kind !== this.track.kind) {
         return;
       }
 
@@ -16351,10 +16351,10 @@ var OffTextTrackMenuItem = function (_TextTrackMenuItem) {
     var tracks = this.player().textTracks();
     var selected = true;
 
-    for (var i = 0, l = tracks.length; i &lt; l; i++) {
+    for (var i = 0, l = tracks.length; i < l; i++) {
       var track = tracks[i];
 
-      if (this.options_.kinds.indexOf(track.kind) &gt; -1 &amp;&amp; track.mode === 'showing') {
+      if (this.options_.kinds.indexOf(track.kind) > -1 && track.mode === 'showing') {
         selected = false;
         break;
       }
@@ -16367,10 +16367,10 @@ var OffTextTrackMenuItem = function (_TextTrackMenuItem) {
     var tracks = this.player().textTracks();
     var allHidden = true;
 
-    for (var i = 0, l = tracks.length; i &lt; l; i++) {
+    for (var i = 0, l = tracks.length; i < l; i++) {
       var track = tracks[i];
 
-      if (['captions', 'descriptions', 'subtitles'].indexOf(track.kind) &gt; -1 &amp;&amp; track.mode === 'showing') {
+      if (['captions', 'descriptions', 'subtitles'].indexOf(track.kind) > -1 && track.mode === 'showing') {
         allHidden = false;
         break;
       }
@@ -16410,7 +16410,7 @@ var TextTrackButton = function (_TrackButton) {
    *        The key/value store of player options.
    */
   function TextTrackButton(player) {
-    var options = arguments.length &gt; 1 &amp;&amp; arguments[1] !== undefined ? arguments[1] : {};
+    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
     classCallCheck(this, TextTrackButton);
 
     options.tracks = player.textTracks();
@@ -16430,8 +16430,8 @@ var TextTrackButton = function (_TrackButton) {
 
 
   TextTrackButton.prototype.createItems = function createItems() {
-    var items = arguments.length &gt; 0 &amp;&amp; arguments[0] !== undefined ? arguments[0] : [];
-    var TrackMenuItem = arguments.length &gt; 1 &amp;&amp; arguments[1] !== undefined ? arguments[1] : TextTrackMenuItem;
+    var items = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+    var TrackMenuItem = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : TextTrackMenuItem;
 
 
     // Label is an overide for the [track] off label
@@ -16456,11 +16456,11 @@ var TextTrackButton = function (_TrackButton) {
       this.kinds_ = [this.kind_];
     }
 
-    for (var i = 0; i &lt; tracks.length; i++) {
+    for (var i = 0; i < tracks.length; i++) {
       var track = tracks[i];
 
       // only add tracks that are of an appropriate kind and have a label
-      if (this.kinds_.indexOf(track.kind) &gt; -1) {
+      if (this.kinds_.indexOf(track.kind) > -1) {
 
         var item = new TrackMenuItem(this.player_, {
           track: track,
@@ -16512,7 +16512,7 @@ var ChaptersTrackMenuItem = function (_MenuItem) {
     // Modify options for parent MenuItem class's init.
     options.selectable = true;
     options.label = cue.text;
-    options.selected = cue.startTime &lt;= currentTime &amp;&amp; currentTime &lt; cue.endTime;
+    options.selected = cue.startTime <= currentTime && currentTime < cue.endTime;
 
     var _this = possibleConstructorReturn(this, _MenuItem.call(this, player, options));
 
@@ -16556,7 +16556,7 @@ var ChaptersTrackMenuItem = function (_MenuItem) {
     var currentTime = this.player_.currentTime();
 
     // vjs.log(currentTime, cue.startTime);
-    this.selected(cue.startTime &lt;= currentTime &amp;&amp; currentTime &lt; cue.endTime);
+    this.selected(cue.startTime <= currentTime && currentTime < cue.endTime);
   };
 
   return ChaptersTrackMenuItem;
@@ -16624,7 +16624,7 @@ var ChaptersButton = function (_TextTrackButton) {
 
 
   ChaptersButton.prototype.update = function update(event) {
-    if (!this.track_ || event &amp;&amp; (event.type === 'addtrack' || event.type === 'removetrack')) {
+    if (!this.track_ || event && (event.type === 'addtrack' || event.type === 'removetrack')) {
       this.setTrack(this.findChaptersTrack());
     }
     _TextTrackButton.prototype.update.call(this);
@@ -16684,7 +16684,7 @@ var ChaptersButton = function (_TextTrackButton) {
   ChaptersButton.prototype.findChaptersTrack = function findChaptersTrack() {
     var tracks = this.player_.textTracks() || [];
 
-    for (var i = tracks.length - 1; i &gt;= 0; i--) {
+    for (var i = tracks.length - 1; i >= 0; i--) {
       // We will always choose the last track as our chaptersTrack
       var track = tracks[i];
 
@@ -16704,7 +16704,7 @@ var ChaptersButton = function (_TextTrackButton) {
 
 
   ChaptersButton.prototype.getMenuCaption = function getMenuCaption() {
-    if (this.track_ &amp;&amp; this.track_.label) {
+    if (this.track_ && this.track_.label) {
       return this.track_.label;
     }
     return this.localize(toTitleCase(this.kind_));
@@ -16744,7 +16744,7 @@ var ChaptersButton = function (_TextTrackButton) {
       return items;
     }
 
-    for (var i = 0, l = cues.length; i &lt; l; i++) {
+    for (var i = 0, l = cues.length; i < l; i++) {
       var cue = cues[i];
       var mi = new ChaptersTrackMenuItem(this.player_, { track: this.track_, cue: cue });
 
@@ -16831,10 +16831,10 @@ var DescriptionsButton = function (_TextTrackButton) {
     var disabled = false;
 
     // Check whether a track of a different kind is showing
-    for (var i = 0, l = tracks.length; i &lt; l; i++) {
+    for (var i = 0, l = tracks.length; i < l; i++) {
       var track = tracks[i];
 
-      if (track.kind !== this.kind_ &amp;&amp; track.mode === 'showing') {
+      if (track.kind !== this.kind_ && track.mode === 'showing') {
         disabled = true;
         break;
       }
@@ -17078,7 +17078,7 @@ var CaptionsButton = function (_TextTrackButton) {
   CaptionsButton.prototype.createItems = function createItems() {
     var items = [];
 
-    if (!(this.player().tech_ &amp;&amp; this.player().tech_.featuresNativeTextTracks)) {
+    if (!(this.player().tech_ && this.player().tech_.featuresNativeTextTracks)) {
       items.push(new CaptionSettingsMenuItem(this.player_, { kind: this.kind_ }));
 
       this.hideThreshold_ += 1;
@@ -17129,13 +17129,13 @@ var SubsCapsMenuItem = function (_TextTrackMenuItem) {
   }
 
   SubsCapsMenuItem.prototype.createEl = function createEl(type, props, attrs) {
-    var innerHTML = '&lt;span class="vjs-menu-item-text"&gt;' + this.localize(this.options_.label);
+    var innerHTML = '<span class="vjs-menu-item-text">' + this.localize(this.options_.label);
 
     if (this.options_.track.kind === 'captions') {
-      innerHTML += '\n        &lt;span aria-hidden="true" class="vjs-icon-placeholder"&gt;&lt;/span&gt;\n        &lt;span class="vjs-control-text"&gt; ' + this.localize('Captions') + '&lt;/span&gt;\n      ';
+      innerHTML += '\n        <span aria-hidden="true" class="vjs-icon-placeholder"></span>\n        <span class="vjs-control-text"> ' + this.localize('Captions') + '</span>\n      ';
     }
 
-    innerHTML += '&lt;/span&gt;';
+    innerHTML += '</span>';
 
     var el = _TextTrackMenuItem.prototype.createEl.call(this, type, assign({
       innerHTML: innerHTML
@@ -17162,7 +17162,7 @@ var SubsCapsButton = function (_TextTrackButton) {
   inherits(SubsCapsButton, _TextTrackButton);
 
   function SubsCapsButton(player) {
-    var options = arguments.length &gt; 1 &amp;&amp; arguments[1] !== undefined ? arguments[1] : {};
+    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
     classCallCheck(this, SubsCapsButton);
 
     // Although North America uses "captions" in most cases for
@@ -17170,7 +17170,7 @@ var SubsCapsButton = function (_TextTrackButton) {
     var _this = possibleConstructorReturn(this, _TextTrackButton.call(this, player, options));
 
     _this.label_ = 'subtitles';
-    if (['en', 'en-us', 'en-ca', 'fr-ca'].indexOf(_this.player_.language_) &gt; -1) {
+    if (['en', 'en-us', 'en-ca', 'fr-ca'].indexOf(_this.player_.language_) > -1) {
       _this.label_ = 'captions';
     }
     _this.menuButton_.controlText(toTitleCase(_this.label_));
@@ -17204,7 +17204,7 @@ var SubsCapsButton = function (_TextTrackButton) {
   SubsCapsButton.prototype.createItems = function createItems() {
     var items = [];
 
-    if (!(this.player().tech_ &amp;&amp; this.player().tech_.featuresNativeTextTracks)) {
+    if (!(this.player().tech_ && this.player().tech_.featuresNativeTextTracks)) {
       items.push(new CaptionSettingsMenuItem(this.player_, { kind: this.label_ }));
 
       this.hideThreshold_ += 1;
@@ -17300,7 +17300,7 @@ var AudioTrackMenuItem = function (_MenuItem) {
 
     _MenuItem.prototype.handleClick.call(this, event);
 
-    for (var i = 0; i &lt; tracks.length; i++) {
+    for (var i = 0; i < tracks.length; i++) {
       var track = tracks[i];
 
       track.enabled = track === this.track;
@@ -17348,7 +17348,7 @@ var AudioTrackButton = function (_TrackButton) {
    *        The key/value store of player options.
    */
   function AudioTrackButton(player) {
-    var options = arguments.length &gt; 1 &amp;&amp; arguments[1] !== undefined ? arguments[1] : {};
+    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
     classCallCheck(this, AudioTrackButton);
 
     options.tracks = player.audioTracks();
@@ -17384,14 +17384,14 @@ var AudioTrackButton = function (_TrackButton) {
 
 
   AudioTrackButton.prototype.createItems = function createItems() {
-    var items = arguments.length &gt; 0 &amp;&amp; arguments[0] !== undefined ? arguments[0] : [];
+    var items = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 
     // if there's only one audio track, there no point in showing it
     this.hideThreshold_ = 1;
 
     var tracks = this.player_.audioTracks();
 
-    for (var i = 0; i &lt; tracks.length; i++) {
+    for (var i = 0; i < tracks.length; i++) {
       var track = tracks[i];
 
       items.push(new AudioTrackMenuItem(this.player_, {
@@ -17590,7 +17590,7 @@ var PlaybackRateMenuButton = function (_MenuButton) {
     var rates = this.playbackRates();
 
     if (rates) {
-      for (var i = rates.length - 1; i &gt;= 0; i--) {
+      for (var i = rates.length - 1; i >= 0; i--) {
         menu.addChild(new PlaybackRateMenuItem(this.player(), { rate: rates[i] + 'x' }));
       }
     }
@@ -17629,8 +17629,8 @@ var PlaybackRateMenuButton = function (_MenuButton) {
     // this will select first one if the last one currently selected
     var newRate = rates[0];
 
-    for (var i = 0; i &lt; rates.length; i++) {
-      if (rates[i] &gt; currentRate) {
+    for (var i = 0; i < rates.length; i++) {
+      if (rates[i] > currentRate) {
         newRate = rates[i];
         break;
       }
@@ -17647,7 +17647,7 @@ var PlaybackRateMenuButton = function (_MenuButton) {
 
 
   PlaybackRateMenuButton.prototype.playbackRates = function playbackRates() {
-    return this.options_.playbackRates || this.options_.playerOptions &amp;&amp; this.options_.playerOptions.playbackRates;
+    return this.options_.playbackRates || this.options_.playerOptions && this.options_.playerOptions.playbackRates;
   };
 
   /**
@@ -17660,7 +17660,7 @@ var PlaybackRateMenuButton = function (_MenuButton) {
 
 
   PlaybackRateMenuButton.prototype.playbackRateSupported = function playbackRateSupported() {
-    return this.player().tech_ &amp;&amp; this.player().tech_.featuresPlaybackRate &amp;&amp; this.playbackRates() &amp;&amp; this.playbackRates().length &gt; 0;
+    return this.player().tech_ && this.player().tech_.featuresPlaybackRate && this.playbackRates() && this.playbackRates().length > 0;
   };
 
   /**
@@ -17801,7 +17801,7 @@ var CustomControlSpacer = function (_Spacer) {
 
     // No-flex/table-cell mode requires there be some content
     // in the cell to fill the remaining space of the table.
-    el.innerHTML = '&amp;nbsp;';
+    el.innerHTML = '&nbsp;';
     return el;
   };
 
@@ -17958,7 +17958,7 @@ var OPACITY_OPAQUE = ['1', 'Opaque'];
 var OPACITY_SEMI = ['0.5', 'Semi-Transparent'];
 var OPACITY_TRANS = ['0', 'Transparent'];
 
-// Configuration for the various &lt;select&gt; elements in the DOM of this component.
+// Configuration for the various <select> elements in the DOM of this component.
 //
 // Possible keys include:
 //
@@ -17968,45 +17968,45 @@ var OPACITY_TRANS = ['0', 'Transparent'];
 //   A function which is used to parse the value from the selected option in
 //   a customized way.
 // `selector`:
-//   The selector used to find the associated &lt;select&gt; element.
+//   The selector used to find the associated <select> element.
 var selectConfigs = {
   backgroundColor: {
-    selector: '.vjs-bg-color &gt; select',
+    selector: '.vjs-bg-color > select',
     id: 'captions-background-color-%s',
     label: 'Color',
     options: [COLOR_BLACK, COLOR_WHITE, COLOR_RED, COLOR_GREEN, COLOR_BLUE, COLOR_YELLOW, COLOR_MAGENTA, COLOR_CYAN]
   },
 
   backgroundOpacity: {
-    selector: '.vjs-bg-opacity &gt; select',
+    selector: '.vjs-bg-opacity > select',
     id: 'captions-background-opacity-%s',
     label: 'Transparency',
     options: [OPACITY_OPAQUE, OPACITY_SEMI, OPACITY_TRANS]
   },
 
   color: {
-    selector: '.vjs-fg-color &gt; select',
+    selector: '.vjs-fg-color > select',
     id: 'captions-foreground-color-%s',
     label: 'Color',
     options: [COLOR_WHITE, COLOR_BLACK, COLOR_RED, COLOR_GREEN, COLOR_BLUE, COLOR_YELLOW, COLOR_MAGENTA, COLOR_CYAN]
   },
 
   edgeStyle: {
-    selector: '.vjs-edge-style &gt; select',
+    selector: '.vjs-edge-style > select',
     id: '%s',
     label: 'Text Edge Style',
     options: [['none', 'None'], ['raised', 'Raised'], ['depressed', 'Depressed'], ['uniform', 'Uniform'], ['dropshadow', 'Dropshadow']]
   },
 
   fontFamily: {
-    selector: '.vjs-font-family &gt; select',
+    selector: '.vjs-font-family > select',
     id: 'captions-font-family-%s',
     label: 'Font Family',
     options: [['proportionalSansSerif', 'Proportional Sans-Serif'], ['monospaceSansSerif', 'Monospace Sans-Serif'], ['proportionalSerif', 'Proportional Serif'], ['monospaceSerif', 'Monospace Serif'], ['casual', 'Casual'], ['script', 'Script'], ['small-caps', 'Small Caps']]
   },
 
   fontPercent: {
-    selector: '.vjs-font-percent &gt; select',
+    selector: '.vjs-font-percent > select',
     id: 'captions-font-size-%s',
     label: 'Font Size',
     options: [['0.50', '50%'], ['0.75', '75%'], ['1.00', '100%'], ['1.25', '125%'], ['1.50', '150%'], ['1.75', '175%'], ['2.00', '200%'], ['3.00', '300%'], ['4.00', '400%']],
@@ -18017,7 +18017,7 @@ var selectConfigs = {
   },
 
   textOpacity: {
-    selector: '.vjs-text-opacity &gt; select',
+    selector: '.vjs-text-opacity > select',
     id: 'captions-foreground-opacity-%s',
     label: 'Transparency',
     options: [OPACITY_OPAQUE, OPACITY_SEMI]
@@ -18025,14 +18025,14 @@ var selectConfigs = {
 
   // Options for this object are defined below.
   windowColor: {
-    selector: '.vjs-window-color &gt; select',
+    selector: '.vjs-window-color > select',
     id: 'captions-window-color-%s',
     label: 'Color'
   },
 
   // Options for this object are defined below.
   windowOpacity: {
-    selector: '.vjs-window-opacity &gt; select',
+    selector: '.vjs-window-opacity > select',
     id: 'captions-window-opacity-%s',
     label: 'Transparency',
     options: [OPACITY_TRANS, OPACITY_SEMI, OPACITY_OPAQUE]
@@ -18062,13 +18062,13 @@ function parseOptionValue(value, parser) {
     value = parser(value);
   }
 
-  if (value &amp;&amp; value !== 'none') {
+  if (value && value !== 'none') {
     return value;
   }
 }
 
 /**
- * Gets the value of the selected &lt;option&gt; element within a &lt;select&gt; element.
+ * Gets the value of the selected <option> element within a <select> element.
  *
  * @param  {Element} el
  *         the element to look in
@@ -18090,7 +18090,7 @@ function getSelectedOptionValue(el, parser) {
 }
 
 /**
- * Sets the selected &lt;option&gt; element within a &lt;select&gt; element based on a
+ * Sets the selected <option> element within a <select> element based on a
  * given value.
  *
  * @param {Element} el
@@ -18109,7 +18109,7 @@ function setSelectedOption(el, value, parser) {
     return;
   }
 
-  for (var i = 0; i &lt; el.options.length; i++) {
+  for (var i = 0; i < el.options.length; i++) {
     if (parseOptionValue(el.options[i].value, parser) === value) {
       el.selectedIndex = i;
       break;
@@ -18182,7 +18182,7 @@ var TextTrackSettings = function (_ModalDialog) {
   }
 
   /**
-   * Create a &lt;select&gt; element with configured options.
+   * Create a <select> element with configured options.
    *
    * @param {string} key
    *        Configuration key to use during creation.
@@ -18197,17 +18197,17 @@ var TextTrackSettings = function (_ModalDialog) {
   TextTrackSettings.prototype.createElSelect_ = function createElSelect_(key) {
     var _this2 = this;
 
-    var legendId = arguments.length &gt; 1 &amp;&amp; arguments[1] !== undefined ? arguments[1] : '';
-    var type = arguments.length &gt; 2 &amp;&amp; arguments[2] !== undefined ? arguments[2] : 'label';
+    var legendId = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+    var type = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'label';
 
     var config = selectConfigs[key];
     var id = config.id.replace('%s', this.id_);
 
-    return ['&lt;' + type + ' id="' + id + '" class="' + (type === 'label' ? 'vjs-label' : '') + '"&gt;', this.localize(config.label), '&lt;/' + type + '&gt;', '&lt;select aria-labelledby="' + (legendId !== '' ? legendId + ' ' : '') + id + '"&gt;'].concat(config.options.map(function (o) {
+    return ['<' + type + ' id="' + id + '" class="' + (type === 'label' ? 'vjs-label' : '') + '">', this.localize(config.label), '</' + type + '>', '<select aria-labelledby="' + (legendId !== '' ? legendId + ' ' : '') + id + '">'].concat(config.options.map(function (o) {
       var optionId = id + '-' + o[1];
 
-      return ['&lt;option id="' + optionId + '" value="' + o[0] + '" ', 'aria-labelledby="' + (legendId !== '' ? legendId + ' ' : '') + id + ' ' + optionId + '"&gt;', _this2.localize(o[1]), '&lt;/option&gt;'].join('');
-    })).concat('&lt;/select&gt;').join('');
+      return ['<option id="' + optionId + '" value="' + o[0] + '" ', 'aria-labelledby="' + (legendId !== '' ? legendId + ' ' : '') + id + ' ' + optionId + '">', _this2.localize(o[1]), '</option>'].join('');
+    })).concat('</select>').join('');
   };
 
   /**
@@ -18223,7 +18223,7 @@ var TextTrackSettings = function (_ModalDialog) {
   TextTrackSettings.prototype.createElFgColor_ = function createElFgColor_() {
     var legendId = 'captions-text-legend-' + this.id_;
 
-    return ['&lt;fieldset class="vjs-fg-color vjs-track-setting"&gt;', '&lt;legend id="' + legendId + '"&gt;', this.localize('Text'), '&lt;/legend&gt;', this.createElSelect_('color', legendId), '&lt;span class="vjs-text-opacity vjs-opacity"&gt;', this.createElSelect_('textOpacity', legendId), '&lt;/span&gt;', '&lt;/fieldset&gt;'].join('');
+    return ['<fieldset class="vjs-fg-color vjs-track-setting">', '<legend id="' + legendId + '">', this.localize('Text'), '</legend>', this.createElSelect_('color', legendId), '<span class="vjs-text-opacity vjs-opacity">', this.createElSelect_('textOpacity', legendId), '</span>', '</fieldset>'].join('');
   };
 
   /**
@@ -18239,7 +18239,7 @@ var TextTrackSettings = function (_ModalDialog) {
   TextTrackSettings.prototype.createElBgColor_ = function createElBgColor_() {
     var legendId = 'captions-background-' + this.id_;
 
-    return ['&lt;fieldset class="vjs-bg-color vjs-track-setting"&gt;', '&lt;legend id="' + legendId + '"&gt;', this.localize('Background'), '&lt;/legend&gt;', this.createElSelect_('backgroundColor', legendId), '&lt;span class="vjs-bg-opacity vjs-opacity"&gt;', this.createElSelect_('backgroundOpacity', legendId), '&lt;/span&gt;', '&lt;/fieldset&gt;'].join('');
+    return ['<fieldset class="vjs-bg-color vjs-track-setting">', '<legend id="' + legendId + '">', this.localize('Background'), '</legend>', this.createElSelect_('backgroundColor', legendId), '<span class="vjs-bg-opacity vjs-opacity">', this.createElSelect_('backgroundOpacity', legendId), '</span>', '</fieldset>'].join('');
   };
 
   /**
@@ -18255,7 +18255,7 @@ var TextTrackSettings = function (_ModalDialog) {
   TextTrackSettings.prototype.createElWinColor_ = function createElWinColor_() {
     var legendId = 'captions-window-' + this.id_;
 
-    return ['&lt;fieldset class="vjs-window-color vjs-track-setting"&gt;', '&lt;legend id="' + legendId + '"&gt;', this.localize('Window'), '&lt;/legend&gt;', this.createElSelect_('windowColor', legendId), '&lt;span class="vjs-window-opacity vjs-opacity"&gt;', this.createElSelect_('windowOpacity', legendId), '&lt;/span&gt;', '&lt;/fieldset&gt;'].join('');
+    return ['<fieldset class="vjs-window-color vjs-track-setting">', '<legend id="' + legendId + '">', this.localize('Window'), '</legend>', this.createElSelect_('windowColor', legendId), '<span class="vjs-window-opacity vjs-opacity">', this.createElSelect_('windowOpacity', legendId), '</span>', '</fieldset>'].join('');
   };
 
   /**
@@ -18287,8 +18287,8 @@ var TextTrackSettings = function (_ModalDialog) {
 
   TextTrackSettings.prototype.createElFont_ = function createElFont_() {
     return createEl('div', {
-      className: 'vjs-track-settings-font"&gt;',
-      innerHTML: ['&lt;fieldset class="vjs-font-percent vjs-track-setting"&gt;', this.createElSelect_('fontPercent', '', 'legend'), '&lt;/fieldset&gt;', '&lt;fieldset class="vjs-edge-style vjs-track-setting"&gt;', this.createElSelect_('edgeStyle', '', 'legend'), '&lt;/fieldset&gt;', '&lt;fieldset class="vjs-font-family vjs-track-setting"&gt;', this.createElSelect_('fontFamily', '', 'legend'), '&lt;/fieldset&gt;'].join('')
+      className: 'vjs-track-settings-font">',
+      innerHTML: ['<fieldset class="vjs-font-percent vjs-track-setting">', this.createElSelect_('fontPercent', '', 'legend'), '</fieldset>', '<fieldset class="vjs-edge-style vjs-track-setting">', this.createElSelect_('edgeStyle', '', 'legend'), '</fieldset>', '<fieldset class="vjs-font-family vjs-track-setting">', this.createElSelect_('fontFamily', '', 'legend'), '</fieldset>'].join('')
     });
   };
 
@@ -18307,7 +18307,7 @@ var TextTrackSettings = function (_ModalDialog) {
 
     return createEl('div', {
       className: 'vjs-track-settings-controls',
-      innerHTML: ['&lt;button class="vjs-default-button" title="' + defaultsDescription + '"&gt;', this.localize('Reset'), '&lt;span class="vjs-control-text"&gt; ' + defaultsDescription + '&lt;/span&gt;', '&lt;/button&gt;', '&lt;button class="vjs-done-button"&gt;' + this.localize('Done') + '&lt;/button&gt;'].join('')
+      innerHTML: ['<button class="vjs-default-button" title="' + defaultsDescription + '">', this.localize('Reset'), '<span class="vjs-control-text"> ' + defaultsDescription + '</span>', '</button>', '<button class="vjs-done-button">' + this.localize('Done') + '</button>'].join('')
     });
   };
 
@@ -18366,7 +18366,7 @@ var TextTrackSettings = function (_ModalDialog) {
   };
 
   /**
-   * Sets all `&lt;select&gt;` elements to their default values.
+   * Sets all `<select>` elements to their default values.
    */
 
 
@@ -18447,8 +18447,8 @@ var TextTrackSettings = function (_ModalDialog) {
     this.off(document_1, 'keydown', this.handleKeyDown);
 
     var cb = this.player_.controlBar;
-    var subsCapsBtn = cb &amp;&amp; cb.subsCapsButton;
-    var ccBtn = cb &amp;&amp; cb.captionsButton;
+    var subsCapsBtn = cb && cb.subsCapsButton;
+    var ccBtn = cb && cb.captionsButton;
 
     if (subsCapsBtn) {
       subsCapsBtn.focus();
@@ -18498,7 +18498,7 @@ var Html5 = function (_Tech) {
     // 1) Check if the source is new (if not, we want to keep the original so playback isn't interrupted)
     // 2) Check to see if the network state of the tag was failed at init, and if so, reset the source
     // anyway so the error gets fired.
-    if (source &amp;&amp; (_this.el_.currentSrc !== source.src || options.tag &amp;&amp; options.tag.initNetworkState_ === 3)) {
+    if (source && (_this.el_.currentSrc !== source.src || options.tag && options.tag.initNetworkState_ === 3)) {
       _this.setSource(source);
     } else {
       _this.handleLateInit_(_this.el_);
@@ -18526,20 +18526,20 @@ var Html5 = function (_Tech) {
             _this.remoteTextTrackEls().addTrackElement_(node);
             _this.remoteTextTracks().addTrack(node.track);
             _this.textTracks().addTrack(node.track);
-            if (!crossoriginTracks &amp;&amp; !_this.el_.hasAttribute('crossorigin') &amp;&amp; isCrossOrigin(node.src)) {
+            if (!crossoriginTracks && !_this.el_.hasAttribute('crossorigin') && isCrossOrigin(node.src)) {
               crossoriginTracks = true;
             }
           }
         }
       }
 
-      for (var i = 0; i &lt; removeNodes.length; i++) {
+      for (var i = 0; i < removeNodes.length; i++) {
         _this.el_.removeChild(removeNodes[i]);
       }
     }
 
     _this.proxyNativeTracks_();
-    if (_this.featuresNativeTextTracks &amp;&amp; crossoriginTracks) {
+    if (_this.featuresNativeTextTracks && crossoriginTracks) {
       log$1.warn(tsml(_templateObject$2));
     }
 
@@ -18550,7 +18550,7 @@ var Html5 = function (_Tech) {
     // Our goal should be to get the custom controls on mobile solid everywhere
     // so we can remove this all together. Right now this will block custom
     // controls on touch enabled laptops like the Chrome Pixel
-    if ((TOUCH_ENABLED || IS_IPHONE || IS_NATIVE_ANDROID) &amp;&amp; options.nativeControlsForTouch === true) {
+    if ((TOUCH_ENABLED || IS_IPHONE || IS_NATIVE_ANDROID) && options.nativeControlsForTouch === true) {
       _this.setControls(true);
     }
 
@@ -18591,7 +18591,7 @@ var Html5 = function (_Tech) {
     var takeMetadataTrackSnapshot = function takeMetadataTrackSnapshot() {
       metadataTracksPreFullscreenState = [];
 
-      for (var i = 0; i &lt; textTracks.length; i++) {
+      for (var i = 0; i < textTracks.length; i++) {
         var track = textTracks[i];
 
         if (track.kind === 'metadata') {
@@ -18609,10 +18609,10 @@ var Html5 = function (_Tech) {
     textTracks.addEventListener('change', takeMetadataTrackSnapshot);
 
     var restoreTrackMode = function restoreTrackMode() {
-      for (var i = 0; i &lt; metadataTracksPreFullscreenState.length; i++) {
+      for (var i = 0; i < metadataTracksPreFullscreenState.length; i++) {
         var storedTrack = metadataTracksPreFullscreenState[i];
 
-        if (storedTrack.track.mode === 'disabled' &amp;&amp; storedTrack.track.mode !== storedTrack.storedMode) {
+        if (storedTrack.track.mode === 'disabled' && storedTrack.track.mode !== storedTrack.storedMode) {
           storedTrack.track.mode = storedTrack.storedMode;
         }
       }
@@ -18679,10 +18679,10 @@ var Html5 = function (_Tech) {
       var removeOldTracks = function removeOldTracks() {
         var removeTracks = [];
 
-        for (var i = 0; i &lt; techTracks.length; i++) {
+        for (var i = 0; i < techTracks.length; i++) {
           var found = false;
 
-          for (var j = 0; j &lt; elTracks.length; j++) {
+          for (var j = 0; j < elTracks.length; j++) {
             if (elTracks[j] === techTracks[i]) {
               found = true;
               break;
@@ -18746,7 +18746,7 @@ var Html5 = function (_Tech) {
         el = document_1.createElement('video');
 
         // determine if native controls should be used
-        var tagAttributes = this.options_.tag &amp;&amp; getAttributes(this.options_.tag);
+        var tagAttributes = this.options_.tag && getAttributes(this.options_.tag);
         var attributes = mergeOptions({}, tagAttributes);
 
         if (!TOUCH_ENABLED || this.options_.nativeControlsForTouch !== true) {
@@ -18771,7 +18771,7 @@ var Html5 = function (_Tech) {
     // when iOS/Safari or other browsers attempt to autoplay.
     var settingsAttrs = ['loop', 'muted', 'playsinline', 'autoplay'];
 
-    for (var i = settingsAttrs.length - 1; i &gt;= 0; i--) {
+    for (var i = settingsAttrs.length - 1; i >= 0; i--) {
       var attr = settingsAttrs[i];
       var value = this.options_[attr];
 
@@ -18861,17 +18861,17 @@ var Html5 = function (_Tech) {
     eventsToTrigger.push('loadedmetadata');
 
     // loadeddata: newly increased to HAVE_CURRENT_DATA (2) or greater
-    if (el.readyState &gt;= 2) {
+    if (el.readyState >= 2) {
       eventsToTrigger.push('loadeddata');
     }
 
     // canplay: newly increased to HAVE_FUTURE_DATA (3) or greater
-    if (el.readyState &gt;= 3) {
+    if (el.readyState >= 3) {
       eventsToTrigger.push('canplay');
     }
 
     // canplaythrough: newly equal to HAVE_ENOUGH_DATA (4)
-    if (el.readyState &gt;= 4) {
+    if (el.readyState >= 4) {
       eventsToTrigger.push('canplaythrough');
     }
 
@@ -18915,11 +18915,11 @@ var Html5 = function (_Tech) {
     // playback has started, which triggers the live display erroneously.
     // Return NaN if playback has not started and trigger a durationupdate once
     // the duration can be reliably known.
-    if (this.el_.duration === Infinity &amp;&amp; IS_ANDROID &amp;&amp; IS_CHROME &amp;&amp; this.el_.currentTime === 0) {
-      // Wait for the first `timeupdate` with currentTime &gt; 0 - there may be
+    if (this.el_.duration === Infinity && IS_ANDROID && IS_CHROME && this.el_.currentTime === 0) {
+      // Wait for the first `timeupdate` with currentTime > 0 - there may be
       // several with 0
       var checkProgress = function checkProgress() {
-        if (_this3.el_.currentTime &gt; 0) {
+        if (_this3.el_.currentTime > 0) {
           // Trigger durationchange for genuinely live video
           if (_this3.el_.duration === Infinity) {
             _this3.trigger('durationchange');
@@ -18982,7 +18982,7 @@ var Html5 = function (_Tech) {
     };
 
     var beginFn = function beginFn() {
-      if ('webkitPresentationMode' in this.el_ &amp;&amp; this.el_.webkitPresentationMode !== 'picture-in-picture') {
+      if ('webkitPresentationMode' in this.el_ && this.el_.webkitPresentationMode !== 'picture-in-picture') {
         this.one('webkitendfullscreen', endFn);
 
         this.trigger('fullscreenchange', { isFullscreen: true });
@@ -19007,9 +19007,9 @@ var Html5 = function (_Tech) {
 
   Html5.prototype.supportsFullScreen = function supportsFullScreen() {
     if (typeof this.el_.webkitEnterFullScreen === 'function') {
-      var userAgent = window_1.navigator &amp;&amp; window_1.navigator.userAgent || '';
+      var userAgent = window_1.navigator && window_1.navigator.userAgent || '';
 
-      // Seems to be broken in Chromium/Chrome &amp;&amp; Safari in Leopard
+      // Seems to be broken in Chromium/Chrome && Safari in Leopard
       if (/Android/.test(userAgent) || !/Chrome|Mac OS X 10.5/.test(userAgent)) {
         return true;
       }
@@ -19025,7 +19025,7 @@ var Html5 = function (_Tech) {
   Html5.prototype.enterFullScreen = function enterFullScreen() {
     var video = this.el_;
 
-    if (video.paused &amp;&amp; video.networkState &lt;= video.HAVE_METADATA) {
+    if (video.paused && video.networkState <= video.HAVE_METADATA) {
       // attempt to prime the video element for programmatic access
       // this isn't necessary on the desktop but shouldn't hurt
       this.el_.play();
@@ -19052,7 +19052,7 @@ var Html5 = function (_Tech) {
 
   /**
    * A getter/setter for the `Html5` Tech's source object.
-   * &gt; Note: Please use {@link Html5#setSource}
+   * > Note: Please use {@link Html5#setSource}
    *
    * @param {Tech~SourceObject} [src]
    *        The source object you want to set on the `HTML5` techs element.
@@ -19262,14 +19262,14 @@ var Html5 = function (_Tech) {
 
     var videoPlaybackQuality = {};
 
-    if (typeof this.el().webkitDroppedFrameCount !== 'undefined' &amp;&amp; typeof this.el().webkitDecodedFrameCount !== 'undefined') {
+    if (typeof this.el().webkitDroppedFrameCount !== 'undefined' && typeof this.el().webkitDecodedFrameCount !== 'undefined') {
       videoPlaybackQuality.droppedVideoFrames = this.el().webkitDroppedFrameCount;
       videoPlaybackQuality.totalVideoFrames = this.el().webkitDecodedFrameCount;
     }
 
-    if (window_1.performance &amp;&amp; typeof window_1.performance.now === 'function') {
+    if (window_1.performance && typeof window_1.performance.now === 'function') {
       videoPlaybackQuality.creationTime = window_1.performance.now();
-    } else if (window_1.performance &amp;&amp; window_1.performance.timing &amp;&amp; typeof window_1.performance.timing.navigationStart === 'number') {
+    } else if (window_1.performance && window_1.performance.timing && typeof window_1.performance.timing.navigationStart === 'number') {
       videoPlaybackQuality.creationTime = window_1.Date.now() - window_1.performance.timing.navigationStart;
     }
 
@@ -19314,7 +19314,7 @@ Html5.isSupported = function () {
     return false;
   }
 
-  return !!(Html5.TEST_VID &amp;&amp; Html5.TEST_VID.canPlayType);
+  return !!(Html5.TEST_VID && Html5.TEST_VID.canPlayType);
 };
 
 /**
@@ -19371,7 +19371,7 @@ Html5.canControlVolume = function () {
 Html5.canControlPlaybackRate = function () {
   // Playback rate API is implemented in Android Chrome, but doesn't do anything
   // https://github.com/videojs/video.js/issues/3180
-  if (IS_ANDROID &amp;&amp; IS_CHROME &amp;&amp; CHROME_VERSION &lt; 58) {
+  if (IS_ANDROID && IS_CHROME && CHROME_VERSION < 58) {
     return false;
   }
   // IE will error if Windows Media Player not installed #3315
@@ -19404,7 +19404,7 @@ Html5.supportsNativeTextTracks = function () {
  *        - False otherwise
  */
 Html5.supportsNativeVideoTracks = function () {
-  return !!(Html5.TEST_VID &amp;&amp; Html5.TEST_VID.videoTracks);
+  return !!(Html5.TEST_VID && Html5.TEST_VID.videoTracks);
 };
 
 /**
@@ -19415,7 +19415,7 @@ Html5.supportsNativeVideoTracks = function () {
  *        - False otherwise
  */
 Html5.supportsNativeAudioTracks = function () {
-  return !!(Html5.TEST_VID &amp;&amp; Html5.TEST_VID.audioTracks);
+  return !!(Html5.TEST_VID && Html5.TEST_VID.audioTracks);
 };
 
 /**
@@ -19508,16 +19508,16 @@ Html5.prototype.featuresNativeVideoTracks = Html5.supportsNativeVideoTracks();
 Html5.prototype.featuresNativeAudioTracks = Html5.supportsNativeAudioTracks();
 
 // HTML5 Feature detection and Device Fixes --------------------------------- //
-var canPlayType = Html5.TEST_VID &amp;&amp; Html5.TEST_VID.constructor.prototype.canPlayType;
+var canPlayType = Html5.TEST_VID && Html5.TEST_VID.constructor.prototype.canPlayType;
 var mpegurlRE = /^application\/(?:x-|vnd\.apple\.)mpegurl/i;
 var mp4RE = /^video\/mp4/i;
 
 Html5.patchCanPlayType = function () {
 
   // Android 4.0 and above can play HLS to some extent but it reports being unable to do so
-  if (ANDROID_VERSION &gt;= 4.0 &amp;&amp; !IS_FIREFOX) {
+  if (ANDROID_VERSION >= 4.0 && !IS_FIREFOX) {
     Html5.TEST_VID.constructor.prototype.canPlayType = function (type) {
-      if (type &amp;&amp; mpegurlRE.test(type)) {
+      if (type && mpegurlRE.test(type)) {
         return 'maybe';
       }
       return canPlayType.call(this, type);
@@ -19526,7 +19526,7 @@ Html5.patchCanPlayType = function () {
     // Override Android 2.2 and less canPlayType method which is broken
   } else if (IS_OLD_ANDROID) {
     Html5.TEST_VID.constructor.prototype.canPlayType = function (type) {
-      if (type &amp;&amp; mp4RE.test(type)) {
+      if (type && mp4RE.test(type)) {
         return 'maybe';
       }
       return canPlayType.call(this, type);
@@ -20527,7 +20527,7 @@ var Player = function (_Component) {
       } else {
         var element = tag;
 
-        while (element &amp;&amp; element.nodeType === 1) {
+        while (element && element.nodeType === 1) {
           if (getAttributes(element).hasOwnProperty('lang')) {
             options.language = element.getAttribute('lang');
             break;
@@ -20557,7 +20557,7 @@ var Player = function (_Component) {
     _this.tag = tag;
 
     // Store the tag attributes used to restore html5 element
-    _this.tagAttributes = tag &amp;&amp; getAttributes(tag);
+    _this.tagAttributes = tag && getAttributes(tag);
 
     // Update current language
     _this.language(_this.options_.language);
@@ -20710,18 +20710,18 @@ var Player = function (_Component) {
     // prevent dispose from being called twice
     this.off('dispose');
 
-    if (this.styleEl_ &amp;&amp; this.styleEl_.parentNode) {
+    if (this.styleEl_ && this.styleEl_.parentNode) {
       this.styleEl_.parentNode.removeChild(this.styleEl_);
     }
 
     // Kill reference to this player
     Player.players[this.id_] = null;
 
-    if (this.tag &amp;&amp; this.tag.player) {
+    if (this.tag && this.tag.player) {
       this.tag.player = null;
     }
 
-    if (this.el_ &amp;&amp; this.el_.player) {
+    if (this.el_ && this.el_.player) {
       this.el_.player = null;
     }
 
@@ -20743,7 +20743,7 @@ var Player = function (_Component) {
   Player.prototype.createEl = function createEl$$1() {
     var tag = this.tag;
     var el = void 0;
-    var playerElIngest = this.playerElIngest_ = tag.parentNode &amp;&amp; tag.parentNode.hasAttribute &amp;&amp; tag.parentNode.hasAttribute('data-vjs-player');
+    var playerElIngest = this.playerElIngest_ = tag.parentNode && tag.parentNode.hasAttribute && tag.parentNode.hasAttribute('data-vjs-player');
 
     if (playerElIngest) {
       el = this.el_ = tag.parentNode;
@@ -20804,7 +20804,7 @@ var Player = function (_Component) {
     // Hide any links within the video/audio tag, because IE doesn't hide them completely.
     var links = tag.getElementsByTagName('a');
 
-    for (var i = 0; i &lt; links.length; i++) {
+    for (var i = 0; i < links.length; i++) {
       var linkEl = links.item(i);
 
       addClass(linkEl, 'vjs-hidden');
@@ -20816,7 +20816,7 @@ var Player = function (_Component) {
     tag.initNetworkState_ = tag.networkState;
 
     // Wrap video tag in div (el/box) container
-    if (tag.parentNode &amp;&amp; !playerElIngest) {
+    if (tag.parentNode && !playerElIngest) {
       tag.parentNode.insertBefore(el, tag);
     }
 
@@ -20870,7 +20870,7 @@ var Player = function (_Component) {
   };
 
   /**
-   * A getter/setter for the `Player`'s width &amp; height.
+   * A getter/setter for the `Player`'s width & height.
    *
    * @param {string} dimension
    *        This string can be:
@@ -20992,13 +20992,13 @@ var Player = function (_Component) {
     if (window_1.VIDEOJS_NO_DYNAMIC_STYLE === true) {
       var _width = typeof this.width_ === 'number' ? this.width_ : this.options_.width;
       var _height = typeof this.height_ === 'number' ? this.height_ : this.options_.height;
-      var techEl = this.tech_ &amp;&amp; this.tech_.el();
+      var techEl = this.tech_ && this.tech_.el();
 
       if (techEl) {
-        if (_width &gt;= 0) {
+        if (_width >= 0) {
           techEl.width = _width;
         }
-        if (_height &gt;= 0) {
+        if (_height >= 0) {
           techEl.height = _height;
         }
       }
@@ -21012,10 +21012,10 @@ var Player = function (_Component) {
     var idClass = void 0;
 
     // The aspect ratio is either used directly or to calculate width and height.
-    if (this.aspectRatio_ !== undefined &amp;&amp; this.aspectRatio_ !== 'auto') {
+    if (this.aspectRatio_ !== undefined && this.aspectRatio_ !== 'auto') {
       // Use any aspectRatio that's been specifically set
       aspectRatio = this.aspectRatio_;
-    } else if (this.videoWidth() &gt; 0) {
+    } else if (this.videoWidth() > 0) {
       // Otherwise try to get the aspect ratio from the video metadata
       aspectRatio = this.videoWidth() + ':' + this.videoHeight();
     } else {
@@ -21085,7 +21085,7 @@ var Player = function (_Component) {
     var camelTechName = techName.charAt(0).toLowerCase() + techName.slice(1);
 
     // get rid of the HTML5 video tag as soon as we are using another tech
-    if (titleTechName !== 'Html5' &amp;&amp; this.tag) {
+    if (titleTechName !== 'Html5' && this.tag) {
       Tech.getTech('Html5').disposeMediaElement(this.tag);
       this.tag.player = null;
       this.tag = null;
@@ -21127,7 +21127,7 @@ var Player = function (_Component) {
       techOptions.tag = this.tag;
     }
 
-    if (source &amp;&amp; source.src === this.cache_.src &amp;&amp; this.cache_.currentTime &gt; 0) {
+    if (source && source.src === this.cache_.src && this.cache_.currentTime > 0) {
       techOptions.startTime = this.cache_.currentTime;
     }
 
@@ -21169,13 +21169,13 @@ var Player = function (_Component) {
 
     this.usingNativeControls(this.techGet_('controls'));
 
-    if (this.controls() &amp;&amp; !this.usingNativeControls()) {
+    if (this.controls() && !this.usingNativeControls()) {
       this.addTechControlsListeners_();
     }
 
     // Add the tech element in the DOM if it was not already there
     // Make sure to not insert the original video element if using Html5
-    if (this.tech_.el().parentNode !== this.el() &amp;&amp; (titleTechName !== 'Html5' || !this.tag)) {
+    if (this.tech_.el().parentNode !== this.el() && (titleTechName !== 'Html5' || !this.tag)) {
       prependTo(this.tech_.el(), this.el());
     }
 
@@ -21246,7 +21246,7 @@ var Player = function (_Component) {
    * - In addition to this, we still want the user to be considered inactive after
    *   a few seconds of inactivity.
    *
-   * &gt; Note: the only part of iOS interaction we can't mimic with this setup
+   * > Note: the only part of iOS interaction we can't mimic with this setup
    * is a touch and hold on the video element counting as activity in order to
    * keep the controls showing, but that shouldn't be an issue. A touch and hold
    * on any controls will still keep the user active
@@ -21259,7 +21259,7 @@ var Player = function (_Component) {
     // Make sure to remove all the previous listeners in case we are called multiple times.
     this.removeTechControlsListeners_();
 
-    // Some browsers (Chrome &amp; IE) don't trigger a click on a flash swf, but do
+    // Some browsers (Chrome & IE) don't trigger a click on a flash swf, but do
     // trigger mousedown/up.
     // http://stackoverflow.com/questions/1444562/javascript-onclick-event-over-flash-object
     // Any touch events are set to block the mousedown event from happening
@@ -21320,7 +21320,7 @@ var Player = function (_Component) {
     // In Safari (5.1.1), when we move the video element into the container div, autoplay doesn't work.
     // In Chrome (15), if you have autoplay + a poster + no controls, the video gets hidden (but audio plays)
     // This fixes both issues. Need to wait for API, so it updates displays correctly
-    if ((this.src() || this.currentSrc()) &amp;&amp; this.tag &amp;&amp; this.options_.autoplay &amp;&amp; this.paused()) {
+    if ((this.src() || this.currentSrc()) && this.tag && this.options_.autoplay && this.paused()) {
       try {
         // Chrome Fix. Fixed in Chrome v16.
         delete this.tag.poster;
@@ -21458,7 +21458,7 @@ var Player = function (_Component) {
 
   /**
    * Retrigger the `canplay` event that was triggered by the {@link Tech}.
-   * &gt; Note: This is not consistent between browsers. See #1351
+   * > Note: This is not consistent between browsers. See #1351
    *
    * @fires Player#canplay
    * @listens Tech#canplay
@@ -21818,7 +21818,7 @@ var Player = function (_Component) {
   Player.prototype.handleTechTextData_ = function handleTechTextData_() {
     var data = null;
 
-    if (arguments.length &gt; 1) {
+    if (arguments.length > 1) {
       data = arguments[1];
     }
 
@@ -21938,13 +21938,13 @@ var Player = function (_Component) {
         var retval = this.techGet_('play');
 
         // silence errors (unhandled promise from play)
-        if (retval !== undefined &amp;&amp; typeof retval.then === 'function') {
+        if (retval !== undefined && typeof retval.then === 'function') {
           retval.then(null, function (e) {});
         }
       });
 
       // Only calls the tech's play if we already have a src loaded
-    } else if (this.isReady_ &amp;&amp; (this.src() || this.currentSrc())) {
+    } else if (this.isReady_ && (this.src() || this.currentSrc())) {
       return this.techGet_('play');
     } else {
       this.ready(function () {
@@ -21952,7 +21952,7 @@ var Player = function (_Component) {
           var retval = this.play();
 
           // silence errors (unhandled promise from play)
-          if (retval !== undefined &amp;&amp; typeof retval.then === 'function') {
+          if (retval !== undefined && typeof retval.then === 'function') {
             retval.then(null, function (e) {});
           }
         });
@@ -22057,7 +22057,7 @@ var Player = function (_Component) {
    * Normally gets the length in time of the video in seconds;
    * in all but the rarest use cases an argument will NOT be passed to the method
    *
-   * &gt; **NOTE**: The video must have started loading before the duration can be
+   * > **NOTE**: The video must have started loading before the duration can be
    * known, and in the case of Flash, may not be known until the video starts
    * playing.
    *
@@ -22080,7 +22080,7 @@ var Player = function (_Component) {
     seconds = parseFloat(seconds);
 
     // Standardize on Inifity for signaling video is live
-    if (seconds &lt; 0) {
+    if (seconds < 0) {
       seconds = Infinity;
     }
 
@@ -22180,7 +22180,7 @@ var Player = function (_Component) {
     var duration = this.duration();
     var end = buffered.end(buffered.length - 1);
 
-    if (end &gt; duration) {
+    if (end > duration) {
       end = duration;
     }
 
@@ -22210,7 +22210,7 @@ var Player = function (_Component) {
       this.cache_.volume = vol;
       this.techCall_('setVolume', vol);
 
-      if (vol &gt; 0) {
+      if (vol > 0) {
         this.lastVolume_(vol);
       }
 
@@ -22295,7 +22295,7 @@ var Player = function (_Component) {
 
 
   Player.prototype.lastVolume_ = function lastVolume_(percentAsDecimal) {
-    if (percentAsDecimal !== undefined &amp;&amp; percentAsDecimal !== 0) {
+    if (percentAsDecimal !== undefined && percentAsDecimal !== 0) {
       this.cache_.lastVolume = percentAsDecimal;
       return;
     }
@@ -22319,7 +22319,7 @@ var Player = function (_Component) {
    * Check if the player is in fullscreen mode or tell the player that it
    * is or is not in fullscreen mode.
    *
-   * &gt; NOTE: As of the latest HTML5 spec, isFullscreen is no longer an official
+   * > NOTE: As of the latest HTML5 spec, isFullscreen is no longer an official
    * property and instead document.fullscreenElement is used. But isFullscreen is
    * still a valuable property for internal player workings.
    *
@@ -22517,7 +22517,7 @@ var Player = function (_Component) {
     var can = void 0;
 
     // Loop through each playback technology in the options order
-    for (var i = 0, j = this.options_.techOrder; i &lt; j.length; i++) {
+    for (var i = 0, j = this.options_.techOrder; i < j.length; i++) {
       var techName = j[i];
       var tech = Tech.getTech(techName);
 
@@ -22679,7 +22679,7 @@ var Player = function (_Component) {
       var err = _this6.src_(middlewareSource);
 
       if (err) {
-        if (sources.length &gt; 1) {
+        if (sources.length > 1) {
           return _this6.src(sources.slice(1));
         }
 
@@ -22818,7 +22818,7 @@ var Player = function (_Component) {
 
 
   Player.prototype.currentSrc = function currentSrc() {
-    return this.currentSource() &amp;&amp; this.currentSource().src || '';
+    return this.currentSource() && this.currentSource().src || '';
   };
 
   /**
@@ -22832,7 +22832,7 @@ var Player = function (_Component) {
 
 
   Player.prototype.currentType = function currentType() {
-    return this.currentSource() &amp;&amp; this.currentSource().type || '';
+    return this.currentSource() && this.currentSource().type || '';
   };
 
   /**
@@ -22980,7 +22980,7 @@ var Player = function (_Component) {
 
 
   Player.prototype.handleTechPosterChange_ = function handleTechPosterChange_() {
-    if (!this.poster_ &amp;&amp; this.tech_ &amp;&amp; this.tech_.poster) {
+    if (!this.poster_ && this.tech_ && this.tech_.poster) {
       this.poster_ = this.tech_.poster() || '';
 
       // Let components know the poster has changed
@@ -23294,8 +23294,8 @@ var Player = function (_Component) {
 
         var timeout = this.options_.inactivityTimeout;
 
-        if (timeout &gt; 0) {
-          // In &lt;timeout&gt; milliseconds, if no more activity has occurred the
+        if (timeout > 0) {
+          // In <timeout> milliseconds, if no more activity has occurred the
           // user will be considered inactive
           inactivityTimeout = this.setTimeout(function () {
             // Protect against the case where the inactivityTimeout can trigger just
@@ -23331,7 +23331,7 @@ var Player = function (_Component) {
       return;
     }
 
-    if (this.tech_ &amp;&amp; this.tech_.featuresPlaybackRate) {
+    if (this.tech_ && this.tech_.featuresPlaybackRate) {
       return this.techGet_('playbackRate');
     }
     return 1.0;
@@ -23359,7 +23359,7 @@ var Player = function (_Component) {
       return this.techCall_('setDefaultPlaybackRate', rate);
     }
 
-    if (this.tech_ &amp;&amp; this.tech_.featuresPlaybackRate) {
+    if (this.tech_ && this.tech_.featuresPlaybackRate) {
       return this.techGet_('defaultPlaybackRate');
     }
     return 1.0;
@@ -23455,7 +23455,7 @@ var Player = function (_Component) {
 
 
   Player.prototype.removeRemoteTextTrack = function removeRemoteTextTrack() {
-    var _ref3 = arguments.length &gt; 0 &amp;&amp; arguments[0] !== undefined ? arguments[0] : {},
+    var _ref3 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
         _ref3$track = _ref3.track,
         track = _ref3$track === undefined ? arguments[0] : _ref3$track;
 
@@ -23492,7 +23492,7 @@ var Player = function (_Component) {
 
 
   Player.prototype.videoWidth = function videoWidth() {
-    return this.tech_ &amp;&amp; this.tech_.videoWidth &amp;&amp; this.tech_.videoWidth() || 0;
+    return this.tech_ && this.tech_.videoWidth && this.tech_.videoWidth() || 0;
   };
 
   /**
@@ -23504,7 +23504,7 @@ var Player = function (_Component) {
 
 
   Player.prototype.videoHeight = function videoHeight() {
-    return this.tech_ &amp;&amp; this.tech_.videoHeight &amp;&amp; this.tech_.videoHeight() || 0;
+    return this.tech_ && this.tech_.videoHeight && this.tech_.videoHeight() || 0;
   };
 
   /**
@@ -23558,7 +23558,7 @@ var Player = function (_Component) {
 
     options.tracks = [];
 
-    for (var i = 0; i &lt; tracks.length; i++) {
+    for (var i = 0; i < tracks.length; i++) {
       var track = tracks[i];
 
       // deep merge tracks and null out player so no circular references
@@ -23650,7 +23650,7 @@ var Player = function (_Component) {
     if (tag.hasChildNodes()) {
       var children = tag.childNodes;
 
-      for (var i = 0, j = children.length; i &lt; j; i++) {
+      for (var i = 0, j = children.length; i < j; i++) {
         var child = children[i];
         // Change case needed: http://ejohn.org/blog/nodename-case-sensitivity/
         var childName = child.nodeName.toLowerCase();
@@ -23787,7 +23787,7 @@ Player.prototype.options_ = {
   // Included control sets
   children: ['mediaLoader', 'posterImage', 'textTrackDisplay', 'loadingSpinner', 'bigPlayButton', 'controlBar', 'errorDisplay', 'textTrackSettings'],
 
-  language: navigator$1 &amp;&amp; (navigator$1.languages &amp;&amp; navigator$1.languages[0] || navigator$1.userLanguage || navigator$1.language) || 'en',
+  language: navigator$1 && (navigator$1.languages && navigator$1.languages[0] || navigator$1.userLanguage || navigator$1.language) || 'en',
 
   // locales and their language translations
   languages: {},
@@ -24095,7 +24095,7 @@ var createPluginFactory = function createPluginFactory(name, PluginSubClass) {
   return function () {
     triggerSetupEvent(this, { name: name, plugin: PluginSubClass, instance: null }, true);
 
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key &lt; _len; _key++) {
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
 
@@ -24177,7 +24177,7 @@ var Plugin = function () {
 
 
   Plugin.prototype.getEventHash = function getEventHash() {
-    var hash = arguments.length &gt; 0 &amp;&amp; arguments[0] !== undefined ? arguments[0] : {};
+    var hash = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
     hash.name = this.name;
     hash.plugin = this.constructor;
@@ -24202,7 +24202,7 @@ var Plugin = function () {
 
 
   Plugin.prototype.trigger = function trigger$$1(event) {
-    var hash = arguments.length &gt; 1 &amp;&amp; arguments[1] !== undefined ? arguments[1] : {};
+    var hash = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
     return trigger(this.eventBusEl_, event, this.getEventHash(hash));
   };
@@ -24274,7 +24274,7 @@ var Plugin = function () {
   Plugin.isBasic = function isBasic(plugin) {
     var p = typeof plugin === 'string' ? getPlugin(plugin) : plugin;
 
-    return typeof p === 'function' &amp;&amp; !Plugin.prototype.isPrototypeOf(p.prototype);
+    return typeof p === 'function' && !Plugin.prototype.isPrototypeOf(p.prototype);
   };
 
   /**
@@ -24356,7 +24356,7 @@ var Plugin = function () {
 
 
   Plugin.getPlugins = function getPlugins() {
-    var names = arguments.length &gt; 0 &amp;&amp; arguments[0] !== undefined ? arguments[0] : Object.keys(pluginStorage);
+    var names = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : Object.keys(pluginStorage);
 
     var result = void 0;
 
@@ -24386,7 +24386,7 @@ var Plugin = function () {
   Plugin.getPluginVersion = function getPluginVersion(name) {
     var plugin = getPlugin(name);
 
-    return plugin &amp;&amp; plugin.VERSION || '';
+    return plugin && plugin.VERSION || '';
   };
 
   return Plugin;
@@ -24423,7 +24423,7 @@ Plugin.registerPlugin(BASE_PLUGIN_NAME, Plugin);
  * @ignore
  */
 Player.prototype.usingPlugin = function (name) {
-  return !!this[PLUGIN_CACHE_KEY] &amp;&amp; this[PLUGIN_CACHE_KEY][name] === true;
+  return !!this[PLUGIN_CACHE_KEY] && this[PLUGIN_CACHE_KEY][name] === true;
 };
 
 /**
@@ -24499,11 +24499,11 @@ Player.prototype.hasPlugin = function (name) {
  * @private
  */
 var _inherits = function _inherits(subClass, superClass) {
-  if (typeof superClass !== 'function' &amp;&amp; superClass !== null) {
+  if (typeof superClass !== 'function' && superClass !== null) {
     throw new TypeError('Super expression must either be null or a function, not ' + (typeof superClass === 'undefined' ? 'undefined' : _typeof(superClass)));
   }
 
-  subClass.prototype = Object.create(superClass &amp;&amp; superClass.prototype, {
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
     constructor: {
       value: subClass,
       enumerable: false,
@@ -24535,7 +24535,7 @@ var _inherits = function _inherits(subClass, superClass) {
  *         The new object with subClassMethods that inherited superClass.
  */
 var extendFn = function extendFn(superClass) {
-  var subClassMethods = arguments.length &gt; 1 &amp;&amp; arguments[1] !== undefined ? arguments[1] : {};
+  var subClassMethods = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
   var subClass = function subClass() {
     superClass.apply(this, arguments);
@@ -24570,7 +24570,7 @@ var extendFn = function extendFn(superClass) {
  */
 // Include the built-in techs
 // HTML5 Element Shim for IE8
-if (typeof HTMLVideoElement === 'undefined' &amp;&amp; isReal()) {
+if (typeof HTMLVideoElement === 'undefined' && isReal()) {
   document_1.createElement('video');
   document_1.createElement('audio');
   document_1.createElement('track');
@@ -24636,7 +24636,7 @@ function videojs(id, options, ready) {
   }
 
   // Check if element is included in the DOM
-  if (isEl(tag) &amp;&amp; !document_1.body.contains(tag)) {
+  if (isEl(tag) && !document_1.body.contains(tag)) {
     log$1.warn('The element supplied is not included in the DOM');
   }
 
@@ -24745,7 +24745,7 @@ videojs.hookOnce = function (type, fn) {
 videojs.removeHook = function (type, fn) {
   var index$$1 = videojs.hooks(type).indexOf(fn);
 
-  if (index$$1 &lt;= -1) {
+  if (index$$1 <= -1) {
     return false;
   }
 
@@ -24756,7 +24756,7 @@ videojs.removeHook = function (type, fn) {
 };
 
 // Add default styles
-if (window_1.VIDEOJS_NO_DYNAMIC_STYLE !== true &amp;&amp; isReal()) {
+if (window_1.VIDEOJS_NO_DYNAMIC_STYLE !== true && isReal()) {
   var style = $('.vjs-styles-defaults');
 
   if (!style) {
@@ -24820,7 +24820,7 @@ videojs.getComponent = Component.getComponent;
  * components, either through addChild `component.addChild('myComponent')` or through
  * default children options  `{ children: ['myComponent'] }`.
  *
- * &gt; NOTE: You could also just initialize the component before adding.
+ * > NOTE: You could also just initialize the component before adding.
  * `component.addChild(new MyComponent());`
  *
  * @param {string} name
@@ -24896,7 +24896,7 @@ videojs.mergeOptions = mergeOptions;
 /**
  * Change the context (this) of a function
  *
- * &gt; NOTE: as of v5.0 we require an ES5 shim, so you should use the native
+ * > NOTE: as of v5.0 we require an ES5 shim, so you should use the native
  * `function() {}.bind(newContext);` instead of this.
  *
  * @borrows fn:bind as videojs.bind
@@ -25269,4 +25269,4 @@ return videojs;
 
 })));
 
-!function(){!function(a){var b=a&amp;&amp;a.videojs;b&amp;&amp;(b.CDN_VERSION="6.4.0")}(window),function(a,b,c,d,e,f,g){b&amp;&amp;b.HELP_IMPROVE_VIDEOJS!==!1&amp;&amp;(e.random()&gt;.01||(f=b.location,g=b.videojs||{},a.src="//www.google-analytics.com/__utm.gif?utmwv=5.4.2&amp;utmac=UA-16505296-3&amp;utmn=1&amp;utmhn="+d(f.hostname)+"&amp;utmsr="+b.screen.availWidth+"x"+b.screen.availHeight+"&amp;utmul="+(c.language||c.userLanguage||"").toLowerCase()+"&amp;utmr="+d(f.href)+"&amp;utmp="+d(f.hostname+f.pathname)+"&amp;utmcc=__utma%3D1."+e.floor(1e10*e.random())+".1.1.1.1%3B&amp;utme=8(vjsv*cdnv)9("+g.VERSION+"*"+g.CDN_VERSION+")"))}(new Image,window,navigator,encodeURIComponent,Math)}();</pre> 
+!function(){!function(a){var b=a&&a.videojs;b&&(b.CDN_VERSION="6.4.0")}(window),function(a,b,c,d,e,f,g){b&&b.HELP_IMPROVE_VIDEOJS!==!1&&(e.random()>.01||(f=b.location,g=b.videojs||{},a.src="//www.google-analytics.com/__utm.gif?utmwv=5.4.2&utmac=UA-16505296-3&utmn=1&utmhn="+d(f.hostname)+"&utmsr="+b.screen.availWidth+"x"+b.screen.availHeight+"&utmul="+(c.language||c.userLanguage||"").toLowerCase()+"&utmr="+d(f.href)+"&utmp="+d(f.hostname+f.pathname)+"&utmcc=__utma%3D1."+e.floor(1e10*e.random())+".1.1.1.1%3B&utme=8(vjsv*cdnv)9("+g.VERSION+"*"+g.CDN_VERSION+")"))}(new Image,window,navigator,encodeURIComponent,Math)}();
