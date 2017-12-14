@@ -1,0 +1,87 @@
+{include file="$tagm_css"}
+<h2>
+	{lang('tagm_title')}
+	<small><a href="{$tagm_createpage}" class="btn btn-primary btn-xs">{lang('tagm_actionNew')}</a></small>
+</h2>
+
+<form id="tagm_search" method="post">
+    <div class="input-group col-sm-6 col-sm-offset-6">
+        <input type="text" class="form-control" name="tagm_search" placeholder="{lang('tagm_search')}" />
+        <span class="input-group-btn">
+            <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+        </span>
+    </div>
+</form>
+
+{if $tag_flashmsg != ''}
+<div class="alert alert-success alert-dismissible fade in" role="alert">
+	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		<span aria-hidden="true">×</span>
+	</button>
+	{$tag_flashmsg}.
+</div>
+{/if}
+
+{include file="$tagm_pagindex"}
+{if $pagination && ($next_link || $pre_link)}{include file="$tagm_pagination"}{/if}
+
+{if $tags}
+<form name="manage_tag" method="post">
+    <table class="table table-bordered table-striped manageUsersTable">
+        <thead>
+            <tr>
+                {*<th width="40" align="center" valign="middle" class="left_head"><input type="checkbox" name="checkall" onclick="checkUncheckAll(this);"/></th>*}
+                <th class="head"></th>
+		<th align="center" class="right_head"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {assign var = "cpt" value = 0}
+            {foreach from = $tags key = k item = t}{assign var = "k" value = $k|@trim}
+            <tr data-tag="{$k}">
+                {*<td><input name="check_tag[]" type="checkbox" id="check_tag" value="{$k}" /></td>*}
+                <td>
+                    {$k} <button class="btn btn-link btn-xs" role="button" data-toggle="collapse" href="#videos-{$cpt}" aria-expanded="false" aria-controls="videos-{$cpt}" title="{if $t|@count > 1}{lang('tagm_usedByVideos')}{else}{lang('tagm_usedByVideo')}{/if}">utilisé dans {$t|@count} vidéo{if $t|@count > 1}s{/if}</button>
+                    <div class="collapse" id="videos-{$cpt}">
+                        <ul>
+                        {foreach from = $t item = v}
+                            <li data-vid="{$v.videoid}">{$v.title}</li>
+                        {/foreach}
+                        </ul>
+                    </div>
+                </td>
+                <td>
+                	<div class="actionTag edit" title="{lang('tagm_actionEdit')}"><span class="glyphicon glyphicon-pencil"></span></div>
+                	<div class="actionTag delete" title="{lang('tagm_actionDelete')}"><span class="glyphicon glyphicon-trash"></span></div>
+                </td>
+            </tr>
+            {assign var = "cpt" value = $cpt + 1}
+            {/foreach}
+        </tbody>
+    </table>
+</form>
+
+{if $pagination && ($next_link || $pre_link)}{include file="$tagm_pagination"}{/if}
+{include file="$tagm_pagindex"}
+
+<div class="modal fade" id="tagModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="tagModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{include file="$tagm_js"}
+
+{else}
+<div align="center"><strong><em>{lang('tagm_nofound')}</em></strong></div>
+{/if}
+
+

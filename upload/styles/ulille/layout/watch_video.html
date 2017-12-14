@@ -133,21 +133,28 @@
 </div>
 <!-- MODAL PARTAGER -->
 <div class="modal modal-vcenter fade" id="shareModal" tabindex="-1" role="dialog" aria-labelledby="Partager" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="ShareLabel">Partager</h4>
-			</div>
-			<div class="modal-body">
-				<div class="row">
-					<div class="col-xs-12 social"> <a class="btn btn-link cb-item-social-icon facebook" href="http://www.facebook.com/sharer/sharer.php?s=100&p[url]={videoLink($video)|urlencode}&p[images][0]={get_thumb vdetails=$video}&p[title]={$video.title|title|urlencode}&p[summary]={$video.description|description|urlencode}" target="_blank"> <i class="fa fa-facebook-official fa-2x"></i> </a> <a class="btn btn-link cb-item-social-icon twitter" href="https://twitter.com/share" target="_blank"> <i class="fa fa-twitter fa-2x"></i> </a> <a class="btn btn-link cb-item-social-icon googlep" href="https://plus.google.com/share?url={urlencode(videolink($video))}" target="_blank"> <i class="fa fa-google-plus fa-2x"></i> </a> </div>
-				</div>
-				<hr>
-				<div id="cb-item-share">{show_share_form id=$vdo.videoid type=video}</div>
-			</div>
-		</div>
-	</div>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="ShareLabel">Partager</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12 social">
+                        <a class="btn btn-link cb-item-social-icon facebook" href="http://www.facebook.com/sharer/sharer.php?s=100&p[url]={videoLink($video)|urlencode}&p[images][0]={get_thumb vdetails=$video}&p[title]={$video.title|title|urlencode}&p[summary]={$video.description|description|urlencode}" target="_blank"><i class="fa fa-facebook-official fa-2x"></i></a>
+                        <a class="btn btn-link cb-item-social-icon twitter" href="https://twitter.com/share" target="_blank"><i class="fa fa-twitter fa-2x"></i></a>
+                        <a class="btn btn-link cb-item-social-icon googlep" href="https://plus.google.com/share?url={urlencode(videolink($video))}" target="_blank"><i class="fa fa-google-plus fa-2x"></i></a>
+                    </div>
+                </div>
+                <hr>
+                <div id="cb-item-share">{show_share_form id=$vdo.videoid type=video}</div>
+            </div>
+            <div class="modal-footer">
+                <div class="text-right"><button id="copy" class="btn btn-success btn-xs share-btn pull-right" type="button">{lang("copy_to_clipboard")}</button></div>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- END MODAL SHARE --> 
 <!-- MODAL ADD CHAPTER -->
@@ -222,6 +229,18 @@
             click: function(e){
                 e.preventDefault();
                 _cb.subscribeToChannel('{$video.userid}','subscribe_user','video_detail_result_cont');
+            }
+        });
+        
+        $('#shareModal').on('show.bs.modal', function(e){
+            if(typeof player !== 'undefined'){
+                var s = Math.round(player.currentTime()), h, m;
+                h = Math.floor(s / 3600);
+                m = Math.floor((s - h * 3600) / 60);
+                s -= h * 3600 + m * 60;
+                s = s > 10 ? s : '0'+s;
+                m = h > 0 ? h+':'+ (m > 10 ? m : '0'+m) : m;
+                $(this).find('#startAtTime').val(m +':'+s);
             }
         });
     });
