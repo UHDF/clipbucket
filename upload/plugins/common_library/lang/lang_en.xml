@@ -4,5 +4,14 @@
 	<iso_code>en</iso_code>
 	<phrases>
 		<lang_pack_updated>The language pack has been updated</lang_pack_updated>
+		<!-- Keywords needed for sharing dialog -->
+		<default>Default</default>
+		<small>Small</small>
+		<medium>Medium</medium>
+		<large>Large</large>
+		<copy_to_clipboard>Copy to clipboard</copy_to_clipboard>
+		<embed_type>Embed Type</embed_type>
+		<shareStartAt>Start at</shareStartAt>
+		<shareStartAtInfo>Enter the video's start point</shareStartAtInfo>
 	</phrases>
 </clipbucket_language>
