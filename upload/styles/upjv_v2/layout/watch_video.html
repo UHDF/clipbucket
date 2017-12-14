@@ -112,9 +112,11 @@
 						<li>
 							<a href="#cb-item-share" data-toggle="tab"><span class="icon-share"></span>{lang code='share_embed'}</a>
 						</li>
+						{if has_access('admin_access')}
 						<li>
 							<a href="#cb-item-addto" data-toggle="tab"><span class="icon-plusrounded"></span>{lang code='add_to'}</a>
 						</li>
+						{/if}
 						<!--
 						<li>
 							<a href="#cb-item-report" data-toggle="tab"><span class="icon-flag"></span>{lang code='report_this'}</a>
