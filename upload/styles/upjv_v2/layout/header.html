@@ -182,6 +182,7 @@ class="ui-state-default"
 										{if $catname[$sub@key].parent_id eq $catname[$main@key].category_id}
 											<li>
 												<a href="{cblink(['name'=>'category','data'=>$catname[$sub@key],'type'=>'video'])}">		{$catname[$sub@key].category_name}
+													<!--
 													{if array_key_exists($catname[$sub@key].category_id, $tagcat)}
 														<br>
 														<span>
@@ -189,6 +190,7 @@ class="ui-state-default"
 															{$tagstring}
 														</span>
 													{/if}
+													-->
 												</a>
 											</li>
 										{/if}
