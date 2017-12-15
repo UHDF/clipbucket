@@ -3,7 +3,7 @@
 Plugin Name: Disciplines
 Description: Adds disciplines to videos
 Author: Yannick Bonnaz / Franck Rouze
-Author Website: http://semm.univ-lille1.fr/
+Author Website: http://www.univ-lille.fr/
 ClipBucket Version: 2.8
 Version: 1.0
 Website: 

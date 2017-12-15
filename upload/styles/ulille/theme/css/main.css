@@ -4732,7 +4732,7 @@ nav.navbar .container-fluid ul.nav.navbar-nav > li > a:active {
 }
 .thumb.live .details {
   height: 100%;
-  background: url("110331_studiosemm.jpg") no-repeat center center;
+  background: url("110331_studio.jpg") no-repeat center center;
   text-align: center;
   background-size: contain;
 }
@@ -4987,7 +4987,7 @@ nav.navbar .container-fluid ul.nav.navbar-nav > li > a:active {
 #page-footer .footer-logo img {
   height: auto;
   width: 100%;
-  max-width: 320px;
+  max-width: 200px;
 }
 #page-footer .forged-by {
   font-size: 9px;

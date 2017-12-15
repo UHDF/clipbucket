@@ -3,7 +3,7 @@
  Plugin Name: Video Speaker
  Description: This plugin will add a list of video speakers to a video with their specific role in the video.
  Author: Franck Rouze
- Author Website: http://semm.univ-lille1.fr/
+ Author Website: http://www.univ-lille.fr/
  ClipBucket Version: 2.8
  Version: 1.0
  Website:
