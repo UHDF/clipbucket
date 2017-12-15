@@ -3,7 +3,7 @@
  Plugin Name: importCSV
  Description: Import data from CSV files into clipbucket tables
  Author: Franck Rouze
- Author Website: http://semm.univ-lille1.fr/
+ Author Website: http://www.univ-lille.fr/
  ClipBucket Version: 2.8.1
  Version: 1.0
  Website:

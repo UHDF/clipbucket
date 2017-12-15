@@ -14,7 +14,7 @@
 				</div>
 			</div>
 			{/if} 
-			<!-- YB type / titre / share / meta -->
+			{* YB type / titre / share / meta *}
 			<article id="video-card" class="card">
 				<header>
 					<div class="video-type clearfix"> {*$video.category|categories:video*}
@@ -34,35 +34,38 @@
 						<p>{AutoLinkUrls($video.description|unescape:"html")}</p>
 						<ul class="documents nolist well">
 							<li>
+					{*YB if downloadable*}
+					{if $Cbucket->configs.video_download==1 && $cbvid->downloadable($vdo)}
 								<h5><span class="glyphicon glyphicon glyphicon-download-alt"></span> Téléchargements</h5>
 								<ul class="reset nolist">
-									<!-- <li>
-					YB if downloadable
-					{if $Cbucket->configs.video_download==1 && $cbvid->downloadable($vdo)}
+									 <li>
                                 <div class="dropdown col-lg-12 pull-right no-padding text-right">
                                   <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true" style="margin-top: 10px;">
-                                    Download
+                                    {lang('download')}
                                         <span class="caret"></span>
                                   </button>
                                   <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                                  <li class="warn"><span>Le téléchargement vous est proposé pour une consultation hors ligne. Veuillez respecter le droit à l'image et ne pas déposer cette vidéo sur un autre site.</span>
+                                  </li>
                                   {$files = get_video_files($vdo,true,true)}
                                   {foreach $files as $file}
-                                  {$quality = explode('-',$file)}
+                                  {$quality = explode('/',$file)}
+                                  {$quality = explode('-',$quality.8)}
                                   {$quality = explode('.',$quality.1)}
                                   {$file_quality = $quality.0}
                                     <li role="presentation">
                                         <a role="menuitem" tabindex="-1" href="{$file}"  download>
-                                        <span class="glyphicon glyphicon-download-alt"></span>{$file_quality}</a>
+                                        <span class="glyphicon glyphicon-download-alt"></span> qualité {$file_quality}p</a>
                                         
                                     </li>
                                   {/foreach}
                                   </ul>
                                 </div>
-                                {/if}
-					</li> -->
-									<li><a href="#"><span class="glyphicon glyphicon glyphicon-phone"></span> MP4</a></li>
-									<li><a href="#"><span class="glyphicon glyphicon glyphicon-headphones"></span> MP3</a></li>
+					</li> 
+									{*<li><a href="#"><span class="glyphicon glyphicon glyphicon-phone"></span> MP4</a></li>
+									<li><a href="#"><span class="glyphicon glyphicon glyphicon-headphones"></span> MP3</a></li>*}
 								</ul>
+                       {/if}
 							</li>
 							<li>
 								{if externalDocumentCount() > 0}
@@ -100,14 +103,18 @@
 								{$vdo.tags|tags:videos} 
 							</div>
 						{/if}
+						{* TODO
 						<div class="entry collections">
 							<h4>Collections</h4>
 							<p><a href="#"><span class="glyphicon glyphicon-bookmark"></span> ???</a></p>
 						</div>
+						*}
+						{* TODO
 						<div class="entry themes">
 							<h4>Thématique</h4>
 							<p><a href="#"><span class="glyphicon glyphicon-education"></span> ???</a></p>
 						</div>
+						*}
 					</aside>
 				</div>
 			</article>
