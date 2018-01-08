@@ -149,11 +149,27 @@
 								{*assign var="videoid" value=$vdo.videokey*}
 								<!-- Plugin Documents -->
 								{if externalDocumentCount() > 0}
-									<h2><span class="glyphicon glyphicon glyphicon-file"></span> Documents</h2>
+									<h2><span class="glyphicon glyphicon glyphicon-file"></span> Document(s)</h2>
 									<ul>
 										{ANCHOR place="externalDocumentList" data=$video}
 									</ul>
 								{/if}
+
+
+								<br>
+								
+
+								
+								<!-- Plugin Documents -->
+								{if speakerCount() > 0}
+									<h2><span class="glyphicon glyphicon glyphicon-user"></span> Intervenant(s)</h2>
+									<ul>
+										{ANCHOR place="speakerList" data=$video}
+									</ul>
+								{/if}
+
+
+
 
 							</div>
 						</div>
