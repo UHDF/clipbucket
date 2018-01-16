@@ -1,7 +1,7 @@
 #Plugin ClipBucket - Robot Fix
 
 ## Requirement - *Minimum requis*
-No dependancies is needed by this plugin.
+No dependencies is needed by this plugin.
 
 *Aucune dépendance n'est requise pour ce plugin*
 
