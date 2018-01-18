@@ -13,16 +13,15 @@ Go to the plugin administration panel and install the "Resume video" plugin.
 *Activer le plugin "Resume video" depuis la rubrique plugin de l'administration.*
 
 ## Usage - *Utilisation*
-Play a video, pause the video, reload the page. A confirmation box will appears. You can resume the video or not.
-
-*Lire la vidéo, mettre en pause, recharger la page. Une boite de confirmation apparait. Vous pouvez reprendre la vidéo ou pas.*
-
 In the front office use the following anchor to display the input :
 	`{ANCHOR place="shareVideoOptions"}`
 
 *Dans votre template, ajoutez l'ancre suivante pour afficher les champs :*
 	`{ANCHOR place="shareVideoOptions"}`
 
+Play a video, pause the video, reload the page. A confirmation box will appears. You can resume the video or not.
+
+*Lire la vidéo, mettre en pause, recharger la page. Une boite de confirmation apparait. Vous pouvez reprendre la vidéo ou pas.*
 
 ## Extra features - *Fonctions bonus*
 You can add some parameter in the URL :
@@ -55,7 +54,7 @@ You can add some parameter in the URL :
 
 ### [2.0] - 2018-01-18
 #### Modified
-- Rename folder plugin
+- Plugin redesign
 - Front input added
 ### [1.0] - 2017-05-19
 #### Added
