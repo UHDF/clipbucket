@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clipbucket_language>
+	<name>Français</name>
+	<iso_code>fr</iso_code>
+	<phrases>
+		<liveudlHtaccess>N’oubliez pas d’ajouter les règles de réécriture d’url comme défini dans le %s</liveudlHtaccess>
+		<liveudl_actionDelete>Supprimer</liveudl_actionDelete>
+		<liveudl_actionDraft>Brouillon</liveudl_actionDraft>
+		<liveudl_actionEdit>Modifier</liveudl_actionEdit>
+		<liveudl_actionHome>Afficher sur la page d'accueil ?</liveudl_actionHome>
+		<liveudl_actionHomeOff>Retirer de la page d'accueil</liveudl_actionHomeOff>
+		<liveudl_actionHomeOn>Afficher sur la page d'accueil</liveudl_actionHomeOn>
+		<liveudl_actionLiveOff>Désactiver le direct</liveudl_actionLiveOff>
+		<liveudl_actionLiveOn>Activer le direct</liveudl_actionLiveOn>
+		<liveudl_actionNew>Ajouter un direct</liveudl_actionNew>
+		<liveudl_actionPublish>Publier</liveudl_actionPublish>
+		<liveudl_actions>Actions</liveudl_actions>
+		<liveudl_actionToDraft>Mettre en brouillon</liveudl_actionToDraft>
+		<liveudl_actionVisible>Publié</liveudl_actionVisible>
+		<liveudl_addNewOpt>Ajouter une nouvelle entrée</liveudl_addNewOpt>
+		<liveudl_addQuality>Ajouter une qualité</liveudl_addQuality>
+		<liveudl_alertFms>Veuillez indiquer les informations de connexion à FMS</liveudl_alertFms>
+		<liveudl_alertQualities>Veuillez ajouter au moins une qualité de diffusion</liveudl_alertQualities>
+		<liveudl_backTo>Retour à la gestion des directs</liveudl_backTo>
+		<liveudl_confirmDeleteLiveMsg>Êtes-vous sûr(e) de vouloir supprimer le direct : &lt;b&gt;%s&lt;/b&gt; ?</liveudl_confirmDeleteLiveMsg>
+		<liveudl_create_success>Le direct a été créé avec succès</liveudl_create_success>
+		<liveudl_deleteRtmpErr>Vous ne pouvez pas supprimer un serveur qui est utilisé par un direct</liveudl_deleteRtmpErr>
+		<liveudl_deleteRtmpMsg>Êtes-vous sûr(e) de vouloir supprimer ce serveur ?</liveudl_deleteRtmpMsg>
+		<liveudl_deleteRtmpSuccess>Le serveur &lt;b&gt;%s&lt;/b&gt; a été supprimé avec succès</liveudl_deleteRtmpSuccess>
+		<liveudl_deleteSuccess>Le direct &lt;b&gt;%s&lt;/b&gt; a été supprimé avec succès</liveudl_deleteSuccess>
+		<liveudl_deleteThumb>Supprimer la miniature</liveudl_deleteThumb>
+		<liveudl_disabled>Désactivé</liveudl_disabled>
+		<liveudl_edit_success>Direct modifié avec succès</liveudl_edit_success>
+		<liveudl_enabled>Activé</liveudl_enabled>
+		<liveudl_errEditId>Impossible de récupérer les informations du direct ayant pour ID : %s</liveudl_errEditId>
+		<liveudl_formActive>Actif</liveudl_formActive>
+		<liveudl_formDate>Date et heure</liveudl_formDate>
+		<liveudl_formDescription>Description</liveudl_formDescription>
+		<liveudl_formHomepage>Afficher sur la page d'accueil</liveudl_formHomepage>
+		<liveudl_formTitle>Titre</liveudl_formTitle>
+		<liveudl_formUrl>Url RTMP</liveudl_formUrl>
+		<liveudl_frontEditLive>Editer le direct</liveudl_frontEditLive>
+		<liveudl_httpurl>Url HTTP</liveudl_httpurl>
+		<liveudl_manager>Gérer les directs</liveudl_manager>
+		<liveudl_missingDash>Veuillez indiquer l’url Dash</liveudl_missingDash>
+		<liveudl_missingDate>Date manquante</liveudl_missingDate>
+		<liveudl_missingHls>Veuillez indiquer l’url HLS</liveudl_missingHls>
+		<liveudl_missingTitle>Titre manquant</liveudl_missingTitle>
+		<liveudl_missingUrl>Url RTMP manquante</liveudl_missingUrl>
+		<liveudl_newQuality>Nouvelle qualité</liveudl_newQuality>
+		<liveudl_nofound>Aucun direct trouvé</liveudl_nofound>
+		<liveudl_nooptfound>Aucun serveur présent</liveudl_nooptfound>
+		<liveudl_noRtmpAdminMsg>Veuillez ajouter au moins un serveur RTMP afin de pouvoir créer un direct.</liveudl_noRtmpAdminMsg>
+		<liveudl_occuredOn>A eu lieu le %s</liveudl_occuredOn>
+		<liveudl_occuredToday>A eu lieu aujourd'hui à %s</liveudl_occuredToday>
+		<liveudl_onliveSince>En direct depuis %s</liveudl_onliveSince>
+		<liveudl_onliveSince2>En direct depuis le %s</liveudl_onliveSince2>
+		<liveudl_opt>Options des directs</liveudl_opt>
+		<liveudl_publishedAt>à %s</liveudl_publishedAt>
+		<liveudl_qualities>Qualités</liveudl_qualities>
+		<liveudl_quality>Qualité</liveudl_quality>
+		<liveudl_readless>Voir moins</liveudl_readless>
+		<liveudl_readmore>Voir plus</liveudl_readmore>
+		<liveudl_rtmpBackTo>Retour à la gestion des serveurs</liveudl_rtmpBackTo>
+		<liveudl_rtmpDelete>Supprimer un serveur</liveudl_rtmpDelete>
+		<liveudl_rtmpEdit>Modifier un serveur</liveudl_rtmpEdit>
+		<liveudl_rtmpid>ID RTMP</liveudl_rtmpid>
+		<liveudl_rtmpNew>Nouveau serveur</liveudl_rtmpNew>
+		<liveudl_rtmpNotExist>Impossible de récupérer les informations du serveur ayant pour ID : &lt;b&gt;%s&lt;/b&gt;</liveudl_rtmpNotExist>
+		<liveudl_rtmpNotUniq>Un serveur utilisant l'identifiant &lt;b&gt;%s&lt;/b&gt; existe déjà</liveudl_rtmpNotUniq>
+		<liveudl_rtmpSuccessAdd>Le serveur a été ajouté avec succès</liveudl_rtmpSuccessAdd>
+		<liveudl_rtmpSuccessEdit>Le serveur a été modifié avec succès</liveudl_rtmpSuccessEdit>
+		<liveudl_rtmpurl>Url RTMP</liveudl_rtmpurl>
+		<liveudl_scheduled>Prévu</liveudl_scheduled>
+		<liveudl_scheduledOn>Prévu le %s</liveudl_scheduledOn>
+		<liveudl_search>Rechercher un direct</liveudl_search>
+		<liveudl_serverManagement>Gestion des serveurs RTMP</liveudl_serverManagement>
+		<liveudl_stActive>Direct en cours</liveudl_stActive>
+		<liveudl_state>Etat du direct</liveudl_state>
+		<liveudl_stHomepage>Affiché sur la page d'accueil</liveudl_stHomepage>
+		<liveudl_stVisible>Brouillon</liveudl_stVisible>
+		<liveudl_title>Gérer les directs</liveudl_title>
+		<liveudl_title_delete>Supprimer un direct</liveudl_title_delete>
+		<liveudl_title_edit>Modifier un direct</liveudl_title_edit>
+		<liveudl_title_new>Ajouter un nouveau direct</liveudl_title_new>
+		<liveudl_uploadErr>Erreur lors de la sauvegarde du fichier</liveudl_uploadErr>
+		<liveudl_uploadExt>Type de fichier refusé</liveudl_uploadExt>
+		<liveudl_uploadFormSize>Fichier dépassant la taille maximale autorisée par le formulaire</liveudl_uploadFormSize>
+		<liveudl_uploadIniSize>Fichier dépassant la taille maximale autorisée par PHP</liveudl_uploadIniSize>
+		<liveudl_uploadNoFile>Fichier manquant</liveudl_uploadNoFile>
+		<liveudl_uploadPartial>Fichier transféré partiellement</liveudl_uploadPartial>
+		<liveudl_viewers>Spectateurs</liveudl_viewers>
+		<liveudl_visibility>Visibilité</liveudl_visibility>
+                <liveudl_liveNotExist>Le direct n'existe pas</liveudl_liveNotExist>
+                <liveudl_noLive>Aucun direct</liveudl_noLive>
+	</phrases>
+</clipbucket_language>

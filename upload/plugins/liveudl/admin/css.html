@@ -1,0 +1,102 @@
+<style>
+    .none{ display: none; }
+    nav.liveudl_page{ text-align: center; }
+    span.onlive{ display: inline-block; height: 15px; width: 15px; border-radius: 15px; background-color: red; }
+
+    .page-content{ min-height: 550px; }
+    #ludlopt{ float: right; margin: -8px -20px 0 0; padding: 5px; background-color: transparent !important; border: 1px solid transparent !important; color: #c5c5c5 !important }
+    h2 small{ padding-left: 25px; }
+    .alert.alert-success{ margin-top: 10px; }
+    form#liveudl_search{ margin-bottom: 20px; }
+    form#liveudl_search .input-group button{ border-width: 1px; }
+    form .ms-sel-ctn.ms-stacked .ms-sel-item{ background-color: #fafafa; }
+    form .small-warning{ text-align: right; font-size: 75%; }
+    form .form-group.url{ padding-bottom: 40px; }
+    form .form-group input#date{ cursor: pointer; background-color: white !important; }
+    form .form-group textarea{ width: 100%; min-height: 300px; }
+    form .form-btn{ margin-bottom: 0; }
+
+    table{ margin-top: 20px; }
+    table .right_head{ width: 90px; }
+    table.ludlopt .right_head{ width: 50px; }
+    table h4.livetitle{ padding-right: 70px; position: relative; }
+    table h4 .status{ font-size: 15px; display: inline-block; position: absolute; top: 0; right: 0; }
+    table h4 .status span{ margin-right: 10px; }
+    table h4 .status span.glyphicon-record{ color: red; }
+    table h4 .status span.none{ visibility: hidden; display: inline-block; }
+    table .ludl_desc{ position: relative; overflow: hidden; max-height: 9999px; }
+    table .ludl_desc div.read-btn{ display: none; padding: 5px 0; }
+    table .ludl_desc.readmore div.read-btn{ display: block; text-align: center; }
+    table .ludl_desc.readmore div.read-btn button{ border-width: 0px !important; outline: 0 !important; width: 40px; background-color: rgba(0, 0, 0, .1) !important; text-shadow: 0 -1px 0 rgba(0, 0, 0, .15) !important; }
+    table .ludl_desc.readmore div.read-btn button:hover{ background-color: rgba(0, 0, 0, .4) !important; }    
+    table .actions{ padding: 15px 0; }
+    table .actionLive{ display: inline-block; margin: 0 10px; cursor: pointer; color: #08c; font-size: 15px; padding: 0; border: 0; background: transparent; outline: 0; }
+    table .actionLive.delete{ color: darkred; }
+    table .actionLive.noAction{ color: silver; cursor: not-allowed; }
+
+    table th.quality{ width: 150px; }
+
+    table td.rtmp-http .http{ padding-left: 90px; position: relative; }
+    table td.rtmp-http .http .quality{ width: 75px; position: absolute; top: 0; left: 0; bottom: 0; text-align: right; }
+
+    #newRtmp{ margin-bottom: 15px; }
+    #ludl_rtmp_form #dash{ margin-bottom: 10px; }
+    #ludl_rtmp_form_delete .msg{ text-align: center; font-weight: bold; padding-top: 15px; }
+    
+    form.deleteServer .form-group{ padding: 0 20px; }
+    .serverName{ font-weight: bold; text-align: center; }
+
+    #loading-spinner {
+        margin: 100px auto;
+        width: 150px;
+        height: 40px;
+        text-align: center;
+        font-size: 10px;
+    }
+    #loading-spinner p{ font-size: 12px; }
+
+    #loading-spinner > div {
+        background-color: #333;
+        height: 100%;
+        width: 6px;
+        display: inline-block;
+
+        -webkit-animation: sk-stretchdelay 1.2s infinite ease-in-out;
+        animation: sk-stretchdelay 1.2s infinite ease-in-out;
+    }
+
+    #loading-spinner .rect2 {
+        -webkit-animation-delay: -1.1s;
+        animation-delay: -1.1s;
+    }
+
+    #loading-spinner .rect3 {
+        -webkit-animation-delay: -1.0s;
+        animation-delay: -1.0s;
+    }
+
+    #loading-spinner .rect4 {
+        -webkit-animation-delay: -0.9s;
+        animation-delay: -0.9s;
+    }
+
+    #loading-spinner .rect5 {
+        -webkit-animation-delay: -0.8s;
+        animation-delay: -0.8s;
+    }
+
+    @-webkit-keyframes sk-stretchdelay {
+        0%, 40%, 100% { -webkit-transform: scaleY(0.4) }
+        20% { -webkit-transform: scaleY(1.0) }
+    }
+
+    @keyframes sk-stretchdelay {
+        0%, 40%, 100% { 
+            transform: scaleY(0.4);
+            -webkit-transform: scaleY(0.4);
+        }20% { 
+            transform: scaleY(1.0);
+            -webkit-transform: scaleY(1.0);
+        }
+    }
+</style>

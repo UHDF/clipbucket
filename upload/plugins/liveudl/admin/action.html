@@ -1,0 +1,200 @@
+{include file="$liveudl_css"}
+
+<h2>
+	{lang($titlepage)}
+	<small><a href="{$liveudl_managepage}" class="btn btn-default btn-xs">{lang('liveudl_backTo')}</a></small>
+</h2>
+
+<div class="well">    
+    <form name="form_liveudl" id="formLiveudlAction" action="{$liveudl_actionpage}" method="post" class="form-horizontal" enctype="multipart/form-data">
+{if $ludlAction === 'add' || $ludlAction === 'edit'}
+        {if $rtmp}
+        <div id="tmp" class="none">
+            {foreach from = $rtmp item = lk}<div data-id="{$lk.id}" data-fms="{$lk.fms}" data-fmsid="{$lk.fmsid}"></div>{/foreach}
+            <input type="hidden" name="rtmp" value="{$live.rtmpid}" />
+        </div>
+        {if $rtmp|@count > 1}<div class="form-group url">
+            <div class="alert alert-danger{if not $errors.rtmp} none{/if}">{lang('liveudl_missingUrl')}</div>
+            <label class="col-sm-3 control-label" for="url">{lang('liveudl_formUrl')}</label>
+            <div class="col-sm-7">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <select name="fms" id="fms" class="form-control">
+                        </select>
+                    </div>
+                    <div class="col-sm-4">
+                        <select name="fmsid" id="fmsid" class="form-control">
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>{/if}
+        {/if}
+        
+        <div class="form-group">
+            {if $errors.thumb}<div class="alert alert-danger">{lang('liveudl_missingTitle')}</div>{/if}
+            <label class="col-sm-3 control-label" for="thumb">{lang('thumbnail')}</label>
+            <div class="col-sm-7">
+                {if $live.thumb ne ''}
+                <img src="{$liveudl_thumbsdir}{$live.thumb}" class="img-thumbnail" />
+                <div class="checkbox"><label><input type="checkbox" name="deleteThumb" value="1"> {lang('liveudl_deleteThumb')}</label></div>
+                {/if}
+                <input type="file" accept="image/*" id="thumb" name="thumb" class="form-control" />
+                <input type="hidden" name="oldthumb" value="{$live.thumb}" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="alert alert-danger{if not $errors.title} none{/if}">{lang('liveudl_missingTitle')}</div>
+            <label class="col-sm-3 control-label" for="title">{lang('liveudl_formTitle')}</label>
+            <div class="col-sm-7">
+                <input type="text" id="title" name="title" class="form-control" value="{$live.title}" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label" for="description">{lang('liveudl_formDescription')}</label>
+            <div class="col-sm-7">
+                <textarea name="description" id="description" row="10">{$live.description}</textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="alert alert-danger{if not $errors.date} none{/if}">{lang('liveudl_missingDate')}</div>
+            <label class="col-sm-3 control-label" for="date">{lang('liveudl_formDate')}</label>
+            <div class="col-sm-7">
+                <div class="input-group">
+                    <input type="text" id="date" name="date" class="form-control" value="{$live.date|date_format:"%d/%m/%Y %H:%M"}" aria-describedby="basic-addon-date" readonly />
+                    <span class="input-group-addon" id="basic-addon-date"><span class="glyphicon glyphicon-calendar"></span></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label" for="visibility">{lang('liveudl_visibility')}</label>
+            <div class="col-sm-7">
+                <select class="form-control" name="visibility" id="visibility">
+                    <option value="1">{lang('liveudl_actionVisible')}</option>
+                    <option value="0"{if not $live.visible} selected{/if}>{lang('liveudl_actionDraft')}</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label" for="homepage">{lang('liveudl_actionHome')}</label>
+            <div class="col-sm-7">
+                <select class="form-control" name="homepage" id="homepage">
+                    <option value="0">{lang('no')}</option>
+                    <option value="1"{if $live.homepage} selected{/if}>{lang('yes')}</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label" for="active">{lang('liveudl_state')}</label>
+            <div class="col-sm-7">
+                <select class="form-control" name="active" id="active">
+                    <option value="0">{lang('liveudl_disabled')}</option>
+                    <option value="1"{if $live.active} selected{/if}>{lang('liveudl_enabled')}</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-10 text-right">
+                <button type="submit" class="btn btn-xs btn-primary">{lang('validate')}</button>
+            </div>
+        </div>
+{else}
+
+        <div class="form-group">
+            <div class="col-sm-10">
+                {lang('liveudl_confirmDeleteLiveMsg', $live.title)}
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-5 text-right">
+                <a href="{$liveudl_managepage}" class="btn btn-xs btn-default">{lang('cancel')}</a>
+            </div>
+            
+            <div class="col-sm-5 text-right">
+                <button type="submit" class="btn btn-xs btn-primary">{lang('validate')}</button>
+            </div>
+        </div>
+        <input type="hidden" name="action" value="delete" />
+{/if}
+        {if $live.id ne 0}<input type="hidden" name="lid" value="{$live.id}" />{/if}
+    </form>
+</div>
+
+<script src="{$liveudl_admin_dir}/jquery-ui/jquery-ui.js"></script>
+<script src="{$liveudl_admin_dir}/jquery-ui/datepicker-fr.js"></script>
+<script src="{$liveudl_admin_dir}/jquery-timepicker/jquery-ui-timepicker-addon.min.js"></script>
+<script src="{$liveudl_admin_dir}/jquery-timepicker/i18n/jquery-ui-timepicker-addon-i18n.min.js"></script>
+<script src="{$liveudl_admin_dir}/jquery-timepicker/i18n/jquery-ui-timepicker-fr.js"></script>
+
+{*<script src="{$liveudl_admin_dir}/tinymce/4.7.4/tinymce.min.js"></script>*}
+{if $common_library_tinymce}<script src="{$common_library_tinymce}/tinymce.min.js"></script>{/if}
+
+<script type="text/javascript">
+    $(function(){
+        //$('#date').datepicker();
+        $('#date').datetimepicker({
+            controlType: 'select',
+            oneLine: true,
+            timeFormat: 'HH:mm'
+        });
+        
+        $('#date').parent().find('span').click(function(e){
+           $('#date').focus();
+        });
+        
+        $('#fms').change(function(e){
+           $('#fmsid').html('');
+            $.each(rtmp[$(this).val()], function(i, v){
+                $('#fmsid').append('<option value="'+ v +'">'+ i +'</option>');
+            });
+        });
+        
+        var rtmp = {};
+        var rtmpid = $('#tmp input[name="rtmp"]').val();
+        var selectedRtmp = null;
+
+        $('#tmp div').each(function(){
+            if($('#tmp div').length === 1){
+                $('#formLiveudlAction').append('<input type="hidden" name="fmsid" value="'+ $(this).attr('data-id') +'" />');
+                return;
+            }
+            if(!rtmp[$(this).attr('data-fms')]){
+                rtmp[$(this).attr('data-fms')] = {};
+                $('#fms').append('<option value="'+ $(this).attr('data-fms') +'">'+ $(this).attr('data-fms') +'</option>');
+            }
+            
+            rtmp[$(this).attr('data-fms')][$(this).attr('data-fmsid')] = $(this).attr('data-id');
+            if($(this).attr('data-id') === rtmpid){
+                selectedRtmp = [$(this).attr('data-fms'), $(this).attr('data-id')];
+            }
+        });
+        $('#tmp').remove();
+        
+        if(selectedRtmp === null){
+            $('#fms').trigger('change');
+        } else {
+            $('#fms option[value="'+ selectedRtmp[0] +'"]').prop('selected', true);
+            $('#fms').trigger('change');
+            $('#fmsid option[value="'+ selectedRtmp[1] +'"]').prop('selected', true);
+        }
+        
+        {if $common_library_tinymce}{literal}tinymce.init({
+            selector: '#description',
+            plugins : 'table link hr textcolor',
+            toolbar : 'undo redo | styleselect | bold italic | forecolor backcolor | alignleft aligncenter alignright alignjustify | indent outdent | link',
+            branding: false,
+
+            // Theme options
+
+            setup: function (editor) {
+                editor.on('change', function () {
+                    tinymce.triggerSave();
+                });
+            }
+        });{/literal}{/if}
+    });
+</script>
+
+
+
+

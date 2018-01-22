@@ -1,0 +1,87 @@
+<style>
+    .margin-20{ margin-top: 20px; }
+    h3{ margin: 50px 0 20px; border-bottom: 1px solid silver; padding-bottom: 10px; }
+    h4{ margin-top: 20px; font-size: 16px; }
+    p{ font-size: 14px; }
+</style>
+
+<h2>
+    LiveUDL README
+    <small><a href="{$liveudl_managepage}" class="btn btn-primary btn-xs">{lang('liveudl_backTo')}</a></small>
+</h2>
+
+<h3>Rewrite URL</h3>
+<p>To activate the SEO urls, you need to add the following rules around <b>line 47</b> in the .htaccess file locate at the base directory of Clipbucket server.</p>
+{literal}<pre>
+    
+    ...
+    #Alternate watch video links
+    RewriteRule ^(.*)\_v([0-9]+) watch_video.php?v=$2&%{QUERY_STRING} [L]
+    RewriteRule ^video/([0-9]+)_(.*) watch_video.php?v=$1&%{QUERY_STRING} [L]
+
+    <b>######################################################################
+    #                            RULES TO ADD                            #
+    ######################################################################
+    #Alternate watch live links
+    RewriteRule ^live/([0-9]+)/(.*) watch_live.php?l=$1&%{QUERY_STRING} [L]
+    RewriteRule ^(.*)\_l([0-9]+) watch_live.php?l=$2&%{QUERY_STRING} [L]
+    RewriteRule ^live/([0-9]+)_(.*) watch_live.php?l=$1&%{QUERY_STRING} [L]</b>
+    ...
+</pre>{/literal}
+
+
+<h3>RTMP server</h3>
+<p>To create a new live, you need to add a RTMP server in which you define the Flash Media Server RTMP address as well as the URL used by each quality of the stream.</p>
+<p>To access the RTMP servers management page, you have to click the gear button located on the top right corner of the lives' management page : </p>
+<div class="text-center"><img class="img-thumbnails" src="{$liveudl_admin_dir}/readme.png" /></div>
+<p class="margin-20">If you cannot see the button, you have to edit the user rights in :<br />
+    <b>Users</b> &gt; <b>Users Levels</b> &gt; <b>YOUR ACCOUNT LEVEL</b> &gt; <b>Administration Permission tab</b></p>
+<p>Here you have to set the <b>LiveUDL administration management</b> to <b>Yes</b>.</p>
+
+<h3>Layouts</h3>
+<p>There are two layouts used by this plugin.</p>
+
+<ul>
+    <li>
+        <h4>Lives listing page</h4>
+        <p>This page list the lives with the attribute <i>Visible</i> set to <b>Published</b>. It is accessible with the URL : <b>{$baseurl}/lives</b>.</p>
+        <p>By default, the template used by the plugin is defined in <b>liveudl/layout/lives.html</b>.</p>
+    </li>
+    <li>
+        <h4>Live page</h4>
+        <p>This page is accessible only if the attribute <i>Visible</i> of the live is set to <b>Published</b> and is used to watch the live if it is active or to read its informations.<br />
+            It is accessible with the URL : <b>{$liveudlSeo}</b>.</p>
+        <p>By default, the template used by the plugin is defined in <b>liveudl/layout/watch_live.html</b>.</p>
+    </li>
+</ul>
+
+<p class="margin-20">You can use your own layouts simply by creating a new html file in the layout directory of your theme named like the file to override.</p>
+
+<h3>How to get lives on homepage</h3>
+<p>To get the list of lives in your layout, you have to use the <b>liveUDLFront</b> function.<br />
+    This function takes no parameters and returns an array of all the lives with the attribute <i>Display on homepage?</i> set to <b>Yes</b>.</p>
+<p>For example, you can use this function like this :</p>
+<pre>{literal}
+    ...
+    {foreach from = liveUDLFront() item = live}
+    &lt;div class="live"&gt;
+        &lt;h3&gt;{$live.title}&lt;small&gt;{$live.date|date_format:'%d/%m/%Y %H:%M'}&lt;/small&gt;&lt;/h3&gt;
+        &lt;div class="description"&gt;
+            {$live.description|unescape:'html'}
+        &lt;/div&gt;
+    &lt;/div&gt;
+    {/foreach}
+{/literal}</pre>
+
+<h3>Live's attributes</h3>
+<pre>
+    array
+        'id' => int 
+        'thumb' => string (URL of the thumbnail)
+        'title' => string
+        'description' => string
+        'date' => datetime
+        'visible' => boolean (Define if the live is visible on the website)
+        'active' => boolean (Define if the live is active. If set to true, the player is loaded on watch_live.html)
+        'homepage' => boolean (Define if the live can be displayed on homepage)
+</pre>

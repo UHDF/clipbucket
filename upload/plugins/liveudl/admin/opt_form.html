@@ -1,0 +1,204 @@
+{include file="$liveudl_css"}
+
+<h2>
+    {lang('liveudl_opt')}
+    <small><a href="{$liveudl_opt}" class="btn btn-default btn-xs">{lang('liveudl_rtmpBackTo')}</a></small>
+</h2>
+
+<div class="well">
+{if $rtmp eq false}
+    <div class="alert alert-danger">{lang('liveudl_rtmpNotExist', $rtmpid)}</div>
+{else}
+    <form method="POST" class="form-horizontal" id="optForm">
+        <div class="form-group">
+            <label for="quality">Adobe Flash Media Server</label>
+            
+            <div class="alert alert-danger alertFms none">{lang('liveudl_alertFms')}</div>
+            
+            <div class="row">
+                <div class="col-sm-8">
+                    <input type="text" id="fms" name="fms" class="form-control" value="{$rtmp.fms}" placeholder="{lang('liveudl_rtmpurl')}" />
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" id="fmsid" name="fmsid" class="form-control" value="{$rtmp.fmsid}" placeholder="{lang('liveudl_rtmpid')}" />
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="alert alert-danger alertQualities none">{lang('liveudl_alertQualities')}</div>
+            
+            <button type="button" class="btn btn-primary btn-xs" id="ludl_btn_modal" data-toggle="modal" data-target="#ludl_rtmp_form">{lang('liveudl_addQuality')}</button>
+            
+            <table class="table table-striped ludlopt">
+                <thead>
+                    <tr>
+                        <th class="quality">{lang('liveudl_quality')}</th>
+                        <th>{lang('liveudl_httpurl')}</th>
+                        <th  align="center" class="right_head"></th>
+                    </tr>
+                </thead>
+                <tbody>{foreach from = $qualities item = q}
+                    <tr>
+                        <td>{$q.quality}p</td>
+                        <td>
+                            Dash : {$q.dash}<input type="hidden" name="dash{$q.quality}" value="{$q.dash}" /><br />
+                            HLS : {$q.hls}<input type="hidden" name="dash{$q.quality}" value="{$q.hls}" />
+                        </td>
+                        <td><button type="button" class="actionLive delete" title="{lang('liveudl_actionDelete')}"><span class="glyphicon glyphicon-trash"></span></button></td>
+                    </tr>
+                {/foreach}</tbody>
+            </table>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-5 text-right">
+                <a href="{$liveudl_opt}" class="btn btn-xs btn-default">{lang('cancel')}</a>
+            </div>
+            
+            <div class="col-sm-5 text-right">
+                <button type="submit" class="btn btn-xs btn-primary">{lang('validate')}</button>
+            </div>
+        </div>
+        <input type="hidden" name="id" value="{$rtmp.id}" />
+    </form>
+    
+    <div class="modal fade" id="ludl_rtmp_form" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">{lang('liveudl_newQuality')}</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="q">{lang('liveudl_quality')}</label>
+                            <select class="form-control" name="q" id="q">
+                                <option value="1080">1080p</option>
+                                <option value="720">720p</option>
+                                <option value="480">480p</option>
+                                <option value="360">360p</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <div class="alert alert-danger none alertDash">{lang('liveudl_missingDash')}</div>
+                            <label for="dash">{lang('liveudl_httpurl')}</label>
+                            <input type="text" id="dash" name="dash" class="form-control" placeholder="Dash" value="" />
+                            <div class="alert alert-danger none alertHls">{lang('liveudl_missingHls')}</div>
+                            <input type="text" id="hls" name="hls" class="form-control" placeholder="HLS" value="" />
+                        </div>
+                        <div class="form-group form-btn">
+                            <div class="col-sm-12 text-right">
+                                <button type="button" class="btn btn-xs btn-default" data-dismiss="modal">{lang('cancel')}</button>
+                                <button type="submit" class="btn btn-xs btn-primary">{lang('validate')}</button>
+                            </div> 
+                        </div>
+                        <input type="hidden" name="id" value="" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+<script type="text/javascript">{literal}
+    function btnState(){
+        var disabled = true;
+        $('#ludl_rtmp_form #q option').each(function(){
+            if($('table.ludlopt tbody tr td:first-child:contains("'+ $(this).val() +'")').length){
+                $(this).prop('disabled', true);
+            } else {
+                disabled = false;
+                $(this).prop('disabled', false);
+            }
+        });
+        $('#ludl_btn_modal').prop('disabled', disabled);
+    }
+    
+    $(function(){        
+        $('table.ludlopt').on('click', 'button.delete', function(e){
+            var tr = $(e.currentTarget).closest('tr').remove();
+            btnState();
+        });
+        
+        $('#ludl_rtmp_form').on('show.bs.modal', function(){
+            var f = $(this).find('form');
+            f.find('#dash').val('');
+            f.find('#hls').val('');
+            f.find('#q option').prop('selected', false);
+            f.find('#q option:not([disabled]):first').prop('selected', true);
+        });
+        
+        $('#ludl_rtmp_form form').submit(function(){
+            var q = parseInt($(this).find('#q').val()),
+                dash = $(this).find('#dash').val().trim(),
+                hls = $(this).find('#hls').val().trim(),
+                $return = true;
+                
+            dash = dash.replace(/"/g, '&quot;');
+            hls = hls.replace(/"/g, '&quot;');
+            if(dash === ''){
+                $(this).find('.alertDash').removeClass('none');
+                $return = false; 
+            }
+            if(hls === ''){
+                $(this).find('.alertHls').removeClass('none');
+                $return = false;
+            }
+            
+            if(!$return) return $return;
+            
+            
+            $(this).find('.alertDash').addClass('none');
+            $(this).find('.alertHls').addClass('none');
+            
+            var added = false;
+            var http = (dash !== '') ? 'Dash : '+ dash  + '<br />': '';
+            http += (hls !== '') ? 'HLS : '+ hls : '';
+            var txt = ''+
+'                   <tr>'+
+'                        <td>'+ q +'p</td>'+
+'                        <td>'+ http +'<input type="hidden" name="dash'+ q +'" value="'+ dash +'" /><input type="hidden" name="hls'+ q +'" value="'+ hls +'" /></td>'+
+'                        <td><button type="button" class="actionLive delete" title="{/literal}{lang('liveudl_actionDelete')}{literal}"><span class="glyphicon glyphicon-trash"></span></button></td>'+
+'                    </tr>';
+
+            $('#ludl_rtmp_form').modal('hide');
+            
+            $('table.ludlopt tbody tr').each(function(){
+                var v = parseInt($(this).find('td:first-child').html().replace(/p/, ''));
+                if(v < q){
+                    if(!added) $(this).before(txt);
+                    added = true;
+                }
+            });
+            
+            if(!added){
+                $('table.ludlopt tbody').append(txt);
+            }
+            
+            btnState();
+            $('#ludl_rtmp_form').modal('hide');
+            return false;
+        });
+        
+        $('#optForm').submit(function(){
+            var $return = true;
+            if($('#fms').val().trim() !== '' && $('#fmsid').val().trim() !== ''){
+                $('.alertFms').addClass('none');
+            } else {
+                $return = false;
+                $('.alertFms').removeClass('none');                
+            }
+            
+            if($('table.ludlopt tbody tr').length){
+                $('.alertQualities').addClass('none');
+            } else {
+                $return = false;
+                $('.alertQualities').removeClass('none');                
+            }
+            
+            return $return;
+        });
+    });
+{/literal}</script>
+{/if}
+</div>
+
