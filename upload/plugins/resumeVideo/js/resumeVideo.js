@@ -270,186 +270,192 @@ if (document.querySelector("#cb_video_js")){
 
 
 
-		/**
-		* http://stackoverflow.com/a/10997390/11236
-		*/
-		function updateURLParameter(url, param, paramVal){
-			var newAdditionalURL = "";
-			var tempArray = url.split("?");
-			var baseURL = tempArray[0];
-			var additionalURL = tempArray[1];
-			var temp = "";
-			if (additionalURL) {
-				tempArray = additionalURL.split("&");
-				for (var i=0; i<tempArray.length; i++){
-					if(tempArray[i].split('=')[0] != param){
-						newAdditionalURL += temp + tempArray[i];
-						temp = "&";
-					}
-				}
+/**
+* http://stackoverflow.com/a/10997390/11236
+*/
+function updateURLParameter(url, param, paramVal){
+	var newAdditionalURL = "";
+	var tempArray = url.split("?");
+	var baseURL = tempArray[0];
+	var additionalURL = tempArray[1];
+	var temp = "";
+	if (additionalURL) {
+		tempArray = additionalURL.split("&");
+		for (var i=0; i<tempArray.length; i++){
+			if(tempArray[i].split('=')[0] != param){
+				newAdditionalURL += temp + tempArray[i];
+				temp = "&";
+			}
+		}
+	}
+
+	var rows_txt = temp + "" + param + "=" + paramVal;
+	return baseURL + "?" + newAdditionalURL + rows_txt;
+}
+
+
+/**
+ *	Delete parameter from URL
+	*/
+function removeParam(key, sourceURL) {
+	var rtn = sourceURL.split("?")[0],
+		param,
+		params_arr = [],
+		queryString = (sourceURL.indexOf("?") !== -1) ? sourceURL.split("?")[1] : "";
+	if (queryString !== "") {
+		params_arr = queryString.split("&");
+		for (var i = params_arr.length - 1; i >= 0; i -= 1) {
+			param = params_arr[i].split("=")[0];
+			if (param === key) {
+				params_arr.splice(i, 1);
+			}
+		}
+		rtn = rtn + "?" + params_arr.join("&");
+	}
+	return rtn;
+}
+
+/**
+ *	Convert integer to human readable time hh:mm:ss
+	*/
+function secToTime(seconds){
+	var date = new Date(null);
+	date.setSeconds(seconds); // specify value for SECONDS here
+	var result = date.toISOString().substr(11, 8);
+	return result;
+}
+
+/**
+ *	Convert human readable time hh:mm:ss to integer
+	*/
+function timeToSec(hms){
+	//var hms = '02:04:33';   // your input string
+	var a = hms.split(':'); // split it at the colons
+	// minutes are worth 60 seconds. Hours are worth 60 minutes.
+	var seconds = (+a[0]) * 60 * 60 + (+a[1]) * 60 + (+a[2]); 
+	return seconds;
+}
+
+$(document).ready(function() {
+	var theplayer = videojs('cb_video_js');
+	var theChkBegin = document.querySelector("#chkBegin");
+	var theChkEnd = document.querySelector("#chkEnd");
+	var theChkAutoplay = document.querySelector("#chkAutoplay");
+	var theBeginSecondInput = document.querySelector("#startVideoSeconds");
+	var theBeginFakeInput = document.querySelector("#startVideoTime");
+
+	var theEndSecondInput = document.querySelector("#stopVideoSeconds");
+	var theEndFakeInput = document.querySelector("#stopVideoTime");
+
+	var theLinkInput = document.querySelector('#link_video');
+
+	
+	/**
+	 * Start
+	 */
+
+	// Change made in the input modifying the URL
+	theBeginFakeInput.addEventListener("change", function() {
+		if (theChkBegin.checked == true){
+			theBeginSecondInput.value = timeToSec(theBeginFakeInput.value);
+			theLinkInput.value = updateURLParameter(theLinkInput.value, 'time', theBeginSecondInput.value); // add param in url input
+		}
+		else{
+			theLinkInput.value = removeParam('time', theLinkInput.value) // remove param from url input
+		}
+	});
+
+
+	// Checkbox click
+	theChkBegin.addEventListener("click", function() {
+		if (theChkBegin.checked == true){
+			theBeginSecondInput.value = Math.floor(theplayer.currentTime()); // Temps dans la video
+			theBeginFakeInput.value = secToTime(theBeginSecondInput.value);
+			// add param in url input
+			theLinkInput.value = updateURLParameter(theLinkInput.value, 'time', theBeginSecondInput.value);
+		}
+		else{
+			// remove param from url input
+			theLinkInput.value = removeParam('time', theLinkInput.value)
+		}
+	});
+
+
+	/**
+	 * Stop
+	 */
+
+	// Change made in the input modifying the URL
+	theEndFakeInput.addEventListener("change", function() {
+		if (theChkEnd.checked == true){
+			theEndSecondInput.value = timeToSec(theEndFakeInput.value);
+			theLinkInput.value = updateURLParameter(theLinkInput.value, 'stop', theEndSecondInput.value); // add param in url input
+		}
+		else{
+			theLinkInput.value = removeParam('stop', theLinkInput.value) // remove param from url input
+		}
+	});
+
+
+	// Checkbox click
+	theChkEnd.addEventListener("click", function() {
+		if (theChkEnd.checked == true){
+			theEndSecondInput.value = Math.floor(theplayer.currentTime()); // Temps dans la video
+			theEndFakeInput.value = secToTime(theEndSecondInput.value);
+			// add param in url input
+			theLinkInput.value = updateURLParameter(theLinkInput.value, 'stop', theEndSecondInput.value);
+		}
+		else{
+			// remove param from url input
+			theLinkInput.value = removeParam('stop', theLinkInput.value)
+		}
+	});
+
+
+	/**
+	 * Autoplay
+	 */
+
+	// Checkbox click
+	theChkAutoplay.addEventListener("click", function() {
+		if (theChkAutoplay.checked == true){
+			theLinkInput.value = updateURLParameter(theLinkInput.value, 'autoplay', 'true'); // add param in url input
+		}
+		else{
+			theLinkInput.value = removeParam('autoplay', theLinkInput.value) // remove param from url input
+		}
+	});
+
+
+	/**
+	 * Player
+	 */
+
+	// Player "play" click
+	theplayer.on("play", function() {
+		PlayerRecordingLoop = setInterval(function(){
+			if (theChkBegin.checked == true){
+				theBeginSecondInput.value = Math.floor(theplayer.currentTime());
+				theLinkInput.value = updateURLParameter(theLinkInput.value, 'time', theBeginSecondInput.value); // add param in url input
+				theBeginFakeInput.value = secToTime(theBeginSecondInput.value);
 			}
 
-			var rows_txt = temp + "" + param + "=" + paramVal;
-			return baseURL + "?" + newAdditionalURL + rows_txt;
-		}
-
-
-		/**
-		 *	Delete parameter from URL
-		 */
-		function removeParam(key, sourceURL) {
-			var rtn = sourceURL.split("?")[0],
-				param,
-				params_arr = [],
-				queryString = (sourceURL.indexOf("?") !== -1) ? sourceURL.split("?")[1] : "";
-			if (queryString !== "") {
-				params_arr = queryString.split("&");
-				for (var i = params_arr.length - 1; i >= 0; i -= 1) {
-					param = params_arr[i].split("=")[0];
-					if (param === key) {
-						params_arr.splice(i, 1);
-					}
-				}
-				rtn = rtn + "?" + params_arr.join("&");
+			if (theChkEnd.checked == true){
+				theEndSecondInput.value = Math.floor(theplayer.currentTime());
+				theLinkInput.value = updateURLParameter(theLinkInput.value, 'stop', theEndSecondInput.value); // add param in url input
+				theEndFakeInput.value = secToTime(theEndSecondInput.value);
 			}
-			return rtn;
+
+		}, 1000);
+	});
+
+	// Player "pause" click
+	theplayer.on("pause", function() {
+		if (theChkBegin.checked == true){
+			clearInterval(PlayerRecordingLoop);
 		}
+	});
 
-		/**
-		 *	Convert integer to human readable time hh:mm:ss
-		 */
-		function secToTime(seconds){
-			var date = new Date(null);
-			date.setSeconds(seconds); // specify value for SECONDS here
-			var result = date.toISOString().substr(11, 8);
-			return result;
-		}
-
-		/**
-		 *	Convert human readable time hh:mm:ss to integer
-		 */
-		function timeToSec(hms){
-			//var hms = '02:04:33';   // your input string
-			var a = hms.split(':'); // split it at the colons
-			// minutes are worth 60 seconds. Hours are worth 60 minutes.
-			var seconds = (+a[0]) * 60 * 60 + (+a[1]) * 60 + (+a[2]); 
-			return seconds;
-		}
-
-		$(document).ready(function() {
-			var theplayer = videojs('cb_video_js');
-			var theChkBegin = document.querySelector("#chkBegin");
-			var theChkEnd = document.querySelector("#chkEnd");
-			var theChkAutoplay = document.querySelector("#chkAutoplay");
-			var theBeginSecondInput = document.querySelector("#startVideoSeconds");
-			var theFakeInput = document.querySelector("#startVideoTime");
-
-			var theEndSecondInput = document.querySelector("#stopVideoSeconds");
-			var theEndFakeInput = document.querySelector("#stopVideoTime");
-
-			var theLinkInput = document.querySelector('#link_video');
-
-
-			/**
-			 * Start
-			 */
-
-			// Change made in the input modifying the URL
-			theFakeInput.addEventListener("change", function() {
-				if (theChkBegin.checked == true){
-					theBeginSecondInput.value = timeToSec(theFakeInput.value);
-					theLinkInput.value = updateURLParameter(theLinkInput.value, 'time', theBeginSecondInput.value); // add param in url input
-				}
-				else{
-					theLinkInput.value = removeParam('time', theLinkInput.value) // remove param from url input
-				}
-			});
-
-
-			// Checkbox click
-			theChkBegin.addEventListener("click", function() {
-				if (theChkBegin.checked == true){
-					theBeginSecondInput.value = Math.ceil(theplayer.currentTime()); // Temps dans la video
-					theFakeInput.value = secToTime(theBeginSecondInput.value);
-					// add param in url input
-					theLinkInput.value = updateURLParameter(theLinkInput.value, 'time', theBeginSecondInput.value);
-				}
-				else{
-					// remove param from url input
-					theLinkInput.value = removeParam('time', theLinkInput.value)
-				}
-			});
-
-
-			/**
-			 * Stop
-			 */
-
-			// Change made in the input modifying the URL
-			theEndFakeInput.addEventListener("change", function() {
-				if (theChkEnd.checked == true){
-					theEndSecondInput.value = timeToSec(theEndFakeInput.value);
-					theLinkInput.value = updateURLParameter(theLinkInput.value, 'stop', theEndSecondInput.value); // add param in url input
-				}
-				else{
-					theLinkInput.value = removeParam('stop', theLinkInput.value) // remove param from url input
-				}
-			});
-
-
-			// Checkbox click
-			theChkEnd.addEventListener("click", function() {
-				if (theChkEnd.checked == true){
-					theEndSecondInput.value = Math.ceil(theplayer.currentTime()); // Temps dans la video
-					theEndFakeInput.value = secToTime(theEndSecondInput.value);
-					// add param in url input
-					theLinkInput.value = updateURLParameter(theLinkInput.value, 'stop', theEndSecondInput.value);
-				}
-				else{
-					// remove param from url input
-					theLinkInput.value = removeParam('stop', theLinkInput.value)
-				}
-			});
-
-
-			/**
-			 * Autoplay
-			 */
-
-			// Checkbox click
-			theChkAutoplay.addEventListener("click", function() {
-				if (theChkAutoplay.checked == true){
-					theLinkInput.value = updateURLParameter(theLinkInput.value, 'autoplay', 'true'); // add param in url input
-				}
-				else{
-					theLinkInput.value = removeParam('autoplay', theLinkInput.value) // remove param from url input
-				}
-			});
-
-
-			/**
-			 * Player
-			 */
-
-			// Player "play" click
-			theplayer.on("play", function() {
-					PlayerRecordingLoop = setInterval(function(){
-						if (theChkBegin.checked == true){
-							theBeginSecondInput.value = Math.ceil(theplayer.currentTime());
-							theLinkInput.value = updateURLParameter(theLinkInput.value, 'time', theBeginSecondInput.value); // add param in url input
-							theFakeInput.value = secToTime(theBeginSecondInput.value);
-							//console.log(secToTime(theBeginSecondInput.value));
-						}
-					}, 1000);
-			});
-
-			// Player "pause" click
-			theplayer.on("pause", function() {
-				if (theChkBegin.checked == true){
-					clearInterval(PlayerRecordingLoop);
-				}
-			});
-
-		});
+});
 
 
