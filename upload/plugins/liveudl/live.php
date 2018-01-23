@@ -50,16 +50,6 @@ assign('liveudl_vjsScript', LIVEUDL_URL .'/js/lvp-live/videojs-lvp-live.min.js')
 assign('liveudl_thumbsdir', BASEURL .'/files/thumbs/lives/');
 assign('liveudl_thumbdefault', 'thumblive.png');
 
-
-if(!function_exists('liveUDLFront')){
-    function liveUDLFront(){
-        global $liveudlquery;
-        return $liveudlquery->getFront();
-    }
-    global $Smarty;
-    $Smarty->register_function('liveUDLFront','liveUDLFront');
-}
-
 /**Add entries for the plugin in the administration pages */
 if ($cbplugin->is_installed('common_library.php') && $userquery->permission[getStoredPluginName('liveudl')]=='yes'){
     add_admin_menu(lang('Videos'),lang('liveudl_manager'),'manage_live.php',LIVEUDL_BASE.'/admin');

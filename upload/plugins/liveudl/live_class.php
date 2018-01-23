@@ -352,5 +352,7 @@ class LiveUDL extends CBCategory{
 }
 
 $liveudlquery = new LiveUDL();
-$Smarty->assign_by_ref('liveudlquery', $liveudlquery);
+if($Smarty)
+    $Smarty->assign_by_ref('liveudlquery', $liveudlquery);
+    
 ?>

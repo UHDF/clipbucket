@@ -8,7 +8,6 @@ require_once('../includes/common.php');
 global $cbplugin;
 
 if ($cbplugin->is_installed('common_library.php')){
-    require_once PLUG_DIR.'/common_library/common_library.php';
     $folder= PLUG_DIR.'/'.basename(dirname(__FILE__)).'/lang';
     importLangagePack($folder,'en');
     importLangagePack($folder,'fr');
@@ -61,10 +60,8 @@ function copyFile(){
     $pluginDir = BASEDIR .'/plugins/liveudl';
     
     symlink($pluginDir .'/admin/watch_live.php', BASEDIR.'/watch_live.php');
-    //copy($pluginDir .'/watch_live.php', BASEDIR.'/watch_live.php');
     mkdir(BASEDIR .'/files/thumbs/lives');
     symlink($pluginDir .'/thumblive.png', BASEDIR .'/files/thumbs/lives/thumblive.png');
-    //copy($pluginDir .'/thumblive.png', BASEDIR .'/files/thumbs/lives/thumblive.png');
 }
 
 /** install the plugin */

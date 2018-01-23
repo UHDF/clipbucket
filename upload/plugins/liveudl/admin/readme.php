@@ -24,5 +24,5 @@ Assign('liveudlSeo', $seo);
 subtitle('LiveUDL README');
 
 /** Set HTML template */
-template_files('README.html', LIVEUDL_ADMIN_DIR);
+template_files('readme.html', LIVEUDL_ADMIN_DIR);
 

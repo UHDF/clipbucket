@@ -58,19 +58,25 @@
 <p class="margin-20">You can use your own layouts simply by creating a new html file in the layout directory of your theme named like the file to override.</p>
 
 <h3>How to get lives on homepage</h3>
-<p>To get the list of lives in your layout, you have to use the <b>liveUDLFront</b> function.<br />
-    This function takes no parameters and returns an array of all the lives with the attribute <i>Display on homepage?</i> set to <b>Yes</b>.</p>
-<p>For example, you can use this function like this :</p>
+<p>To get the list of lives in your layout, you have to check if the plugin is installed and activated.</p>
 <pre>{literal}
-    ...
-    {foreach from = liveUDLFront() item = live}
-    &lt;div class="live"&gt;
-        &lt;h3&gt;{$live.title}&lt;small&gt;{$live.date|date_format:'%d/%m/%Y %H:%M'}&lt;/small&gt;&lt;/h3&gt;
-        &lt;div class="description"&gt;
-            {$live.description|unescape:'html'}
-        &lt;/div&gt;
-    &lt;/div&gt;
-    {/foreach}
+    {if $liveudlquery}
+        ...
+    {/if}
+{/literal}</pre>
+<p>Then, you have to use <b>$liveudlquery->getFront()</b> to get the results to display. This method returns an array of lives with the attribute <i>Display on homepage?</i> set to <b>Yes</b>.</p>
+<p>For example, you can use this method like this :</p>
+<pre>{literal}
+    {if $liveudlquery}
+        {foreach from = $liveudlquery->getFront() item = live}
+            &lt;div class="live"&gt;
+                &lt;h3&gt;{$live.title}&lt;small&gt;{$live.date|date_format:'%d/%m/%Y %H:%M'}&lt;/small&gt;&lt;/h3&gt;
+                &lt;div class="description"&gt;
+                    {$live.description|unescape:'html'}
+                &lt;/div&gt;
+            &lt;/div&gt;
+        {/foreach}
+    {/if}
 {/literal}</pre>
 
 <h3>Live's attributes</h3>
