@@ -3396,10 +3396,26 @@ width: 740px !important;
     width: 100%;
 }
 
-
-   
-
-
+/** HOMEPAGE LIVE **/
+#livesHomepage{ 
+    background: #fff;
+    
+    ul{ 
+        padding-left: 40px; 
+        
+        li{ 
+            position: relative; 
+            
+            span.onlive{ content:''; display: block; position: absolute; left: -25px; top: 2px; height: 12px; width: 12px; border-radius: 6px; background: red; }
+            h4{
+                font-size: 1.5rem;
+                
+                a:hover{ text-decoration: none; }
+                small{ display: block; text-transform: uppercase; font-size: 1.1rem; color: #333; }
+            }
+        }
+    }
+}
 
 @import 'essentials.less';
 
