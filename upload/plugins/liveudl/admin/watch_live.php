@@ -13,7 +13,7 @@
         
 	require_once 'includes/config.inc.php';
 	require_once 'plugins/liveudl/live.php';
-	global $cbvid;
+	global $cbvid, $Cbucket;
         
 	//$userquery->perm_check('view_live',true);
 	$pages->page_redir();
@@ -27,7 +27,7 @@
             if(file_exists(LAYOUT .'/lives.html')){
                 template_files('lives.html');
             } else {
-                template_files('lives.html', LIVEUDL_FRONT_DIR);
+                template_files(($Cbucket->template === 'ulille' ? 'udl_' : '') . 'lives.html', LIVEUDL_FRONT_DIR);
             }
             
             display_it();

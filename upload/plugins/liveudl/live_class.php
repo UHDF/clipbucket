@@ -93,7 +93,13 @@ class LiveUDL extends CBCategory{
     
     public function getFront(){
         $query = 'SELECT * FROM '.tbl('liveudl').' WHERE homepage = 1 ORDER BY date ASC';
-        return select($query);
+        $lives = select($query);
+
+        for($i = 0; $i < count($lives); $i++){
+            $lives[$i]['link'] = $this->live_link($lives[$i]);
+        }
+        
+        return $lives;
     }
     
     public function getLiveRtmp($lid){
