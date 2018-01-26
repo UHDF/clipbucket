@@ -7,7 +7,7 @@
 	</div> <!--VIDEO_THUMB END-->
 	<div class="details_block">
 		<strong class="title"><a href="#">{$video.title|truncate:40}</a></strong>
-		<span class="author">{lang code='by'}&nbsp;<a href="{$userquery->profile_link($video)}">{$video.username}</a></span>
+		<!-- <span class="author">{lang code='by'}&nbsp;<a href="{$userquery->profile_link($video)}">{$video.username}</a></span> -->
 		<div class="views-date">
 			<span>{$video.views}&nbsp;{if $video.views > 1}{lang|lower code='views'}{else}{lang|lower code="view"}{/if}</span>
 			<time datetime="2016-15-03" class="date">{$video.date_added|niceTime}</time>

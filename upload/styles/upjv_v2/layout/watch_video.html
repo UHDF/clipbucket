@@ -3,8 +3,12 @@
 {$channel = $userquery->get_user_details($video.userid)}
 
 
-
-
+<style>
+	#videoPlayer{
+		width: 560px !important;
+		height: 390px !important;
+	}
+</style>
 
 
 
@@ -47,6 +51,7 @@
 				<header class="clearfix details">
 					<h1>{$video.title}</h1>
 					<div class="user-video-info clearfix">
+						{ANCHOR place="before_watch_player"}
 					<!--
 						<a href="{$userquery->profile_link($video)}" class="avatar">
 							<img src="{$userquery->avatar($video,'m',userid())}" class="img-responsive">
@@ -108,9 +113,11 @@
 						<li>
 							<a href="#cb-item-share" data-toggle="tab"><span class="icon-share"></span>{lang code='share_embed'}</a>
 						</li>
+						{if has_access('admin_access')}
 						<li>
 							<a href="#cb-item-addto" data-toggle="tab"><span class="icon-plusrounded"></span>{lang code='add_to'}</a>
 						</li>
+						{/if}
 						<!--
 						<li>
 							<a href="#cb-item-report" data-toggle="tab"><span class="icon-flag"></span>{lang code='report_this'}</a>
@@ -122,7 +129,12 @@
 						<!-- INFO SECTION TAB -->
 						<div class="tab-pane fade in clearfix active" id="cb-item-info">
 							<div class="clearfix watch-vid-details">
-								<h2>{description($video.description)}</h2>
+								<h2>
+									Description
+								</h2>
+								<p>
+									{description($video.description)}
+								</p>
 								<ul class="clearfix desc-list">
 									<li><strong>{lang code='category'}</strong>:&nbsp;{$vdo.category|categories:video}</li>
 									<li><strong>{lang code='duration'}</strong>:&nbsp;{if $video.duration>1}{$video.duration|SetTime}{else}00:00{/if}</li>
@@ -132,6 +144,34 @@
 										<span class="pull-left">{$vdo.tags|tags:videos}</span>
 									</li>
 								</ul>
+
+								<br>
+								
+								{*assign var="videoid" value=$vdo.videokey*}
+								<!-- Plugin Documents -->
+								{if externalDocumentCount() > 0}
+									<h2><span class="glyphicon glyphicon glyphicon-file"></span> Document(s)</h2>
+									<ul>
+										{ANCHOR place="externalDocumentList" data=$video}
+									</ul>
+								{/if}
+
+
+								<br>
+								
+
+								
+								<!-- Plugin Documents -->
+								{if speakerCount() > 0}
+									<h2><span class="glyphicon glyphicon glyphicon-user"></span> Intervenant(s)</h2>
+									<ul>
+										{ANCHOR place="speakerList" data=$video}
+									</ul>
+								{/if}
+
+
+
+
 							</div>
 						</div>
 
@@ -139,18 +179,18 @@
 						<div class="tab-pane fade in clearfix" id="cb-item-share">
 							<ul class="social-share">
 								<li>
-									<a href="http://www.facebook.com/sharer/sharer.php?s=100&p[url]={videoLink($video)|urlencode}&p[images][0]={get_thumb vdetails=$video}&p[title]={$video.title|title|urlencode}&p[summary]={$video.description|description|urlencode}" target="_blank" class="btn-fb icon-facebook">
-										<span>Facebook</span>
+									<a href="http://www.facebook.com/sharer/sharer.php?s=100&p[url]={videoLink($video)|urlencode}&p[images][0]={get_thumb vdetails=$video}&p[title]={$video.title|title|urlencode}&p[summary]={$video.description|description|urlencode}" target="_blank" title="{lang code='share_this'} {lang code='on'} Facebook" class="btn-fb icon-facebook">
+										<span>{lang code='share_this'} {lang code='on'} Facebook</span>
 									</a>
 								</li>
 								<li>
-									<a href="https://twitter.com/share" target="_blank" class="btn-tw icon-twitter">
-										<span>Twitter</span>
+									<a href="https://twitter.com/share" target="_blank" title="{lang code='share_this'} {lang code='on'} Twitter" class="btn-tw icon-twitter">
+										<span>{lang code='share_this'} {lang code='on'} Twitter</span>
 									</a>
 								</li>
 								<li>
-									<a href="https://plus.google.com/share?url={urlencode(videolink($video))}" target="_blank" class="btn-gplus icon-gplus">
-										<span>Google Plus</span>
+									<a href="https://plus.google.com/share?url={urlencode(videolink($video))}" target="_blank" title="{lang code='share_this'} {lang code='on'} Google Plus"  class="btn-gplus icon-gplus">
+										<span>{lang code='share_this'} {lang code='on'} Google Plus</span>
 									</a>
 								</li>
 							</ul>
@@ -333,43 +373,11 @@
 		if(adHtml<1){
 			$('.ad-holder').remove();
 		}
-		/*//Progress Bar
-		  $( '#circle' ).progressCircle();
-		  $( '#circle' ).progressCircle({
-			nPercent        : nPercent,
-			showPercentText : showPercentText,
-			thickness       : thickness,
-			circleSize      : circleSize
-		  });*/
-	});
+		});
 
-/*
-	$(document).on('click','#load-more-comments',function(){
-		var page = $(this).attr('page');
-		page = parseInt(page);
-		nextPage = page + 1;
-		$(this).text("Loading comments..")
-		_cb.getCommentsNew(
-			'{$type}',
-			'{$vdo.videoid}',
-			'{$vdo.last_commented}',page,
-			'{$vdo.comments_count}',
-			'{$object_type}'
-		);
-		$(this).attr('page', nextPage);
-		$(this).text("Load More")
-	})
-*/
-/*
-	var resizePlayer =  _cb.debounce(function() {
-		$cb_player.height( $cb_player.width() / aspect_ratio );
-	}, 500, false);
-
-	$(window).resize(resizePlayer);
-*/	
 </script>
 
 <!--
-<link rel="stylesheet" href="{$theme}/css/branding-removal.css">
+	<link rel="stylesheet" href="{$theme}/css/branding-removal.css">
 -->
 

@@ -17,6 +17,8 @@ if(!defined('SUB_PAGE')){
 /** get video object */
 $video = $cbvid->getVideo($_GET['video']);
 Assign('video',$video);
+assign('showfilter',true);
+assign("title","");
 
 /**  Run after a post action called 'document_selected' (link and unlink multiple Document to the selected video) */
 if(isset($_POST['document_selected'])){

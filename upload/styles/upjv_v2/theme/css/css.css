@@ -3866,6 +3866,27 @@
 	vertical-align: bottom;
 }
 
+#soustitre{
+	font-family: sansation_lightlight, Tahoma, Verdana, Segoe, sans-serif;
+	font-size: 2.85714em;
+	font-weight:bold;
+	margin: 1em;
+}
+
+#soustitre a{
+	color: #a4a6bd;
+}
+
+#soustitre a:hover{
+	text-decoration: none;
+}
+
+#catdetails{
+	color: #002d59;
+	border: 0px solid red;
+	margin: 0em 1em 1em 1em;
+}
+
 #reseaux_sociaux {
 	bottom: .2em;
 	list-style: none;
@@ -3903,7 +3924,8 @@
 
 #menu_principal {
 	z-index:1;
-	font: 500 1em arvoregular, Tahoma, Verdana, Segoe, sans-serif;
+	font: 500 1em sansation_lightlight, Tahoma, Verdana, Segoe, sans-serif;
+	font-weight: bold;
 	list-style: none;
 	margin: 0;
 	padding: 0;
@@ -4094,6 +4116,7 @@ img{
 a{
 	text-decoration:none;
 	color:#002d59
+	outline: 1px solid #002d59;
 }
 
 a:hover{
@@ -4102,17 +4125,17 @@ a:hover{
 
 a:active{
 	background-color:transparent;
-	outline:none !important;
+	outline: 1px solid #002d59;
 	text-decoration:none
 }
 
 a:focus{
-	outline:none !important;
+	outline: 1px solid #002d59;
 	text-decoration:none
 }
 
 button:focus,button:active{
-	outline:none !important
+	outline: 1px solid #002d59;
 }
 
 input,textarea,select{
@@ -4298,6 +4321,137 @@ Snippet code pour titre h1 :
 
 
 
+	
+
+/* ******************************************************************
+
+			MENU NAV
+
+****************************************************************** */
+	#menu_principal {
+		padding: 0 0 0 1em;
+		padding-bottom: 20px;
+		text-align: center;
+	}
+
+	#menu_principal > li {
+		font-size: 1.28571em;
+		border-left: 1px solid #002d59;
+		display: inline-block;
+		margin: 0;
+		padding: .75em 0 .25em;
+	}
+  
+	#menu_principal > li:first-child {
+		border: none;
+	}
+
+	#menu_principal ul {
+		/* border: 1px solid transparent; */
+		background-color:white;
+		text-align: left;
+		/* TEMPORARY DISABLED */
+		display: none;
+		font-size: .88889em;
+		line-height: normal;
+		margin-top: .25em;
+		padding: 0;
+		position: absolute;
+		width: 250px;
+		z-index: 10;
+	}
+
+	#menu_principal ul li {
+		border-left:1px solid gray;
+		border-right:1px solid gray;
+		border-top:0;
+		border-bottom:0;
+		width:100%;
+		padding: 0;
+	}
+
+	#menu_principal ul li:first-child {
+		border-top:1px solid gray;
+	}
+
+	#menu_principal ul li:last-child {
+		border-bottom:1px solid gray;
+	}
+
+	#menu_principal ul li:first-child:before {
+		content: none;
+	}
+	
+	#menu_principal a {
+		font-size: 25px;
+		display: inline-block;
+		padding: 0 .25em;
+	}
+
+	#menu_principal ul li a{
+		font-size: 18px;
+	}
+
+	#menu_principal ul li a span {
+		color: #002d59;
+		font-style: italic;
+		font-weight: initial;
+	}
+
+	#menu_principal a, 
+	#menu_principal li:hover a, 
+	#menu_principal a:hover, 
+	#menu_principal a:focus, 
+	#menu_principal em a {
+		color: #002d59;
+	}
+
+	#menu_principal li:hover li a, 
+	#menu_principal ul a {
+		color: #148dc8;
+		width: 100%;	/* to make link on all width */
+		padding: .75em .5em;
+	}
+
+	#menu_principal li:hover li a:hover, 
+	#menu_principal ul a:hover, 
+	#menu_principal ul a:focus, 
+	#menu_principal ul em a {
+		background-color: #002d59;
+	}
+
+	#menu_principal:hover li em + ul {
+		display: none;
+	}
+
+	#menu_principal:hover li:hover em + ul, 
+	#menu_principal li em + ul {
+		display: block;
+	}
+
+	#menu_principal li:hover ul {
+		display: block;
+		z-index: 100;
+	}
+
+	#menu_principal > li > a:hover, 
+	#menu_principal > li > em > a, 
+	#menu_principal > li:hover > em > a, 
+	#menu_principal li:hover > a {
+		color: #666666;
+	}
+
+	#menu_principal li:hover li a:hover, 
+	#menu_principal ul a:hover, 
+	#menu_principal ul a:focus, 
+	#menu_principal ul em a,
+	#menu_principal ul a:hover span, 
+	#menu_principal ul a:focus span{
+		background-color: #002d59;
+		color: #fff;
+	}
+
+	
 
 /* ******************************************************************
 
@@ -4399,6 +4553,7 @@ Snippet code pour titre h1 :
 		background: transparent;
 	}
 
+	/* TODO: Make a burger menu	*/
 	#menu_principal {
 		display: none;
 		position: absolute;
@@ -4406,7 +4561,7 @@ Snippet code pour titre h1 :
 		width: 100%;
 		z-index: 300;
 	}
-
+	
 	#menu_principal > li > a, #menu_principal > li > em > a {
 		display: block;
 		border-bottom: 1px solid;
@@ -4427,13 +4582,14 @@ Snippet code pour titre h1 :
 		display: block;
 		border-bottom: 1px solid;
 	}
-  
+
 	#menu_principal ul {
 		display: none;
 		background: #fff;
 		padding: .5em;
 		margin: 0;
 	}
+
 
 	#meta_menu {
 		min-height: 2.28571em;
@@ -4507,121 +4663,6 @@ Snippet code pour titre h1 :
 		clear: both;
 	}
 
-	#menu_principal {
-		padding: 0 0 0 1em;
-		padding-bottom: 20px;
-		text-align: center;
-	}
-
-	#menu_principal > li {
-		font-size: 1.28571em;
-		border-left: 1px solid #002d59;
-		display: inline-block;
-		margin: 0;
-		padding: .75em 0 .25em;
-	}
-  
-	#menu_principal > li:first-child {
-		border: none;
-	}
-  
-	#menu_principal ul {
-		background: #00345f;
-		border-top: .25em solid;
-		color: #fff;
-		display: none;
-		font-size: .88889em;
-		left: 0;
-		line-height: normal;
-		margin-top: .25em;
-		padding: 0;
-		position: absolute;
-		width: 100%;
-		z-index: 10;
-	}
-  
-	#menu_principal ul li {
-		display: inline-block;
-		padding: 0;
-	}
-  
-	#menu_principal ul li:before {
-		content: "|";
-		display: inline-block;
-	}
-
-	#menu_principal ul li:first-child {
-		margin-left: 1em;
-	}
-
-	#menu_principal ul li:first-child:before {
-		content: none;
-	}
-
-	#menu_principal a {
-		color: #00345f;
-		display: inline-block;
-		padding: 0 .25em;
-	}
-  
-	#menu_principal a:focus {
-		background: #fff;
-	}
-
-	#menu_principal li:hover a, #menu_principal a:hover, #menu_principal a:focus, #menu_principal em a {
-		color: #002d59;
-	}
-
-	#menu_principal li:hover li a, #menu_principal ul a {
-		color: #fff;
-		padding: .75em .5em;
-	}
-
-	#menu_principal li:hover li a:hover, #menu_principal ul a:hover, #menu_principal ul a:focus, #menu_principal ul em a {
-		background-color: #002d59;
-	}
-
-	#menu_principal:hover li em + ul {
-		display: none;
-	}
-
-	#menu_principal:hover li:hover em + ul {
-		display: block;
-	}
-
-	#menu_principal li em + ul {
-		display: block;
-	}
-
-	#menu_principal li:hover > a {
-		color: #00345f;
-	}
-
-	#menu_principal li:hover ul {
-		display: block;
-		z-index: 100;
-	}
-
-	#menu_principal > li {
-		border-left-color: #002d59;
-	}
-
-	#menu_principal ul {
-		background-color: #666666;
-	}
-
-	#menu_principal a, #menu_principal li:hover a, #menu_principal a:hover, #menu_principal a:focus, #menu_principal em a {
-		color: #002d59;
-	}
-
-	#menu_principal > li > a:hover, #menu_principal > li > em > a, #menu_principal > li:hover > em > a, #menu_principal li:hover > a {
-		color: #666666;
-	}
-
-	#menu_principal li:hover li a:hover, #menu_principal ul a:hover, #menu_principal ul a:focus, #menu_principal ul em a {
-		background-color: #002d59;
-		color: #fff;
-	}
 }
 
 @media screen and (min-width: 55em) {
@@ -4646,6 +4687,7 @@ Snippet code pour titre h1 :
 		height: auto;
 	}
 
+	/*
 	#menu_principal > li {
 		font-size: 1.5em;
 	}
@@ -4658,6 +4700,7 @@ Snippet code pour titre h1 :
 		padding: 0;
 		width: 100%;
 	}
+	*/
 
 	#meta_menu_button {
 		padding-left: 18.5%;

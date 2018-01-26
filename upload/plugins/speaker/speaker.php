@@ -63,6 +63,33 @@ if(!function_exists('speakerList')){
 	register_anchor_function('speakerList','speakerList');
 }	
 
+if(!function_exists('speakerCount')){
+	/**
+	 * Get speakers count for the current video
+	 *
+	 * This function is registrered in smarty to be used directly into the template
+	 * @return int
+	 * 		the number of speakers linked to the current video
+	 * @see Document.getSpeakerAndRoles() function for more details
+	 */
+	function speakerCount(){
+		global $Smarty;
+		global $speakerquery;
+		global $db;
+		if ($_GET["v"]){
+			$vid=$_GET["v"];
+			$result=$db->_select("SELECT `videoid` FROM ".tbl('video')." WHERE `videokey`='".$vid."'");
+			if (count($result)==1) $vid=$result[0]['videoid'];
+			$data=["videoid"=> $vid, "selected" => "yes","count_only"=>True];
+			$cnt=$speakerquery->getSpeakerAndRoles($data);
+			return intval($cnt);
+		}
+		else return 0;
+	}
+	global $Smarty;
+	$Smarty->register_function('speakerCount','speakerCount');
+}
+
 
 /**
  * Connect the plugin to the video manager

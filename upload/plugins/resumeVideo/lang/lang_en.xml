@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clipbucket_language>
+	<name>English</name>
+	<iso_code>en</iso_code>
+	<phrases>
+		<startat>Start at</startat>
+		<autoplay>Autoplay</autoplay>
+		<stopat>Stop at</stopat>
+		<embedmodaltitle>Embed the video on another site</embedmodaltitle>
+		<close>Close</close>
+	</phrases>
+</clipbucket_language>

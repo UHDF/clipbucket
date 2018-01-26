@@ -16,6 +16,7 @@ if(!defined('SUB_PAGE'))
 /** get video object */
 $video = $cbvid->getVideo($_GET['video']);
 Assign('video',$video);
+assign('showfilter',true);
 
 /** Run after a post action called 'link_selected' (link and unlink multiple speaker to the selectedvideo) */
 if(isset($_POST['link_selected'])){
@@ -31,7 +32,7 @@ if(isset($_POST['link_selected'])){
 	if ($cnt>0){
 		for($id=0;$id<$cnt;$id++)
 			$speakerquery->linkSpeaker($_POST['check_speaker'][$id],$video['videoid']);
-	}
+	}	
 }
 /** Run after a post action called 'filter' (used to filter list of speakers) */
 else if(isset($_POST['filter'])){

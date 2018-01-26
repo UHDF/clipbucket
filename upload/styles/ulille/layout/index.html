@@ -11,7 +11,7 @@
 	</script>
 		{$row = $myquery->Get_Website_Details()}
 		<!-- YB home selection -->
-									aaaaa{$editor_picks|@count}
+		{*$editor_picks|@count*}
 		<div class="row">
 			<div class="col-xs-12">
 			<div id="videolist-container" class="clearfix grid videos">
@@ -42,7 +42,7 @@
 							{include file="$style_dir/blocks/videos/video-index.html" grp=$grps[$indgrp]}
 						{/if}
 					{elseif $editor_picks and $grps|@count>$editor_picks|@count}
-						{math equation=floor($grps|@count)/$editor_picks|@count assign="frac"}
+						{math equation=floor($grps|@count/$editor_picks|@count) assign="frac"}
 						{assign var="cpt" value=0}
 						{assign var="indgrp" value=0}
 						{for $ind=0 to $grps|@count-1}

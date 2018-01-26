@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html>
+<html lang="fr">
 	<head>
 		{if in_dev()}
 			{$cache_buster=microtime(true)}
@@ -7,7 +7,7 @@
 			{$cache_buster=$Cbucket->version}
 		{/if}
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<!-- ClipBucket v{$Cbucket->version} -->
 		<meta name="copyright" content="ClipBucket - Integrated Units 2007 - {$smarty.now|date_format:"%Y"}">
 		<link rel="icon" type="image/ico" href="{$theme}/images/favicon.ico">
@@ -115,14 +115,14 @@
 		{/if}
 		<script type="text/javascript" src="{$theme}/js/uslider_js/jquery.mousewheel.js"></script>
 		{include_header file='global_header'}
-		{if $Cbucket->header_files}
+		<!-- {if $Cbucket->header_files} -->
 		    <!-- Including Headers -->
-		    {foreach from=$Cbucket->header_files key=file item=type}
-		        {include_header type=$type file=$file}
-		    {/foreach}
+		    <!-- {foreach from=$Cbucket->header_files key=file item=type}
+		        {*include_header type=$type file=$file*}
+		    {/foreach} -->
 		    <!-- Ending Headers -->
-		{/if}
+		<!-- {/if} -->
 		
 	<script type="text/javascript" src="{$theme}/js/fonctions.js"></script>
-	
+
 	</head>

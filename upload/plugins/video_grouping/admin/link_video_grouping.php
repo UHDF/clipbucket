@@ -17,6 +17,7 @@ if(!defined('SUB_PAGE')){
 /** get video object */
 $video = $cbvid->getVideo($_GET['video']);
 Assign('video',$video);
+assign('showfilter',true);
 
 /** link and unlink groupings to the selected video) */
 if(isset($_POST['groupingSelected'])){

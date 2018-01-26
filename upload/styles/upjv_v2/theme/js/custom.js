@@ -359,7 +359,7 @@ function homePageVideos(qlist_items) {
 	// trigger clicks on doc load to get
 	// initial videos
 	$(document).ready(function(){
-		$('#featured_load_more').trigger("click");
+//		$('#featured_load_more').trigger("click");
 		$('#featured_load_more').hide();
 		$('#recent_load_more').trigger("click");
 		$('#recent_load_more').hide();

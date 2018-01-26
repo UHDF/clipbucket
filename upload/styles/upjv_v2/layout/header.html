@@ -53,7 +53,7 @@
 
 			<form id="recherche_simple" action="{link name='search_result'}">
 				<div data-unfold-target="recherche_simple">
-					<input tabindex="2" name="query" id="query" placeholder="{lang code='search_keyword_feed'}" value="{'query'|get_form_val:true}" title="Rechercher par mots-clés" size="25" type="text">
+					<input name="query" id="query" placeholder="{lang code='search_keyword_feed'}" value="{'query'|get_form_val:true}" title="Rechercher par mots-clés" size="25" type="text">
 					<button class="glyphicon glyphicon-search" title="Valider"><span>Valider</span></button>
 				</div>
 			</form>
@@ -75,13 +75,13 @@ class="ui-state-default"
 
 	<div id="bandeau">
 		<header id="header">
-			<a href="{$baseurl}" title="Université de Picardie Jules Verne" id="logo">UPJV</a>
+			<a href="https://www.u-picardie.fr/" title="Université de Picardie Jules Verne" id="logo">UPJV</a>
 			<span>Université de <span>Picardie</span> Jules Verne</span>
 		</header>
 
 		<ul id="reseaux_sociaux">
 			<li>
-				<a href="{$baseurl}/rss.php?mode=recent">
+				<a href="{$baseurl}/rss.php?mode=recent" title="Acceder au flux RSS">
 					<i class="fa fa-rss fa-3x" aria-hidden="true" alt="RSS" title="RSS"></i>
 				</a>
 			</li>
@@ -102,6 +102,10 @@ class="ui-state-default"
 				</a>
 				
 				<ul class="dropdown-menu dropdown-menu-right">
+
+					<li class="hidden-xs"><a href="{$baseurl}/plugins/big_upload/public/big_upload.php"><i class="fa fa-upload" aria-hidden="true"></i> Big upload (dev)</a></li>
+
+
 					{if isSectionEnabled('videos')}
 						<li class="hidden-xs"><a href="{link name='upload'}"><i class="fa fa-upload" aria-hidden="true"></i> {lang code="upload_video"}</a></li>
 					{/if}
@@ -142,7 +146,11 @@ class="ui-state-default"
 		{/if}
 	</ul>
 
-
+<div id="soustitre">
+	<a href="{$baseurl}" title="Accueil du site">
+		WebTv UPJV
+	</a>
+</div>
 
 	<nav>
 
@@ -155,17 +163,36 @@ class="ui-state-default"
 				{$catname = $cbvid->get_categories()}
 
 				<ul id="menu_principal" data-unfold-target="menu_principal">
+					<!--
 					<li>
 						<a href="{$baseurl}">Accueil</a>
 					</li>
 
+					 and $catname[$main@key].category_id < 70
+					  and $catname[$main@key].category_id >= 70)
+					-->
+
+					{$tagcat = $tagSelector->getTagsByCat()}
+
 					{foreach from=$catname item=main}
-						{if $catname[$main@key].parent_id eq 0}
+						{if ($catname[$main@key].parent_id eq 0 and $catname[$main@key].category_id neq 37)}
 							<li><a href="{cblink(['name'=>'category','data'=>$catname[$main@key],'type'=>'video'])}">{$catname[$main@key].category_name}</a>
 								<ul>
 									{foreach from=$catname item=sub}
 										{if $catname[$sub@key].parent_id eq $catname[$main@key].category_id}
-											<li><a href="{cblink(['name'=>'category','data'=>$catname[$sub@key],'type'=>'video'])}">{$catname[$sub@key].category_name}</a></li>
+											<li>
+												<a href="{cblink(['name'=>'category','data'=>$catname[$sub@key],'type'=>'video'])}">		{$catname[$sub@key].category_name}
+													<!--
+													{if array_key_exists($catname[$sub@key].category_id, $tagcat)}
+														<br>
+														<span>
+															{$tagstring = implode(", ", $tagcat[$catname[$sub@key].category_id])}
+															{$tagstring}
+														</span>
+													{/if}
+													-->
+												</a>
+											</li>
 										{/if}
 									{/foreach}
 								</ul>

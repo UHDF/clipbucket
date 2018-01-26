@@ -18,7 +18,6 @@
 		for (i = 0; i < parseInt(nb.value); i++){
 
 			var id = i+1;
-			console.log(i);
 			var tmpdata = prevdata[i].split(",");
 			var phrase = document.querySelector("#phrase"+id).value;
 			var subpos = $('input[name="options'+id+'"]:checked').val();
@@ -34,15 +33,6 @@
 		}
 
 	}
-
-
-	// get selection
-	/*
-	$('.colors input[type=radio]').on('change', function() {
-		console.log(this.value);
-	});
-	*/
-
 
 
 	/**
@@ -68,6 +58,26 @@
 	}
 
 
+	function enterPostForm(event){
+		// The form
+		var submitForm = document.querySelector("#realDraftForm");
+		// Get CharCode
+		char = event.which || event.keyCode;
+		
+		// If keyboard event is "enter"
+		if (char == 13){
+			// Create a input to post name of the submit button
+			var input = document.createElement("input");
+			input.type = "hidden";
+			input.name = "saveMarker";
+			input.value = "sauvegarde";
+			submitForm.appendChild(input);
+			// Move all input into a textarea in order to post only one input
+			movemarker();
+			// Submit form
+			submitForm.submit();
+		}
+	}
 
 	/**
 	*	Information about subtitle rules when input is modified.
@@ -85,6 +95,15 @@
 				error = "2 lignes";
 			}
 		}
+
+		// TODO: ask for time needed
+
+		// If no error at this time, test to check if length is enough
+		/*
+		if (error == ''){
+			input.value.length
+		}
+		*/
 
 		msg.innerHTML = error;
 	}
@@ -207,7 +226,7 @@
 
 	function mkInput(id, humanbegin, begin, tbegin, humanend, end, tend, duration, onfocus){
 
-		return '<div class="control-group"><div class="row"><div class="col-md-12"><label for="phrase'+id+'" class="control-label">'+tbegin+' --> '+tend+' - duration : '+duration+'</label></div></div><div class="row"><div class="col-md-9"><div class="form-inline"><input type="text"  class="form-control" name="phrase'+id+'" id="phrase'+id+'" onfocus="'+onfocus+';" onblur="inputStop();draftProgress();" onkeyup="infoSub('+id+');" value="" spellcheck="true"><span id="subinfo'+id+'" class="help-inline"></span></div></div><div class="col-md-3"><div class="btn-group colors" data-toggle="buttons"><label class="btn btn-primary btn-xs"><input type="radio" name="options'+id+'" value="left" autocomplete="off"> Gauche</label><label class="btn btn-primary btn-xs active"><input type="radio" name="options'+id+'" value="" autocomplete="off" checked> Centre</label><label class="btn btn-primary btn-xs"><input type="radio" name="options'+id+'" value="right" autocomplete="off"> Droite</label></div></div></div></div>';
+		return '<div class="control-group"><div class="row"><div class="col-md-9"><div class="form-group"><label for="phrase'+id+'" class="control-label">'+tbegin+' --> '+tend+' - duration : '+duration+'</label><input type="text"  class="form-control" name="phrase'+id+'" id="phrase'+id+'" onfocus="'+onfocus+';" onblur="inputStop();draftProgress();" onkeyup="infoSub('+id+');" value="" spellcheck="true"><span id="subinfo'+id+'" class="help-inline"></span></div></div><div class="col-md-3"><label class="control-label">Position</label><div class="btn-group colors" data-toggle="buttons"><label class="btn btn-primary btn-xs"><input type="radio" name="options'+id+'" value="left" autocomplete="off">Gauche</label><label class="btn btn-primary btn-xs active"><input type="radio" name="options'+id+'" value="" autocomplete="off" checked>Centre</label><label class="btn btn-primary btn-xs"><input type="radio" name="options'+id+'" value="right" autocomplete="off">Droite</label></div></div></div></div>';
 
 	}
 

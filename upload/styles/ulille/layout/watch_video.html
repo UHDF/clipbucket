@@ -25,10 +25,11 @@
 					<!-- ajouter |niceTime derrière une date pour afficher "il y a X années" au lieu de Y-m-d-->
 					<div class="entry date-duration"><b>{$video.datecreated|date_format:"%d %B %Y %R"|upper}</b> | Durée <b>{if $video.duration>1}{$video.duration|SetTime}{else}00:00{/if}</b> | Vues <b>{$vdo.views|number_format}</b></div>
 				</header>
-				<div class="more">
+				<!--div class="more">
 					<button id="extend-button" class="btn btn-link btn-sm" type="button" data-toggle="collapse" data-target="#collapseMetas" aria-expanded="true" aria-controls="collapseMetas"><span class="glyphicon glyphicon-triangle-bottom"></span> infos</button>
 				</div>
-				<div class="collapse row" id="collapseMetas" aria-expanded="false">
+				<div class="collapse row" id="collapseMetas" aria-expanded="false"-->
+				<div class="row" id="collapseMetas" aria-expanded="false"-->
 					<section class="col-sm-8 col-xs-12">
 						<p>{AutoLinkUrls($video.description|unescape:"html")}</p>
 						<ul class="documents nolist well">
@@ -64,32 +65,41 @@
 								</ul>
 							</li>
 							<li>
-								<h5><span class="glyphicon glyphicon glyphicon-file"></span> Documents</h5>
-								<ul class="reset nolist">
-									{ANCHOR place="externalDocumentList" data=$video}
-								</ul>
+								{if externalDocumentCount() > 0}
+									<h5><span class="glyphicon glyphicon glyphicon-file"></span> {lang("documents")}</h5>
+									<ul class="reset nolist">
+										{ANCHOR place="externalDocumentList" data=$video}
+									</ul>
+								{/if}
 							</li>
 							<li>
-								<h5><span class="glyphicon glyphicon glyphicon-link"></span> Liens</h5>
-								<ul class="reset nolist">
-									{ANCHOR place="externalLinkList" data=$video}
-								</ul>
+								{if externalLinkCount() > 0}
+									<h5><span class="glyphicon glyphicon glyphicon-link"></span> {lang("links")}</h5>
+									<ul class="reset nolist">
+										{ANCHOR place="externalLinkList" data=$video}
+									</ul>
+								{/if}
 							</li>
 						</ul>
 					</section>
 					<aside id="video-metas" class="col-sm-4 col-xs-12">
 						{if function_exists('speakerList')}
-						<div class="entry speakers">
-							<h4>Intervenants</h4>
-							<ul class="list">
-								{ANCHOR place="speakerList" data=$video}
-								<!--li><a href="#">???</a><span>?</span></li-->
-							</ul>
-						</div>
+							{if speakerCount() > 0}
+								<div class="entry speakers">
+									<h4>{lang("speakers")}</h4>
+									<ul class="list">
+										{ANCHOR place="speakerList" data=$video}
+										<!--li><a href="#">???</a><span>?</span></li-->
+									</ul>
+								</div>
+							{/if}
 						{/if}
-						<div class="entry tags">
-							<h4>Tags</h4>
-							{$vdo.tags|tags:videos} </div>
+						{if $vdo.tags|count > 0}
+							<div class="entry tags">
+								<h4>{lang("tags")}</h4>
+								{$vdo.tags|tags:videos} 
+							</div>
+						{/if}
 						<div class="entry collections">
 							<h4>Collections</h4>
 							<p><a href="#"><span class="glyphicon glyphicon-bookmark"></span> ???</a></p>
@@ -123,21 +133,28 @@
 </div>
 <!-- MODAL PARTAGER -->
 <div class="modal modal-vcenter fade" id="shareModal" tabindex="-1" role="dialog" aria-labelledby="Partager" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="ShareLabel">Partager</h4>
-			</div>
-			<div class="modal-body">
-				<div class="row">
-					<div class="col-xs-12 social"> <a class="btn btn-link cb-item-social-icon facebook" href="http://www.facebook.com/sharer/sharer.php?s=100&p[url]={videoLink($video)|urlencode}&p[images][0]={get_thumb vdetails=$video}&p[title]={$video.title|title|urlencode}&p[summary]={$video.description|description|urlencode}" target="_blank"> <i class="fa fa-facebook-official fa-2x"></i> </a> <a class="btn btn-link cb-item-social-icon twitter" href="https://twitter.com/share" target="_blank"> <i class="fa fa-twitter fa-2x"></i> </a> <a class="btn btn-link cb-item-social-icon googlep" href="https://plus.google.com/share?url={urlencode(videolink($video))}" target="_blank"> <i class="fa fa-google-plus fa-2x"></i> </a> </div>
-				</div>
-				<hr>
-				<div id="cb-item-share">{show_share_form id=$vdo.videoid type=video}</div>
-			</div>
-		</div>
-	</div>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="ShareLabel">Partager</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12 social">
+                        <a class="btn btn-link cb-item-social-icon facebook" href="http://www.facebook.com/sharer/sharer.php?s=100&p[url]={videoLink($video)|urlencode}&p[images][0]={get_thumb vdetails=$video}&p[title]={$video.title|title|urlencode}&p[summary]={$video.description|description|urlencode}" target="_blank"><i class="fa fa-facebook-official fa-2x"></i></a>
+                        <a class="btn btn-link cb-item-social-icon twitter" href="https://twitter.com/share" target="_blank"><i class="fa fa-twitter fa-2x"></i></a>
+                        <a class="btn btn-link cb-item-social-icon googlep" href="https://plus.google.com/share?url={urlencode(videolink($video))}" target="_blank"><i class="fa fa-google-plus fa-2x"></i></a>
+                    </div>
+                </div>
+                <hr>
+                <div id="cb-item-share">{show_share_form id=$vdo.videoid type=video}</div>
+            </div>
+            <div class="modal-footer">
+                <div class="text-right"><button id="copy" class="btn btn-success btn-xs share-btn pull-right" type="button">{lang("copy_to_clipboard")}</button></div>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- END MODAL SHARE --> 
 <!-- MODAL ADD CHAPTER -->
@@ -212,6 +229,18 @@
             click: function(e){
                 e.preventDefault();
                 _cb.subscribeToChannel('{$video.userid}','subscribe_user','video_detail_result_cont');
+            }
+        });
+        
+        $('#shareModal').on('show.bs.modal', function(e){
+            if(typeof player !== 'undefined'){
+                var s = Math.round(player.currentTime()), h, m;
+                h = Math.floor(s / 3600);
+                m = Math.floor((s - h * 3600) / 60);
+                s -= h * 3600 + m * 60;
+                s = s > 10 ? s : '0'+s;
+                m = h > 0 ? h+':'+ (m > 10 ? m : '0'+m) : m;
+                $(this).find('#startAtTime').val(m +':'+s);
             }
         });
     });

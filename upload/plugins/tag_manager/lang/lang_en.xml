@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clipbucket_language>
+    <name>English</name>
+    <iso_code>en</iso_code>
+    <phrases>
+        <tagm_actionDelete>Delete the tag</tagm_actionDelete>
+        <tagm_actionEdit>Edit the tag</tagm_actionEdit>
+        <tagm_actionNew>Add a new tag</tagm_actionNew>
+        <tagm_all>All</tagm_all>
+        <tagm_backTo>Return to the tags' management's page</tagm_backTo>
+        <tagm_containComma>The tag contains a comma</tagm_containComma>
+        <tagm_create_success>The tag %s has been created successfully</tagm_create_success>
+        <tagm_delete_success>The tag %s has been deleted successfully</tagm_delete_success>
+        <tagm_edit_success>The tag's modification %s to </tagm_edit_success>
+        <tagm_edit_success2>%s has been made successfully</tagm_edit_success2>
+        <tagm_existingTag>The tag already exists</tagm_existingTag>
+        <tagm_missingTag>Missing tag value</tagm_missingTag>
+        <tagm_missingVideo>Choose at least one video</tagm_missingVideo>
+        <tagm_modalDelMsg>Are you sure you want to delete the tag</tagm_modalDelMsg>
+        <tagm_nofound>No existing tag</tagm_nofound>
+        <tagm_nores>No result for the search</tagm_nores>
+        <tagm_search>Search a tag</tagm_search>
+        <tagm_searchResult>Result(s) of the search</tagm_searchResult>
+        <tagm_select1ormore>Select one or more video</tagm_select1ormore>
+        <tagm_subtitle>Management of the tags</tagm_subtitle>
+        <tagm_title>Management of the tags</tagm_title>
+        <tagm_titleDelete>Delete a tag</tagm_titleDelete>
+        <tagm_titleEdit>Edit a tag</tagm_titleEdit>
+        <tagm_titleNew>Create a new tag</tagm_titleNew>
+        <tagm_usedBy>used by</tagm_usedBy>
+        <tagm_usedByVideo>See the video using the tag</tagm_usedByVideo>
+        <tagm_usedByVideos>See the videos using the tag</tagm_usedByVideos>
+        <tagm_video>video</tagm_video>
+        <tagm_videos>Videos</tagm_videos>
+        <tagm_warningComma>Warning, you cannot use of comma in the tag</tagm_warningComma>
+    </phrases>
+</clipbucket_language>

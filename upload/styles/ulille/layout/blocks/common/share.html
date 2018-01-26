@@ -1,106 +1,163 @@
 <!-- Share This {$type} -->
 {$type=$params.type}
 <div id="share_form_div" class="action_box share_form clearfix">
-    {if $params.type=='v' || $params.type =='video' || $params.type =='Video'}
-    <div>
-        {if $Cbucket->configs.video_embed==1 && $vdo.allow_embedding=='yes'}
-
-        <div class="form-group">
-            <label for="embed_code">
-                {lang code='embed_code'}
-            </label>
-
-            <textarea name="embed_code" id="embed_code" onclick="this.select()"  class="form-control">{if $Cbucket->configs.embed_type=='iframe'}{$cbvid->embed_code($vdo,'iframe')|htmlspecialchars}{else}{$cbvid->embed_code($vdo,'embed_object')|htmlspecialchars}{/if}</textarea>
-
-            <input type="hidden" name="alternate_embed_code" id="alternate_embed_code" value="{if $Cbucket->configs.embed_type=='iframe'}{$cbvid->embed_code($vdo,'embed_object')|htmlspecialchars}{else}{$cbvid->embed_code($vdo,'iframe')|htmlspecialchars}{/if}" />
-        </div>
-
-        <div class="form-group">
-            <label>{lang('Player size')}</label>
-            <label class="radio-inline">
-                <input type="radio" name="player_size" value="default" id="player_size_0" checked="checked"
-                       onclick="{$updateEmbedCode}('{$Cbucket->configs.embed_player_width}'
-                    ,'{$Cbucket->configs.embed_player_height}',autoPlayEmbed)"/>
-                {lang('Default')} ({$Cbucket->configs.embed_player_width}x{$Cbucket->configs.embed_player_height})
-            </label>
-            <label class="radio-inline">
-                <input type="radio" name="player_size" value="small" id="player_size_1" onclick="{$updateEmbedCode}('440','272',autoPlayEmbed)" />
-                {lang('Small')} (440x272)
-            </label>
-            <label class="radio-inline">
-                <input type="radio" name="player_size" value="medium" id="player_size_2"  onclick="{$updateEmbedCode}('540','334',autoPlayEmbed)"/>
-                {lang('Medium')} (540x334)
-            </label>
-            <label class="radio-inline">
-                <input type="radio" name="player_size" value="large" id="player_size_3"  onclick="{$updateEmbedCode}('600','370',autoPlayEmbed)"/>
-                {lang('Large')} (600x370)
-            </label>
-        </div>
-
-        {if $pakplayer=='yes'}
-        <div>Autoplay video : <label><input type="radio" name="autoplay" value="yes" onclick="{$updateEmbedCode}(embedPlayerWidth,embedPlayerHeight,'yes')" {if $Cbucket->configs.autoplay_embed=='yes'} checked{/if} />Yes</label>
-            <label><input type="radio" name="autoplay" value="no"  onclick="{$updateEmbedCode}(embedPlayerWidth,embedPlayerHeight,'no')" {if $Cbucket->configs.autoplay_embed!='yes'} checked{/if}/>No</label></div>
-        {/if}
-
-        <div class="form-group">
-            <label>{lang('Embed type')}</label>
-            <div></div>
-            <label class="radio-inline">
-                <input type="radio" name="embed_type" value="iframe" onclick="switchEmbedCode('iframe')" {if $Cbucket->configs.embed_type=='iframe'} checked{/if} />Iframe
-            </label>
-            <label class="radio-inline">
-                <input type="radio" name="embed_type" value="iframe"  onclick="switchEmbedCode('embed_object')" {if $Cbucket->configs.embed_type=='embed_object'} checked{/if}/>Embed Object
-            </label>
-        </div>
-
-        {/if}
-
-
-
-    </div>
-
-    <div class="action_box_title"></div>
     <div class="form-group">
         <label for="link_video">{lang code='link_this_video'}</label>
         <input type="text" name="link_video" id="link_video"  value="{videoLink vdetails=$vdo}"  onclick="this.select()"  class="form-control" />
     </div>
+    
+    <div class="form-group">
+        <label for="embed_code">{lang code='embed_code'}</label>
+        <textarea name="embed_code" id="embed_code" onclick="this.select()"  class="form-control" rows="5">{if $Cbucket->configs.embed_type=='iframe'}{$cbvid->embed_code($vdo,'iframe')|htmlspecialchars}{else}{$cbvid->embed_code($vdo,'embed_object')|htmlspecialchars}{/if}</textarea>
+    </div>
+    
+    <div class="form-group">
+        <div class="well">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="player_size">
+                        <label>{lang('player_size')}</label>
+                        <label class="radio-inline">
+                            <input type="radio" name="player_size" value="default" id="player_size_0" checked="checked"
+                                   onclick="{$updateEmbedCode}('{$Cbucket->configs.embed_player_width}'
+                                ,'{$Cbucket->configs.embed_player_height}',autoPlayEmbed)"/>
+                            {lang('default')} ({$Cbucket->configs.embed_player_width}x{$Cbucket->configs.embed_player_height})
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="player_size" value="small" id="player_size_1" onclick="{$updateEmbedCode}('440','272',autoPlayEmbed)" />
+                            {lang('small')} (440x272)
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="player_size" value="medium" id="player_size_2"  onclick="{$updateEmbedCode}('540','334',autoPlayEmbed)"/>
+                            {lang('medium')} (540x334)
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="player_size" value="large" id="player_size_3"  onclick="{$updateEmbedCode}('600','370',autoPlayEmbed)"/>
+                            {lang('large')} (600x370)
+                        </label>
+                    </div>
+                </div>
 
-    <div class="action_box_title"></div>
-    {/if}
+                <div class="col-sm-6">
+                    <div class="player_embed_type">
+                        <label>{lang('embed_type')}</label>
+                        <label class="radio-inline">
+                            <input type="radio" name="embed_type" value="iframe" onclick="switchEmbedCode('iframe')" {if $Cbucket->configs.embed_type=='iframe'} checked{/if} />Iframe
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="embed_type" value="object"  onclick="switchEmbedCode('embed_object')" {if $Cbucket->configs.embed_type=='embed_object'} checked{/if}/>Embed Object
+                        </label>
+                    </div>
 
-
-    <!-- YB <div class="form_container">
-        <div id="share_form_results" class="form_result" style="display:none"></div>
-        <form id="cb_share_item" name="share_form" method="post" action="">
-            <div class="form-group">
-                <label for="ShareUsers">
-                    {sprintf(lang('share_this_type'),$type)}
-                </label>
-
-                <input name="users" type="text" class="form-control" id="ShareUsers" placeholder="{lang code='seperate_usernames_with_comma'}"/>
-            </div>
-            <div class="form-group">
-                <label for="message">{lang('Message')} <span class="example">{lang('optional')}</span></label>
-                <textarea name="message" id="message"  rows="5" class="form-control"></textarea>
-                <input name="objectid" id="objectid" type="hidden" value="{$params.id}" />
-                <div align="right" class="mtm">
-                    <input type="submit" name="send_content" value="Send" class="btn btn-primary" />
+                    <div class="player_shareAt checkbox">
+                        <label class="col-sm-6">
+                            <input type="checkbox" name="startAt" id="startAt" value="1"> {lang('shareStartAt')} 
+                            
+                        </label>
+                        <input type="text" name="startAtTime" id="startAtTime" class="col-sm-6" value="" title="{lang('shareStartAtInfo')}" disabled />
+                    </div>
                 </div>
             </div>
-
-        </form>
-    </div>-->
-
-
-    {ANCHOR place="video_sharing_options" data=$vdo}
+        </div>
+    </div>
+    
+    <input type="hidden" name="alternate_embed_code" id="alternate_embed_code" value="{if $Cbucket->configs.embed_type=='iframe'}{$cbvid->embed_code($vdo,'embed_object')|htmlspecialchars}{else}{$cbvid->embed_code($vdo,'iframe')|htmlspecialchars}{/if}" />
 </div>
-<!-- Share This {$type} -->
 
 <script>
+    function toggleStartAt(){
+        var sat = $('#startAtTime');
+    
+        if(!$(this).is(':checked')){
+            sat.prop('disabled', true);
+            sat.off('keyup.startAt');
+            deleteStartAt();
+        } else {
+            sat.prop('disabled', false);
+            startAt();
+            sat.on('keyup.startAt', startAt);
+        }
+    }
+    
+    function deleteStartAt(){
+        var ec = $('#embed_code'),
+            aec = $('#alternate_embed_code'), 
+            reg = /(value|src)\="http(\S+)((&|\?)start\=\d*)(\S*)"/gi;
+        
+        $.each([ec, aec], function(){
+            this.val(this.val().replace(reg, function(x){
+                x = x.replace(/\&start\=\d*/gi, '');
+                x = x.replace(/\?start\=\d*&/gi, '?');
+                x = x.replace(/\?start\=\d*/gi, '');
+                return x;
+            }));
+        });
+    }
+    
+    function calcStartAt(){
+        var t = $('#startAtTime').val().split(':'),
+            res = 0;            
+    
+        if(t.length === 1){
+            res = parseInt(t[0]);
+            res = isNaN(res) ? 0 : res;
+        } else if(t.length < 4) {
+            var i = 0, tmp = 0;
+            if(t.length === 3){
+                res = parseInt(t[i++]);
+                res = isNaN(res) ? 0 : res * 3600;
+            }
+            
+            var tmp = parseInt(t[i++]);
+            tmp = isNaN(tmp) ? 0 : tmp * 60;
+            res += tmp;
+            tmp = parseInt(t[i]);
+            res += isNaN(tmp) ? 0 : tmp;
+        }
+        
+        return res;
+    }
+    
+    function startAt(){
+        if(!$('#startAt').is(':checked')) return;
+        
+        var start = calcStartAt(),
+            ec = $('#embed_code'),
+            aec = $('#alternate_embed_code');
+        
+        $.each([ec, aec], function(){
+            this.val(this.val().replace(/(value|src)\="http\S+"/gi, function(x){
+                if(start === 0){
+                    deleteStartAt();
+                }
+                
+                x = x.substring(0, x.length - 1);
+                if(!/start\=\d*/gi.test(x)){
+                    return x+'&start='+ start +'"';
+                }
+                
+                return x.replace(/start\=\d*/gi, 'start='+ start +'"');
+            }));
+        });
+    }
+    
     $(document).ready(function(){
         $('body').on('submit','#cb_share_item',function(e){
             e.preventDefault();
             _cb.submit_share_form('share_form','{$params.type}');return false;
-        })
+        });
+        
+        $("#copy").on('click',function(){
+            $("#embed_code").select();
+            document.execCommand( 'copy' );
+            return false;
+        });
+        
+        $('#startAt').change(toggleStartAt);
+        
+{* CORRECTION VIDEO.CLASS.PHP *}
+        $('#embed_code').val($('#embed_code').val().replace(/type\="application\/x-shockwave-flash"/gi, ' type="application/x-shockwave-flash"'));
+        $('#alternate_embed_code').val($('#alternate_embed_code').val().replace(/type\="application\/x-shockwave-flash"/gi, ' type="application/x-shockwave-flash"'));
+{* /FIN CORRECTION *}
     })
 </script>

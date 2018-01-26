@@ -1,0 +1,15 @@
+.begin-checkbox{
+	margin-left:8px !important;
+}
+
+.begin-label{
+	border:0px solid blue;
+	font-size: 18px;
+	line-height: 18px;
+	font-family: "source_sans_prosemibold",sans-serif;
+}
+
+.begin-input{
+	display: inline !important;
+	width: 100px;
+}

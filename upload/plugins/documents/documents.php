@@ -27,6 +27,7 @@ define("DOCUMENT_LINKPAGE_URL",BASEURL.SITE_MODE."/plugin.php?folder=".DOCUMENT_
 assign("document_linkpage",DOCUMENT_LINKPAGE_URL);
 define("DOCUMENT_DOWNLOAD_DIR",BASEDIR."/files/documents");
 
+
 if(!function_exists('externalDocumentList')){
 	/**
 	 * Define the Anchor to display documents into description of a video main page
@@ -44,12 +45,39 @@ if(!function_exists('externalDocumentList')){
 			//$str.='<li><a target="_blank" href="'.BASEURL.'/files/documents/'.$lnk['storedfilename'].'">'.$lnk['title'] .'</a></li>';
 			$str.='<li><a target="_blank" href="'.DOCUMENT_URL.'/download.php?download='.$documentquery->encode_key($lnk['documentkey']).'">'.$lnk['title'] .'</a></li>';
 			//return BASEURL."/download_photo.php?download=".$documentquery->encode_key($details['photo_key']);
-			}
+		}
 		echo $str;	
 	}
 	// use {ANCHOR place="externalDocumentList" data=$video} to display the formatted list above
 	register_anchor_function('externalDocumentList','externalDocumentList');
 }	
+
+if(!function_exists('externalDocumentCount')){
+	/**
+	 * Get external documents count for the current video
+	 *
+	 * This function is registrered in smarty to be used directly into the template
+	 * @return int
+	 * 		the number of document linked to the current video
+	 * @see Document.getLinkForVideo() function for more details
+	 */
+	function externalDocumentCount(){
+		global $Smarty;
+		global $documentquery;
+		global $db;
+		if ($_GET["v"]){
+			$vid=$_GET["v"];
+			$result=$db->_select("SELECT `videoid` FROM ".tbl('video')." WHERE `videokey`='".$vid."'");
+			if (count($result)==1) $vid=$result[0]['videoid'];
+			$data=["videoid"=> $vid, "selected" => "yes","count_only"=>True];
+			$cnt=$documentquery->getDocumentForVideo($data);
+			return intval($cnt);
+		}
+		else return 0;
+	}
+	global $Smarty;
+	$Smarty->register_function('externalDocumentCount','externalDocumentCount');
+}
 
 /**
  * Remove associate between any documents and a video
