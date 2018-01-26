@@ -16,7 +16,7 @@
 		
 		<!--<link href="{$theme}/css/bootstrap.min.css?cache={$cache_buster}" rel="stylesheet">
 		<link href="{$theme}/css/all.css?cache={$cache_buster}" rel="stylesheet">-->
-		
+		<link rel="stylesheet" href="http://localhost/mig/upload/styles/cb_28/theme/css/bootstrap.min.css?cache=">
 		<link href="{$theme}/css/reset.css?cache={$cache_buster}" rel="stylesheet">
 		<link href="{$theme}/css/typebase.css?cache={$cache_buster}" rel="stylesheet">
 		<link href="{$theme}/css/simplegrid.css?cache={$cache_buster}" rel="stylesheet">
@@ -27,6 +27,15 @@
 		<script src="{$theme}/js/jquery-1.11.3.min.js"></script>
 		<script src="{$theme}/js/bootstrap.min.js"></script>
 		<script src="{$theme}/js/custom.js"></script>
+				<script>
+			var loadingImg = '<i class="glyphicon glyphicon-refresh animate-spin"></i>';
+			var loading = '<i class="glyphicon glyphicon-refresh animate-spin"></i> {lang code="loading"}...';
+			var baseurl = "{$baseurl}",
+			imageurl = "{$imageurl}",
+			userid = "{userid()}",
+			THIS_PAGE = "{$smarty.const.THIS_PAGE}";
+		</script>
+		<script src="{$theme}/js/clipbucket.js"></script>
 		
 		
   <!--TODO mettre en local-->
@@ -60,16 +69,4 @@
 		  });
 		</script>{/literal}
 	</head>	
-	
-{* THEME CONFIG *}
-{assign var="comcategories" value=array("Vie de l’Université",
-"L’innovation",
-"L’UTC à l’international",
-"Portraits d’utécéens",
-"Les grands axes de recherche",
-"La formation",
-"Remise des diplômes et parrains",
-"Missions et valeurs de l’UTC",
-"Ces thèses qui changent la vie") scope="global"}
-
 

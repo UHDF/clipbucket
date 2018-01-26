@@ -1,7 +1,7 @@
 {if $display_type=='videoitemhometop'}
   <div class="videoitemcont videoitemhometopcont">
 			<div class="base">
-			  <a  href="{videoLink($video)}" title="{$video.title|title}"><img class="img-responsive" width="100%" src="{getThumb vdetails=$video size=big }"></a>
+			  <a  href="{videoLink($video)}" title="{$video.title|title}"><img class="img-responsive" width="100%" src="{getThumb vdetails=$video return_big=true size="big" }"></a>
 			  <!--<span class="title" href="{videoLink($video)}">{$video.title|title}</span>-->
 			</div>
 			<div class="details">
@@ -32,40 +32,53 @@
 </div>
 {/if}
 
-
 {if $display_type=='videoitem2'}
-  <div class="videoitemcont2">
-			<div class="base2">
-			  <a href="{videoLink($video)}" title="{$video.title|title}"><img class="img-responsive" src="{getThumb vdetails=$video size=big }" width="100%"></a>
-			</div>
-			<div class="title2">
-         <span href="{videoLink($video)}">▶ {$video.title|title} </span>
-     </div>
-			<div class="details2">
-			  <span class="duration2">{if $video.duration>1}{$video.duration|SetTime}{else}00:00{/if}</span>
-			  <span style="float:right">{$video.views}&nbsp;{lang code="views"}</span>
-			  <div class="descriptioncont2"> 
-			    <span class="description2">{if (strlen($video.description) > 400)} {$video.description|substr:0:400}... {else} {$video.description} {/if}</span>
-			  </div>
-			</div>
+<div class="videoitemcont2">
+	<div class="base2">
+	    <a href="{videoLink($video)}" title="{$video.title|title}"><img class="img-responsive" src="{getThumb vdetails=$video size=big }" width="100%"></a>
+		<div class="vidcat" style="position: absolute;top: 0;right: 0;background-color: #ffd515;padding: 0.25em 1em 0.25em 1em;color: #0e2e38;">{utc_getcomcategory vid=$video}</div>
+	</div>
+	<div class="title2">
+        <span href="{videoLink($video)}">▶ {$video.title|title} </span>
+    </div>
+    <div class="details2">
+	    <div class="details2cont">
+	        <div>
+	            <span class="duration2">{if $video.duration>1}{$video.duration|SetTime}{else}00:00{/if}</span>
+		        <span style="float:right">{$video.views}&nbsp;{lang code="views"}</span>
+		    </div>
+		    <span class="title">▶ {$video.title|title}</span><br>
+		    <span class="cat">{utc_getcomcategory vid=$video}</span><br>
+		    <div class="descriptioncont2"> 
+		       <span class="description2">{if (strlen($video.description) > 400)} {$video.description|substr:0:400}... {else} {$video.description} {/if}</span>
+            </div>
+        </div>
+    </div>
 </div>
 {/if}
 
 {if $display_type=='videoitemhometop2'}
   <div class="videoitemcont2 videoitemhometopcont">
 			<div class="base2">
-			  <a href="{videoLink($video)}" title="{$video.title|title}"><img class="img-responsive" src="{getThumb vdetails=$video size=big }" width="100%"></a>
+			  <a href="{videoLink($video)}" title="{$video.title|title}"><img class="img-responsive" src="{getThumb vdetails=$video num="big" size="big" }" width="100%"></a>
+			  <div class="vidcat" style="position: absolute;top: 0;right: 0;background-color: #ffd515;padding: 0.25em 1em 0.25em 1em;color: #0e2e38;">{utc_getcomcategory vid=$video}</div>
 			</div>
 			<div class="title2">
          <span href="{videoLink($video)}">▶ {$video.title|title} </span>
      </div>
-			<div class="details2">
-			  <span class="duration2">{if $video.duration>1}{$video.duration|SetTime}{else}00:00{/if}</span>
-			  <span style="float:right">{$video.views}&nbsp;{lang code="views"}</span>
-			  <div class="descriptioncont2"> 
-			    <span class="description2">{if (strlen($video.description) > 400)} {$video.description|substr:0:400}... {else} {$video.description} {/if}</span>
-			  </div>
-			</div>
+    <div class="details2">
+	    <div class="details2cont">
+	        <div>
+	            <span class="duration2">{if $video.duration>1}{$video.duration|SetTime}{else}00:00{/if}</span>
+		        <span style="float:right">{$video.views}&nbsp;{lang code="views"}</span>
+		    </div>
+		    <span class="title">▶ {$video.title|title}</span><br>
+		    <span class="cat">{utc_getcomcategory vid=$video}</span><br>
+		    <div class="descriptioncont2"> 
+		       <span class="description2">{if (strlen($video.description) > 400)} {$video.description|substr:0:400}... {else} {$video.description} {/if}</span>
+            </div>
+        </div>
+    </div>
 </div>
 {/if}
 

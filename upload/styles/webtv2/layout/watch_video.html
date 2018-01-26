@@ -3,6 +3,7 @@
 {$type='video'}
 {$channel = $userquery->get_user_details($video.userid)}
 
+
 <div class="watch">
   <div class="grid">
     <div class="col-1-1">
@@ -29,10 +30,9 @@
           <a href="https://plus.google.com/share?url=https%3A%2F%2F{$smarty.server.HTTP_HOST|escape:'url'}{$smarty.server.REQUEST_URI|escape:'url'}" target="_blank"><img src="{$baseurl}/styles/webtv2/theme/images/gplus.png"/></a>
           <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3A%2F%2F{$smarty.server.HTTP_HOST|escape:'url'}{$smarty.server.REQUEST_URI|escape:'url'}&amp;title={$vdo.title|escape:'url'}%20%23Tv_utc&amp;summary={$vdo.title|escape:'url'}%20%23Tv_utc&amp;source=https%3A%2F%2F{$smarty.server.HTTP_HOST|escape:'url'}{$smarty.server.REQUEST_URI|escape:'url'}" target="_blank" ><img src="{$baseurl}/styles/webtv2/theme/images/lkin.png"/></a></span>
         <span class="cat">
-          {*{$vdo.category|@var_dump} {$vdo|@var_dump}*}
-          
-          TODO</span></div></div>
-            
+          {utc_getcomcategory vid=$vdo}
+        </span></div></div>
+        
 
 
   <div style="display:none">
@@ -53,16 +53,19 @@
           <div class="details">{prettyNum($vdo.views)} {if $vdo.views > 1}{lang code='views'}{else}{lang code="view"}{/if}</div>
           <div class="watchdescriptionclasscont">
             <div class="categories">
-              <strong>{lang code='category'}</strong>:&nbsp;{$vdo.category|categories:video}
+              <strong>Catégories</strong><br>&nbsp;{$vdo.category|categories:video}
             </div>
+            <div class="tags">
               <!--<div class="col-1-2 tags">-->
-              <strong>{lang('tags')}&nbsp;&nbsp;</strong><span >
+              <strong>Tags</strong><br>
+              <span >
               {$vtags=","|explode:$vdo.tags}
               {foreach $vtags as $tag}
                 <!--TODO: bonne url avec une recherche sur le tag-->
                 <a class="tag" href="{$baseurl}/search_result.php?query={$tag|escape}&type=videos">{$tag}</a>
               {/foreach}
               <!--{$vdo.tags|tags:videos}--></span>
+            </div>
             </div>
           </div>
         </div>
@@ -116,7 +119,7 @@
 	<div class="grid">
     {foreach from=$sametags[0] item=video}
     <div class="col-1-3">
-      {thumbzup_get($video.videoid)}
+      <!--{thumbzup_get($video.videoid)}-->
       {include file="$style_dir/blocks/videos/video.html" display_type='videoitem2'}
     </div>
   	{/foreach}
