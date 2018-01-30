@@ -11,9 +11,8 @@ Plugin Type: global
 /*
 
           {*{$vdo.category|@var_dump} {$vdo|@var_dump}*}
-          
           {foreach from=$comcategories item=ncat}
-            {$ccat=$cbvid->get_cat_by_name($ncat)} 
+            {$ccat=$cbvid->get_cat_by_name($ncat)}
             {$ccatid=$ccat['category_id']}
             {"/#"+$ccatid+"#/"}
             {if preg_match("/#"+$ccatid+"#/",$vdo.category)}
@@ -21,14 +20,12 @@ Plugin Type: global
             {/if}
           {/foreach}
           TODO {prout}</span></div></div>
-          */
-          
+*/
+
 if(!function_exists('utc_helper_function'))
 {
-    function utc_helper_function(){}
-    
     $comcategories = array(
-        $cbvid->get_cat_by_name("Vie de l’Université"),
+       	$cbvid->get_cat_by_name("Vie de l’Université"),
         $cbvid->get_cat_by_name("L’innovation"),
         $cbvid->get_cat_by_name("L’UTC à l’international"),
         $cbvid->get_cat_by_name("Portraits d’utécéens"),
@@ -38,7 +35,7 @@ if(!function_exists('utc_helper_function'))
         $cbvid->get_cat_by_name("Missions et valeurs de l’UTC"),
         $cbvid->get_cat_by_name("Ces thèses qui changent la vie")
     );
-    
+
     function getcomcategory ($params) {
         global $comcategories;
         extract($params);
@@ -50,26 +47,8 @@ if(!function_exists('utc_helper_function'))
         }
         echo "UTC";
     }
-        
-    function prout(){
-        echo "prout!";
-    }
-    
-    
+
     $Smarty->assign('utc_comcategories', $comcategories);
-    
     $Smarty->register_function('utc_getcomcategory', 'getcomcategory');
-    $Smarty->register_function('utc_prout', 'prout');
-    /*
-    $smarty->register_function('date_now', 'print_current_date');
-
-    function print_current_date ($params) {
-        extract($params);
-        if(empty($format))
-            $format="%b %e, %Y";
-        echo strftime($format,time());
-    }
-    */
-
 }
 
