@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clipbucket_language>
+    <name>French</name>
+    <iso_code>fr</iso_code>
+    <phrases>
+        <vidm_Activate>Activer la vidéo</vidm_Activate>
+        <vidm_activateSelected>Activer</vidm_activateSelected>
+        <vidm_addedToEp>La vidéo a été ajoutée à la page d'accueil</vidm_addedToEp>
+        <vidm_admMenu>Gestion des vidéos</vidm_admMenu>
+        <vidm_alreadyInEp>La vidéo est déjà affichée sur la page d'accueil</vidm_alreadyInEp>
+        <vidm_Date>Date</vidm_Date>
+        <vidm_Deactivate>Désactiver la vidéo</vidm_Deactivate>
+        <vidm_deactivateSelected>Désactiver</vidm_deactivateSelected>
+        <vidm_Delete>Supprimer</vidm_Delete>
+        <vidm_deleteThisVideo>Supprimer la vidéo</vidm_deleteThisVideo>
+        <vidm_disabled>Désactivée</vidm_disabled>
+        <vidm_displayOnHome>Afficher sur la page d'accueil</vidm_displayOnHome>
+        <vidm_duration>Séparez heures, minutes et secondes de la façon suivante 1:33:56</vidm_duration>
+        <vidm_Edit>Modifier</vidm_Edit>
+        <vidm_embedCode>Lien d'intégration</vidm_embedCode>
+        <vidm_failed>Echec</vidm_failed>
+        <vidm_favorite>Coup de c&oelig;ur</vidm_favorite>
+        <vidm_featuredmsg>Vidéo ajoutée aux coups de c&oelig;ur</vidm_featuredmsg>
+        <vidm_hideFromHome>Retirer de la page d'accueil</vidm_hideFromHome>
+        <vidm_makeFeatured>Ajouter aux coups de c&oelig;ur</vidm_makeFeatured>
+        <vidm_makeFeaturedSelected>Ajouter aux coups de c&oelig;ur</vidm_makeFeaturedSelected>
+        <vidm_makeUnfeatured>Retirer des coups de c&oelig;ur</vidm_makeUnfeatured>
+        <vidm_makeUnfeaturedSelected>Retirer des coups de c&oelig;ur</vidm_makeUnfeaturedSelected>
+        <vidm_manageThumbs>Gérer les miniatures</vidm_manageThumbs>
+        <vidm_No>Non</vidm_No>
+        <vidm_recordFields>Informations générales</vidm_recordFields>
+        <vidm_remotePlayUrl>Lien du fichier vidéo</vidm_remotePlayUrl>
+        <vidm_removedFromEp>La vidéo a été retirée de la page d'accueil</vidm_removedFromEp>
+        <vidm_Search>Rechercher</vidm_Search>
+        <vidm_searchActive>Activée ?</vidm_searchActive>
+        <vidm_searchFeatured>Coup de c&oelig;ur ?</vidm_searchFeatured>
+        <vidm_searchTags>Tags</vidm_searchTags>
+        <vidm_searchTitle>Titre</vidm_searchTitle>
+        <vidm_searchVideoId>ID</vidm_searchVideoId>
+        <vidm_sharePublic>Public (partagez votre vidéo sans restriction)</vidm_sharePublic>
+        <vidm_shareUnlisted>Privé (toute personne disposant du lien peut consulter la vidéo)</vidm_shareUnlisted>
+        <vidm_sharingFields>Options de partage</vidm_sharingFields>
+        <vidm_submitForm>Valider</vidm_submitForm>
+        <vidm_subtitle>Gestion des vidéos</vidm_subtitle>
+        <vidm_subtitleEdit>Editer la vidéo</vidm_subtitleEdit>
+        <vidm_sureDelete>Êtes-vous sûr(e) de vouloir supprimer ce(s) vidéo(s) ?</vidm_sureDelete>
+        <vidm_tagsHint>Les mots clés sont séparés par une virgule (exemple : Tennis, Funny, Ipod)</vidm_tagsHint>
+        <vidm_unabled>Activée</vidm_unabled>
+        <vidm_unfeaturedmsg>Vidéo retirée des coups de c&oelig;ur</vidm_unfeaturedmsg>
+        <vidm_uploadedBy>Créée par</vidm_uploadedBy>
+        <vidm_uploadedDate>Créée le</vidm_uploadedDate>
+        <vidm_videoConvertable>Reconvertible (fichier(s) vidéo présent(s) sur le serveur)</vidm_videoConvertable>
+        <vidm_videoDisabled>Vidéo désactivée</vidm_videoDisabled>
+        <vidm_videoDisplayedHome>Vidéo affichée sur la page d'accueil</vidm_videoDisplayedHome>
+        <vidm_VideoEdit>Editer</vidm_VideoEdit>
+        <vidm_videoEnabled>Vidéo activée</vidm_videoEnabled>
+        <vidm_videoFeatured>Vidéo ajoutée aux coups de c&oelig;ur</vidm_videoFeatured>
+        <vidm_videoFields>Source vidéo</vidm_videoFields>
+        <vidm_videoManager>Gestion des vidéos</vidm_videoManager>
+        <vidm_videoNonConvertable>Non reconvertible (aucun fichier vidéo trouvé sur le serveur)</vidm_videoNonConvertable>
+        <vidm_videoNotDisplayedHome>Vidéo retirée de la page d'accueil</vidm_videoNotDisplayedHome>
+        <vidm_Videos>Vidéos</vidm_Videos>
+        <vidm_videosDetails>Informations des vidéos</vidm_videosDetails>
+        <vidm_VideosManager>Gestion des vidéos</vidm_VideosManager>
+        <vidm_videoThumbnails>Miniatures de la vidéo</vidm_videoThumbnails>
+        <vidm_videoUnfeatured>Vidéo retirée des coups de c&oelig;ur</vidm_videoUnfeatured>
+        <vidm_Watch>Regarder</vidm_Watch>
+        <vidm_Yes>Oui</vidm_Yes>
+    </phrases>
+</clipbucket_language>

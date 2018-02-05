@@ -1,0 +1,340 @@
+{assign var='custom_upload_fields' value=$Upload->load_custom_upload_fields($data,TRUE)}
+{assign var='video_fields' value=$Upload->load_video_fields($data)}
+{if $data.title neq ""}
+
+{include file="$vidm_admin_dir/css.html"}
+
+<form action="" method="post" name="vidm-edit_video" id="vidm-edit_video" enctype="multipart/form-data">
+    <div class="row">
+        <div class="heading clearfix">
+            <div class="col-sm-8">
+                <h2 class="pull-left">{lang('edit')} <small>&gt; {$data.title|truncate:80}</small></h2>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">{lang("actions")} <span class="caret caret_margin"></span></button>
+                    <ul class="dropdown-menu pull-right" role="menu">
+                        <li><a href="{videoLink vdetails=$data}">{lang("vdo_watch_video")}</a></li>
+                        <li><a href="edit_video.php?video={$data.videoid}&amp;mode={if $data.active != 'yes'}activate">{lang('vidm_Activate')}{else}deactivate">{lang('vidm_Deactivate')}{/if}</a></li>
+                        <li><a href="edit_video.php?video={$data.videoid}&amp;mode={if not $data.is_featured}featured">{lang('vidm_makeFeatured')}{else}unfeature">{lang('vidm_makeUnfeatured')}{/if}</a></li>
+                        <li><a href="javascript:void(0)" onClick="javascript:Confirm_Delete('video_manager.php?delete_video={$data.videoid}')">{lang('vidm_deleteThisVideo')}</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="heading quick-infos"> 
+            <div class="vidm-info gradlightgrey">{$data.views|vidm_formatNbr} {lang('views')}</div>
+            
+            {if $data.active == 'yes'}<a href="edit_video.php?video={$data.videoid}&amp;mode=deactivate" class="btn vidm-info green" title="{lang('vidm_Deactivate')}"><span class="glyphicon glyphicon-eye-open"></span></a>
+            {else}<a href="edit_video.php?video={$data.videoid}&amp;mode=activate" class="btn vidm-info grey" title="{lang('vidm_Activate')}"><span class="glyphicon glyphicon-eye-close"></span></a>{/if}
+            
+            {if $data.is_featured}<a href="edit_video.php?video={$data.videoid}&amp;mode=unfeature" class="btn vidm-info pink" title="{lang('vidm_makeUnfeatured')}"><span class="glyphicon glyphicon-heart"></span></a>
+            {else}<a href="edit_video.php?video={$data.videoid}&amp;mode=featured" class="btn vidm-info grey" title="{lang('vidm_makeFeatured')}"><span class="glyphicon glyphicon-heart-empty"></span></a>{/if}
+            
+            {if $vidmquery->getEpInstalled()}
+            {if $data.in_editor_pick == 'yes'}
+            <a href="edit_video.php?video={$data.videoid}&amp;ep=hidehome" class="btn vidm-info blue" title="{lang('vidm_hideFromHome')}"><span class="glyphicon glyphicon-home"></span></a>
+            {else}<a href="edit_video.php?video={$data.videoid}&amp;ep=displayhome" class="btn vidm-info grey" title="{lang('vidm_displayOnHome')}"><span class="glyphicon glyphicon-home"></span></a>{/if}
+            {/if}
+            
+            {ANCHOR place='vidm_quick-infos'}
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6 video-informations">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td class="tablabel">Video key</td>
+                        <td>{$data.videokey}</td>
+                    </tr>
+                    <tr>
+                        <td class="tablabel">{lang('filename')}</td>
+                        <td>{$data.file_name}</td>
+                    </tr>
+                    <tr>
+                        <td class="tablabel">{lang('vidm_uploadedDate')}</td>
+                        <td>{$data.datecreated|date_format:'%d/%m/%Y'}</td>
+                    </tr>
+                    <tr>
+                        <td class="tablabel">{lang('vidm_uploadedBy')}</td>
+                        <td>{$data.userid|get_username}</td>
+                    </tr>
+                    
+                    {ANCHOR place='vidm_video-informations_table'}
+                </tbody>
+            </table>
+            {ANCHOR place='vidm_video-informations_left'}
+        </div>
+        <div class="col-md-6">
+            <div class="col-md-12">{FlashPlayer vdetails=$data width='100%' height='100%'}</div>
+            {ANCHOR place='vidm_video-informations_right'}
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="nav nav-tabs" id="vidm_navtab" role="tablist">
+                <li role="presentation" class="active"><a href="#vidm-required" aria-controls="required" role="tab" data-toggle="tab">{lang('vidm_recordFields')}</a></li>
+                <li role="presentation"><a href="#vidm-video" aria-controls="required" role="tab" data-toggle="tab">{lang('vidm_videoFields')}</a></li>
+                <li role="presentation"><a href="#vidm-sharing" aria-controls="required" role="tab" data-toggle="tab">{lang('vidm_sharingFields')}</a></li>
+                
+                {ANCHOR place='vidm_navtab'}
+            </ul>
+            
+            <div class="tab-content" id="vidm_tabcontent">{foreach from = $video_fields item = field_group}{assign var = 'fields' value = $field_group.fields}
+                {if $field_group.group_id eq 'required_fields'}
+                <div id="vidm-required" role="tabpanel" class="tab-pane active">{*$fields|dump*}
+                    <div class="form-group">
+                        <label for="vidm-title">{$fields.title.title}</label>
+                        <input type="text" name="vidm-title" data-cbname="{$fields.title.name}" id="vidm-title" class="form-control" value="{$fields.title.value}" />
+                    </div>
+                    <div class="form-group">
+                        <label for="vidm-description">{$fields.desc.title}</label>
+                        <textarea id="vidm-description" name="{$fields.desc.name}">{$fields.desc.value|unescape:"html"}</textarea>
+                    </div>
+                    <input type="hidden" name="{$fields.cat.name}" value="{$vidm_defaultCategory.category_id}" />
+                    <div class="form-group">
+                        <label for="vidm-tags">{$fields.tags.title}</label> <span class="glyphicon glyphicon-question-sign" title="{lang('vidm_tagsHint')}"></span>
+                        <input type="text" name="{$fields.tags.name}" id="form-control" class="form-control" value="{$fields.tags.value}" />
+                    </div>
+                    <div class="form-group">
+                        <label for="vidm-date">{lang('vidm_Date')}</label>
+                        <div class="input-group">
+                            <input type="text" id="vidm-date" name="vidm-date" class="form-control" value="{vidm_datetime($data.videoid)|date_format:"%d/%m/%Y %H:%M"}" aria-describedby="basic-addon-date" readonly />
+                            <span class="input-group-addon" id="basic-addon-date"><span class="glyphicon glyphicon-calendar"></span></span>
+                        </div>
+                    </div>
+                </div>
+                {elseif $field_group.group_id eq 'sharing_fields'}
+                <div id="vidm-sharing" role="tabpanel" class="tab-pane">{*$fields|dump*}
+                    <div class="form-group">
+                        <label for="share0" class="radio">
+                            <input type="radio" id="share0" name="broadcast" value="public" {if $fields.broadcast.checked neq 'unlisted'}checked {/if}/> {lang('vidm_sharePublic')}
+                        </label>
+                        <label for="share1" class="radio">
+                            <input type="radio" id="share1" name="broadcast" value="unlisted" {if $fields.broadcast.checked eq 'unlisted'}checked {/if}/> {lang('vidm_shareUnlisted')}
+                        </label>
+                    </div>
+                </div>
+                {/if}{/foreach}
+                <div id="vidm-video" role="tabpanel" class="tab-pane">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            {* STATUT DE LA VIDEO (Traitement réussi, En cours d'encodage, Echec) *}
+                            <div class="form-group none">
+                                <label class="status">{lang('vdo_status')}</label>
+                                <select class="form-control" name="status">
+                                    <option class="form-control" value="Successful" {if $data.status=='Successful'} selected{/if}>{lang('Successfull')}</option>
+                                    <option class="form-control" value="processing" {if $data.status=='Processing'} selected{/if}>{lang('processing')}</option>
+                                    <option class="form-control" value="Failed"{if $data.status=='Failed'} selected{/if}>{lang('vidm_failed')}</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="vidm-duration-s">{lang('duration')}</label>
+                                <div id="vidm-duration">
+                                    <div class="bleft"><input  name="vidm-duration-h" type="number" id="vidm-duration-h" value="0" min="0" />:</div>
+                                    <div><input  name="vidm-duration-m" type="number" id="vidm-duration-m" value="0" min="0" />:</div>
+                                    <div class="bright"><input  name="vidm-duration-s" type="number" id="vidm-duration-s" value="0" min="0" /></div>
+                                </div>
+                                <input  name="duration" id="duration" type="hidden" value="{$data.duration}">
+                            </div>
+                        </div>
+                        <div class="col-sm-8">{assign var=vidthumbs value=get_thumb($data,1,TRUE,FALSE,TRUE,FALSE,'original')}
+                            <div class="vidm-thumbs">
+                                <label for="vidm-thumbs">{lang('vidm_videoThumbnails')}</label>
+                                <a href="upload_thumbs.php?video={$data.videoid}" class="btn btn-primary btn-sm">{lang('vidm_manageThumbs')}</a>
+                            </div>
+                            <ul class="ace-thumbnails">
+                                {foreach from=$vidthumbs item=vid_thumb}
+                                <li>
+                                    <img src="{$vid_thumb}" width="100" height="100" />
+                                    <div class="tools">
+                                        <input type="radio" value="{GetName($vid_thumb)}.{GetExt($vid_thumb)}" id="{$vid_thumb|getname}" name="default_thumb" {if $data.default_thumb==$vid_thumb|get_thumb_num}checked {/if}/>
+                                        {if $vid_thumb|getname neq 'processing'}
+                                        <a href="?video={$data.videoid}&delete={$vid_thumb|getname}.{$vid_thumb|getext}">
+                                        <i class="icon-remove red"></i></a>
+                                        {/if}
+                                    </div>
+                                </li>
+                                {/foreach}
+                            </ul>
+                        </div>
+                    </div>
+                    {foreach from = $custom_upload_fields item = field_group}
+                    <div class="form-group">
+                        {if $field_group.name eq 'remote_play_url'}
+                        {*<label for="vidm-remotePlay">{lang('vidm_remotePlayUrl')}</label>
+                        <input type="text" name="{$field_group.name}" id="vidm-remotePlay" class="form-control" value="{if $field_group.value neq 'none'}{$field_group.value}{/if}" />
+                        *}{elseif $field_group.name eq 'embed_code'}
+                        <label for="vidm-embedCode">{lang('vidm_embedCode')}</label>
+                        <textarea name="{$field_group.name}" id="vidm-embedCode" class="form-control">{if $field_group.value neq 'none'}{$field_group.value}{/if}</textarea>
+                        {/if}
+                    </div>
+                    {/foreach}
+                </div>
+                
+                {ANCHOR place='vidm_tabcontent'}
+            </div>
+            <div class="form-group submitBtn">
+                <button type="submit" class="btn btn-primary btn-sm">{lang('vidm_submitForm')}</button>
+            </div>
+        </div>
+    </div>
+    <input name="videoid" type="hidden" id="videoid"  value="{$data.videoid}"/>
+    <input name="update" type="hidden"  value="Update video details"/>
+</form>
+{/if}
+
+{*
+<div class="widget-box" style="margin-top: 30px">
+    <div class="widget-header header-color-blue2 fontawesome-icons">
+
+        <h5>{$data.title|truncate:80}- <b>{lang('comments')}</b></h5>
+
+        <div class="widget-toolbar">
+            <a href="#" data-action="reload">
+                <i class="icon-refresh"></i>
+            </a>
+
+            <a href="#" data-action="collapse">
+                <i class="icon-chevron-up"></i>
+            </a>
+
+            <a href="#" data-action="close">
+                <i class="icon-remove"></i>
+            </a>
+        </div>
+    </div>
+    <!-- Add Artist's anchor here -->
+    {ANCHOR place="after_video_edit" data=$data.videoid}
+    
+    <div class="widget-body">
+        <div class="widget-main">
+            <div class="slimScrollDiv fontawesome-icons">
+                {foreach from=$comments item=comment}
+                <form action="" method="post" name="delete_Comment" id="edit_video">
+                {if $comment != ''}
+                    <div class="itemdiv dialogdiv">
+                        {foreach from=$users item=u}
+                        <div class="user"><img alt="Avatar" src="{$userquery->getUserThumb($u,'small')}"></div>
+                        {/foreach}
+                        <div class="body clearfix">
+                            <div class="col-md-3" style="float:right;">
+                                    <!-- <a href="#" class="btn btn-minier btn-info">
+                                        <i class="icon-only icon-share-alt"></i>
+                                    </a> -->
+                                <input type="hidden" name="cmt_id" value="{$comment.comment_id}" />
+                                <input class="btn btn-primary" type="submit" name="del_cmt" value="Delete" />
+                            </div>
+                            <div class="time col-md-3">
+                                <i class="icon-time"></i>
+                                <span class="green">{$comment.date_added|date_format}</span>
+                            </div>
+                            <div class="name col-md-3">
+                                <a href="#">{$comment.anonym_name}</a>
+                            </div>
+                            <div class="text col-md-3">
+                                {$comment.comment}
+                            </div>  
+                        </div>
+                    </div>
+                    {else}
+                    <div class="body"><p>No comments found !</p></div>
+                    {/if}
+                </form>
+                {/foreach}
+            </div>
+        </div><!-- /widget-main -->
+    </div>
+</div>
+*}
+        
+    
+<script src="{$vidm_admin}/jquery-ui/jquery-ui.js"></script>
+<script src="{$vidm_admin}/jquery-ui/datepicker-fr.js"></script>
+<script src="{$vidm_admin}/jquery-timepicker/jquery-ui-timepicker-addon.min.js"></script>
+<script src="{$vidm_admin}/jquery-timepicker/i18n/jquery-ui-timepicker-addon-i18n.min.js"></script>
+<script src="{$vidm_admin}/jquery-timepicker/i18n/jquery-ui-timepicker-fr.js"></script>
+{if $common_library_tinymce}<script src="{$common_library_tinymce}/tinymce.min.js"></script>{/if}
+<script>
+    function secondsToHms(s){
+        var h, m;
+        h = Math.floor(s / 3600);
+        m = Math.floor(s % 3600 / 60);
+        s = s % 3600 % 60;
+
+        return [h, m, s];
+    }
+
+    // duration = Array(hours, minutes, seconds)
+    function hmsToSeconds(duration){
+        if(Array.isArray(duration) && duration.length === 3){
+            return (parseInt(duration[0]) * 3600 + parseInt(duration[1]) * 60 + parseInt(duration[2]));
+        }
+        return 0;
+    }
+
+    function changeDuration(dur){
+        if(typeof dur !== 'undefined'){
+            console.log(dur, hmsToSeconds(dur));
+            $('#duration').val(hmsToSeconds(dur));
+        } else {
+            var hms = secondsToHms(Math.round($('#duration').val()));
+            $('#vidm-duration-h').val(hms[0]);
+            $('#vidm-duration-m').val(hms[1]);
+            $('#vidm-duration-s').val(hms[2]);
+        }
+    }
+
+    $(function(){        
+        $('#vidm-date').datetimepicker({
+            controlType: 'select',
+            oneLine: true,
+            timeFormat: 'HH:mm'
+        });
+
+        $('#date').parent().find('span').click(function(e){
+           $('#date').focus();
+        });
+
+        $( "#datecreated" ).datepicker({
+            showOtherMonths: true,
+            selectOtherMonths: false,
+            dateFormat:"yy-mm-dd"
+        });
+
+        {if $common_library_tinymce}{literal}tinymce.init({
+            selector: '#vidm-description',
+            plugins : 'table link hr textcolor code',
+            toolbar : 'undo redo | styleselect | bold italic | forecolor backcolor | alignleft aligncenter alignright alignjustify | indent outdent | link | code',
+            branding: false,
+
+            // Theme options
+
+            setup: function (editor) {
+                editor.on('change', function () {
+                    tinymce.triggerSave();
+                });
+            }
+        });{/literal}{/if}
+
+        $('#vidm-duration input').on('change, keyup, mouseup', function(e){
+            changeDuration([$('#vidm-duration-h').val(), $('#vidm-duration-m').val(), $('#vidm-duration-s').val()]);
+        });
+
+        changeDuration();
+
+        $('#vidm-edit_video').submit(function(e){
+            $('#vidm-title').attr('name', $('#vidm-title').attr('data-cbname'));
+            
+            if($('#vidm-remotePlay').val() === ''){
+                $('#vidm-remotePlay').val('none');
+            }
+            if($('#vidm-embedCode').val() === ''){
+                $('#vidm-embedCode').val('none');
+            }
+
+            return true;
+        });
+    });
+</script>

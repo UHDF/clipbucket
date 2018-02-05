@@ -1,0 +1,9 @@
+<nav class="vidm_page">
+	<ul class="pagination">
+		<li{if $first_link== ''} class="disabled"{/if}><a {$first_link}>&laquo;</a></li>
+		<li{if $pre_link == ''} class="disabled"{/if}><a {$pre_link}>&#8249;</a></li>
+		{$pagination}
+		<li{if $next_link == ''} class="disabled"{/if}><a {$next_link}>&#8250;</a></li>
+		<li{if $last_link == ''} class="disabled"{/if}><a {$last_link}>&raquo;</a></li>
+	</ul>
+</nav>
