@@ -151,6 +151,7 @@ var VideoPlayerTracker = {
 
 		if (this.currentTime() > this.getVideoStopTime(this.stop)) {
 			this.player.pause();
+			this.stop = 'undefined';
 		}
 	},
 
