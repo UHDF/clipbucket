@@ -1,5 +1,5 @@
-{if $_GET['cat']}
-{$cbvid->get_sub_categories(mysql_clean($_GET['cat']))}
+{if $smarty.get.cat}
+{$catnamedata=$cbvid->get_category_name($smarty.get.cat)}
 
 {*
 cf :
@@ -14,125 +14,27 @@ function category_link($data,$type) {
 ...
 
 *}
-{else}
-gné?
 {/if}
 
-	  <div class="grid">
-		    <div class="col-2-3 "></div>
-		    <div class="col-1-3 ">
-		      <span class="alaunedesc">▶  Les vidéos à la une</span>
-	      </div>
-	  </div>
-	  
-<div class="alaunecont">
-{$featured=$cbvid->get_videos(["featured"=>"yes",'limit'=>4, "order"=>"datecreated DESC"])}
-{if $featured}
-  {$video=$featured[0]}
-  
-  <div class="alaunebigcont">
-	  <div class="grid alaunebig">
-      <div class="col-2-3" style="padding-right: 0px;">
-        <div class="bigvidcont">
-          <a href="{videoLink($video)}">
-            <img src="{getThumb vdetails=$video size=big }"/>
-          </a>
-          <div class="bigplayoverlay">▶</div>
-          <div class="alaunetext"><a href="{videoLink($video)}">À la une</a></div>
-        </div>
-      </div>
-      <div class="col-1-3 bigside">
-        <a href="{videoLink($video)}"><span class="title">{$video.title|title}</span></a>
-        {$desc=$featured[0].description}
-        <span class="description">{if (strlen($desc) > 300)} {$desc|substr:0:300}... {else} {$desc} {/if}</span>
-			  <!-- <div class="details" style="opacity:0.5";>
-			    <span class="duration">{if $video.duration>1}{$video.duration|SetTime}{else}00:00{/if}</span>
-			    <span style="float:right">{$video.views}&nbsp;{lang code="views"}</span>
-			  </div>  -->
-      </div>
-    </div>	
-  </div>	
-  <div class="grid alaunevideoitems">
-    <div class="col-1-3">
-    {assign var="video" value=$featured[1]}
-    {include file="$style_dir/blocks/videos/video.html" display_type='videoitem'}
-    </div>
-    <div class="col-1-3">
-    {assign var="video" value=$featured[2]}
-    {include file="$style_dir/blocks/videos/video.html" display_type='videoitem'}
-    </div>
-    <div class="col-1-3">
-    {assign var="video" value=$featured[3]}
-    {include file="$style_dir/blocks/videos/video.html" display_type='videoitem'}
-    </div>
-  </div>
-  
-{/if}
-</div>
-
-<div class="themecont">
-  <div class="grid">
+<div class="grid">
     <div class="col-1-1">
-    <h1>Vidéos par thèmes</h1>
-  </div>
+      <h1>{$catnamedata.category_name}</h1>
+    </div>
 </div>
 
-{$catschuncks=array_chunk($comcategories,3)}
-{foreach from=$catschuncks item=chunck}
+  
+{$last=$cbvid->get_videos(["category"=>$smarty.get.cat,'limit'=>1000, "order"=>"datecreated DESC"])}
+{$lastchuncks=array_chunk($last,3)}
+{foreach from=$lastchuncks item=chunck}
   <div class="grid">
-  {foreach from=$chunck item=catname}
-    {$cat=$cbvid->get_cat_by_name($catname)} 
-    {$catid=$cat['category_id']}
-    {$last=$cbvid->get_videos(["category"=>$catid,'limit'=>1, "order"=>"datecreated DESC"])}
+  {foreach from=$chunck item=lavid}
     <div class="col-1-3">
-      {assign var="category_name" value=$catname}
-      {assign var="video" value=$last[0]}
-      {include file="$style_dir/blocks/videos/video.html" display_type='videocat'}
+      {assign var="category_name" value="TODO"}
+      {assign var="video" value=$lavid}
+      {include file="$style_dir/blocks/videos/video.html" display_type='videoitem2'}
     </div>
   {/foreach}
   </div>
 {/foreach}
 </div>
 
-<div class="mostcont">
-	<div class="grid">
-	  <div class="col-1-1">
-	    <h1>Videos les + vues</h1>r
-	  </div>
-  </div>
-{$most_viewed=$cbvid->get_videos(["order"=>"views DESC",'limit'=>3])}
-{if $most_viewed}
-  {$most_viewed=array_chunk($most_viewed,3)}
-	<div class="grid">
-    {foreach from=$most_viewed[0] item=video}
-    <div class="col-1-3">
-      {include file="$style_dir/blocks/videos/video.html" display_type='videoitem'}
-    </div>
-  	{/foreach}
- </div>
-{else}
-	<div class="grid"><div class="col-1-1">No Videos Found !</div></div>  	
-{/if}
-</div>
-
-<div class="likedcont">
-	<div class="grid">
-	  <div class="col-1-1">
-	    <h1>Videos les + aimées</h1>
-	  </div>
-  </div>
-{$most_viewed=$cbvid->get_videos(["order"=>"views DESC",'limit'=>6])}
-{$most_viewed=thumbzup_get_most_liked_videos()}
-{if $most_viewed}
-  {$most_viewed=array_chunk($most_viewed,3)}
-	<div class="grid">
-    {foreach from=$most_viewed[0] item=video}
-    <div class="col-1-3">
-      {include file="$style_dir/blocks/videos/video.html" display_type='videoitem'}
-    </div>
-  	{/foreach}
- </div>
-{else}
-	<div class="grid"><div class="col-1-1">No Videos Found !</div></div>  	
-{/if}
-</div>

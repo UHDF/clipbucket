@@ -725,6 +725,7 @@ nav a:first-child{
 .title2{
   position:absolute;
   bottom:0;
+  level-z:-10;
   background: #0e2e38;
   color: white;
   text-align:left;
@@ -750,6 +751,7 @@ nav a:first-child{
   position:absolute;
   height:260px;
   top:0;
+  level-z:-10;
   opacity:0;
   transition: all .5s;
   background:rgba(0,0,0,0.3);
@@ -848,32 +850,3 @@ nav a:first-child{
 .bigplayoverlay, .alaunetext{
   pointer-events: none;
 }
-
-.maincontent{
-    min-height:600px;
-}
-
-*{
-    /* RESET BOOTSTRAP */
-    box-sizing: content-box;
-}
-  pre{
-    /* RESET BOOTSTRAP  */
-  display: block;
-  padding: inherit;
-  margin: inherit;
-  font-size: inherit;
-  line-height: inherit;
-  word-break: inherit;
-  word-wrap: inherit;
-  color: inherit;
-  background-color: inherit;
-  border: inherit;
-  border-radius:inherit;
-  overflow:inherit;
-  }
-  .navbar{
-    /* RESET BOOTSTRAP */
-  margin-bottom: 0;
-  }
-

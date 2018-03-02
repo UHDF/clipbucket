@@ -22,7 +22,7 @@ if(!function_exists('timecode_link'))
 		  $minutes  = intval($match[2]);
 		  $seconds  = intval($match[3]);
 		  $timeinseconds = $hours * 60 * 60 + $minutes * 60 + $seconds; 
-		  return "<a onclick=\"javascript:video_seek($timeinseconds);\" href=\"#time=$timeinseconds\">$match[0]</a>";
+		  return "<a onclick=\"javascript:video_seek($timeinseconds);\" href=\"#time=$timeinseconds\" ACCESSKEY=\"0\" title=\"set video to $match[0]\">$match[0]</a>";
     
     }, $comment);
 	}
