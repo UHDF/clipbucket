@@ -237,6 +237,9 @@
 	var track;
 
 	function myAddCue(){
+		if (!track){
+			track = video.addTextTrack("subtitles", "French", "fr");
+		}
 
 		var nb = $("#nbMarker").val();		// Count of the input text.
 		var data =  $("#dataTime").val();	// Input with all the time in and out by ID.
@@ -259,18 +262,20 @@
 
 
 	function myRemoveCue(){
+		if (track){
 
-		var myCues = track.cues;		// array of current cues.
-		var i = myCues.length;			// Cues size
-
-		if (i > 0) {		// If array not empty
-			do {
-				track.removeCue(myCues[i]);	// Remove the object from cue list.
-				i = i - 1;
-			} while (i >= 0);
+			var myCues = track.cues;		// array of current cues.
+			var i = myCues.length;			// Cues size
+			
+			if (i > 0) {		// If array not empty
+				do {
+					track.removeCue(myCues[i]);	// Remove the object from cue list.
+					i = i - 1;
+				} while (i >= 0);
+			}
+			
+			track.mode = "disabled";		// Hide the subtitle
 		}
-
-		track.mode = "disabled";		// Hide the subtitle
 	}	// En of myRemoveCue
 
 
@@ -287,7 +292,10 @@
 	*/
 
 	document.querySelector('#btnOverview').addEventListener('click', function(e){
+		console.log("goto remove");
 		myRemoveCue();
+
+		console.log("goto add");
 		myAddCue();
 	});
 
