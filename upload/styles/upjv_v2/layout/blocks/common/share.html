@@ -47,19 +47,19 @@
 								<div class="clearfix left20">
 									<label class="radio-inline">
 										<input type="radio" name="player_size" value="default" id="player_size_0" checked="checked" onclick="{$updateEmbedCode}('{$Cbucket->configs.embed_player_width}' ,'{$Cbucket->configs.embed_player_height}',autoPlayEmbed)">
-										{lang code='default'} ({$Cbucket->configs.embed_player_width}x{$Cbucket->configs.embed_player_height})
+										{lang code='default'} ({$Cbucket->configs.embed_player_width}{*$Cbucket->configs.embed_player_height*})
 									</label>&nbsp;
 									<label class="radio-inline">
 										<input type="radio" name="player_size" value="small" id="player_size_1" onclick="{$updateEmbedCode}('440','272',autoPlayEmbed)">
-										{lang|capitalize code='small'} (440x272)
+										{lang|capitalize code='small'} (440)
 									</label>&nbsp;
 									<label class="radio-inline">
 										<input type="radio" name="player_size" value="medium" id="player_size_2"  onclick="{$updateEmbedCode}('540','334',autoPlayEmbed)">
-										{lang|capitalize code='medium'} (540x334)
+										{lang|capitalize code='medium'} (540)
 									</label>&nbsp;
 									<label class="radio-inline">
 										<input type="radio" name="player_size" value="large" id="player_size_3"  onclick="{$updateEmbedCode}('600','370',autoPlayEmbed)">
-										{lang|capitalize code='large'} (600x370)
+										{lang|capitalize code='large'} (600)
 									</label>
 								</div>
 							</div>
@@ -137,8 +137,45 @@
 </div>
 <!-- Share This {$type} -->
 
+{literal}
 <script>
-    $(document).ready(function(){
+
+	var player = videojs('#cb_video_js');
+
+	player.on("loadedmetadata", function (){
+		/* Largeur de la video */
+		var w = parseFloat(document.querySelector('video').videoWidth);
+		/* Hauteur de la video */
+		var h = parseFloat(document.querySelector('video').videoHeight);
+		/* Aspect ratio */
+		var r = parseFloat(w)/parseFloat(h);
+
+		/* Si different de 16/9) */
+		if (r.toFixed(4) != "1.7778"){
+			/* Les inputs radio */
+			var ta = document.querySelector("#player_size_0");
+			var tb = document.querySelector("#player_size_1");
+			var tc = document.querySelector("#player_size_2");
+			var td = document.querySelector("#player_size_3");
+			/* Nouvelle hauteur */
+			r0 = Math.round(300/parseFloat(r));
+			r1 = Math.round(440/parseFloat(r));
+			r2 = Math.round(540/parseFloat(r));
+			r3 = Math.round(600/parseFloat(r));
+			/* Modification Attribut */
+			ta.setAttribute("onclick", "{/literal}{$updateEmbedCode}{literal}('300','" + r0 + "',autoPlayEmbed)");
+			tb.setAttribute("onclick", "{/literal}{$updateEmbedCode}{literal}('440','" + r1 + "',autoPlayEmbed)");
+			tc.setAttribute("onclick", "{/literal}{$updateEmbedCode}{literal}('540','" + r2 + "',autoPlayEmbed)");
+			td.setAttribute("onclick", "{/literal}{$updateEmbedCode}{literal}('600','" + r3 + "',autoPlayEmbed)");
+		}
+
+	});
+
+</script>
+{/literal}
+
+<script>
+    $(document.querySelector('video')).ready(function(){
         $('body').on('submit','#cb_share_item',function(e){
             e.preventDefault();
             _cb.submit_share_form('share_form','{$params.type}');return false;
