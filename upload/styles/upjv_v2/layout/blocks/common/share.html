@@ -44,21 +44,32 @@
 							<div class="form-group custom-elements">
 								<label class="block-label">{lang code='player_size'}</label>
 								
+								<p>
+									{lang code='player_size_help'}
+								</p>
+<!--
+							"very":"Tr\u00e8s","player_size_help":"&#34;Moyen&#34; est recommand\u00e9 pour les plateformes les plus courante et un confort de lecture optimale.",
+							"very":"very","player_size_help":"&#34;Medium&#34; is recommended for the most common platforms and optimal reading comfort.",
+-->
+
 								<div class="clearfix left20">
 									<label class="radio-inline">
-										<input type="radio" name="player_size" value="default" id="player_size_0" checked="checked" onclick="{$updateEmbedCode}('{$Cbucket->configs.embed_player_width}' ,'{$Cbucket->configs.embed_player_height}',autoPlayEmbed)">
-										{lang code='default'} ({$Cbucket->configs.embed_player_width}{*$Cbucket->configs.embed_player_height*})
-									</label>&nbsp;
+										<input type="radio" name="player_size" value="default" id="player_size_0" onclick="{$updateEmbedCode}('{$Cbucket->configs.embed_player_width}' ,'{$Cbucket->configs.embed_player_height}',autoPlayEmbed)">
+										{lang|capitalize code='very'} {lang|capitalize code='small'}{*lang code='default'*} ({$Cbucket->configs.embed_player_width}{*$Cbucket->configs.embed_player_height*})
+									</label>&nbsp;&nbsp;&nbsp;
+
 									<label class="radio-inline">
 										<input type="radio" name="player_size" value="small" id="player_size_1" onclick="{$updateEmbedCode}('440','272',autoPlayEmbed)">
 										{lang|capitalize code='small'} (440)
-									</label>&nbsp;
+									</label>&nbsp;&nbsp;&nbsp;
+
 									<label class="radio-inline">
-										<input type="radio" name="player_size" value="medium" id="player_size_2"  onclick="{$updateEmbedCode}('540','334',autoPlayEmbed)">
+										<input type="radio" name="player_size" value="medium" id="player_size_2" checked="checked" onclick="{$updateEmbedCode}('540','334',autoPlayEmbed)">
 										{lang|capitalize code='medium'} (540)
-									</label>&nbsp;
+									</label>&nbsp;&nbsp;&nbsp;
+									
 									<label class="radio-inline">
-										<input type="radio" name="player_size" value="large" id="player_size_3"  onclick="{$updateEmbedCode}('600','370',autoPlayEmbed)">
+										<input type="radio" name="player_size" value="large" id="player_size_3" onclick="{$updateEmbedCode}('600','370',autoPlayEmbed)">
 										{lang|capitalize code='large'} (600)
 									</label>
 								</div>
@@ -151,7 +162,7 @@
 		var r = parseFloat(w)/parseFloat(h);
 
 		/* Si different de 16/9) */
-		if (r.toFixed(4) != "1.7778"){
+//		if (r.toFixed(4) != "1.7778"){
 			/* Les inputs radio */
 			var ta = document.querySelector("#player_size_0");
 			var tb = document.querySelector("#player_size_1");
@@ -167,7 +178,10 @@
 			tb.setAttribute("onclick", "{/literal}{$updateEmbedCode}{literal}('440','" + r1 + "',autoPlayEmbed)");
 			tc.setAttribute("onclick", "{/literal}{$updateEmbedCode}{literal}('540','" + r2 + "',autoPlayEmbed)");
 			td.setAttribute("onclick", "{/literal}{$updateEmbedCode}{literal}('600','" + r3 + "',autoPlayEmbed)");
-		}
+
+			/* Set default value to medium */
+			{/literal}{$updateEmbedCode}{literal}('540',r2,autoPlayEmbed);
+//		}
 
 	});
 
