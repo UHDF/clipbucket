@@ -50,7 +50,7 @@
 <script>
 
 	$(document).ready(function(){
-		var pageMode = "{$smarty.get.mode}";
+		var pageMode = "{$smarty.get.mode|escape:'html'}";
 		if (pageMode == 'login') {
 			document.title = 'Login - {$Cbucket->configs.site_title}';
 		}
