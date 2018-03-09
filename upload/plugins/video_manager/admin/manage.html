@@ -1,0 +1,162 @@
+{include file="$vidm_admin_dir/css.html"}
+
+<div class="heading clearfix">
+    <h2 class="pull-left">{lang('vidm_videoManager')}</h2>
+
+    {include file="$vidm_admin_dir/advanced_search.html"}
+</div>
+
+{include file="$vidm_pagination" }
+
+<form name="video_manage" class="marginBottomLarge" method="post">
+    
+    <div class="btn-group">
+        <input class="btn btn-primary btn-xs" type="submit" name="activate_selected" value="{lang('vidm_activateSelected')}" class="button"/>
+        {if $smarty.get.active!='no'}
+        <input class="btn btn-primary btn-xs" type="submit" name="deactivate_selected" value="{lang('vidm_deactivateSelected')}"
+               class="button"/>
+        {/if}
+        <input class="btn btn-primary btn-xs" type="submit" name="make_featured_selected" value="{lang('vidm_makeFeaturedSelected')}"
+               class="button"/>
+        <input class="btn btn-primary btn-xs" type="submit" name="make_unfeatured_selected" value="{lang('vidm_makeUnfeaturedSelected')}"
+               class="button"/>
+        <input class="btn btn-primary btn-xs" type="submit" name="delete_selected" value="{lang('vidm_Delete')}" class="button"
+               onclick="return _cb.confirm_it('{lang('vidm_sureDelete')}')"/>
+    </div>
+    
+    
+    <table class="table table-bordered table-striped manageUsersTable marginTop" id="vidm-manageVideoTable">
+        <thead>
+            <tr>
+                <th><input type="checkbox" name="checkall" onclick="checkUncheckAll(this);"/></th>
+                <th>VID</th>
+                <th>{lang('vidm_videosDetails')}</th>
+                <th>&nbsp;</th>
+            </tr>
+        </thead>
+        {*<tr>
+            <td>
+                <input type="checkbox" name="checkall" onclick="checkUncheckAll(this);"/></td>
+            <td>VID</td>
+            <td>{lang('vidm_videosDetails')}</td>
+            <td>&nbsp;</td>
+        </tr>*}
+        <tbody>
+            {if $videos}{foreach from=$videos item=video}
+            <tr>
+                <td><input name="check_video[]" type="checkbox" class="check_video" value="{$video.videoid}"/></td>
+                <td>{$video.videoid}</td>
+                <td>
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <img src="{getThumb vdetails=$video size=168x105}" width="130" height="80" id="thumbs_{$video.videoid}" title=""/>
+                                </div>
+                                <div class="col-md-9">
+                                    <a href="edit_video.php?video={$video.videoid}">{$video.title|truncate:80}</a> ({if $video.duration>1}{$video.duration|SetTime}{else}00:00{/if})<br>
+                                    <span class="labels1"><abbr title="{$video.date_added|date_format:'%d/%m/%Y'}"><strong>{$video.date_added|niceTime}</strong></abbr> | 
+                                    {lang code='views'} : <strong>{$video.views|vidm_formatNbr}</strong></span>
+                                    
+                                    <div class="labels mtl">
+                                        <div class="vidmLabel{if $video.active eq 'yes'} green" title="{lang('vidm_videoEnabled')}"><span class="glyphicon glyphicon-eye-open" title="{lang('vidm_videoEnabled')}"></span>
+                                        {else} grey" title="{lang('vidm_videoDisabled')}"><span class="glyphicon glyphicon-eye-close" title="{lang('vidm_videoDisabled')}"></span>{/if}
+                                        </div>
+                                        
+                                        <div class="vidmLabel{if $video.featured eq 'yes'} pink" title="{lang('vidm_videoFeatured')}"><span class="glyphicon glyphicon-heart" title="{lang('vidm_videoFeatured')}"></span>
+                                        {else} grey" title="{lang('vidm_videoUnfeatured')}"><span class="glyphicon glyphicon-heart-empty" title="{lang('vidm_videoUnfeatured')}"></span>{/if}
+                                        </div>
+                                        
+                                        <div class="vidmLabel{if vidm_ineditorspicks($video.videoid)} blue" title="{lang('vidm_videoDisplayedHome')}"><span class="glyphicon glyphicon-home" title="{lang('vidm_videoDisplayedHome')}"></span>
+                                        {else} grey" title="{lang('vidm_videoNotDisplayedHome')}"><span class="glyphicon glyphicon-home" title="{lang('vidm_videoNotDisplayedHome')}"></span>{/if}
+                                        </div>
+                                        
+                                        <div class="vidmLabel{if isReconvertAble($video)} orange" title="{lang('vidm_videoConvertable')}"><span class="glyphicon glyphicon-refresh" title="{lang('vidm_videoConvertable')}"></span>
+                                        {else} grey" title="{lang('vidm_videoNonConvertable')}"><span class="glyphicon glyphicon-ban-circle" title="{lang('vidm_videoNonConvertable')}"></span>{/if}
+                                        </div>
+                                        
+                                        <div class="vidm-manager_link_new">
+                                        {foreach from=$cbvid->video_manager_link_new item=links}{if $links neq 'admin_area_tab'}
+                                        {$cbvid->video_manager_link_new($links,$video)}
+                                        {/if}{/foreach}
+                                        </div>
+                                         
+
+                                        {*$quals = resString($video.video_files)} 
+                                        {if $quals}
+                                            <span class="label label-primary">
+                                                {$quals}
+                                            </span>
+                                        {/if*}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <a href="view_user.php?uid={$video.userid}">{$video.username}</a>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="dropdown">
+                        <button id="dropdownMenu1" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown">
+                            Actions <i class="caret"></i></button>
+                        <ul class="dropdown-menu pull-right" aria-labelledby="dropdownMenu1" role="menu">
+                            <li><a role="menuitem" tabindex="-1"
+                                                       href="edit_video.php?video={$video.videoid}" class="">{lang('vidm_Edit')}</a></li>
+                            <li><a role="menuitem" tabindex="-1"
+                                href="{$baseurl}/watch_video.php?v={$video.videokey}"target="_blank">{lang('vidm_Watch')}</a></li>
+
+                            {if $video.active == yes}
+                            <li><a role="menuitem" tabindex="-1" href="?deactivate={$video.videoid}">{lang('vidm_Deactivate')}</a></li>
+                            {else}
+                            <li><a role="menuitem" tabindex="-1" href="?activate={$video.videoid}">{lang('vidm_Activate')}</a></li>
+                            {/if}
+                            
+                            {if $video.featured == yes}
+                            <li><a role="menuitem" tabindex="-1" href="?make_unfeature={$video.videoid}">{lang('vidm_makeUnfeatured')}</a></li>
+                            {elseif $video.featured == no}
+                            <li><a role="menuitem" tabindex="-1" href="?make_feature={$video.videoid}">{lang('vidm_makeFeatured')}</a></li>
+                            {/if}
+                            
+                            {if $vidmquery->getEpInstalled()}
+                            {foreach from=$cbvid->video_manager_link item=links}{if $links eq 'video_manager_ep_link'}
+                            {vidm_actionsMenuEp txt=$cbvid->video_manager_link($links,$video) video=$video}
+                            {/if}{/foreach}
+                            {/if}
+                            <li class="divider"></li>
+                            
+                            <li><a role="menuitem" tabindex="-1" href="?delete_video={$video.videoid}">{lang('vidm_Delete')}</a></li>
+                            {foreach from=$cbvid->video_manager_link item=links}{if $links neq 'video_manager_ep_link'}
+                            {$cbvid->video_manager_link($links,$video)}
+                            {/if}{/foreach}
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        {/foreach}
+        </tbody>
+    </table>
+    {else}
+    <div align="center"><strong><em>No Video Found</em></strong></div>
+    {/if}
+    <div class="btn-group marginBotoomLarge marginTopLarge paddingBotoomLarge paddingTopLarge">
+        <input class="btn btn-primary btn-xs" type="submit" name="activate_selected" value="Activate" class="button"/>
+        <input class="btn btn-primary btn-xs" type="submit" name="deactivate_selected" value="Deactivate"
+               class="button"/>
+        <input class="btn btn-primary btn-xs" type="submit" name="make_featured_selected" value="Make Featured"
+               class="button"/>
+        <input class="btn btn-primary btn-xs" type="submit" name="make_unfeatured_selected" value="Make Unfeatured"
+               class="button"/>
+        <input class="btn btn-primary btn-xs" type="submit" name="delete_selected" value="Delete" class="button"
+               onclick="return _cb.confirm_it('Are you sure you want to delete selected video(s)')"/>
+        <input class="btn btn-primary btn-xs" type="submit" name="reconvert_selected" value="Reconvert"
+               class="button"/>
+    </div>
+</form>
+
+<!-- DIsplaying Videos Ends-->
+{include file="$vidm_pagination" }
+<div class="marginBottomLarge"></div>
+
+

@@ -3,7 +3,7 @@
  Plugin Name: Tag manager
  Description: This plugin will allow to manage the videos' tags.
  Author: Bastien Poirier
- Author Website: http://semm.univ-lille1.fr/
+ Author Website: http://www.univ-lille.fr/
  ClipBucket Version: 2.8
  Version: 1.0
  Website:

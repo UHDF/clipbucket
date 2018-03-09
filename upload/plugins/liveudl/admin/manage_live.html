@@ -1,0 +1,161 @@
+{include file="$liveudl_css"}
+
+{if $liveudlOpt}<a href="{$liveudl_opt}" id="ludlopt" title="{lang('liveudl_serverManagement')}"><span class="glyphicon glyphicon-cog"></span></a>{/if}
+
+{if $htaccessAlert ne ''}
+<div class="alert alert-warning alert-dismissible fade in" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+    </button>
+    {$htaccessAlert}.
+</div>
+{/if}
+
+<h2>
+    {lang('liveudl_title')}
+    <small>{if $rtmp}<a href="{$liveudl_actionpage}" class="btn btn-primary btn-xs">{lang('liveudl_actionNew')}</a>{/if}</small>
+</h2>
+
+{*<form id="liveudl_search" method="post">
+    <div class="input-group col-sm-6 col-sm-offset-6">
+        <input type="text" class="form-control" name="liveudl_search" placeholder="{lang('liveudl_search')}" />
+        <span class="input-group-btn">
+            <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+        </span>
+    </div>
+</form>*}
+
+{if $liveudl_flashmsg != ''}
+<div class="alert alert-success alert-dismissible fade in" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+    </button>
+    {$liveudl_flashmsg}.
+</div>
+{/if}
+
+{if $liveudl_flashmsgerr != ''}
+<div class="alert alert-danger alert-dismissible fade in" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+    </button>
+    {$liveudl_flashmsgerr}.
+</div>
+{/if}
+
+{if $pagination && ($next_link || $pre_link)}{include file="$liveudl_pagination"}{/if}
+
+{if $lives}
+<table class="table table-bordered table-striped manageUsersTable">
+    <thead>
+        <tr>
+            <th class="head"></th>
+            <th align="center" class="right_head"></th>
+        </tr>
+    </thead>
+    <tbody>
+        {foreach from = $lives item = l name = lives}
+        <tr data-live="{$l.id}">
+            <td>
+                <h4 class="livetitle">
+                    {$l.title} 
+                    <small>{$l.date|date_format:"%d/%m/%Y %H:%M"}</small>
+                    <div class="status">
+                        <span class="glyphicon glyphicon glyphicon-eye-close{if $l.visible} none{/if}" title="{lang('liveudl_stVisible')}"></span>
+                        <span class="glyphicon glyphicon-pushpin{if not $l.homepage} none{/if}" title="{lang('liveudl_stFront')}"></span>
+                        <span class="onlive{if not $l.active} none{/if}" title="{lang('liveudl_stActive')}"></span>
+                    </div>
+                </h4>
+                
+                <div class="ludl_desc">
+                    {$l.description|unescape:"html"}
+                    <div class="read-btn">
+                        <button type="button" class="btn btn-xs" data-title="{lang('liveudl_readless')}" title="{lang('liveudl_readmore')}">
+                            <span class="bullets">&#8226;&#8226;&#8226;</span>
+                        </button>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="dropdown">
+                    <button id="dropdownMenu{$smarty.foreach.lives.iteration}" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown">{lang('liveudl_actions')} <span class="caret"></span></button>
+                    <ul class="dropdown-menu pull-right" aria-labelledby="dropdownMenu{$smarty.foreach.lives.iteration}" role="menu">
+                    {if $l.date|date_format:"%Y/%m/%d" >= $smarty.now|date_format:"%Y/%m/%d"}    
+                        {if $l.visible}<li><a role="menuitem" tab-index="-1" href="{$liveudl_actionpage}&live={$l.id}">{if $l.active}{lang('liveudl_actionLiveOff')}{else}{lang('liveudl_actionLiveOn')}{/if}</a></li>
+                        <li><a role="menuitem" tab-index="-1" href="{$liveudl_actionpage}&home={$l.id}">{if $l.homepage}{lang('liveudl_actionHomeOff')}{else}{lang('liveudl_actionHomeOn')}{/if}</a></li>{/if}
+                        <li><a role="menuitem" tab-index="-1" href="{$liveudl_actionpage}&visible={$l.id}">{if $l.visible}{lang('liveudl_actionToDraft')}{else}{lang('liveudl_actionPublish')}{/if}</a></li>
+                        <li class="divider"></li>
+                    {/if}
+                        <li><a role="menuitem" tab-index="-1" href="{$liveudl_actionpage}&edit={$l.id}">{lang('liveudl_actionEdit')}</a></li>
+                        <li><a role="menuitem" tab-index="-1" href="{$liveudl_actionpage}&delete={$l.id}">{lang('liveudl_actionDelete')}</a></li>
+                    </ul>
+                </div>
+            </td>
+        </tr>
+        {/foreach}
+    </tbody>
+</table>
+
+{if $pagination && ($next_link || $pre_link)}{include file="$liveudl_pagination"}{/if}
+
+{else}
+<div align="center"><strong><em>{lang('liveudl_nofound')}</em></strong></div>
+{if not $rtmp}<div align="center"><strong><em>{lang('liveudl_noRtmpAdminMsg')}</em></strong></div>{/if}
+{/if}
+
+<script type="text/javascript">{literal}
+    function ludl_getBgColor(elm){
+        var c = elm.css('background-color');
+        while(c === 'rgba(0, 0, 0, 0)'){
+            elm = elm.parent();
+            if(elm.is(document)) return 'rgba(0, 0, 0, 0)';
+            c = elm.css('background-color');
+        }
+        
+        if(c && c.substring(0, 4) === 'rgb(') c = 'rgba('+ c.substring(4, (c.length - 1)) + ', 1)';
+        return c;
+    }
+    
+    $(function(){
+        var ludl_desc = 50;
+        
+        $('table.manageUsersTable td .ludl_desc').each(function(){
+            if($(this).height() > ludl_desc){
+                $(this).addClass('readmore active');
+                $(this).attr('data-h', $(this).height());
+                $(this).css({'max-height': ludl_desc });
+                
+                var c1 = ludl_getBgColor($(this).parent('td'));
+                var c0 = c1.replace(/,\s?1\)$/, ', 0)');
+                
+                $(this).find('.read-btn').css({ 
+                    position: 'absolute', bottom: 0, left: 0, right: 0, 'z-index': 2,
+                    background: 'linear-gradient(to bottom, '+ c0 +' 0%, '+ c1 +' 100%)'
+                });
+            }
+            $(this).css({'min-height': ludl_desc });
+        });
+        
+        $('table.manageUsersTable td .ludl_desc.readmore .read-btn button').click(function(e){
+            var btn = $(e.currentTarget);
+            var el = btn.closest('.ludl_desc');
+            var title = btn.attr('data-title');
+            if(el.hasClass('active')){
+                el.css({ height: ludl_desc, 'max-height': 9999 }).animate({ height: el.attr('data-h') }, 400, 'swing', function(){
+                    btn.attr('data-title', btn.attr('title'));
+                    btn.attr('title', title);
+                    el.removeClass('active');
+                });
+            } else {
+                el.animate({ height: ludl_desc }, 400, 'swing', function(){ 
+                    btn.attr('data-title', btn.attr('title'));
+                    btn.attr('title', title);
+                    el.addClass('active');
+                });
+            }
+        });
+        ludl_getBgColor($('table'));
+    });
+{/literal}</script>
+
+

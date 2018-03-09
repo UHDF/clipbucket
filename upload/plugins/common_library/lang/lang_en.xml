@@ -13,5 +13,6 @@
 		<embed_type>Embed Type</embed_type>
 		<shareStartAt>Start at</shareStartAt>
 		<shareStartAtInfo>Enter the video's start point</shareStartAtInfo>
+		<video_addon>Video addon</video_addon>
 	</phrases>
 </clipbucket_language>

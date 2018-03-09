@@ -3,7 +3,7 @@
  Plugin Name: Extended Search
  Description: This plugin will overwrite the video-class.php to add search on other fields than title and tags.
  Author: Franck Rouze
- Author Website: http://semm.univ-lille1.fr/
+ Author Website: http://www.univ-lille.fr/
  ClipBucket Version: 2.8
  Version: 1.0
  Website:

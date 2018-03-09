@@ -1,0 +1,107 @@
+{include file="$liveudl_css"}
+
+<h2>
+    {lang('liveudl_opt')}
+    <small><a href="{$liveudl_managepage}" class="btn btn-default btn-xs">{lang('liveudl_backTo')}</a></small>
+</h2>
+
+<a href="{$liveudl_opt_form}" class="btn btn-primary btn-sm">{lang('liveudl_addNewOpt')}</a>
+
+{if $flashErr != ''}
+<div class="alert alert-danger alert-dismissible fade in" role="alert">
+	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		<span aria-hidden="true">×</span>
+	</button>
+	{$flashErr}.
+</div>
+{elseif $flashMsg != ''}
+<div class="alert alert-success alert-dismissible fade in" role="alert">
+	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		<span aria-hidden="true">×</span>
+	</button>
+	{$flashMsg}.
+</div>
+{/if}
+
+{if $rtmp}
+<table class="table table-bordered table-striped manageUsersTable">
+    <thead>
+        <tr>
+            <th class="head">RTMP (Flash Media Server)</th>
+            <th class="head">{lang('liveudl_qualities')}</th>
+            <th align="center" class="right_head"></th>
+        </tr>
+    </thead>
+    <tbody>
+        {foreach from = $rtmp item = lk}
+        <tr data-fms="{$lk.fms}" data-fmsid="{$lk.fmsid}" data-id="{$lk.id}">
+            <td>{$lk.fms}/{$lk.fmsid}</td>
+            <td class="rtmp-http">{foreach from = $lk.qualities item = q name = qualities}
+                {*<div class="http"><div class="quality">{$q.quality}p :</div> {$q.dash}</div>*}
+                {$q.quality}p{if not $smarty.foreach.qualities.last}, {/if}
+            {/foreach}</td>
+            <td>
+                <a href="{$liveudl_opt_form}={$lk.id}" class="actionLive edit" title="{lang('liveudl_actionEdit')}"><span class="glyphicon glyphicon-pencil"></span></a>
+                {if $lk.usedBy == '0'}<a href="{$liveudl_opt_delete}{$lk.id}" class="actionLive delete" title="{lang('liveudl_actionDelete')}"><span class="glyphicon glyphicon-trash"></span></a>
+                {else}<div class="actionLive noAction" title="{lang('liveudl_deleteRtmpErr')}"><span class="glyphicon glyphicon-ban-circle"></span></div>{/if}
+            </td>
+        </tr>
+        {/foreach}
+    </tbody>
+</table>
+
+{else}
+<div align="center"><strong><em>{lang('liveudl_nooptfound')}</em></strong></div>
+{/if}
+
+<div class="modal fade" id="ludl_rtmp_form_delete" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">{lang('liveudl_rtmpDelete')}</h4>
+            </div>
+            <div class="modal-body">
+                <form action="" method="post" class="form-horizontal">
+                    <div class="form-group deleteMsg">
+                        {lang('liveudl_deleteRtmpMsg')}
+                        <div class="msg"></div>
+                    </div>
+                    <div class="form-group form-btn">
+                        <div class="col-sm-12 text-right">
+                            <button type="button" class="btn btn-xs btn-default" data-dismiss="modal">{lang('cancel')}</button>
+                            <button type="submit" class="btn btn-xs btn-primary">{lang('validate')}</button>
+                        </div> 
+                    </div>
+                    <input type="hidden" name="id" value="" />
+                    <input type="hidden" name="action" value="delete" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function(){
+        var rtmpNewTitle = '{lang('liveudl_rtmpNew')}',
+        rtmpEditTitle = '{lang('liveudl_rtmpEdit')}',
+        mdl = $('#ludl_rtmp_form');
+        
+        /*$('.actionLive.delete').click(function(e){
+            var m = $('#ludl_rtmp_form_delete');
+            var tr = $(e.currentTarget).closest('tr');
+            m.find('input[name="id"]').val(tr.attr('data-id'));
+            m.find('.msg').html(tr.attr('data-fms') + '/' + tr.attr('data-fmsid') +'<br />&rArr;<br />'+ tr.find('td.rtmp-http').html());
+            
+            m.modal('show');
+        });*/
+        
+        mdl.on('hidden.bs.modal', function(){
+            mdl.find('input[name="id"]').val(0);
+            mdl.find('#fms').val('');
+            mdl.find('#fmsid').val('');
+            mdl.find('#http').val('');
+        })
+    });
+</script>
+

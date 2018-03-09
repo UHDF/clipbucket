@@ -1,0 +1,28 @@
+{include file="$liveudl_css"}
+
+<h2>
+    {lang('liveudl_opt')}
+    <small><a href="{$liveudl_opt}" class="btn btn-default btn-xs">{lang('liveudl_rtmpBackTo')}</a></small>
+</h2>
+
+<div class="well">
+    <form method="POST" class="form-horizontal deleteServer">
+        <div class="form-group">
+            {lang('liveudl_deleteRtmpMsg')}
+            <div class="serverName">{$rtmp.fms}/{$rtmp.fmsid} &rArr; 
+            ({foreach from = $qualities item = q name = qualities}{$q.quality}p{if not $smarty.foreach.qualities.last}, {/if}{/foreach})</div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-5 text-right">
+                <a href="{$liveudl_opt}" class="btn btn-xs btn-default">{lang('cancel')}</a>
+            </div>
+            
+            <div class="col-sm-5 text-right">
+                <button type="submit" class="btn btn-xs btn-primary">{lang('validate')}</button>
+            </div>
+        </div>
+        <input type="hidden" name="action" value="delete" />
+        <input type="hidden" name="id" value="{$rtmp.id}" />
+    </form>
+</div>
+

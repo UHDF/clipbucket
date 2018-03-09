@@ -1,0 +1,41 @@
+{literal}<style>
+    .thumb h4 {font-size: 1.5rem; overflow: hidden; position: relative; display: block; flex: 1;}
+    .thumb h4 a {text-decoration: none;}
+    .thumb .liveTitle{display: flex; padding: 16px; background-color: white; box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); position: relative; height: 90px;}
+    .thumb .liveTitle:before {display: block; content: ""; width: 0; height: 0; position: absolute; border-style: solid; border-color: transparent transparent white transparent; border-width: 0px 12px 12px 12px; top: -12px;}
+    .thumb .liveTitle .published, .thumb .liveTitle h4{display: block;}
+</style>{/literal}
+<div class="container-fluid">
+    {if $lives}<div id="videolist-container" class="clearfix grid videos">
+        <div class="grid-sizer"></div>
+        {foreach $lives as $live}
+        <div class="thumb">
+            <div class="image-holder">
+                <div class="image"><img class="img-responsive" src="{$liveudl_thumbsdir}{if $live.thumb ne ''}{$live.thumb}{else}{$liveudl_thumbdefault}{/if}"></div>
+                <div class="image-overlay fade1s"></div>
+
+            {if has_access('plgadm_liveudl')}
+                <div class="dropdown fade1s">
+                    <a id="live{$live.id}" href="#" class="options glyphicon glyphicon-option-vertical text-card" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="sr-only">menu</span></a>
+                    <ul class="dropdown-menu" aria-labelledby="live{$live.id}">
+                        <li>
+                            {if not (not $live.active && $live.date|date_format:'%Y%m%d' < $smarty.now|date_format:'%Y%m%d')}<a role="menuitem" tab-index="-1" href="{$liveudl_actionpage}&live={$live.id}&ref=lives">
+                                {if $live.active}<span class="glyphicon glyphicon-stop"></span> {lang('liveudl_actionLiveOff')}
+                                {else}<span class="glyphicon glyphicon-play"></span> {lang('liveudl_actionLiveOn')}{/if}
+                            </a>{/if}
+                        </li>
+                        <li><a href="{$liveudl_actionpage}&edit={$live.id}"><span class="glyphicon glyphicon-pencil"></span> {lang('liveudl_frontEditLive')}</a></li>
+                    </ul>
+                </div>
+            {/if}
+                <a href="{$live.link}" class="play-anchor fade1s"><span href="#" class="glyphicon glyphicon-play-circle text-card"></span></a>
+            </div>
+            <div class="details card liveTitle">
+                <div class="published">{lang('liveudl_scheduledOn', $live.date|date_format:'%d %B %Y')} {lang('liveudl_publishedAt', $live.date|date_format:'%H:%M')}</div>
+                <h4 class="reset"><a href="{$live.link}" title="{$live.title}">{$live.title|truncate:65}</a></h4>
+            </div>
+        </div>
+        {/foreach}
+    </div>
+    {else}<div class="alert alert-danger text-center">{lang code='liveudl_noLive'}</div>{/if}
+</div>

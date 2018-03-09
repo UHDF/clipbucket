@@ -1,0 +1,88 @@
+<div class="advanceSearchButton clearfix">
+    <button type="button" class="btn btn-primary btn-sm pull-right current after" data-toggle="collapse" 
+            data-target="#searchdiv" aria-expanded="{if $smarty.cookies.show_searchdiv_search neq 'show'}false{else}true{/if}" aria-controls="searchdiv">
+        Recherche avancée
+        <i class="glyphicon glyphicon-chevron-down down"></i>
+        <i class="glyphicon glyphicon-chevron-up up"></i>
+    </button>
+    {*<a href="#" class="btn btn-primary btn-sm pull-right current after" onclick="$('#searchdiv').toggle();return false;" style="">
+        Recherche avancée
+        <i class="glyphicon glyphicon-chevron-down down"></i>
+        <i class="glyphicon glyphicon-chevron-up up"></i>
+    </a>*}
+    
+</div>
+
+<div class="search_box well collapse" id="searchdiv">
+    <form id="video_search" name="video_search" method="get" action="video_manager.php" class="video_search">
+        <div class="row">
+            <div class="col-md-8">
+              <div class="form-group">
+                    <label for="title">{lang('vidm_searchTitle')}</label>
+                    <input name="title" type="text" class="form-control" id="title" value="{'title'|get_form_val:divue}" />
+                </div>  
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                    <label for="tags">{lang('vidm_searchTags')}</label>
+                    <input class="form-control" name="tags" type="text" id="tags" value="{'tags'|get_form_val:true}" />
+                </div>  
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="featured">{lang('vidm_searchFeatured')}</label>
+                    <select class="form-control" name="featured" id="featured">
+                            <option value=""> </option>
+                            <option value="yes" {if $smarty.get.featured=='yes'} selected="selected"{/if}>{lang('vidm_Yes')}</option>
+                            <option value="no" {if $smarty.get.featured=='no'} selected="selected"{/if}>{lang('vidm_No')}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="active">{lang('vidm_searchActive')}</label>
+                    <select class="form-control" name="active" id="active">
+                    <option value=""> </option>
+                        <option value="yes" {if $smarty.get.active=='yes'} selected="selected"{/if}>{lang('vidm_Yes')}</option>
+                        <option value="no" {if $smarty.get.active=='no'} selected="selected"{/if}>{lang('vidm_No')}</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="videoid">{lang('vidm_searchVideoId')}</label>
+                    <input class="form-control" name="videoid" type="text" id="videoid" value="{'videoid'|get_form_val:true}" />
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="videokey">Video key</label>
+                    <input class="form-control" name="videokey" type="text" id="videokey" value="{'videokey'|get_form_val:true}" />
+                </div>
+            </div>
+            
+        </div>
+        <div class="form-group text-right">
+            <button type="submit" name="search" value="Search" id="search" class="btn btn-success btn-sm">{lang('vidm_Search')}</button>
+        </div>
+    </form>
+</div>
+
+
+ <script type="text/javascript">
+    $(document).ready(function neww (){
+        $(".current").click(function(){
+            $(this).toggleClass('after');
+            if(!$(this).hasClass('after')){
+                $('.down').hide();
+                $('.up').show();
+            } else {
+                $('.down').show();
+                $('.up').hide();
+            }
+        });
+    });   
+</script >

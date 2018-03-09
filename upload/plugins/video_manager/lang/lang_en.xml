@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clipbucket_language>
+    <name>English</name>
+    <iso_code>en</iso_code>
+    <phrases>
+        <vidm_Activate>Activate this video</vidm_Activate>
+        <vidm_activateSelected>Activate</vidm_activateSelected>
+        <vidm_addedToEp>Video has been added to editor's pick</vidm_addedToEp>
+        <vidm_admMenu>Videos management</vidm_admMenu>
+        <vidm_alreadyInEp>Video is already in editor's pick</vidm_alreadyInEp>
+        <vidm_Date>Date</vidm_Date>
+        <vidm_Deactivate>Deactivate this video</vidm_Deactivate>
+        <vidm_deactivateSelected>Deactivate</vidm_deactivateSelected>
+        <vidm_Delete>Delete</vidm_Delete>
+        <vidm_deleteThisVideo>Delete this video</vidm_deleteThisVideo>
+        <vidm_disabled>Disabled</vidm_disabled>
+        <vidm_displayOnHome>Put on homepage</vidm_displayOnHome>
+        <vidm_duration>Separate hours, minutes and seconds in the following way 1:33:56</vidm_duration>
+        <vidm_Edit>Edit</vidm_Edit>
+        <vidm_embedCode>Embeded code</vidm_embedCode>
+        <vidm_failed>Failed</vidm_failed>
+        <vidm_favorite>Favorite</vidm_favorite>
+        <vidm_featuredmsg>Video has been marked as "Featured Video"</vidm_featuredmsg>
+        <vidm_hideFromHome>Hide from homepage</vidm_hideFromHome>
+        <vidm_makeFeatured>Make featured</vidm_makeFeatured>
+        <vidm_makeFeaturedSelected>Make featured</vidm_makeFeaturedSelected>
+        <vidm_makeUnfeatured>Make unfeatured</vidm_makeUnfeatured>
+        <vidm_makeUnfeaturedSelected>Make unfeatured</vidm_makeUnfeaturedSelected>
+        <vidm_manageThumbs>Manage thumbs</vidm_manageThumbs>
+        <vidm_No>No</vidm_No>
+        <vidm_recordFields>General informations</vidm_recordFields>
+        <vidm_remotePlayUrl>Link to video file</vidm_remotePlayUrl>
+        <vidm_removedFromEp>Video has been removed from editor's pick</vidm_removedFromEp>
+        <vidm_Search>Search</vidm_Search>
+        <vidm_searchActive>Active?</vidm_searchActive>
+        <vidm_searchFeatured>Featured?</vidm_searchFeatured>
+        <vidm_searchTags>Video tags</vidm_searchTags>
+        <vidm_searchTitle>Video title</vidm_searchTitle>
+        <vidm_searchVideoId>Video ID</vidm_searchVideoId>
+        <vidm_sharePublic>Public (share your video with everyone)</vidm_sharePublic>
+        <vidm_shareUnlisted>Private (anyone with the link can view the video)</vidm_shareUnlisted>
+        <vidm_sharingFields>Sharing options</vidm_sharingFields>
+        <vidm_submitForm>Update video details</vidm_submitForm>
+        <vidm_subtitle>Videos management</vidm_subtitle>
+        <vidm_subtitleEdit>Edit video</vidm_subtitleEdit>
+        <vidm_sureDelete>Are you sure you want to delete selected video(s)?</vidm_sureDelete>
+        <vidm_tagsHint>The tags are separated by a comma (ie : Tennis, Funny, Ipod)</vidm_tagsHint>
+        <vidm_unabled>Unabled</vidm_unabled>
+        <vidm_unfeaturedmsg>Video has been removed from "Featured Videos"</vidm_unfeaturedmsg>
+        <vidm_uploadedBy>Uploaded by</vidm_uploadedBy>
+        <vidm_uploadedDate>Uploaded date</vidm_uploadedDate>
+        <vidm_videoConvertable>Re-convertable (Video file(s) present on the server)</vidm_videoConvertable>
+        <vidm_videoDisabled>Video disabled</vidm_videoDisabled>
+        <vidm_videoDisplayedHome>Video in Editor's picks</vidm_videoDisplayedHome>
+        <vidm_VideoEdit>Edit video</vidm_VideoEdit>
+        <vidm_videoEnabled>Video enabled</vidm_videoEnabled>
+        <vidm_videoFeatured>Video in editor's picks</vidm_videoFeatured>
+        <vidm_videoFields>Video's information</vidm_videoFields>
+        <vidm_videoManager>Video manager</vidm_videoManager>
+        <vidm_videoNonConvertable>Non-convertable (No video file found)</vidm_videoNonConvertable>
+        <vidm_videoNotDisplayedHome>Video not in Editor's picks</vidm_videoNotDisplayedHome>
+        <vidm_Videos>Videos</vidm_Videos>
+        <vidm_videosDetails>Videos details</vidm_videosDetails>
+        <vidm_VideosManager>Videos manager</vidm_VideosManager>
+        <vidm_videoThumbnails>Video thumbnails</vidm_videoThumbnails>
+        <vidm_videoUnfeatured>Video not in editor's picks</vidm_videoUnfeatured>
+        <vidm_Watch>Watch</vidm_Watch>
+        <vidm_Yes>Yes</vidm_Yes>
+    </phrases>
+</clipbucket_language>

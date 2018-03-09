@@ -42,6 +42,10 @@ if($search){
     }
 }
 
+$pagination = $Smarty->get_template_vars('pagination');
+$pagination = preg_replace('#<a>&hellip;<\/a>#', '<li><a>&hellip;</a></li>', $pagination);
+Assign('pagination', $pagination);
+
 Assign('tagm_page', $tagm_index);
 Assign('tags', $tags);
 

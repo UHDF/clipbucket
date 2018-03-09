@@ -16,6 +16,17 @@
 			<div class="col-xs-12">
 			<div id="videolist-container" class="clearfix grid videos">
 				<div class="grid-sizer"></div>
+                                
+                                {if $liveudlquery}
+                                <div class="thumb" id="livesHomepage">
+                                    <ul>
+                                        {foreach from = $liveudlquery->getFront() item = live}<li>{if $live.active}<span class="onlive" title="{lang('liveudl_stActive')}"></span>{/if}
+                                            <h4><a href="{$live.link}" title="{$live.title}{if $live.active} ─ {lang('liveudl_stActive')}{/if}">{$live.title}</a><small>{$live.date|date_format:'%d %B %Y %H:%M'}</small>
+                                        </li>{/foreach}
+                                    </ul>
+                                </div>  
+                                {/if}
+                                
 				{if $videoGrouping}
 					{assign var="grps" value=$videoGrouping->getGroupingsInHomePage()}
 					{if $grps|@count<1}
@@ -42,7 +53,7 @@
 							{include file="$style_dir/blocks/videos/video-index.html" grp=$grps[$indgrp]}
 						{/if}
 					{elseif $editor_picks and $grps|@count>$editor_picks|@count}
-						{math equation=floor($grps|@count/$editor_picks|@count) assign="frac"}
+						{math equation=floor($grps|@count)/$editor_picks|@count assign="frac"}
 						{assign var="cpt" value=0}
 						{assign var="indgrp" value=0}
 						{for $ind=0 to $grps|@count-1}
