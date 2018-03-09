@@ -5861,6 +5861,40 @@
 	  return $data;
 	}
 
+	/**
+		* Check for the content mime type of a file provided
+		* @param : { FILE } { $mainFile } { File to run check against }
+		* @author : Fahad Abbas
+		* @since : 10 January, 2018
+		* @todo : will Check for the content mime type of a file provided
+		* @return : { string/boolean } { type or false }
+		* @example : N/A
+    */
+	function get_mime_type($file){
+		
+		$raw_content_type = mime_content_type($file);
+        $cont_type = substr($raw_content_type, 0,strpos($raw_content_type, '/'));
+        if ($cont_type){
+        	return $cont_type;
+        }else{
+        	return false;
+        }
+	}
+	
+	/**
+		* Trims the date added to date only
+		* @param : { $date_time }
+		* @author : Awais Fiaz
+		* @since : 5 March, 2018
+		* @todo : will trim the date and time to date only
+		* @return : { Date }
+		* @example : N/A
+    */
+	function date_only($date_time)
+	{
+       $arr=explode(" ",$date_time);
+       return $arr[0];
+	}
 	
 
 
