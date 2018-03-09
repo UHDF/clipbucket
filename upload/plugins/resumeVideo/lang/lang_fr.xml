@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clipbucket_language>
+	<name>Français</name>
+	<iso_code>fr</iso_code>
+	<phrases>
+		<startat>Démarrer à</startat>
+		<autoplay>Lancer la lecture automatiquement</autoplay>
+		<stopat>Arrêter à</stopat>
+		<embedmodaltitle>Intégrer la vidéo sur un autre site</embedmodaltitle>
+		<close>Fermer</close>
+	</phrases>
+</clipbucket_language>

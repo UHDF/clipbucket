@@ -47,6 +47,12 @@
 -->
 <script src="{$upjv_player_v2_url}/app/js/videojs-resolution-switcher.js"></script>
 
+<!-- 
+	2018-01-19 : Ajout plugin hotkey
+	https://github.com/ctd1500/videojs-hotkeys 
+-->
+<script src="{$upjv_player_v2_url}/app/js/videojs-hotkeys/videojs.hotkeys.min.js"></script>
+
 
 <!--
 	  PLAYER FLASH ALTERNATIVE
@@ -160,6 +166,18 @@
 			html5: {
 				nativeTextTracks: false
 			}
+		});
+
+		/**
+		 * 2018-01-19 : Ajout plugin hotkey
+		 * https://github.com/ctd1500/videojs-hotkeys 
+		*/
+		videojs('cb_video_js').ready(function() {
+			this.hotkeys({
+				volumeStep: 0.1,
+				seekStep: 5,
+				enableModifiersForNumbers: false
+			});
 		});
 	</script>
 {/if}

@@ -1,0 +1,14 @@
+/*
+Plugin Name: Watch in Cinema
+Description: This plugin will turn your video page into cinema like. Only focus will be on video rest will be faded.
+Author: Fawaz
+Author Website: http://clip-bucket.com/
+ClipBucket Version: 2.0
+Version: 1.0
+*/
+
+.overlay { position:absolute; top:0px; right:0px; background:url(../images/overlay.png); z-index:5000; width:100%; margin:0px; padding:0px; }
+.lightstoggle { position:relative; z-index:5010; }
+.lightsoff { background:url(../images/buttons.png) top no-repeat; display:block; width:30px; height:29px; text-indent:-9000px; }
+.lightson { background:url(../images/buttons.png) bottom no-repeat; display:block; width:30px; height:29px; text-indent:-9000px; }
+#cb_video_js{z-index:5050;}

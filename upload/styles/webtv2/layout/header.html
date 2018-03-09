@@ -57,9 +57,9 @@ $(function(){
           --><a style="display:inline-block" href="//utc.fr" class="utc">UTC.fr</a><!--
           -->{if userid()}<a style="display:inline-block" href="{link name='logout'}">{lang code="logout"} {username()}</a><!--{ANCHOR place="is_auth_cas"}
           -->{else}<a style="display:inline-block"  href="{ANCHOR place="is_auth_cas"}">Connexion</a><!--
-          -->{/if}<!--  
-          -->{if strpos($smarty.server.REQUEST_URI,"?") != false}<a href="{$smarty.server.REQUEST_URI}&template=cb_28">cb_28</a>{else}<a href="?template=cb_28">cb_28</a>{/if}<!--
-          -->{if userid()}<a href="{$baseurl}/admin_area">admin</a>{/if} 
+          -->{/if}<!--
+          -->{if userid()}<a href="{$baseurl}/admin_area">admin</a>{/if}<!--
+          -->{if userid()}<a href="{$baseurl}/upload.php">upload</a>{/if} 
           </nav>
         </div>
       </div>
@@ -71,8 +71,8 @@ $(function(){
         </div>
         <div class="col-5-12 ">
           <div class="onglets">
-            <a class="reseta topheadertab active" href="{$baseurl}">Interactions TV</a>
-            <a class="reseta topheadertab" href="#">Les Cours</a>
+            <a class="reseta topheadertab active" href="{$baseurl}">Interactions TV</a><!--
+            --><a class="reseta topheadertab" href="#">Les Cours</a>
           </div>
           <div class="search" style="display:none">
             <input type="text" class="search-box" autofocus/>
@@ -90,5 +90,5 @@ $(function(){
   <div class="shadow" style="display: none;"></div>
 </header>
 <div class="headerpusher"></div>
-
+<div class="maincontent">
 
