@@ -13,5 +13,6 @@
 		<embed_type>Type d'intégration</embed_type>
 		<shareStartAt>Démarrer à</shareStartAt>
 		<shareStartAtInfo>Indiquer le point de démarrage de la vidéo</shareStartAtInfo>
+		<video_addon>Extensions vidéo</video_addon>
 	</phrases>
 </clipbucket_language>
