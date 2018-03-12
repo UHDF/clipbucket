@@ -1,0 +1,202 @@
+<!-- Share This {$type} -->
+{$type=$params.type}
+
+
+<div id="share_form_div" class="action_box share_form clearfix">
+	{if $params.type=='v' || $params.type =='video' || $params.type =='Video'}
+
+		<div class="form-group">
+			<label for="link_video" class="block-label">{lang code='link_this_video'}</label>
+			<input type="text" name="link_video" id="link_video"  value="{videoLink vdetails=$vdo}"  onclick="this.select()"  class="form-control" readonly>
+		</div>
+
+		{ANCHOR place="shareVideoOptions"}
+
+
+		<div class="row">
+			<!-- Button trigger modal -->
+			<button type="button" class="btn btn-sm pull-right" data-toggle="modal" data-target="#integrateModal">
+				<i class="fa fa-code" aria-hidden="true"></i> {lang code="embed"}
+			</button>
+		</div>
+
+		<!-- Modal -->
+		<div class="modal fade" id="integrateModal" tabindex="-1" role="dialog" aria-labelledby="integrateModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" id="closecross" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="integrateModalLabel">{lang code="embedmodaltitle"}</h4>
+					</div>
+
+					<div class="modal-body">
+
+
+						<div class="clearfix">
+							{if $Cbucket->configs.video_embed==1 && $vdo.allow_embedding=='yes'}
+							<div class="form-group">
+								<label for="embed_code" class="block-label">{lang code='embed_code'}</label>
+								<textarea name="embed_code" id="embed_code" onclick="this.select()" class="form-control" rows="4">{if $Cbucket->configs.embed_type=='iframe'}{$cbvid->embed_code($vdo,'iframe')|htmlspecialchars}{else}{$cbvid->embed_code($vdo,'embed_object')|htmlspecialchars}{/if}</textarea>
+				
+								<input type="hidden" name="alternate_embed_code" id="alternate_embed_code" value="{if $Cbucket->configs.embed_type=='iframe'}{$cbvid->embed_code($vdo,'embed_object')|htmlspecialchars}{else}{$cbvid->embed_code($vdo,'iframe')|htmlspecialchars}{/if}">
+							</div>
+				
+							<div class="form-group custom-elements">
+								<label class="block-label">{lang code='player_size'}</label>
+								
+								<p>
+									{lang code='player_size_help'}
+								</p>
+<!--
+							"very":"Tr\u00e8s","player_size_help":"&#34;Moyen&#34; est recommand\u00e9 pour les plateformes les plus courantes et un confort de lecture optimale.",
+							"very":"very","player_size_help":"&#34;Medium&#34; is recommended for the most common platforms and optimal reading comfort.",
+-->
+
+								<div class="clearfix left20">
+									<label class="radio-inline">
+										<input type="radio" name="player_size" value="default" id="player_size_0" onclick="{$updateEmbedCode}('{$Cbucket->configs.embed_player_width}' ,'{$Cbucket->configs.embed_player_height}',autoPlayEmbed)">
+										{lang|capitalize code='very'} {lang|capitalize code='small'}{*lang code='default'*} ({$Cbucket->configs.embed_player_width}{*$Cbucket->configs.embed_player_height*})
+									</label>&nbsp;&nbsp;&nbsp;
+
+									<label class="radio-inline">
+										<input type="radio" name="player_size" value="small" id="player_size_1" onclick="{$updateEmbedCode}('440','272',autoPlayEmbed)">
+										{lang|capitalize code='small'} (440)
+									</label>&nbsp;&nbsp;&nbsp;
+
+									<label class="radio-inline">
+										<input type="radio" name="player_size" value="medium" id="player_size_2" checked="checked" onclick="{$updateEmbedCode}('540','334',autoPlayEmbed)">
+										{lang|capitalize code='medium'} (540)
+									</label>&nbsp;&nbsp;&nbsp;
+									
+									<label class="radio-inline">
+										<input type="radio" name="player_size" value="large" id="player_size_3" onclick="{$updateEmbedCode}('600','370',autoPlayEmbed)">
+										{lang|capitalize code='large'} (600)
+									</label>
+								</div>
+							</div>
+				
+							{if $pakplayer=='yes'}
+							<div class="form-group custom-elements">
+								Autoplay video : 
+								<label>
+									<input type="radio" name="autoplay" value="yes" onclick="{$updateEmbedCode}(embedPlayerWidth,embedPlayerHeight,'yes')" {if $Cbucket->configs.autoplay_embed=='yes'} checked{/if}>
+									{lang code='yes'}
+								</label>
+								<label>
+									<input type="radio" name="autoplay" value="no"  onclick="{$updateEmbedCode}(embedPlayerWidth,embedPlayerHeight,'no')" {if $Cbucket->configs.autoplay_embed!='yes'} checked{/if}>
+									{lang code='no'}
+								</label>
+							</div>
+							{/if}
+				
+							<div class="form-group custom-elements">
+								<label class="block-label">{lang('Embed type')}</label>
+								<div class="clearfix left20">
+									<label class="radio-inline">
+										<input type="radio" name="embed_type" value="iframe" onclick="switchEmbedCode('iframe')" {if $Cbucket->configs.embed_type=='iframe'} checked{/if}>
+										{lang code='iframe'}
+									</label>&nbsp;
+									<label class="radio-inline">
+										<input type="radio" name="embed_type" value="iframe"  onclick="switchEmbedCode('embed_object')" {if $Cbucket->configs.embed_type=='embed_object'} checked{/if}>
+										{lang code='embed_object'}
+									</label>
+								</div>
+							</div>
+							{/if}
+						</div>
+
+
+					</div>
+
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End Modal -->
+	{/if}
+	
+	<!-- 
+		Send a link by Email
+		Adrien Ponchelet - 16/01/2018
+		Display only for connected user
+	-->
+	{if userid()}
+	<div class="form_container">
+		<div id="share_form_results" class="form_result" style="display:none"></div>
+		<form id="cb_share_item" name="share_form" method="post" action="">
+			<div class="form-group">
+				<label for="ShareUsers" class="block-label">{sprintf(lang('share_this_type'),$type)}</label>
+				<input name="users" type="text" class="form-control" id="ShareUsers" placeholder="{lang code='seperate_usernames_with_comma'}">
+			</div>
+			<div class="form-group">
+				<label for="message" class="block-label">
+					{lang code='message'}<span>&nbsp;&nbsp;{lang code='optional'}</span>
+				</label>
+				<textarea name="message" id="message"  rows="5" class="form-control"></textarea>
+				<input name="objectid" id="objectid" type="hidden" value="{$params.id}">
+			</div>
+			<div class="clearfix text-right">
+				<input type="submit" name="send_content" value="{lang code='send'}" class="btn btn-submit btn-primary">
+			</div>
+	    </form>
+	</div>
+	{/if}
+	
+    {ANCHOR place="video_sharing_options" data=$vdo}
+</div>
+<!-- Share This {$type} -->
+
+{literal}
+<script>
+
+	var player = videojs('#cb_video_js');
+
+	player.on("loadedmetadata", function (){
+		/* Largeur de la video */
+		var w = parseFloat(document.querySelector('video').videoWidth);
+		/* Hauteur de la video */
+		var h = parseFloat(document.querySelector('video').videoHeight);
+		/* Aspect ratio */
+		var r = parseFloat(w)/parseFloat(h);
+
+		/* Si different de 16/9) */
+//		if (r.toFixed(4) != "1.7778"){
+			/* Les inputs radio */
+			var ta = document.querySelector("#player_size_0");
+			var tb = document.querySelector("#player_size_1");
+			var tc = document.querySelector("#player_size_2");
+			var td = document.querySelector("#player_size_3");
+			/* Nouvelle hauteur */
+			r0 = Math.round(300/parseFloat(r));
+			r1 = Math.round(440/parseFloat(r));
+			r2 = Math.round(540/parseFloat(r));
+			r3 = Math.round(600/parseFloat(r));
+			/* Modification Attribut */
+			ta.setAttribute("onclick", "{/literal}{$updateEmbedCode}{literal}('300','" + r0 + "',autoPlayEmbed)");
+			tb.setAttribute("onclick", "{/literal}{$updateEmbedCode}{literal}('440','" + r1 + "',autoPlayEmbed)");
+			tc.setAttribute("onclick", "{/literal}{$updateEmbedCode}{literal}('540','" + r2 + "',autoPlayEmbed)");
+			td.setAttribute("onclick", "{/literal}{$updateEmbedCode}{literal}('600','" + r3 + "',autoPlayEmbed)");
+
+			/* Set default value to medium */
+			{/literal}{$updateEmbedCode}{literal}('540',r2,autoPlayEmbed);
+//		}
+
+	});
+
+</script>
+{/literal}
+
+<script>
+    $(document.querySelector('video')).ready(function(){
+        $('body').on('submit','#cb_share_item',function(e){
+            e.preventDefault();
+            _cb.submit_share_form('share_form','{$params.type}');return false;
+        })
+
+		$('#integrateModal').on('shown.bs.modal', function () {
+			$('#closecross').focus()
+		})
+	})
+</script>

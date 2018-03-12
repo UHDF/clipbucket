@@ -1,0 +1,132 @@
+{ANCHOR place="play_front_anchor"}
+
+
+<footer>
+	<div id="partner">
+	<strong>Les &eacute;tablissements d'enseignement sup&eacute;rieur de Picardie Universit&eacute;s :</strong><br>
+
+		<div class="partnergrp">
+		<a href="http://www.elisa-aerospace.fr/" target="_blank" title="ELISA AEROSPACE, école d'ingénieurs (nouvelle fenêtre)">
+		<img src="{$theme}/app/img/etablissements/logo_elisa_aerospace.jpg" alt="Elisa aerospace, école d'ingénieurs" height="40"></a>
+		<div class="note"><sup>[<a href="#defnote1" title="Aller &agrave; la note">1</a><a name="note1"></a>]</sup></div>
+		</div>
+
+		<div class="partnergrp">
+		<a href="http://www.esad-amiens.fr/" target="_blank" title="ESAD (Ecole Supérieure d'Art et de Design) (nouvelle fenêtre)">
+		<img src="{$theme}/app/img/etablissements/logo_ESAD_amiens.png" alt="esad, amiens" height="40"></a>
+		</div>
+
+		<div class="partnergrp">
+		<a href="https://www.escom.fr/" target="_blank" title="ESCOM (Ecole Supérieure de Chimie Organique et Minérale) (nouvelle fenêtre)"><img src="{$theme}/app/img/etablissements/logo_ESCOM.jpg" alt="ESCOM Chimie" height="40"></a>
+		</div>
+
+
+		<div class="partnergrp">
+		<a href="http://www.esiee-amiens.fr" target="_blank" title="ESIEE (Ecole Supérieure d'Ingénieurs en Electrotechnique et Electronique) (nouvelle fenêtre)"><img src="{$theme}/app/img/etablissements/logo_ESIEE_AMIENS.png" alt="ESIEE Amiens" height="40"></a>
+		</div>
+		
+
+		<div class="partnergrp">
+		<a href="http://www.lasalle-beauvais.fr/" target="_blank" title="Institut polytechnique lasalle beauvais (nouvelle fenêtre)"><img src="{$theme}/app/img/etablissements/logo_IPLB.png" alt="UniLaSalle Terre et Sciences" height="40"></a>
+		</div>
+
+
+
+		<div class="partnergrp">
+		<a href="https://www.u-picardie.fr" target="_blank" title="UPJV (Université de Picardie Jules Verne) (nouvelle fenêtre)"><img src="{$theme}/app/img/etablissements/logo_UPJV.png" alt="Université de Picardie Jules Verne" height="40"></a>
+		</div>
+		
+		
+		<div class="partnergrp">
+		<a href="https://www.utc.fr/" target="_blank" title="UTC (Université de Technologie de Compiègne) (nouvelle fenêtre)"><img src="{$theme}/app/img/etablissements/logo_UTC.png" alt="utc - université de technologies de Compiègne" height="40"></a>
+		</div>
+
+		<div class="clearfix"></div>
+
+		<a name="defnote1"></a>[<a href="#note1" title="Retour au contenu">1</a>] : Intégration en cours.
+		
+	</div>
+
+	
+	<div id="copyright">
+		&copy; 2017 - Association Picardie Universit&eacute;s
+		<a href="mailto:apiu@u-picardie.fr" title="Envoyer un email (ouvre le logiciel de messagerie)"><i class="fa fa-envelope-o fa-2x" aria-hidden="true"></i></a>
+		<a href="{$theme}/extranet/" title="Connexion à l'extranet"><i class="fa fa-sign-in fa-2x" aria-hidden="true"></i></a>
+	</div>
+</footer>
+
+
+	<!-- Menu -->
+<!--	
+	<script src="{$theme}/app/js/jquery.min.js"></script>
+	<script src="{$theme}/app/js/menu.js"></script>
+-->
+
+	<!-- myApp -->
+	<script src="{$theme}/app/js/app.js"></script>
+	<script src="{$theme}/app/js/flying-focus.js"></script>
+
+
+	
+
+<!--
+<footer id="footer" class="clearfix">
+	{*$Cbucket->footer()*}
+
+</footer>
+-->
+<!--
+#ClipBucket#
+-->
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" src="{$baseurl}/js/photos.js"></script>
+<script>
+	$(document).on('click','.pick-lang',function(){
+		var _this = $(this);
+		var lang_code = _this.data('lang');
+		var $currentLocation = window.location.href,
+		matchedElement = $currentLocation.match(/\?/);
+			  
+		if(matchedElement == null)
+		{
+			window.location = "?set_site_lang="+lang_code;    
+		} else {
+			window.location = window.location+"&set_site_lang="+lang_code;    
+		}
+	});
+
+	$(document).on('click','#cbsearch',function(e){
+		e.preventDefault();
+		searchForm = $('.search-form');
+		searchQuery = $('#query').val();
+		queryLen = searchQuery.length;
+		if (queryLen <= 2) {
+			msg = 'Search query<strong> '+searchQuery+'</strong> is too short. Open up!';
+			_cb.throwHeadMsg('warning', msg, 3000,true);
+			//alert("Search term is too short");
+		} else {
+			$('.search-form').submit();
+		}
+	});
+
+	$('.dropdown-menu li').on('click',function(){
+		var searchType = $('#searchTypes').find('span.search-type').html();
+		var searchQuery = $('input#query').val();
+		if (searchQuery.length > 1) {
+			$('#cbsearch').trigger('click');
+		}
+	});
+
+
+
+</script>
+{$Cbucket->footer()}

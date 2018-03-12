@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clipbucket_language>
+	<name>English</name>
+	<iso_code>en</iso_code>
+	<phrases>
+		<liveudlHtaccess>Don't forget to add the Rewrite Rules define in the %s</liveudlHtaccess>
+		<liveudl_actionDelete>Delete</liveudl_actionDelete>
+		<liveudl_actionDraft>Draft</liveudl_actionDraft>
+		<liveudl_actionEdit>Edit</liveudl_actionEdit>
+		<liveudl_actionHome>Display on the homepage?</liveudl_actionHome>
+		<liveudl_actionHomeOff>Remove from the homepage</liveudl_actionHomeOff>
+		<liveudl_actionHomeOn>Add to the homepage</liveudl_actionHomeOn>
+		<liveudl_actionLiveOff>Deactivate live</liveudl_actionLiveOff>
+		<liveudl_actionLiveOn>Activate live</liveudl_actionLiveOn>
+		<liveudl_actionNew>Add new live</liveudl_actionNew>
+		<liveudl_actionPublish>Publish</liveudl_actionPublish>
+		<liveudl_actions>Actions</liveudl_actions>
+		<liveudl_actionToDraft>Put in draft</liveudl_actionToDraft>
+		<liveudl_actionVisible>Plublished</liveudl_actionVisible>
+		<liveudl_addNewOpt>Add a new record</liveudl_addNewOpt>
+		<liveudl_addQuality>Add a quality</liveudl_addQuality>
+		<liveudl_alertFms>Please enter the credentials of FMS</liveudl_alertFms>
+		<liveudl_alertQualities>Please add at least one quality of broadcast</liveudl_alertQualities>
+		<liveudl_backTo>Back to lives' management</liveudl_backTo>
+		<liveudl_confirmDeleteLiveMsg>Are you sure you want to delete the live : &lt;b&gt;%s&lt;/b&gt;?</liveudl_confirmDeleteLiveMsg>
+		<liveudl_create_success>Live has been created successfully</liveudl_create_success>
+		<liveudl_deleteRtmpErr>You cannot delete a record which is used by a live</liveudl_deleteRtmpErr>
+		<liveudl_deleteRtmpMsg>Are you sure you want to delete this record?</liveudl_deleteRtmpMsg>
+		<liveudl_deleteRtmpSuccess>The record &lt;b&gt;%s&lt;/b&gt; has been deleted successfully</liveudl_deleteRtmpSuccess>
+		<liveudl_deleteSuccess>The live &lt;b&gt;%s&lt;/b&gt; has been deleted successfully</liveudl_deleteSuccess>
+		<liveudl_deleteThumb>Delete thumbnail</liveudl_deleteThumb>
+		<liveudl_disabled>Disabled</liveudl_disabled>
+		<liveudl_edit_success>Live has been edited successfully</liveudl_edit_success>
+		<liveudl_enabled>Enabled</liveudl_enabled>
+		<liveudl_errEditId>Error, unable to get live's informations with ID : %s</liveudl_errEditId>
+		<liveudl_formActive>Active</liveudl_formActive>
+		<liveudl_formDate>Date and time</liveudl_formDate>
+		<liveudl_formDescription>Description</liveudl_formDescription>
+		<liveudl_formHomepage>Display on homepage</liveudl_formHomepage>
+		<liveudl_formTitle>Title</liveudl_formTitle>
+		<liveudl_formUrl>RTMP Url</liveudl_formUrl>
+		<liveudl_frontEditLive>Edit live</liveudl_frontEditLive>
+		<liveudl_httpurl>HTTP Url</liveudl_httpurl>
+		<liveudl_manager>Manage lives</liveudl_manager>
+		<liveudl_missingDash>Please complete the Dash URL</liveudl_missingDash>
+		<liveudl_missingDate>Missing date</liveudl_missingDate>
+		<liveudl_missingHls>Please complete the HLS URL</liveudl_missingHls>
+		<liveudl_missingTitle>Missing title</liveudl_missingTitle>
+		<liveudl_missingUrl>Missing RTMP Url</liveudl_missingUrl>
+		<liveudl_newQuality>New quality</liveudl_newQuality>
+		<liveudl_nofound>No live found</liveudl_nofound>
+		<liveudl_nooptfound>No record found</liveudl_nooptfound>
+		<liveudl_noRtmpAdminMsg>Please add at least one RTMP server to be able to create a live.</liveudl_noRtmpAdminMsg>
+		<liveudl_occuredOn>Occured on %s</liveudl_occuredOn>
+		<liveudl_occuredToday>Occured today at %s</liveudl_occuredToday>
+		<liveudl_onliveSince>On live since %s</liveudl_onliveSince>
+		<liveudl_onliveSince2>On live since %s</liveudl_onliveSince2>
+		<liveudl_opt>Lives' options</liveudl_opt>
+		<liveudl_publishedAt>at %s</liveudl_publishedAt>
+		<liveudl_qualities>Qualities</liveudl_qualities>
+		<liveudl_quality>Quality</liveudl_quality>
+		<liveudl_readless>Read less</liveudl_readless>
+		<liveudl_readmore>Read more</liveudl_readmore>
+		<liveudl_rtmpBackTo>Back to the servers' management</liveudl_rtmpBackTo>
+		<liveudl_rtmpDelete>Delete a record</liveudl_rtmpDelete>
+		<liveudl_rtmpEdit>Edit record</liveudl_rtmpEdit>
+		<liveudl_rtmpid>RTMP ID</liveudl_rtmpid>
+		<liveudl_rtmpNew>New record</liveudl_rtmpNew>
+		<liveudl_rtmpNotExist>Unable to find the record's informations with ID : &lt;b&gt;%s&lt;/b&gt;</liveudl_rtmpNotExist>
+		<liveudl_rtmpNotUniq>There is an existing record with the credential &lt;b&gt;%s&lt;/b&gt;</liveudl_rtmpNotUniq>
+		<liveudl_rtmpSuccessAdd>The record has been added successfully</liveudl_rtmpSuccessAdd>
+		<liveudl_rtmpSuccessEdit>The record has been edited successfully</liveudl_rtmpSuccessEdit>
+		<liveudl_rtmpurl>RTMP Url</liveudl_rtmpurl>
+		<liveudl_scheduled>Scheduled</liveudl_scheduled>
+		<liveudl_scheduledOn>Scheduled on %s</liveudl_scheduledOn>
+		<liveudl_search>Search a live</liveudl_search>
+		<liveudl_serverManagement>RTMP servers management</liveudl_serverManagement>
+		<liveudl_stActive>On live</liveudl_stActive>
+		<liveudl_state>Live state</liveudl_state>
+		<liveudl_stHomepage>On homepage</liveudl_stHomepage>
+		<liveudl_stVisible>Draft</liveudl_stVisible>
+		<liveudl_title>Lives management</liveudl_title>
+		<liveudl_title_delete>Delete a live</liveudl_title_delete>
+		<liveudl_title_edit>Edit a live</liveudl_title_edit>
+		<liveudl_title_new>Add a new live</liveudl_title_new>
+		<liveudl_uploadErr>Error while saving file</liveudl_uploadErr>
+		<liveudl_uploadExt>Denied file type</liveudl_uploadExt>
+		<liveudl_uploadFormSize>File exceeding the maximal size authorized by the form</liveudl_uploadFormSize>
+		<liveudl_uploadIniSize>File exceeding the maximal size authorized by PHP</liveudl_uploadIniSize>
+		<liveudl_uploadNoFile>Missing file</liveudl_uploadNoFile>
+		<liveudl_uploadPartial>File uploaded partially</liveudl_uploadPartial>
+		<liveudl_viewers>Viewers</liveudl_viewers>
+		<liveudl_visibility>Visibility</liveudl_visibility>
+                <liveudl_liveNotExist>Live does not exist</liveudl_liveNotExist>
+                <liveudl_noLive>No live</liveudl_noLive>
+	</phrases>
+</clipbucket_language>

@@ -118,8 +118,9 @@ subtitle($title);
     foreach($videos as $video)
     {
     ?>
-<item>
-        <title><?=substr($video['title'],0,250)?></title>
+    <item>
+        <author><?=$video['username']?></author>
+        <title><?=substr($video['title'],0,500)?></title>
         <link><?=video_link($video)?></link>
         <description>
                 <![CDATA[   
@@ -139,9 +140,9 @@ subtitle($title);
         <guid isPermaLink="true"><?=video_link($video)?></guid>
         <pubDate><?=date_format(date_create($video['date_added']),DateTime::RSS)?></pubDate>
         <media:player url="<?=video_link($video)?>" />
-        <media:thumbnail url="<?=get_thumb($video, 'med')?>" />
-        <media:title><?=substr($video['title'],0,250)?></media:title>
-        <media:category label="Tags"><?=strip_tags(tags($video['tags'],'video'))?></media:category>
+        <media:thumbnail url="<?=get_thumb($video)?>" width="120" height="90" />
+        <![CDATA[<media:title><?=substr($video['title'],0,500)?></media:title> 
+        <media:category label="Tags"><?=strip_tags(tags($video['tags'],'video'))?></media:category>]]>
         <media:credit><?=$video['username']?></media:credit>
     </item>
     <?php

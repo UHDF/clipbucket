@@ -73,6 +73,26 @@ assign("rss_view",IMPORT_RSS_VIEWPAGE_URL);
 	}
 
 	
+	/**
+	 * Remove link from the database. 
+	 * if the link is associated to a video, then nothing is done, just an error message appears.
+	 *
+	 * @param int $id
+	 * 		the id of the link to be deleted 
+	 */
+	function deleteRssVideo($id){
+		global $db;
+
+		$test2=$db->execute("DELETE FROM ".tbl("import_rss_video_queued")." WHERE id='".$id."';");
+		
+		if (!$test2){
+			e(lang("cant_del_linked_link_msg")." id=".$id,"e");
+		}
+		else{
+			e(lang("link_del_msg")." id=".$id,"m");
+		}
+	}
+	
 	
 	
 	/**
@@ -84,7 +104,7 @@ assign("rss_view",IMPORT_RSS_VIEWPAGE_URL);
 		global $db;
 		
 		if ($id != 0){
-		$cond = ' WHERE id_rss_config = '.$id;
+			$cond = ' WHERE id_rss_config = '.$id.' ORDER BY date_uploaded DESC';
 		}
 
 		$videoqueued = $db->_select('SELECT * FROM '.tbl("import_rss_video_queued").$cond.';');
@@ -192,7 +212,7 @@ assign("rss_view",IMPORT_RSS_VIEWPAGE_URL);
 	/**
 	 *	Add entries for the plugin in the administration pages
 	 */
-//	if (!$cbplugin->is_installed('common_library.php') || $userquery->permission[getStoredPluginName("authcas")]=='yes')
+//	if ($cbplugin->is_installed('common_library.php') && $userquery->permission[getStoredPluginName("authcas")]=='yes')
 	add_admin_menu('Videos','ImportRSS'.$rss_badge,'edit_import_rss.php',IMPORT_RSS.'/admin');
 
 ?>

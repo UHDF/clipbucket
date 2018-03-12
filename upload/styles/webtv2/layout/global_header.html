@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+		<!-- ClipBucket v{$Cbucket->version} -->
+		<meta name="copyright" content="ClipBucket - Integrated Units 2007 - {$smarty.now|date_format:"%Y"}">
+		<link rel="icon" type="image/ico" href="{$baseurl}/favicon.ico">
+		
+    	<meta name="keywords" content="{$Cbucket->configs.keywords}">
+		<meta name="description" content="{$Cbucket->configs.description}">
+		<meta name="distribution" content="global">
+
+		<title>{cbtitle}</title>
+		
+		<!--<link href="{$theme}/css/bootstrap.min.css?cache={$cache_buster}" rel="stylesheet">
+		<link href="{$theme}/css/all.css?cache={$cache_buster}" rel="stylesheet">-->
+		<link rel="stylesheet" href="http://localhost/mig/upload/styles/cb_28/theme/css/bootstrap.min.css?cache=">
+		<link href="{$theme}/css/reset.css?cache={$cache_buster}" rel="stylesheet">
+		<link href="{$theme}/css/typebase.css?cache={$cache_buster}" rel="stylesheet">
+		<link href="{$theme}/css/simplegrid.css?cache={$cache_buster}" rel="stylesheet">
+		<link href="{$theme}/css/style.css?cache={$cache_buster}" rel="stylesheet">
+		<link href="{$theme}/css/font-awesome.min.css?cache={$cache_buster}" rel="stylesheet">
+		
+		
+		<script src="{$theme}/js/jquery-1.11.3.min.js"></script>
+		<script src="{$theme}/js/bootstrap.min.js"></script>
+		<script src="{$theme}/js/custom.js"></script>
+				<script>
+			var loadingImg = '<i class="glyphicon glyphicon-refresh animate-spin"></i>';
+			var loading = '<i class="glyphicon glyphicon-refresh animate-spin"></i> {lang code="loading"}...';
+			var baseurl = "{$baseurl}",
+			imageurl = "{$imageurl}",
+			userid = "{userid()}",
+			THIS_PAGE = "{$smarty.const.THIS_PAGE}";
+		</script>
+		<script src="{$theme}/js/clipbucket.js"></script>
+		
+		
+  <!--TODO mettre en local-->
+  <link href="//cdn.rawgit.com/noelboss/featherlight/1.7.0/release/featherlight.min.css" type="text/css" rel="stylesheet" />
+  <!--<script src="//code.jquery.com/jquery-latest.js"></script>-->
+  <script src="//cdn.rawgit.com/noelboss/featherlight/1.7.0/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+  
+  
+  
+		
+		{include_header file='global_header'}
+		
+		{literal}<script>
+		  $(function(){$('.shadow').fadeOut();});
+		  var scrollswitch = true;
+		  $(window).scroll(function(){
+		    if ($(this).scrollTop()> 100){
+		      if(scrollswitch){
+		        $('.shadow').fadeIn();
+		        scrollswitch = false;
+		        $('#header').animate({top:"-40px"},500);
+		      }
+		    }
+		    else{
+		      if(!scrollswitch){
+		        $('.shadow').fadeOut();
+		        scrollswitch = true;
+		        $('#header').animate({top:"0px"},500);
+		      }
+		    }
+		  });
+		</script>{/literal}
+	</head>	
+

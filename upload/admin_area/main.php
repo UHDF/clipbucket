@@ -15,7 +15,7 @@ $pages->page_redir();
 
 /* Assigning page and subpage */
 if(!defined('MAIN_PAGE')){
-	define('MAIN_PAGE', 'Stats And Configurations');
+	define('MAIN_PAGE', 'General Configurations');
 }
 if(!defined('SUB_PAGE')){
 	define('SUB_PAGE', 'Website Configurations');
@@ -67,7 +67,7 @@ if(isset($_POST['update'])){
 					'collection_rating',
 					'collectionsSection',
 					'comments_per_page',
-					'captcha_type',
+					/*'captcha_type',*/
 					'con_modules_type',
 					'comments_captcha',
 					'comment_rating',
@@ -176,7 +176,7 @@ if(isset($_POST['update'])){
 					'photo_other_limit',
 					
 					
-					'quick_conv',
+					/*'quick_conv',*/
 					
 					'resize',
 					'remoteUpload',
@@ -199,7 +199,7 @@ if(isset($_POST['update'])){
 					'thumb_height',
 					
 					'use_ffmpeg_vf',
-					'use_crons',
+					/*'use_crons',*/
 					'user_comment_own',
 					'user_rate_opt1'	,
 					'users_items_subscriptions',
@@ -243,7 +243,9 @@ if(isset($_POST['update'])){
 					'vbrate_hd',
 					'store_guest_session',
 					'delete_mass_upload',
-					'stay_mp4'
+					'stay_mp4',
+					'popup_video',
+					'video_round_views'
 					
 					);
 	

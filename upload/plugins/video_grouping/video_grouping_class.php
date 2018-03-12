@@ -198,13 +198,16 @@ class VideoGrouping extends CBCategory{
 			$desc=mysql_clean($array['groupingDesc']);
 			$in_menu = 0;
 			if(!empty($array['groupingInMenu'])) $in_menu = 1;
+			$in_homepage=0;
+			if(!empty($array['groupingInHomepage'])) $in_homepage = 1;
 			$color = $array['groupingColor'];
 			if ($replace_file == "replace") {  //if checkbox "replace thumb" is checked
 				if ($file_error === 0) {  //file > 0kb
 					if ($file_size < $max_size) { //file < form max size
 						if(move_uploaded_file($file_tmpname, VIDEO_GROUPING_UPLOAD."/".$nom.$file_name)){  //moving file from tmp folder to thumbs folder
 							if(!empty($array['groupingName'])){
-								$result=$db->insert(tbl('vdogrouping'),array("grouping_type_id","name","description","in_menu","color","thumb_url"),array($groupingTypeId, $name,$desc,$in_menu,$color,$nom.$file_name));
+								$result=$db->insert(tbl('vdogrouping'),array("grouping_type_id","name","description","in_menu","in_homepage","color","thumb_url"),
+										array($groupingTypeId, $name,$desc,$in_menu,$in_homepage,$color,$nom.$file_name));
 								if ($result) {
 									$msg = e(lang("grouping_added"),'m');   //success
 									$res=$db->select(tbl('vdogrouping_type'),'id',$cond,false,false,false);
@@ -221,7 +224,8 @@ class VideoGrouping extends CBCategory{
 			}
 			else {
 				if(!empty($array['groupingName'])){
-					$result=$db->insert(tbl('vdogrouping'),array("grouping_type_id","name","description","in_menu","color"),array($groupingTypeId,$name,$desc,$in_menu,$color));
+					$result=$db->insert(tbl('vdogrouping'),array("grouping_type_id","name","description","in_menu","in_homepage","color"),
+							array($groupingTypeId,$name,$desc,$in_menu,$in_homepage,$color));
 					if ($result){
 						$msg = e(lang("grouping_added"),'m'); //success
 						$res=$db->select(tbl('vdogrouping_type'),'id',$cond,false,false,false);
@@ -244,7 +248,7 @@ class VideoGrouping extends CBCategory{
 	 */
 	function getAllGroupings ()	{
 		global $db;
-		return $db->_select("SELECT g.id,g.name,g.grouping_type_id,g.name,g.place,g.description,g.in_menu,g.color,
+		return $db->_select("SELECT g.id,g.name,g.grouping_type_id,g.name,g.place,g.description,g.in_menu,g.in_homepage,g.color,
 				g.thumb_url,gt.name as grouping_type_name FROM ".tbl("vdogrouping") ." AS g ,".tbl("vdogrouping_type")." AS gt
 				WHERE g.grouping_type_id = gt.id ORDER BY gt.name,g.place,g.name ASC");
 	}
@@ -316,9 +320,9 @@ class VideoGrouping extends CBCategory{
 				$cond .= " ".$params['cond']." ";
 		}
 		if(!$params['count_only']) {
-			$query="SELECT g.id,g.name,g.grouping_type_id,g.name,g.place,g.description,g.in_menu,g.color,
-				g.thumb_url,gt.name as grouping_type_name FROM ".tbl("vdogrouping") ." AS g ,".tbl("vdogrouping_type")." AS gt
-				WHERE g.grouping_type_id = gt.id ";
+			$query="SELECT g.id,g.name,g.grouping_type_id,g.place,g.description,g.in_menu,g.in_homepage,g.color,
+				g.thumb_url,gt.name as grouping_type_name FROM ".tbl("vdogrouping") ." AS g ".
+				"INNER JOIN ".tbl('vdogrouping_type')." AS gt ON g.grouping_type_id = gt.id WHERE 1 ";
 			
 			if ($cond)
 				$query .= ' AND '.$cond; // the "WHERE" statement is defined in the lines above
@@ -331,7 +335,7 @@ class VideoGrouping extends CBCategory{
 			$result = $db->_select($query);
 		}
 		if($params['count_only']){
-			$result = $db->count(tbl('vdogrouping')." AS vdogrouping ",'id',$cond);
+			$result = $db->count(tbl('vdogrouping')." AS g INNER JOIN ".tbl('vdogrouping_type')." AS gt ON g.grouping_type_id = gt.id",'g.id',$cond);
 		}
 		if($params['assign'])
 			assign($params['assign'],$result);
@@ -426,10 +430,10 @@ class VideoGrouping extends CBCategory{
 	
 	/**
 	 * Change the "in menu" status of the specified grouping
-	 * 
-	 * Grouping with "in menu" status set to true will be displayed 
+	 *
+	 * Grouping with "in menu" status set to true will be displayed
 	 * in the front end main menu of the corresponding grouping type.
-	 * 
+	 *
 	 * @param int $id
 	 * 		The grouping id
 	 * @param bool $flagInMenu
@@ -443,6 +447,24 @@ class VideoGrouping extends CBCategory{
 	}
 	
 	/**
+	 * Change the "in homepage" status of the specified grouping
+	 * 
+	 * Grouping with "in homepage" status set to true will be displayed 
+	 * like video thumbs in the CB homepage.
+	 * 
+	 * @param int $id
+	 * 		The grouping id
+	 * @param bool $flagInMenu
+	 * 		the new value of the "in homepage" status
+	 */
+	function setInHomepage($id,$flagInHomepage){
+		global $db;
+		$id=mysql_clean($id);
+		$var = $flagInHomepage?1:0;
+		$db->Execute("UPDATE ".tbl('vdogrouping')." SET in_homepage = $var WHERE id = $id");
+	}
+	
+/**
 	 * Update grouping order according to the $array values
 	 * 
 	 * This order is used to show in_menu groupings in a user predifined order
@@ -493,6 +515,8 @@ class VideoGrouping extends CBCategory{
 			$desc=mysql_clean($array['groupingDesc']);
 			$in_menu = 0;
 			if(!empty($array['groupingInMenu'])) $in_menu = 1;
+			$in_homepage = 0;
+			if(!empty($array['groupingInHomepage'])) $in_homepage = 1;
 			$color = $array['groupingColor'];
 			if ($replace_file == "replace") {  //if checkbox "replace thumb" is checked
 				if($existing_file != "default.png"){
@@ -502,7 +526,8 @@ class VideoGrouping extends CBCategory{
 					if ($file_size < $max_size) { //file < form max size
 						if(move_uploaded_file($file_tmpname, VIDEO_GROUPING_UPLOAD."/".$nom.$file_name)){  //moving file from tmp folder to thumbs folder
 							if(!empty($array['groupingName']) && !empty($array['groupingId'])){
-								$db->Execute("UPDATE ".tbl('vdogrouping')." SET grouping_type_id = '".$groupingTypeId."' ,name = '".$name."', description = '".$desc."', color = '".$color."', in_menu = '".$in_menu."', thumb_url = '".$nom.$file_name."' WHERE id = ".$array['groupingId']." ");
+								$db->Execute("UPDATE ".tbl('vdogrouping')." SET grouping_type_id = '".$groupingTypeId."' ,name = '".$name."', description = '".$desc.
+										"', color = '".$color."', in_menu = '".$in_menu."', in_homepage = '".$in_homepage."', thumb_url = '".$nom.$file_name."' WHERE id = ".$array['groupingId']." ");
 								if ($result) {
 									$msg = e(lang("grouping_updated"),'m');   //success
 									$res=$db->select(tbl('vdogrouping_type'),'id',$cond,false,false,false);
@@ -519,7 +544,8 @@ class VideoGrouping extends CBCategory{
 			}
 			else {
 				if(!empty($array['groupingName']) && !empty($array['groupingId'])){
-					$db->Execute("UPDATE ".tbl('vdogrouping')." SET grouping_type_id = '".$groupingTypeId."' ,name = '".$name."', description = '".$desc."', color = '".$color."', in_menu = '".$in_menu."' WHERE id = ".$_POST['groupingId']." ");
+					$db->Execute("UPDATE ".tbl('vdogrouping')." SET grouping_type_id = '".$groupingTypeId."' ,name = '".$name."', description = '".$desc.
+							"', color = '".$color."', in_menu = '".$in_menu."', in_homepage = '".$in_homepage."' WHERE id = ".$_POST['groupingId']." ");
 					$msg = e(lang("grouping_updated"),'m'); //success
 					$res=$db->select(tbl('vdogrouping_type'),'id',$cond,false,false,false);
 					$id=$res[0]['id'];
@@ -578,7 +604,12 @@ class VideoGrouping extends CBCategory{
 				$cond .= ' AND ';
 				$cond .= " ".$params['cond']." ";
 		}
-	
+		if($params['cond2']) {
+			if($cond!='')
+				$cond .= ' AND ';
+				$cond .= " ".$params['cond2']." ";
+		}
+		
 	
 		if(!$params['count_only']) {
 
@@ -602,8 +633,8 @@ class VideoGrouping extends CBCategory{
 					$result = $db->_select($query);
 		}
 		if($params['count_only']){
-			$result = $db->count(tbl('vdogrouping')." AS vdogrouping ",'*',$cond);
-		}
+			$result = $db->count(tbl('vdogrouping')." AS vdogrouping INNER JOIN ".tbl('vdogrouping_type')." AS vdogrouping_type ON vdogrouping.grouping_type_id = vdogrouping_type.id",'vdogrouping.id',$cond);
+			}
 		if($params['assign'])
 			assign($params['assign'],$result);
 			return $result;
@@ -640,6 +671,21 @@ class VideoGrouping extends CBCategory{
 			$db->execute("DELETE FROM ".tbl("video_grouping")." WHERE video_id='$videoid' AND vdogrouping_id='$id'");
 	}
 	
+	/**
+	 * Remove associate between any grouping and a video
+	 *
+	 * @param int $videoid
+	 * 		the video's id
+	 */
+	function unlinkAllGrouping($videoid) {
+		global $db;
+		$cnt= $db->count(tbl('video_grouping'),'*',"video_id=".$videoid);
+		if ($cnt>0) {
+			$db->execute("DELETE FROM ".tbl("video_grouping")." WHERE video_id='$videoid';");
+			e(lang("grouping_have_been_disconected"),'m');
+		}
+	}
+	
 	
 	/**
 	 * Return all groupings (with their type) linked to a video
@@ -652,7 +698,7 @@ class VideoGrouping extends CBCategory{
 	function getGroupingOfVideo($vid){
 		global $db;
 		$fields = array(
-				'vdogrouping' => array('id', 'grouping_type_id','name','place','description','in_menu','color','thumb_url'),
+				'vdogrouping' => array('id', 'grouping_type_id','name','place','description','in_menu','in_homepage','color','thumb_url'),
 				'vdogrouping_type' => array('name','in_thumb','in_menu'),
 		);
 		$tblvdogrouping=tbl('vdogrouping');
@@ -806,6 +852,12 @@ class VideoGrouping extends CBCategory{
 			$this->initSearchGrouping();
 		else 
 			$this->initSearchVideoFromGrouping();
+	}
+	
+	function getGroupingsInHomePage(){
+		global $db;
+		$query="SELECT * FROM ".tbl("vdogrouping") ." WHERE in_homepage=1 ";
+		return $db->_select($query);
 	}
 
 }

@@ -17,6 +17,7 @@ if(!defined('SUB_PAGE')){
 /** get video object */
 $video = $cbvid->getVideo($_GET['video']);
 Assign('video',$video);
+assign('showfilter',true);
 
 /** link and unlink groupings to the selected video) */
 if(isset($_POST['groupingSelected'])){
@@ -37,7 +38,9 @@ if(isset($_POST['groupingSelected'])){
 /** Run after a post action called 'filter' (used to filter list of external documents) */
 elseif(isset($_POST['filter'])){
 	$filtercond=" vdogrouping.name like '%".$_POST['name']."%'";
+	$filtercond2=" vdogrouping_type.name LIKE '%".$_POST['type']."%'";
 	assign('searchname',$_POST['name']);
+	assign('searchtype',$_POST['type']);
 	assign('showfilter',true);
 }
 
@@ -55,6 +58,7 @@ $result_array['assign'] = 'linkedGrouping';
 
 $linkedGrouping = $videoGrouping->getGroupingForVideo($result_array);
 if ($filtercond) $result_array['cond']=$filtercond;
+if ($filtercond2) $result_array['cond2']=$filtercond2;
 $result_array['limit'] = $get_limit;
 $result_array['selected'] = 'no';
 $result_array['assign'] = 'unlinkedGrouping';
@@ -64,6 +68,8 @@ $unlinkedGrouping = $videoGrouping->getGroupingForVideo($result_array);
 /** Collecting Data for Pagination */
 $mcount = $array;
 $mcount['count_only'] = true;
+if ($filtercond) $mcount['cond']=$filtercond;
+if ($filtercond2) $mcount['cond2']=$filtercond2;
 $total_rows  = $videoGrouping->getGroupingForVideo($mcount);
 $total_pages = count_pages($total_rows,RESULTS);
 /** Pagination */

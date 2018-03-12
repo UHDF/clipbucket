@@ -58,6 +58,9 @@
 		<link_groupings_to_video>Link groupings to video</link_groupings_to_video>
 		<show_in_video_thumbnails>Show in video thumbnails</show_in_video_thumbnails>
 		<in_thumbnails>In thumbnails </in_thumbnails>
-		
+		<grouping_have_been_disconected>Grouping have been disconected</grouping_have_been_disconected>
+		<in_homepage>In Homepage</in_homepage>
+		<show_in_homepage>Show in homepage</show_in_homepage>
+		<hide_from_homepage>Hide from homepage</hide_from_homepage>
 	</phrases>
 </clipbucket_language>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clipbucket_language>
+	<name>English</name>
+	<iso_code>en</iso_code>
+	<phrases>
+		<Chapters>Chapters</Chapters>
+		<add_a_chapter>Add a chapter</add_a_chapter>
+		<save_chapters>Save chapters</save_chapters>
+		<divide_into_chapters>Divide into chapters</divide_into_chapters>
+		<delete>delete</delete>
+		<time>time</time>
+		<chapter>chapter</chapter>
+		<chapter_deleted>Chapter deleted</chapter_deleted>
+		<chapters_saved>Chapters saved</chapters_saved>
+	</phrases>
+</clipbucket_language>

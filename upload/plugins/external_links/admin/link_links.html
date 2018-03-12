@@ -3,7 +3,7 @@
 <div class="heading">
 	<h2>{lang('link_external_links_to_video')}{$video.videoid}</h2>
 </div>
-<div><span class="btn btn-primary" onclick="toggle_search('searchdiv')" >{lang('filter')}</span></div>
+<div><span class="btn btn-primary" onclick="toggle_search('searchdiv')" ><span class="glyphicon glyphicon-search"></span>{lang('filter')}</span></div>
 <br/>
 <div class="search_box" id="searchdiv" {if $showfilter!=true} style="display:none"{/if}>  
 <form id="link_search" name="link_search" method="post" action="" class="link_search">
@@ -44,7 +44,7 @@
             <div class="col-md-10">
                 <div class="row">
                     <div class="col-md-9">
-                        <a href="{$link_editpage}&id={$u.sid}" target="_blank" class="oneUserName">{$u.title} </a>
+                        <a href="{$link_managepage}&editLink={$u.id}" target="_blank" class="oneUserName">{$u.title} </a>
                     </div>
                 </div>
             </div>
@@ -96,7 +96,7 @@
             <div class="col-md-10">
                 <div class="row">
                     <div class="col-md-9">
-                        <a href="{$link_editpage}&id={$u.sid}" target="_blank" class="oneUserName">{$u.title} </a>
+                        <a href="{$link_managepage}&editLink={$u.id}" target="_blank" class="oneUserName">{$u.title} </a>
                     </div>
                 </div>
             </div>

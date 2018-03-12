@@ -53,6 +53,8 @@ Version: 0.1
 
 				$tab_retour['mail'] = $info[0]["mail"][0];	// Add the mail
 
+				$tab_retour['edupersonaffiliation'] = $info[0]["edupersonaffiliation"][0];	// Add user level
+
 				ldap_close($ds);		// Close connection
 
 				return $tab_retour;
@@ -140,7 +142,7 @@ Version: 0.1
 	/**
 	 *	Add entries for the plugin in the administration pages
 	 */
-	if (!$cbplugin->is_installed('common_library.php') || $userquery->permission[getStoredPluginName("ldap")]=='yes')
-	add_admin_menu(lang('Stats And Configurations'),lang('ldap_configuration'),'edit_ldap_client.php',LDAP_CLIENT.'/admin');
+	if ($cbplugin->is_installed('common_library.php') && $userquery->permission[getStoredPluginName("ldap")]=='yes')
+	add_admin_menu(lang('General Configurations'),lang('ldap_configuration'),'edit_ldap_client.php',LDAP_CLIENT.'/admin');
 
 ?>

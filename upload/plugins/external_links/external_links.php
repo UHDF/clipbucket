@@ -3,7 +3,7 @@
  Plugin Name: External links
  Description: This plugin will add external links to a video.
  Author: Franck Rouze
- Author Website: http://semm.univ-lille1.fr/
+ Author Website: http://www.univ-lille.fr/
  ClipBucket Version: 2.8
  Version: 1.0
  Website:
@@ -51,6 +51,50 @@ if(!function_exists('externalLinkList')){
 	register_anchor_function('externalLinkList','externalLinkList');
 }	
 
+if(!function_exists('externalLinkCount')){
+	/**
+	 * Get external links count for the current video
+	 *
+	 * This function is registrered in smarty to be used directly into the template
+	 * @return int
+	 * 		the number of external urls linked to the current video
+	 * @see Document.getLinkForVideo() function for more details
+	 */
+	function externalLinkCount(){
+		global $Smarty;
+		global $linkquery;
+		global $db;
+		if ($_GET["v"]){
+			$vid=$_GET["v"];
+			$result=$db->_select("SELECT `videoid` FROM ".tbl('video')." WHERE `videokey`='".$vid."'");
+			if (count($result)==1) $vid=$result[0]['videoid'];
+			$data=["videoid"=> $vid, "selected" => "yes","count_only"=>True];
+			$cnt=$linkquery->getLinkForVideo($data);
+			return intval($cnt);
+		}
+		else return 0;
+	}
+	global $Smarty;
+	$Smarty->register_function('externalLinkCount','externalLinkCount');
+}
+
+/**
+ * Remove associate between any external links and a video
+ *
+ * @param int $vid
+ * 		the video's id
+ */
+function unlinksAllLinks($vid){
+	global $linkquery;
+	if(is_array($vid))
+		$vid = $vid['videoid'];
+		$linkquery->unlinkAllLinks($vid);
+}
+
+/** Remove external links associated a video when video is deleted */
+register_action_remove_video("unlinksAllLinks");
+
+
 /**
  * Add a new entry "Link external link" into the video manager menu named "Actions" associated to each video
  * 
@@ -63,13 +107,24 @@ function addExternalLinkMenuEntry($vid){
 	$idtmp=$vid['videoid'];
 	return '<li><a role="menuitem" href="'.LINK_LINKPAGE_URL.'&video='.$idtmp.'">'.lang("link_external_link").'</a></li>';
 }
-if (!$cbplugin->is_installed('common_library.php') || $userquery->permission[getStoredPluginName("links")]=='yes')
+if ($cbplugin->is_installed('common_library.php') && $userquery->permission[getStoredPluginName("links")]=='yes')
 	$cbvid->video_manager_link[]='addExternalLinkMenuEntry';
 
 /**
  * Add entries for the plugin in the administration pages
  */
-if (!$cbplugin->is_installed('common_library.php') || $userquery->permission[getStoredPluginName("links")]=='yes')
+if ($cbplugin->is_installed('common_library.php') && $userquery->permission[getStoredPluginName("links")]=='yes')
 	add_admin_menu(lang('video_addon'),lang('external_links_manager'),'manage_links.php',LINK_BASE.'/admin');
+
+/**
+ * insert js code into the HEADER of the edit_video.php page
+ */
+if ($cbplugin->is_installed('common_library.php') &&
+		$userquery->permission[getStoredPluginName("links")]=='yes' &&
+		substr($_SERVER['SCRIPT_NAME'], -14, 14) == "edit_video.php"){
+			assign("videoid",$_GET['video']);
+			$Cbucket->add_admin_header(PLUG_DIR . '/external_links/admin/header.html', 'global');
+}
+	
 	
 ?>

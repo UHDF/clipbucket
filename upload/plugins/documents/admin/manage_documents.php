@@ -5,7 +5,7 @@ $userquery->admin_login_check();
 /** Check if user has admin acces to this plugin */
 if ($cbplugin->is_installed('common_library.php'))	$userquery->login_check(getStoredPluginName("documents"));
 $pages->page_redir();
-
+assign("title","");
 /** Assigning page and subpage */
 if(!defined('MAIN_PAGE')){
 	define('MAIN_PAGE', lang('video_addon'));
@@ -14,12 +14,39 @@ if(!defined('SUB_PAGE')){
 	define('SUB_PAGE', lang('document_manager'));
 }
 
-
-/** Run after a post action called 'deleteDocument'*/
-if (isset($_GET['deleteDocument'])) {
-	$deldocument = mysql_clean($_GET['deleteDocument']);
-	$documentquery->deleteDocument($deldocument);
+/**
+ * Manage $_GET messages only if no POST is made.
+ */
+if (count($_POST)==0){
+	/** Run after a post action called 'deleteDocument'*/
+	if (isset($_GET['deleteDocument'])) {
+		$deldocument = mysql_clean($_GET['deleteDocument']);
+		$documentquery->deleteDocument($deldocument);
+	}
+	/** Run after a post action called 'editDocument'*/
+	else if (isset($_GET['editDocument'])) {
+		if (error()){
+			$details=$_POST;
+			$details['id']=$details['documentid'];
+		}
+		else {
+			$id = $_GET['editDocument'];
+			$details = $documentquery->getDocumentDetails($id);
+		}
+	
+		if ($details){
+			assign('document',$details);
+		}
+		assign('showedit',true);
+		assign('showfilter',false);
+		assign('showadd',false);
+	}
+	else {
+		assign('showfilter',true);
+	}
+	
 }
+	
 
 /** Run after a post action called 'deleteSelected' (Deleting Multiple documents) */
 if(isset($_POST['deleteSelected'])){
@@ -60,25 +87,6 @@ if(isset($_POST['addDocument'])){
 	}
 }
 
-/** Run after a post action called 'editDocument'*/
-if (isset($_GET['editDocument'])) {
-	if (error()){
-		$details=$_POST;
-		$details['id']=$details['documentid'];
-	}
-	else {
-		$id = $_GET['editDocument'];
-		$details = $documentquery->getDocumentDetails($id);
-	}
-
-	if ($details){
-		assign('document',$details);
-	}
-	assign('showedit',true);
-	assign('showfilter',false);
-	assign('showadd',false);
-}
-
 /** Run after a post action called 'updateDocument'*/
 if(isset($_POST['updateDocument'])){
 	$array=$documentquery->getDocumentDetails($_POST['documentid']);
@@ -99,7 +107,7 @@ if(isset($_POST['updateDocument'])){
 		}
 		e(lang("update_document"),"m");
 		$_POST = '';
-		assign('showfilter',false);
+		assign('showfilter',true);
 		assign('showadd',false);
 		assign('showedit',false);
 		assign('document',false);

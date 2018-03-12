@@ -40,7 +40,55 @@
 			</label>
 		</div>
 	</div>
-	
+
+	{if $ldap}
+		<div class="form-group">
+			<label for="cas_context" class="col-sm-2 control-label">Filtrer les utilisateurs</label>
+			<!--
+				Hard coded eduPersonAffiliation because it seems to be standard value in LDAP
+			-->
+			<div class="checkboxes">
+				<label class="checkbox-inline">
+					<input type="checkbox" value="faculty" {if in_array("faculty",$usrlevel)}checked="checked"{/if} name="chk_userlevel[]">
+					faculty
+				</label>
+
+				<label class="checkbox-inline">
+					<input type="checkbox" value="student" {if in_array("student",$usrlevel)}checked="checked"{/if} name="chk_userlevel[]">
+					student
+				</label>
+
+				<label class="checkbox-inline">
+					<input type="checkbox" value="staff" {if in_array("staff",$usrlevel)}checked="checked"{/if} name="chk_userlevel[]">
+					staff
+				</label>
+				<label class="checkbox-inline">
+					<input type="checkbox" value="employee" {if in_array("employee",$usrlevel)}checked="checked"{/if} name="chk_userlevel[]">
+					employee
+				</label>
+				<label class="checkbox-inline">
+					<input type="checkbox" value="member" {if in_array("member",$usrlevel)}checked="checked"{/if} name="chk_userlevel[]">
+					member
+				</label>
+				<label class="checkbox-inline">
+					<input type="checkbox" value="affiliate" {if in_array("affiliate",$usrlevel)}checked="checked"{/if} name="chk_userlevel[]">
+					affiliate
+				</label>
+				<label class="checkbox-inline">
+					<input type="checkbox" value="alum" {if in_array("alum",$usrlevel)}checked="checked"{/if} name="chk_userlevel[]">
+					alum
+				</label>
+				<label class="checkbox-inline">
+					<input type="checkbox" value="library-walk-in" {if in_array("library-walk-in",$usrlevel)}checked="checked"{/if} name="chk_userlevel[]">
+					library-walk-in
+				</label>
+			</div>
+
+		</div>
+
+
+	{/if}
+
 	<div class="form-group">
 		<div class="col-sm-8 col-sm-offset-2">
 			<input type="submit" class="btn btn-primary" name="update_config" id="update_config" value="{lang('cas_update_config')}">

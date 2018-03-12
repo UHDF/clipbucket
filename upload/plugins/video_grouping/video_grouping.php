@@ -3,7 +3,7 @@
 Plugin Name: Video Grouping
 Description: This plugin will add a generic video grouping functionnality (discipline, type, category, collection, series...)
 Author: Franck Rouze
-Author Website: http://semm.univ-lille1.fr/
+Author Website: http://www.univ-lille.fr/
 ClipBucket Version: 2.8.1
 Version: 1.0
 Website: http://clip-bucket.com/plugin-page
@@ -76,7 +76,7 @@ if(!function_exists("groupingThumbOutput")) {
 		$txt="";
 		foreach ($res as $r){
 			if ($r['in_thumb'])
-				$txt.= '<a href="'.BASEURL."/search_result.php?type=videogrouping&query=".$r['id'].'&gtype='.$r['grouping_type_id'].'" style="color:'.$r['color'].';border-color:'.$r['color'].'">'.$r['name'].'</a>';	
+				$txt.= '<a href="'.BASEURL."/search_result.php?type=videogrouping&query=".$r['name'].'&gtype='.$r['grouping_type_id'].'" style="color:'.$r['color'].';border-color:'.$r['color'].'">'.$r['name'].'</a>';	
 				}
 		echo $txt;
 	}
@@ -102,6 +102,21 @@ function displayGroupingName($vid){
 }
 $cbvid->video_manager_link_new[] = 'displayGroupingName';
 
+/**
+ * Remove associate between any grouping and a video
+ *
+ * @param int $vid
+ * 		the video's id
+ */
+function unlinksGroupings($vid){
+	global $videoGrouping;
+	if(is_array($vid))
+		$vid = $vid['videoid'];
+		$videoGrouping->unlinkAllGrouping($vid);
+}
+
+/** Remove all groupings associated a video when video is deleted */
+register_action_remove_video("unlinksGroupings");
 
 
 /**
@@ -115,10 +130,23 @@ function addLinkVideoGroupingMenuEntry($vid){
         return '<li><a role="menuitem" href="'.VIDEO_GROUPING_LINKPAGE_URL.'&video='.$idtmp.'">'.lang("link_video_grouping").'</a></li>';
 }
 /** Add the previous function in the list of entries into the video manager "Actions" button */
-if (!$cbplugin->is_installed('common_library.php') || $userquery->permission[getStoredPluginName("videogrouping")]=='yes')
+if ($cbplugin->is_installed('common_library.php') && $userquery->permission[getStoredPluginName("videogrouping")]=='yes')
         $cbvid->video_manager_link[]='addLinkVideoGroupingMenuEntry';
 
 /**Add entries for the plugin in the administration pages */
-if (!$cbplugin->is_installed('common_library.php') || $userquery->permission[getStoredPluginName("videogrouping")]=='yes')
+if ($cbplugin->is_installed('common_library.php') && $userquery->permission[getStoredPluginName("videogrouping")]=='yes')
 	add_admin_menu(lang('video_addon'),lang("manage_video_grouping"),'manage_video_grouping.php','video_grouping/admin/');
+
+/**
+ * insert js code into the HEADER of the edit_video.php page
+ */
+if ($cbplugin->is_installed('common_library.php') &&
+		$userquery->permission[getStoredPluginName("videogrouping")]=='yes' &&
+		substr($_SERVER['SCRIPT_NAME'], -14, 14) == "edit_video.php"){
+	assign("videoid",$_GET['video']);
+	$Cbucket->add_admin_header(PLUG_DIR . '/video_grouping/admin/header2.html', 'global');
+}
+global $videoGrouping;
+Assign("videoGrouping", $videoGrouping)
+	
 ?>

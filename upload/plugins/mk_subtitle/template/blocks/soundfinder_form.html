@@ -1,0 +1,19 @@
+
+<div id="soundFinder">
+
+	<input type="hidden" name="video" id="video" size="80" value="{$video_file}">
+	<input type="hidden" name="marker" id="marker" size="80" value="{$marker_file}">
+	<input type="hidden" name="ffmpeg_path" id="ffmpeg_path" size="80" value="{$ffmpeg_path}">
+
+	<label for="threshold">{lang code="mksub_threshold"} : </label>
+	<input type="text" name="threshold" id="threshold" size="2" value="{$threshold}">dB<br>
+	<label for="durationSilence">{lang code="mksub_silencedurationmin"} : </label>
+	<input type="text" name="durationSilence" id="durationSilence" size="5" value="{$durationSilence}">{lang code="seconds"}<br>
+	<label for="delayBefore">{lang code="mksub_startplaying"} : </label>
+	<input type="text" name="delayBefore" id="delayBefore" size="5" value="{$delayBefore}">{lang code="seconds"}<br>
+	<label for="delayAfter">{lang code="mksub_stopplaying"} : </label>
+	<input type="text" name="delayAfter" id="delayAfter" size="5" value="{$delayAfter}">{lang code="seconds"}<br>
+
+	<button onclick="soundFinder();" title="Sound Finder">{lang code="mksub_findsentences"}</button><br>
+	<br>
+</div>

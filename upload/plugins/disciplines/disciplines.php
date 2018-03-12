@@ -3,7 +3,7 @@
 Plugin Name: Disciplines
 Description: Adds disciplines to videos
 Author: Yannick Bonnaz / Franck Rouze
-Author Website: http://semm.univ-lille1.fr/
+Author Website: http://www.univ-lille.fr/
 ClipBucket Version: 2.8
 Version: 1.0
 Website: 
@@ -91,12 +91,12 @@ function addLinkDisciplineMenuEntry($vid){
 	$idtmp=$vid['videoid'];
 	return '<li><a role="menuitem" href="'.DISCIPLINE_LINKPAGE_URL.'&video='.$idtmp.'">'.lang("link_discipline").'</a></li>';
 }
-if (!$cbplugin->is_installed('common_library.php') || $userquery->permission[getStoredPluginName("discipline")]=='yes')
+if ($cbplugin->is_installed('common_library.php') && $userquery->permission[getStoredPluginName("discipline")]=='yes')
 	$cbvid->video_manager_link[]='addLinkDisciplineMenuEntry';
 
 
 
 //addadmin menu
-if (!$cbplugin->is_installed('common_library.php') || $userquery->permission[getStoredPluginName("discipline")]=='yes')
+if ($cbplugin->is_installed('common_library.php') && $userquery->permission[getStoredPluginName("discipline")]=='yes')
 	add_admin_menu(lang('video_addon'),lang("manage_disciplines"),'manage_disciplines.php','disciplines/admin/');
 ?>

@@ -15,6 +15,8 @@ define('COMMON_LIBRARY_BASE',basename(dirname(__FILE__)));
 define('COMMON_LIBRARY_DIR',PLUG_DIR.'/'.COMMON_LIBRARY_BASE);
 define('COMMON_LIBRARY_URL',PLUG_URL.'/'.COMMON_LIBRARY_BASE);
 
+define('COMMON_LIBRARY_TINYMCE', COMMON_LIBRARY_URL .'/tinymce/4.7.4');
+Assign('common_library_tinymce', COMMON_LIBRARY_TINYMCE);
 
 /**
  * Import language data from an xml file called  "lang_XX.xml" where "XX" is the language iso code (ie: lang_en.fr).

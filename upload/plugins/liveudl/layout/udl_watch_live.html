@@ -1,0 +1,110 @@
+<style>
+    .live-container .dropdown-menu{ right: auto; }
+    #nbViewer{ padding-left: 25px; }
+    #nbViewer, #nbViewer b{ color: red !important; }
+</style>
+<div id="player-container" class="clearfix live-container" role="main">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 html5_player_enlarge">
+        {if $live.active}
+            <div id="cb_player" class="no-pad cb_player video-player card wide"> {FlashPlayer width='100%' height='100%'} </div>
+        {else}
+            <div id="cb_player" class="no-pad cb_player video-player card wide">
+                <img class="img-responsive" src="{$liveudl_thumbsdir}{if $live.thumb ne ''}{$live.thumb}{else}{$liveudl_thumbdefault}{/if}">
+            </div>
+        {/if}
+            {if has_access('plgadm_liveudl')}<div class="card edit-tools">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <button type="button" id="live{$live.id}" class="btn btn-primary btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;{lang('liveudl_actions')}
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="live{$live.id}">
+                            <li>
+                                {if not (not $live.active && $live.date|date_format:'%Y%m%d' < $smarty.now|date_format:'%Y%m%d')}<a role="menuitem" tab-index="-1" href="{$liveudl_actionpage}&live={$live.id}&ref=live">
+                                {if $live.active}<span class="glyphicon glyphicon-stop"></span> {lang('liveudl_actionLiveOff')}
+                                {else}<span class="glyphicon glyphicon-play"></span> {lang('liveudl_actionLiveOn')}{/if}
+                                </a>{/if}
+                            </li>
+                            <li><a href="{$liveudl_actionpage}&edit={$live.id}"><span class="glyphicon glyphicon-pencil"></span> {lang('liveudl_frontEditLive')}</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>{/if} 
+            
+            <article id="live-card" class="card">
+                <header>
+                    <h2 class="reset">{$live.title}</h2>
+                    <div class="entry date-duration">
+                        {if not $live.active}<b>
+                            {if $live.diff eq -1}{lang('liveudl_scheduledOn', $live.date|date_format:"%d %B %Y")} {lang('liveudl_publishedAt', $live.date|date_format:'%H:%M')}
+                            {elseif $live.diff eq 0}
+                                {if $live.date|date_format:'%Y%m%d' eq $smarty.now|date_format:'%Y%m%d'}{lang('liveudl_occuredToday', $live.date|date_format:'%H:%M')}
+                                {else}{lang('liveudl_scheduled')} {lang('today')|lower} {lang('liveudl_publishedAt', $live.date|date_format:'%H:%M')}{/if}
+                            {else}{lang('liveudl_occuredOn', $live.date|date_format:'%d %B %Y')}{/if}
+                        </b>
+                        {else}
+                        <b>
+                            {if $live.diff eq 0}{lang('liveudl_onliveSince', $live.date|date_format:'%H:%M')}
+                            {elseif $live.diff eq 1}{lang('liveudl_onliveSince2', $live.date|date_format:"%d %B %Y")} {lang('liveudl_publishedAt', $live.date|date_format:'%H:%M')}
+                            {else}{if $live.date|date_format:'%Y%m%d' eq $smarty.now|date_format:'%Y%m%d'}{lang('liveudl_scheduled')} {lang('today')|lower}
+                                {else}{lang('liveudl_scheduledOn', $live.date|date_format:"%d %B %Y")}{/if} {lang('liveudl_publishedAt', $live.date|date_format:'%H:%M')}{/if}
+                        </b>
+                        <span id="nbViewer" title="{lang('liveudl_viewers')}"><b>0</b>&nbsp;<span class="glyphicon glyphicon-user"></span></span>{/if}
+                    </div>
+		</header>
+                <div class="row" id="collapseMetas">
+                    <section class="col-sm-12" id="liveDescription">
+                        {$live.description|unescape:"html"}
+                    </section>
+                </div>
+            </article>
+        </div>
+    </div>
+</div>
+{if $live.active}
+<script src="//cdnjs.cloudflare.com/ajax/libs/dashjs/2.6.0/dash.all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/videojs-contrib-dash/2.9.2/videojs-dash.min.js"></script>
+<script src="{$liveudl_vjsScript}"></script>
+
+<script>
+    //var aspect_ratio = 1.77778
+    var aspect_ratio = 2.2;
+    var $cb_player = $('#video');
+
+    $(function(){
+        $cb_player.height( $cb_player.width() / aspect_ratio );        
+        $(window).resize(resizePlayer);
+        
+        var ludlCustomCallback = function(player, mediaPlayer) {
+            // Log MediaPlayer messages through video.js
+            if (videojs && videojs.log) {
+                mediaPlayer.getDebug().setLogToBrowserConsole(false);
+                mediaPlayer.on('log', function(event) {
+                    videojs.log(event.message);
+                });
+            }
+        };
+        videojs.Html5DashJS.hook('beforeinitialize', ludlCustomCallback);
+        
+        var lPlayer = $('video');
+        if(lPlayer.find('source').length){
+            lPlayer.find('source').remove();
+        }
+        var player = videojs(lPlayer.attr('id')), video_src = [];
+        if(window.MediaSource){
+            video_src = [{foreach from = $live.qualities item = q}{if $q.dash ne ''}{ name: '{$q.quality}p', src: '{$q.dash}', type:'video/mp4' },{/if}{/foreach}];
+        } else {
+            video_src = [{foreach from = $live.qualities item = q}{if $q.hls ne ''}{ name: '{$q.quality}p', src: '{$q.hls}', type:'application/x-mpegURL' },{/if}{/foreach}];
+        }
+        player.lvpQuality({
+            sources: video_src, 
+            default: '720p'
+        });
+    });
+
+    var resizePlayer =  _cb.debounce(function() {
+        $cb_player.height( $cb_player.width() / aspect_ratio );
+    }, 500, false);
+</script>
+{/if}

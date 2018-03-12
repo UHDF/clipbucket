@@ -15,6 +15,7 @@ if(!defined('SUB_PAGE')){
     define('SUB_PAGE', lang('manage_video_grouping'));
 }
 
+assign('showfilter',true);
 
 /** Edit the current groupingType */
 if(isset($_GET['editGroupingType'])){
@@ -48,6 +49,13 @@ elseif (isset($_GET['setInMenu'])) {
 	$id = mysql_clean($_GET['id']);
 	$value = $_GET['setInMenu']==1;
 	$videoGrouping->setInMenu($id,$value);
+	assign('showedit2',false);
+}
+/** Modify the in_homepage attribute for the current grouping */
+elseif (isset($_GET['setInHomepage'])) {
+	$id = mysql_clean($_GET['id']);
+	$value = $_GET['setInHomepage']==1;
+	$videoGrouping->setInHomepage($id,$value);
 	assign('showedit2',false);
 }
 /** Edit the current grouping */
@@ -133,8 +141,9 @@ elseif(isset($_POST['updateGrouping'])){
 }
 /** Run after a post action called 'filter' (used to filter list of external documents) */
 elseif(isset($_POST['filter'])){
-	$filtercond=" g.name like '%".$_POST['name']."%'";
+	$filtercond=" g.name like '%".$_POST['name']."%' AND gt.name LIKE '%".$_POST['type']."%'";
 	assign('searchname',$_POST['name']);
+	assign('searchtype',$_POST['type']);
 	assign('showfilter',true);
 	assign('showedit2',false);
 }
@@ -156,6 +165,7 @@ $grp = $videoGrouping->getGroupings($result_array);
 /** Collecting Data for Pagination */
 $mcount = $array;
 $mcount['count_only'] = true;
+if ($filtercond) $mcount['cond']=$filtercond;
 $total_rows  = $videoGrouping->getGroupings($mcount);
 $total_pages = count_pages($total_rows,RESULTS);
 /** Pagination */

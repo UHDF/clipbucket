@@ -4,5 +4,15 @@
 	<iso_code>fr</iso_code>
 	<phrases>
 		<lang_pack_updated>Le pack de langue a été mise à jour.</lang_pack_updated>
+		<!-- Keywords needed for sharing dialog -->
+		<default>Défaut</default>
+		<small>Petit</small>
+		<medium>Moyen</medium>
+		<large>Grand</large>
+		<copy_to_clipboard>Copier dans le presse papier</copy_to_clipboard>
+		<embed_type>Type d'intégration</embed_type>
+		<shareStartAt>Démarrer à</shareStartAt>
+		<shareStartAtInfo>Indiquer le point de démarrage de la vidéo</shareStartAtInfo>
+		<video_addon>Extensions vidéo</video_addon>
 	</phrases>
 </clipbucket_language>

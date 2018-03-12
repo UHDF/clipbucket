@@ -1,0 +1,61 @@
+<link href="../plugins/tag_selector/admin/magicsuggest/magicsuggest-min.css" rel="stylesheet">
+<script src="../plugins/tag_selector/admin/magicsuggest/magicsuggest-min.js"></script>
+<script type="text/javascript">
+
+//var tags={$alltags};
+var initial={$initialtags};
+var PlaceHolder="{$PlaceHolder}";
+{literal}
+
+$( document ).ready( function() {
+	// get the input field named "tags"
+	var obj=$('[name="tags"]');
+	var videoid=$("#videoid").val();
+	// only run the code for the edit video page
+	if (obj["length"]>0){
+		$("input[name=tags]").attr('id',"tags");
+		var htmltxt="<div id='magicsuggest'></div>";
+		$("#tags").before(htmltxt);
+
+		var formData = {data:{video:videoid}}; //Array 
+		$.ajax({
+			type	  	: "POST",
+			url 	  	: "../plugins/tag_selector/admin/gettags.php",
+			data		: formData,
+			dataType : "html",
+			success : function(q)
+			{
+				if (q){
+					q=$.parseJSON(q);
+					
+					var ms=$("#magicsuggest").magicSuggest({
+						data:q.alltags,
+						valueField:"name",
+						renderer:function(data){return data.name+" ("+data.count+")";},
+						sortOrder:'name',
+						value:q.initialtags,
+						placeholder:PlaceHolder,
+					});
+					$(ms).on('selectionchange', function(e,m){
+				  		$("#tags").val(this.getValue());
+					});
+					// force update for original tag field. 
+					$(ms).trigger("selectionchange");
+				}
+			}
+		});		
+		
+	}
+	
+	// Hide the original input
+	$("#tags").hide();
+	
+});
+
+
+
+
+{/literal}
+</script>
+
+

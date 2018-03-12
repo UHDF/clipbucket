@@ -136,8 +136,16 @@ switch($mode)
 		$config_for_mp4 = $Cbucket->configs['stay_mp4'];
 		$ffmpegpath = $Cbucket->configs['ffmpegpath'];
 		$extension = getExt( $_FILES['Filedata']['name']);
-		/*$raw_content_type = mime_content_type($_FILES['Filedata']['tmp_name']);
-		$content_type = substr($raw_content_type, 0,strpos($raw_content_type, '/'));*/
+		
+		#checking for if the right file is uploaded
+		$content_type = get_mime_type($_FILES['Filedata']['tmp_name']);
+		if ( $content_type != 'video')  {
+			echo json_encode(array("status"=>"400","err"=>"Invalid Content"));
+			exit();
+		}
+
+		// pex($content_type,true);
+
 		$types = strtolower(config('allowed_types'));
 		$supported_extensions = explode(',', $types);
 
@@ -344,10 +352,12 @@ switch($mode)
 
 		}
 
-		$_POST['videoid'] = trim($_POST['videoid']);
-		$_POST['title'] = addslashes($_POST['title']);
-		$_POST['description'] = addslashes($_POST['description']);
-		$_POST['duration'] = addslashes($_POST['duration']);
+
+		//changes made
+		// $_POST['videoid'] = trim($_POST['videoid']);
+		// $_POST['title'] = addslashes($_POST['title']);
+		// $_POST['description'] = addslashes($_POST['description']);
+		// $_POST['duration'] = addslashes($_POST['duration']);
 
 		if(empty($eh->error_list))
 		{

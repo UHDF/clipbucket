@@ -3,7 +3,7 @@
 Plugin Name: Get video field
 Description: Retrieves and return any video field using it's videoid
 Author: YB
-Author Website: http://semm.univ-lille1.fr/
+Author Website: http://www.univ-lille.fr/
 ClipBucket Version: 2.8
 Version: 1.0
 Website: http://clip-bucket.com/plugin-page
@@ -17,4 +17,6 @@ if(!function_exists("get_video_field")) {
 	}
 	register_anchor_function("get_video_field","get_video_field");
 }
+
+
 ?>

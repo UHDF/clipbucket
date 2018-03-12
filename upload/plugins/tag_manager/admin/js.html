@@ -1,0 +1,196 @@
+<script type="text/javascript">
+{literal}
+    var $hTitles = {{/literal}new: '{lang('tagm_titleNew')}', edit: '{lang('tagm_titleEdit')}', delete: '{lang('tagm_titleDelete')}'{literal}};
+    var $errors = {missing: {/literal}'{lang('tagm_missingTag')}', exist: '{lang('tagm_existingTag')}', comma: '{lang('tagm_containComma')}'{literal}};
+    var $phrases = {{/literal}
+        tagm_video: '{lang('tagm_video')}',
+        tagm_usedByVideo: '{lang('tagm_usedByVideo')}',
+        tagm_usedByVideos: '{lang('tagm_usedByVideos')}',
+        tagm_modalDelMsg: '{lang('tagm_modalDelMsg')}',
+        tagm_usedBy: '{lang('tagm_usedBy')}',
+    {literal}};
+    var $tags = [];
+    var $tagsLoaded = false;
+    
+    
+    function loadTags(){
+        $.ajax({
+            async: false,
+            method: 'GET',
+            url: {/literal}'{$tagm_actionpage}'{literal},
+            data: {action: 'tags'}
+        }).done(function(r){
+            $tags = $.parseJSON(r);
+            $tagsLoaded = true;
+            $('#loading-spinner').fadeOut();
+            $('#formTagCreate').fadeIn();
+        }).fail(function(obj, status, err){// jqXHR, textStatus, errorThrown
+            console.log('Error : '+ status);
+        });
+    }
+    
+    function getEditContent(t){
+        var vid = [];
+        $('form table tr[data-tag="'+ t +'"] ul li').each(function(){
+            vid.push($(this).attr('data-vid'));
+        });
+        var t = '<form class="form-horizontal" id="formTagEdit" action="{/literal}{$tagm_actionpage}{literal}" method="post">'+
+                '<div class="form-group">'+
+                '<div class="alert alert-danger none"></div>'+
+                '<label class="col-sm-3 control-label">Tag</label>'+
+                '<div class="col-sm-9">'+
+                '<input type="text" class="form-control" name="tag" value="'+ t +'" />'+
+                '</div></div>'+
+                '<div class="form-group">'+
+                '<div class="col-sm-12 text-right">'+
+                '<button type="button" class="btn btn-default btn-sm" data-dismiss="modal" aria-label="Close">Annuler</button> '+
+                '<button type="submit" class="btn btn-primary btn-sm">Enregistrer</button>'+
+                '</div></div><input type="hidden" name="action" value="edit" />'+
+                '<input type="hidden" name="old" value="'+ t +'" /><input type="hidden" name="video" value="'+ vid.join(',') +'" /></form>';
+        return t;		
+    }
+
+    function getDeleteContent(t){
+        var ul = $('form table tr[data-tag="'+ t +'"] ul');
+        var s = ul.find('li').length +' '+ $phrases.tagm_video + (ul.find('li').length > 1 ?  's ' : ' ');
+        var vid = [];
+        $(ul).find('li').each(function(){
+            vid.push($(this).attr('data-vid'));
+        })
+
+        var t = '<form class="form-horizontal" id="formTagDelete" action="{/literal}{$tagm_actionpage}{literal}" method="post">'+
+                '<div class="form-group"><div class="col-sm-12">'+
+                $phrases.tagm_modalDelMsg +' <b>'+ t +'</b> '+ $phrases.tagm_usedBy +' '+
+                '<button class="btn btn-link btn-xs" role="button" data-toggle="collapse" href="#modalCollapse" aria-expanded="false" aria-controls="modalCollapse"'+
+                'title="'+ (ul.find('li').length > 1 ? $phrases.tagm_usedByVideos: $phrases.tagm_usedByVideo) +'">'+
+                s +'</button>?<div class="collapse" id="modalCollapse">'+ $(ul).html() +'</div></div></div></div>'+
+                '<div class="form-group">'+
+                '<div class="col-sm-12 text-right">'+
+                '<button type="button" class="btn btn-default btn-sm" data-dismiss="modal" aria-label="Close">Annuler</button> '+
+                '<button type="submit" class="btn btn-primary btn-sm">Valider</button>'+
+                '</div></div><input type="hidden" name="action" value="delete" />'+
+                '<input type="hidden" name="old" value="'+ t +'" /><input type="hidden" name="video" value="'+ vid.join(',') +'" /></form>';
+        return t;
+    }
+
+    function openTagModal(t, action){
+        var m = $('#tagModal');
+        if(m.hasClass('in')) m.modal('hide');
+        $('#tagModal .modal-body').html(t);
+        m.find('#tagModalLabel').html($hTitles[action]);
+        m.modal('show');
+    }
+    
+    function tagmForm(){        
+        var res = true;
+        var t = $('#tag').val();
+        var tdiv = $('#tag').closest('.form-group').find('div.alert');
+        tdiv.slideUp();
+        
+        if(t === ''){
+            tdiv.html($errors.missing);
+            tdiv.slideDown();
+            res = false;
+        }
+        
+        if(t.match(/,/)){
+            tdiv.html($errors.comma);
+            tdiv.slideDown();
+            res = false;
+        }
+        
+        var v = $('#video').val();
+        var vdiv = $('#video').closest('.form-group').find('div.alert');
+        vdiv.slideUp();
+        if(v === ''){
+            vdiv.slideDown();
+            res = false;
+        }
+        
+        if($.inArray(t, $tags) > -1){
+            tdiv.html($errors.exist);
+            tdiv.slideDown();
+            res = false;
+        }
+        
+        return res;
+    }
+    
+    function getVideos(){
+        $.ajax({
+            method: 'GET',
+            url: {/literal}'{$tagm_actionpage}'{literal},
+            data: {action: 'videos'}
+        }).done(function(r){
+            $('#video').after($('<div id="videos-ms" class="form-control"></div>'));
+            
+            var vms = $('#videos-ms').magicSuggest({
+                data: $.parseJSON(r),
+                valueField: 'id',
+                displayField: 'title',
+                renderer: function(d){
+                    return d.title;
+                },
+                allowFreeEntries: false,
+                placeholder: '{/literal}{lang('tagm_select1ormore')}{literal}',
+                selectionPosition: 'bottom',
+                selectionStacked: true,
+                selectionRenderer: function(data){
+                    return data.title;
+                }
+            });
+            
+            $(vms).on('selectionchange', function(e){
+                $('#video').val(this.getValue());
+            });
+        });
+    }
+
+    $(function(){
+        loadTags();
+        
+        if($('#formTagCreate').length){
+            $('#formTagCreate').submit(function(){
+                if(!$tagsLoaded){
+                    setTimeout(function(){ $('#formTagCreate').trigger('submit'); }, 100);
+                    return false;
+                } else {
+                    return tagmForm();
+                }
+            });
+            
+            getVideos();
+        }
+        
+        $('#tagModal').on('submit', 'form', function(e){
+            if($(this).attr('id') === 'formTagEdit'){
+                var t = $(this).find('input[name="tag"]').val();
+                var aDiv = $(this).find('div.alert.alert-danger');
+                aDiv.slideUp();
+                if(t === ''){
+                    aDiv.html($errors.exist);
+                    aDiv.slideDown();
+                    return false;
+                }
+                if($.inArray(t, $tags) > -1){
+                    aDiv.html($errors.missing);
+                    aDiv.slideDown();
+                    return false;
+                }
+            }
+            
+            return true;
+        });
+
+        $('form table .actionTag.edit').click(function(e){
+            var tag = $(e.currentTarget).closest('tr').attr('data-tag');
+            openTagModal(getEditContent(tag), 'edit');
+        });
+
+        $('form table .actionTag.delete').click(function(e){
+            var tag = $(e.currentTarget).closest('tr').attr('data-tag');
+            openTagModal(getDeleteContent(tag), 'delete');
+        });
+    });
+{/literal}
+</script>

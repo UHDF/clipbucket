@@ -105,9 +105,9 @@
 	$row = $myquery->Get_Website_Details();
 	
 	if(!DEVELOPMENT_MODE) {
-		define('DEBUG_LEVEL', 2);
+		define('DEBUG_LEVEL', 0);
 	} else {
-		define('DEBUG_LEVEL',0);
+		define('DEBUG_LEVEL',2);
 	}
 
 	switch(DEBUG_LEVEL) {
@@ -127,13 +127,10 @@
 		case 2:
 		default:
 		{
-			if(phpversion() >= '5.3.0') {
-				error_reporting(E_ALL & ~(E_NOTICE | E_DEPRECATED | E_STRICT | E_WARNING));
-				ini_set('display_errors', 'on');
-			} else {
-				error_reporting(E_ALL ^E_NOTICE);
-				ini_set('display_errors', 'on');
-			}
+			
+			error_reporting(E_ALL & ~(E_NOTICE | E_DEPRECATED | E_STRICT | E_WARNING));
+			ini_set('display_errors', 'on');
+			
 		}
 	}
 
@@ -235,8 +232,8 @@
 	$cbphoto    = new CBPhotos();
 	
 	$cbfeeds 	= new cbfeeds();
-	//$MrsTranslator = new MrsTranslator($Clientid, $secretId);
-	$MrsTranslator = new MrsTranslator();
+	//$GoogleTranslator = new MrsTranslator($Clientid, $secretId);
+	$GoogleTranslator = new GoogleTranslator();
 
 	# $cbmenu		= new MenuHandler();
 	check_install('after');
@@ -322,6 +319,8 @@
 	define('FILES_DIR',BASEDIR.'/files');
 	define('VIDEOS_DIR',FILES_DIR.'/videos');
 	define('THUMBS_DIR',FILES_DIR.'/thumbs');
+	define('AUDIOS_DIR',FILES_DIR.'/audios');
+	define('SPRITES_DIR',FILES_DIR.'/sprites');
 	define('ORIGINAL_DIR',FILES_DIR.'/original');
 	define('TEMP_DIR',FILES_DIR.'/temp');
 	define('CON_DIR',FILES_DIR.'/conversion_queue');
@@ -339,6 +338,7 @@
 	define('FILES_URL',BASEURL.'/files');
 	define('VIDEOS_URL',FILES_URL.'/videos');
 	define('THUMBS_URL',FILES_URL.'/thumbs');
+	define('SPRITES_URL',FILES_URL.'/sprites');
 	define('ORIGINAL_URL',FILES_URL.'/original');
 	define('TEMP_URL',FILES_URL.'/temp');
 	define("PLAYER_DIR",BASEDIR.'/player');

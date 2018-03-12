@@ -1,0 +1,25 @@
+{literal}<style>
+    .live{ margin: 10px; display: inline-block; position: relative; }
+    .live .livethumb{ width: 300px; }
+    .live .livethumb .liveactive{ width: 16px; height: 16px; border-radius: 8px; background: red; position: absolute; top: 10px; right: 10px; }
+    .live .infos{ position: absolute; bottom: 0; left: 0; right: 0; height: 40px; background: rgba(255, 255, 255, .7); padding: 5px; }
+    .live .infos h4{ margin: 0; padding: 0; font-size: 16px; }
+    .live .infos h4 small{ display: block; }
+</style>{/literal}
+<div class="container-fluid">
+    {if $lives}{foreach $lives as $live}
+    <div class="live">
+        <div class="livethumb">
+            <a href="{$live.link}" title="{$live.title}"><img class="img-responsive" src="{$liveudl_thumbsdir}{if $live.thumb ne ''}{$live.thumb}{else}{$liveudl_thumbdefault}{/if}"></a>
+            {if $live.active}<span class="liveactive"></span>{/if}
+        </div>
+        <div class="infos">
+            <h4>
+                <a href="{$live.link}" title="{$live.title}">{$live.title|truncate:40}</a>
+                <small>{lang('liveudl_scheduledOn', $live.date|date_format:'%d %B %Y')} {lang('liveudl_publishedAt', $live.date|date_format:'%H:%M')}</small>
+            </h4>
+        </div>
+    </div>
+    {/foreach}
+    {else}<div class="alert alert-danger text-center">{lang code='liveudl_noLive'}</div>{/if}
+</div>

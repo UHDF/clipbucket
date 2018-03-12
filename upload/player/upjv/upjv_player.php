@@ -1,9 +1,10 @@
 <?php
 /*
-	Player Name: VideoJS
+	Player Name: UPJV VideoJS player v2
 	Description: Video JS Integration for UPJV
 	Author: Adrien Ponchelet
-	ClipBucket Version: 2.8.1
+	ClipBucket Version: 2.8.2
+	Website: http://www.u-picardie.fr/
  
 * @Author : Adrien Ponchelet
 * @Script : ClipBucket v2
@@ -18,8 +19,8 @@ if (!function_exists('upjv_player'))
 	define("UPJV_PLAYER",basename(dirname(__FILE__)));
 	define("UPJV_PLAYER_DIR",PLAYER_DIR."/".UPJV_PLAYER);
 	define("UPJV_PLAYER_URL",PLAYER_URL."/".UPJV_PLAYER);
-	assign('upjv_player_dir',UPJV_PLAYER_DIR);
-	assign('upjv_player_url',UPJV_PLAYER_URL);
+	assign('upjv_player_v2_dir',UPJV_PLAYER_DIR);
+	assign('upjv_player_v2_url',UPJV_PLAYER_URL);
 
 	function upjv_player($in)
 	{
@@ -63,6 +64,16 @@ if (!function_exists('upjv_player'))
 	}
 
 	
+	/*
+	* This Function is written to get subtitle file if exist
+	*/
+	function get_upjv_subtitle($data){
+		$subfile = BASEDIR.'/files/subtitle/subtitle_'.$data['videoid'].'.vtt';
+		$suburl = BASEURL.'/files/subtitle/subtitle_'.$data['videoid'].'.vtt';
+		if (file_exists($subfile)){
+			return $suburl;
+		}
+	}
 	
 	
 	/*
@@ -99,10 +110,5 @@ if (!function_exists('upjv_player'))
 		
 	}
 
-	
-	
-	
-	
-	
 	register_actions_play_video('upjv_player');
 }

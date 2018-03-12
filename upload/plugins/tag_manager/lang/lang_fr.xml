@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clipbucket_language>
+    <name>Français</name>
+    <iso_code>fr</iso_code>
+    <phrases>
+        <tagm_actionDelete>Supprimer le tag</tagm_actionDelete>
+        <tagm_actionEdit>Modifier le tag</tagm_actionEdit>
+        <tagm_actionNew>Ajouter un tag</tagm_actionNew>
+        <tagm_all>Tous</tagm_all>
+        <tagm_backTo>Retourner à la gestion des tags</tagm_backTo>
+        <tagm_containComma>Le tag contient une virgule</tagm_containComma>
+        <tagm_create_success>Le tag %s a été ajouté avec succès</tagm_create_success>
+        <tagm_delete_success>Le tag %s a été supprimé avec succès</tagm_delete_success>
+        <tagm_edit_success>La modification du tag %s en </tagm_edit_success>
+        <tagm_edit_success2>%s a été effectuée avec succès</tagm_edit_success2>
+        <tagm_existingTag>Le tag existe déjà</tagm_existingTag>
+        <tagm_missingTag>Veuillez indiquer le tag</tagm_missingTag>
+        <tagm_missingVideo>Veuillez sélectionner au moins une vidéo</tagm_missingVideo>
+        <tagm_modalDelMsg>Êtes-vous sûr(e) de vouloir supprimer le tag</tagm_modalDelMsg>
+        <tagm_nofound>Aucun tag existant</tagm_nofound>
+        <tagm_nores>Aucun résultat correspondant au terme</tagm_nores>
+        <tagm_search>Rechercher un tag</tagm_search>
+        <tagm_searchResult>Résultat(s) de la recherche</tagm_searchResult>
+        <tagm_select1ormore>Sélectionner une ou plusieurs vidéos</tagm_select1ormore>
+        <tagm_subtitle>Gestion des tags</tagm_subtitle>
+        <tagm_title>Gestion des tags</tagm_title>
+        <tagm_titleDelete>Supprimer un tag</tagm_titleDelete>
+        <tagm_titleEdit>Modifier un tag</tagm_titleEdit>
+        <tagm_titleNew>Ajouter un nouveau tag</tagm_titleNew>
+        <tagm_usedBy>utilisé par</tagm_usedBy>
+        <tagm_usedByVideo>Voir la vidéo utilisant le tag</tagm_usedByVideo>
+        <tagm_usedByVideos>Voir les vidéos utilisant le tag</tagm_usedByVideos>
+        <tagm_video>vidéo</tagm_video>
+        <tagm_videos>Vidéos</tagm_videos>
+        <tagm_warningComma>Attention, vous ne pouvez pas utiliser de virgule dans le tag</tagm_warningComma>
+    </phrases>
+</clipbucket_language>

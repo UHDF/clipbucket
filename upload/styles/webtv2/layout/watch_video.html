@@ -1,0 +1,325 @@
+
+{$video=$vdo}
+{$type='video'}
+{$channel = $userquery->get_user_details($video.userid)}
+
+
+<div class="watch">
+  <div class="grid">
+    <div class="col-1-1">
+        <h1 style="margin-top:0em;">{$video.title|title}</h1></div></div>
+            
+  <div class="watchcont">
+    <div class="grid">
+      <div class="col-1-1">
+        <div class="playercont">
+{FlashPlayer vdetails=$video width='100%' height='100%'}</div></div></div></div>
+  
+  <div class="watchdetailscont">
+    <div class="grid">
+      <div class="col-1-1">
+        <span class="social">
+          <a style="cursor:pointer;" onclick="javascript:{ANCHOR place='thumbzup_vote_onclick' data=$video.videoid}" target="_blank"><img src="{$baseurl}/styles/webtv2/theme/images/thumbup.png"/></a>
+          <span class="nblikes">{ANCHOR place='thumbzup_get' data=$video.videoid}</span>
+          <a data-featherlight="#mylightbox" data-featherlight-persist="shared" href="#">
+            <img src="{$baseurl}/styles/webtv2/theme/images/share.png"/></a>
+          <a href="https://facebook.com/sharer/sharer.php?u=https%3A%2F%2F{$smarty.server.HTTP_HOST|escape:'url'}{$smarty.server.REQUEST_URI|escape:'url'}" target="_blank"> 
+            <img src="{$baseurl}/styles/webtv2/theme/images/fb.png"/></a>
+          <a href="https://twitter.com/intent/tweet/?text={$vdo.title|escape:'url'}%20%23Tv_utc&amp;url=https%3A%2F%2F{$smarty.server.HTTP_HOST|escape:'url'}{$smarty.server.REQUEST_URI|escape:'url'}" target="_blank">
+            <img src="{$baseurl}/styles/webtv2/theme/images/twi.png"/></a>
+          <a href="https://plus.google.com/share?url=https%3A%2F%2F{$smarty.server.HTTP_HOST|escape:'url'}{$smarty.server.REQUEST_URI|escape:'url'}" target="_blank"><img src="{$baseurl}/styles/webtv2/theme/images/gplus.png"/></a>
+          <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3A%2F%2F{$smarty.server.HTTP_HOST|escape:'url'}{$smarty.server.REQUEST_URI|escape:'url'}&amp;title={$vdo.title|escape:'url'}%20%23Tv_utc&amp;summary={$vdo.title|escape:'url'}%20%23Tv_utc&amp;source=https%3A%2F%2F{$smarty.server.HTTP_HOST|escape:'url'}{$smarty.server.REQUEST_URI|escape:'url'}" target="_blank" ><img src="{$baseurl}/styles/webtv2/theme/images/lkin.png"/></a></span>
+        <span class="cat">
+          {utc_getcomcategory vid=$vdo}
+        </span></div></div>
+        
+
+
+  <div style="display:none">
+    <div id="mylightbox">
+      {show_share_form id=$video.videoid type=Video}
+    </div>
+  </div>
+  <!---->
+  
+    
+  <div class="watchdescriptioncont">
+    <div class="grid">
+      <div class="col-2-3">
+        <div class="watchdescription">{description(AutoLinkUrls($video.description))|unescape:"html"}</div>
+      </div>
+        <div class="col-1-3">
+          <div class="details">Mis en ligne par <strong>{$video.username}</strong></div>
+          <div class="details">{prettyNum($vdo.views)} {if $vdo.views > 1}{lang code='views'}{else}{lang code="view"}{/if}</div>
+          <div class="watchdescriptionclasscont">
+            <div class="categories">
+              <strong>Catégories</strong><br>&nbsp;{$vdo.category|categories:video}
+            </div>
+            <div class="tags">
+              <!--<div class="col-1-2 tags">-->
+              <strong>Tags</strong><br>
+              <span >
+              {$vtags=","|explode:$vdo.tags}
+              {foreach $vtags as $tag}
+                <!--TODO: bonne url avec une recherche sur le tag-->
+                <a class="tag" href="{$baseurl}/search_result.php?query={$tag|escape}&type=videos">{$tag}</a>
+              {/foreach}
+              <!--{$vdo.tags|tags:videos}--></span>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+      </div>
+    </div>
+  </div>		    
+      </div>  {* col *}
+    </div>    {* row *} 
+			  
+  </div>      {*grid*}
+</div>        {*watchcont*}
+
+<div class="likedcont">
+	<div class="grid">
+	  <div class="col-1-1">
+	    <h1>Dans la même catégorie</h1>
+	  </div>
+  </div>
+{$cats=array_filter(array_map('trim',explode("#",$video['category'])))}
+{$samecat=$cbvid->get_videos(["category"=>$cats,'limit'=>3, "order"=>"datecreated DESC", "exclude"=>$video->videoid])}
+{if $samecat}
+  {$samecat=array_chunk($samecat,3)}
+	<div class="grid">
+    {foreach from=$samecat[0] item=video}
+    <div class="col-1-3">
+      {include file="$style_dir/blocks/videos/video.html" display_type='videoitem2'}
+    </div>
+  	{/foreach}
+ </div>
+{else}
+	<div class="grid"><div class="col-1-1">No Videos Found !</div></div>  	
+{/if}
+</div>
+
+
+<div class="mostcont">
+	<div class="grid">
+	  <div class="col-1-1">
+	    <h1>À voir également</h1>
+	  </div>
+  </div>
+{$vtags=$vdo.tags}
+{$vid=$vdo.videoid}
+{$sametags=$cbvid->get_videos(["tags"=>$vtags,'limit'=>3, "order"=>"datecreated DESC", "exclude"=>$vid])}
+{if $sametags}
+  {$sametags=array_chunk($sametags,3)}
+	<div class="grid">
+    {foreach from=$sametags[0] item=video}
+    <div class="col-1-3">
+      <!--{thumbzup_get($video.videoid)}-->
+      {include file="$style_dir/blocks/videos/video.html" display_type='videoitem2'}
+    </div>
+  	{/foreach}
+ </div>
+{else}
+	<div class="grid"><div class="col-1-1">No Videos Found !</div></div>  	
+{/if}
+</div>
+
+{ANCHOR place="after_watch_video"}
+<script>
+
+function thumbzup_callback(nblikes){
+  $(".nblikes").html(nblikes);
+}
+
+	/*Cookie based comments backup start*/
+	var current_video = "{$video.videoid}",
+	cookieToSave = 'comment_data_u'+userid+"v"+current_video,
+	commentDataCheck = $.cookie(cookieToSave);
+
+	if (commentDataCheck !== null) {
+		$('#comment_box').val(commentDataCheck);
+	}
+	$('#comment_box').on('keyup', function() {
+	    var comment_data = $('#comment_box').val();
+	    $.cookie(cookieToSave, comment_data, { expires : 10, path : "/" });
+	});
+
+	$('#add_comment_button').on("click",function(){
+		$.cookie(cookieToSave, null, { path : "/" });
+	});
+	/*Cookie based comments backup end*/
+
+	var playlist_total = "{$total_items}";
+	$('#ShareUsers').on("keyup",function(){
+		var typed = $(this).val();
+		$.ajax({
+			url: baseurl+'/ajax.php',
+			type: 'post',
+			dataType: 'html',
+			data: {
+				"mode":'user_suggest',
+				"typed": typed
+			},
+			beforeSend: function() {
+			},
+
+			success: function(data) {
+				$('#suggested_users').html('');
+				var jsoned = $.parseJSON(data);
+				$( jsoned.matching_users ).each(function( index, element ) {
+					$('#suggested_users').append("<option label='"+element+"' value='"+element+"'>");
+			  	});
+			}
+		});
+	});
+
+	/*Playlist load more start*/
+	var playlist_total = "{$total_items}";
+	$('#playlist-pull').on("click",function(){
+		var __this = $(this);
+		loadHit = $(this).attr('dataHit');
+		loadLimit = $(this).attr('dataLimit');
+		playlist = $(this).attr('dataList');
+
+		$.ajax({
+			url: baseurl+'/ajax/watch.php',
+			type: 'post',
+			dataType: 'html',
+			data: {
+				"mode":'playlistMore',
+				"loadHit":loadHit,
+				"loadLimit":loadLimit,
+				"playlist": playlist
+			},
+			beforeSend: function() {
+				$(__this).text("loading");
+			},
+
+			success: function(data) {
+				var loaded = loadLimit * loadHit;
+				if (playlist_total <= loaded) {
+					$(__this).remove();
+				} else {
+					$(__this).text("Load More");
+				}
+				if (data == 'none') {
+					$('#playlist-pull').remove();
+				}
+				$(data).appendTo('#playlist_items').fadeIn('slow');
+				$('#playlist-pull').attr('dataHit', parseInt(loadHit) + 1);
+			}
+		});
+	});
+	/*Playlist load more end*/
+
+	var aspect_ratio = 1.77778
+	var $cb_player = $("#cb_player");
+
+	$(document).ready(function(){
+		$cb_player.height( $cb_player.width() / aspect_ratio );
+
+		var videoInfo = $("#videoDescription").text();
+		var newInfo = videoInfo.replace(/(((https?:\/\/)|([\s\t]))(www.)?([a-z0-9]+)\.[a-z]+)/g, '<a href="$1">$1</a>');
+		$("#videoDescription").html(newInfo);
+
+		comments_voting = '{$vdo.comment_voting}';
+		_cb.getCommentsNew(
+			'{$type}',
+			'{$vdo.videoid}',
+			'{$vdo.last_commented}',1,
+			'{$vdo.comments_count}',
+			'{$object_type}'
+		);
+
+
+		$("#subscribeUser").on({
+			click: function(e){
+				e.preventDefault();
+				_cb.subscribeToChannelNew('{$video.userid}','subscribe_user');
+			}
+		});
+		var adHtml = $('.ad-holder').html();
+		if(adHtml<1){
+			$('.ad-holder').remove();
+		}
+		/*//Progress Bar
+		  $( '#circle' ).progressCircle();
+		  $( '#circle' ).progressCircle({
+			nPercent        : nPercent,
+			showPercentText : showPercentText,
+			thickness       : thickness,
+			circleSize      : circleSize
+		  });*/
+	});
+
+	$(document).on('click','#load-more-comments',function(){
+		var page = $(this).attr('page');
+		page = parseInt(page);
+		nextPage = page + 1;
+		$(this).text("Loading comments..")
+		_cb.getCommentsNew(
+			'{$type}',
+			'{$vdo.videoid}',
+			'{$vdo.last_commented}',page,
+			'{$vdo.comments_count}',
+			'{$object_type}'
+		);
+		$(this).attr('page', nextPage);
+		$(this).text("Load More")
+	})
+
+	var resizePlayer =  _cb.debounce(function() {
+		$cb_player.height( $cb_player.width() / aspect_ratio );
+	}, 500, false);
+
+	$(window).resize(resizePlayer);
+
+</script>
+
+
+  <link href="{$theme}/css/videojs.suggestedVideoEndcap.css" type="text/css" rel="stylesheet" />
+  <script src="{$theme}/js/videojs.suggestedVideoEndcap.js" type="text/javascript" charset="utf-8"></script>
+    {$sametags=$cbvid->get_videos(["tags"=>$vtags,'limit'=>3, "order"=>"datecreated DESC", "exclude"=>$vid])}
+    {*$sametags|@var_dump*}
+    
+<style>
+  .vjs-suggested-video-endcap-header {
+    font-size:1rem;
+    color:white;    
+    font-family: source, Helvetica, Arial, sans-serif;
+  }
+  .vjs-suggested-video-endcap-link {
+    font-family: source, Helvetica, Arial, sans-serif;
+    width: 31%;
+    text-decoration:none;
+    color:#ffd515;    
+    text-align: center;
+  }
+</style>
+  
+<script>
+  'use strict';
+  $(function(){
+    {if $sametags}
+    player.suggestedVideoEndcap({
+      header: 'Vous aimerez peut-être...',
+      suggestions: [
+      {foreach from=$sametags item=video}
+        {json_encode([
+          "title" => $video.title,
+          "url"   => videoLink($video),
+          "image" => getThumb($video,"big"),
+          "alt"   => $video.title
+        ])},
+    	{/foreach}
+      ]
+    });
+  	{/if}
+  });
+</script>
+

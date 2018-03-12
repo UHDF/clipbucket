@@ -45,7 +45,11 @@ if (count($_POST)==0){
 		$speakerquery->slugifySpeaker($id);
 	}
 	
+	else {
+		assign('showfilter',true);
 	}
+	
+}
 /** Action run after a post action called 'add_speaker' */
 else if(isset($_POST['add_speaker'])){
 	if($speakerquery->addSpeaker($_POST))	{

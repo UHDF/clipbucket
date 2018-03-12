@@ -1,0 +1,40 @@
+{if $smarty.get.cat}
+{$catnamedata=$cbvid->get_category_name($smarty.get.cat)}
+
+{*
+cf :
+~/repos/webtv/trunk/upload/videos.php
+
+function category_link($data,$type) {
+	switch($type) {
+		case 'video':case 'videos':case 'v':
+		{
+			if(SEO=='yes') {
+				return BASEURL.'/videos/'.$data['category_id'].'/'.SEO($data['category_name']).'/'.$_GET['sort'].'/'.$_GET['time'].'/';
+...
+
+*}
+{/if}
+
+<div class="grid">
+    <div class="col-1-1">
+      <h1>{$catnamedata.category_name}</h1>
+    </div>
+</div>
+
+  
+{$last=$cbvid->get_videos(["category"=>$smarty.get.cat,'limit'=>1000, "order"=>"datecreated DESC"])}
+{$lastchuncks=array_chunk($last,3)}
+{foreach from=$lastchuncks item=chunck}
+  <div class="grid">
+  {foreach from=$chunck item=lavid}
+    <div class="col-1-3">
+      {assign var="category_name" value="TODO"}
+      {assign var="video" value=$lavid}
+      {include file="$style_dir/blocks/videos/video.html" display_type='videoitem2'}
+    </div>
+  {/foreach}
+  </div>
+{/foreach}
+</div>
+

@@ -443,13 +443,13 @@ abstract class CBCategory
 	{
 		global $db;
 		$html = "";
-		$query = mysql_query("SELECT * FROM ".tbl($this->cat_tbl)." WHERE parent_id = $cid");
+		$query = mysqli_query($db,"SELECT * FROM ".tbl($this->cat_tbl)." WHERE parent_id = $cid");
 
 		if(!empty($query))
 		{
 			
 			$html .= "<ul id='".$cid."_subs' class='sub_categories'>";
-			while($result = mysql_fetch_array($query))
+			while($result = mysqli_fetch_array($query))
 			{	
 				if($_GET['cat'] == $result['category_id'])
 					$selected = "selected";
@@ -583,14 +583,14 @@ abstract class CBCategory
 		$pcat = mysql_clean($array['parent_cat']);
 
 		#exit($pcat);
-		$flds = array("category_name","category_desc","isdefault","parent_id");
+		$flds = array("category_name","category_desc","isdefault");
 		$values = array($name,$desc, $default, $pcat);
 		$cur_name = mysql_clean($array['cur_name']);
 		$cid = mysql_clean($array['cid']);
-		if(!empty($this->use_sub_cats)) {
-			$flds[] = "parent_id";
-			$values[] = $pcat;	
-		}
+		// if(!empty($this->use_sub_cats)) {
+		// 	$flds[] = "parent_id";
+		// 	$values[] = $pcat;	
+		// }
 		
 		if($this->get_cat_by_name($name) && $cur_name !=$name) {
 			e(lang("add_cat_erro"));
@@ -600,9 +600,7 @@ abstract class CBCategory
 		} elseif ($pcat == $cid){
 			e(lang("You can not make category parent of itself"));
 		} else {
-			$db->update(tbl($this->cat_tbl),array("isdefault"),"no"," category_id!='$cid' ");
 			$db->update(tbl($this->cat_tbl),$flds,$values," category_id='$cid' ");
-			
 			if($default=='yes')
 				$this->make_default_category($cid);
 			e(lang("cat_update_msg"),'m');

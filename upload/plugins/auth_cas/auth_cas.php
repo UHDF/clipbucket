@@ -19,6 +19,7 @@ Version: 1.0
 	define('CAS_CONTEXT',$config['cas_context']);			// Suite de l'URL du serveur CAS
 	define('CAS_PORT',$config['port']);						// Port du serveur CAS
 	define('CAS_CREATE_USER',$config['create_user']);		// Option de creation de l'utilisateur
+	define('CAS_USER_LEVEL', explode(";", $config['userlevel']));		// Niveau utilisateur autorisé (via LDAP)
 	
 	// Include phpCAS library
 	require(PLUG_DIR."/".AUTH_CAS."/CAS-1.3.4/CAS.php");
@@ -73,7 +74,7 @@ Version: 1.0
 			$url=BASEURL.'/signup.php?mode=login&auth_cas=bycas';
 			echo $url;
 		}
-		
+
 	} // End is_auth_cas
 		
 
@@ -92,12 +93,11 @@ Version: 1.0
 	 *	@param string $login User login
 	 */
 	function loginAndCreate($login){
-		global $cbplugin;
+		global $cbplugin,$userquery;
 
 		// Get user information
 		$userquery = new userquery();
 		$udetails = $userquery->get_user_details($login);
-		
 		// User already exist
 		if (isset($udetails["userid"])){
 			// Connect the user
@@ -105,17 +105,37 @@ Version: 1.0
 			header("Location: ".BASEURL);
 		}
 		else{
-			// Not yet inserted in db
-			if (CAS_CREATE_USER == 'yes'){
-				// Create the user
-				$userid = createUser($login);
+			// Default value, allow all
+			$authorization = true;
+			// If plugin ldap_client is installed
+			if ($cbplugin->is_installed('ldap_client.php')) {
+				// If CAS configuration have be made
+				if (CAS_USER_LEVEL){
+					// Search user in LDAP
+					$ldap_corresp = searchLdap($login);
+					// If user not in array
+					if (!in_array($ldap_corresp["edupersonaffiliation"], CAS_USER_LEVEL)){
+						// Deny access
+						$authorization = false;
+    					phpCAS::logoutWithRedirectService(BASEURL);
+					}
+					
+				}
 			}
-			
-			// Check the user id and connect
-			if ($userid){
-				// Connect the user
-				$userquery->login_as_user($login, '');
-				header("Location: ".BASEURL);
+
+			if ($authorization){
+				// Not yet inserted in db
+				if (CAS_CREATE_USER == 'yes'){
+					// Create the user
+					$userid = createUser($login);
+				}
+				
+				// Check the user id and connect
+				if ($userid){
+					// Connect the user
+					$userquery->login_as_user($login, '');
+					header("Location: ".BASEURL);
+				}
 			}
 		}
 	}
@@ -128,32 +148,31 @@ Version: 1.0
 	 *	@return string User Id
 	 */
 	function createUser($login){
-		global $cbplugin;
+		global $cbplugin,$userquery;
 		
 		$userquery = new userquery();
 		$pass =  RandomString(10);		// create a random password
 
 		if($cbplugin->is_installed('ldap_client.php')) {
-			e("Les fonctions LDAP sont disponibles.<br />\n", "m");
 			$ldap_corresp = searchLdap($login);
 		}
 		else {
-			e("Les fonctions LDAP ne sont pas disponibles.<br />\n", "m");
 			$ldap_corresp = '';
 		}
-	
+
 		// Information to create the user 
 		$user_infos = array(
 			'username' => $login,
 			'email'	=> $ldap_corresp['mail'],
 			'password' => $pass,
 			'cpassword' => $pass,
-			'country' => get_country(config('default_country_iso2')),
+//			'country' => get_country(config('default_country_iso2')),
+			'country' => config('default_country_iso2'),
 			'gender' => 'Male',
 			'dob'	=> '2000-10-10',
 			'category' => '1',
 			'level' => '6',
-			'active' => 'yes',
+			'active' => 'Ok',
 			'agree' => 'yes',
 		);
 
@@ -223,7 +242,7 @@ Version: 1.0
 	/**
 	 *	Add entries for the plugin in the administration pages
 	 */
-	if (!$cbplugin->is_installed('common_library.php') || $userquery->permission[getStoredPluginName("authcas")]=='yes')
-	add_admin_menu('Stats And Configurations','Configuration CAS','edit_auth_cas.php',AUTH_CAS.'/admin');
+	if ($cbplugin->is_installed('common_library.php') && $userquery->permission[getStoredPluginName("authcas")]=='yes')
+	add_admin_menu('General Configurations','Configuration CAS','edit_auth_cas.php',AUTH_CAS.'/admin');
 
 ?>

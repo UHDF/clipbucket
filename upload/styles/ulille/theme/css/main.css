@@ -1052,7 +1052,6 @@ H3.myHeading {
   background: #000;
   background-color: rgba(0, 0, 0, 0.4);
 }
-\
 a.captionOrange,
 A.captionOrange:active,
 A.captionOrange:visited {
@@ -3425,6 +3424,39 @@ ul#myTab_home li:first-child + li {
   justify-content: center;
   width: 100%;
 }
+/** HOMEPAGE LIVE **/
+#livesHomepage {
+  background: #fff;
+}
+#livesHomepage ul {
+  padding-left: 40px;
+}
+#livesHomepage ul li {
+  position: relative;
+}
+#livesHomepage ul li span.onlive {
+  content: '';
+  display: block;
+  position: absolute;
+  left: -25px;
+  top: 2px;
+  height: 12px;
+  width: 12px;
+  border-radius: 6px;
+  background: red;
+}
+#livesHomepage ul li h4 {
+  font-size: 1.5rem;
+}
+#livesHomepage ul li h4 a:hover {
+  text-decoration: none;
+}
+#livesHomepage ul li h4 small {
+  display: block;
+  text-transform: uppercase;
+  font-size: 1.1rem;
+  color: #333;
+}
 /* Margins */
 .nm {
   margin: 0px;
@@ -4149,14 +4181,10 @@ nav.navbar .container-fluid ul.nav.navbar-nav > li > a:active {
 #player-container .video-player {
   position: relative;
   display: block;
-  height: 0;
   padding: 0;
   overflow: hidden;
   background: #000;
   margin-bottom: 16px;
-}
-#player-container .video-player.wide {
-  padding-bottom: 56.25%;
 }
 #player-container .video-player .video-js {
   position: absolute;
@@ -4937,6 +4965,31 @@ nav.navbar .container-fluid ul.nav.navbar-nav > li > a:active {
   /* IE6-9 */
 }
 /* Importing Form CSS */
+#share_form_div .player_shareAt {
+  margin-top: 15px;
+}
+#share_form_div .player_shareAt label {
+  font-weight: bold;
+}
+#share_form_div .player_shareAt input[type="text"] {
+  top: -1px;
+  width: 50px;
+  border: none;
+  border-bottom: 1px solid black;
+  background-color: transparent;
+  outline: none;
+  padding: 1px 0;
+}
+#share_form_div .player_shareAt input[type="text"]:disabled {
+  color: #cdcdcd;
+  border: none;
+}
+#share_form_div .player_shareAt input[type="text"]:focus {
+  border-bottom: 2px solid black;
+}
+#share_form_div #startAt {
+  display: block;
+}
 /* Importing Footer */
 #page-footer {
   position: absolute;
@@ -4950,34 +5003,24 @@ nav.navbar .container-fluid ul.nav.navbar-nav > li > a:active {
   clear: both;
   content: "";
 }
-#page-footer .row {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+#page-footer .footer-pad ul {
+  margin-top: 40px;
 }
-#page-footer .footer-list ul {
-  margin: auto;
-}
-#page-footer .footer-list ul li {
+#page-footer .footer-pad ul li {
   float: left;
   border-right: 1px solid #DDDDDD;
 }
-#page-footer .footer-list ul li:last-child {
+#page-footer .footer-pad ul li:last-child {
   border-right: none;
 }
-#page-footer .footer-list ul li a {
+#page-footer .footer-pad ul li a {
   color: #777777;
   padding: 0px 15px 0px 15px !important;
 }
 #page-footer .footer-logo img {
-  height: 48px;
-  width: auto;
-}
-@media screen and (min-width: 767px) {
-  #page-footer .footer-logo img {
-    height: 96px;
-    width: auto;
-  }
+  height: auto;
+  width: 100%;
+  max-width: 320px;
 }
 #page-footer .forged-by {
   font-size: 9px;
@@ -5528,5 +5571,3 @@ nav.navbar .container-fluid ul.nav.navbar-nav > li > a:active {
   z-index: 10000;
   font-size: 1.5em;
 }
-
-/*# sourceMappingURL=main.css.map */

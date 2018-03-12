@@ -3,7 +3,7 @@
  Plugin Name: Video Speaker
  Description: This plugin will add a list of video speakers to a video with their specific role in the video.
  Author: Franck Rouze
- Author Website: http://semm.univ-lille1.fr/
+ Author Website: http://www.univ-lille.fr/
  ClipBucket Version: 2.8
  Version: 1.0
  Website:
@@ -36,7 +36,7 @@ define("SPEAKER_LINKPAGE_URL",BASEURL.SITE_MODE."/plugin.php?folder=".SPEAKER_BA
 assign("speaker_linkpage",SPEAKER_LINKPAGE_URL);
 
 
-// Connect the speaker search ngine to the mulitisearch object in order to extend the relust of the video search result to speakers.
+// Connect the speaker search engine to the mulitisearch object in order to extend the relust of the video search result to speakers.
 if ($cbplugin->is_installed('extend_search.php')) { 
 	global $multicategories;
 	$multicategories->addSearchObject("speakerquery");
@@ -63,6 +63,33 @@ if(!function_exists('speakerList')){
 	register_anchor_function('speakerList','speakerList');
 }	
 
+if(!function_exists('speakerCount')){
+	/**
+	 * Get speakers count for the current video
+	 *
+	 * This function is registrered in smarty to be used directly into the template
+	 * @return int
+	 * 		the number of speakers linked to the current video
+	 * @see Document.getSpeakerAndRoles() function for more details
+	 */
+	function speakerCount(){
+		global $Smarty;
+		global $speakerquery;
+		global $db;
+		if ($_GET["v"]){
+			$vid=$_GET["v"];
+			$result=$db->_select("SELECT `videoid` FROM ".tbl('video')." WHERE `videokey`='".$vid."'");
+			if (count($result)==1) $vid=$result[0]['videoid'];
+			$data=["videoid"=> $vid, "selected" => "yes","count_only"=>True];
+			$cnt=$speakerquery->getSpeakerAndRoles($data);
+			return intval($cnt);
+		}
+		else return 0;
+	}
+	global $Smarty;
+	$Smarty->register_function('speakerCount','speakerCount');
+}
+
 
 /**
  * Connect the plugin to the video manager
@@ -80,13 +107,39 @@ function addLinkSpeakerMenuEntry($vid){
 }
 
 /** Add the previous function in the list of entries into the video manager "Actions" button */
-if (!$cbplugin->is_installed('common_library.php') || $userquery->permission[getStoredPluginName("speaker")]=='yes')
+if ($cbplugin->is_installed('common_library.php') && $userquery->permission[getStoredPluginName("speaker")]=='yes')
 	$cbvid->video_manager_link[]='addLinkSpeakerMenuEntry';
 
 
+/**
+ * Remove associate between any linked speaker's role and a video
+ *
+ * @param int $vid
+ * 		the video's id
+ */
+function unlinksSpeakers($vid){
+	global $speakerquery;
+	if(is_array($vid))
+		$vid = $vid['videoid'];
+	$speakerquery->unlinkAllSpeaker($vid);
+}
+
+/** Remove speaker's associated a video when video is deleted */
+register_action_remove_video("unlinksSpeakers");
 
 /**Add entries for the plugin in the administration pages */
-if (!$cbplugin->is_installed('common_library.php') || $userquery->permission[getStoredPluginName("speaker")]=='yes')
+if ($cbplugin->is_installed('common_library.php') && $userquery->permission[getStoredPluginName("speaker")]=='yes')
 	add_admin_menu(lang('video_addon'),lang('speaker_manager'),'manage_speakers.php',SPEAKER_BASE.'/admin');
 		
+/**
+ * insert js code into the HEADER of the edit_video.php page
+ */
+if ($cbplugin->is_installed('common_library.php') && 
+		$userquery->permission[getStoredPluginName("speaker")]=='yes' && 
+		substr($_SERVER['SCRIPT_NAME'], -14, 14) == "edit_video.php"){
+	assign("videoid",$_GET['video']);
+	$Cbucket->add_admin_header(PLUG_DIR . '/speaker/admin/header.html', 'global');
+}
+
+	
 ?>
