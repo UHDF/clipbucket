@@ -4,7 +4,7 @@
 	<div class="clearfix">
 		<section id="content" class="clearfix videos">
 
-			{$category = $smarty.get.cat}
+			{$category = $smarty.get.cat|escape:'html'}
 			{$catdetails = $cbvid->get_category($category)}
 			{$catname = $catdetails.category_name}
 			{$catdesc = $catdetails.category_desc}
