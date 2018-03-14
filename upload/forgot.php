@@ -19,7 +19,7 @@ require 'includes/config.inc.php';
 	 * Sending Email
 	 */
 	if(isset($_POST['reset'])){
-		$input = post('forgot_username');
+		$input = mysql_clean(post('forgot_username'));
 		$userquery->reset_password(1,$input);
 	}
 	
