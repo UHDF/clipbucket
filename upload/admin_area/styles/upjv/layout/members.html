@@ -79,7 +79,8 @@
                 </div>
             </div>
     </td>
-    <td>
+
+        <td>
       <div id="usr_opt-{$u.userid}" class="dropdown pull-right">
       <button id="dropdownMenu1" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown">
         Actions<i class="icon-angle-down icon-on-right"></i>
@@ -87,7 +88,8 @@
       <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" role="menu">
          <li><a role="menuitem" tabindex="-1" href="view_user.php?uid={$u.userid}">Edit</a></li>
         <li><a role="menuitem" tabindex="-1" href="view_user.php?uid={$u.userid}">View</a></li>
-       
+        <li><a role="menuitem" tabindex="-1" href="manage_playlist.php?userid={$u.userid}&search=Search">View Playlists</a></li>
+
         {if $u.usr_status == Ok}
         <li><a role="menuitem" tabindex="-1" href="?deactivate={$u.userid}">Deactivate</a></li>
         {elseif $u.usr_status == ToActivate}
@@ -124,6 +126,7 @@
        {/foreach} 
 
       </ul>
+
     </div>
     </td>
   </tr>

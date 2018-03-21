@@ -261,12 +261,12 @@
                   Channels & Photos
               </a>
           </li>
-          <li class="">
-              <a data-toggle="tab" href="#groups">
-
-                  Groups
-              </a>
-          </li>
+         <!--  <li class="">
+             <a data-toggle="tab" href="#groups">
+         
+                 Groups
+             </a>
+         </li> -->
           <li class="">
               <a data-toggle="tab" href="#general">
 
@@ -399,6 +399,22 @@
               <label for="php_path8">Max categories for each video</label>
               <input class="form-control" name="video_categories" type="text" id="php_path8" value="{$row.video_categories}" size="15" maxlength="5" />
           </div>
+         
+
+
+          <!-- changes made -->
+          <div class="col-md-4">
+              <label for="video_round_views">Enable round views on watch video page</label>
+              <select name="video_round_views" id="video_round_views" class="form-control">
+                  <option value="yes" {if $row.video_round_views!='no'} selected="selected"{/if}>Yes</option>
+                  <option value="no" {if $row.video_round_views=='no'} selected="selected"{/if}>No</option>
+              </select>
+          </div>
+          <!-- changes made -->
+
+
+
+
               </div>
             <div class="row">
           <div class="col-md-4">
@@ -473,51 +489,51 @@
                 </div>
       </div>
           </div>
-      <div id="groups" class="tab-pane">
-          <h2>Groups</h2>
-            <div class="row">
-          <div class="col-md-4">
-              <label for="groupsSelection">Enable group selection</label>
-              <select class="form-control" name="groupsSection" id="groupsSection">
-                  <option value="yes" {if $row.groupsSection!='no'} selected="selected"{/if}>Yes</option>
-                  <option value="no" {if $row.groupsSection=='no'} selected="selected"{/if}>No</option>
-              </select>
-          </div>
-
-          <div class="col-md-4">
-              <label for="grp_thumb_height">Group Thumb Height</label>
-              <input name="grp_thumb_height" type="text" id="grp_thumb_height" class="form-control" value="{$row.grp_thumb_height}" size="15" maxlength="5" />
-          </div>
-
-          <div class="col-md-4">
-              <label for="grp_thumb_width">Group Thumb Width</label>
-              <input name="grp_thumb_width" type="text" id="grp_thumb_width" class="form-control" value="{$row.grp_thumb_width}" size="15" maxlength="5" />
-          </div>
-                </div>
+    <!--   <div id="groups" class="tab-pane">
+        <h2>Groups</h2>
           <div class="row">
-
-          <div class="col-md-4">
-              <label for="grp_max_title">Group max title</label>
-              <input class="form-control" name="grp_max_title" type="text" id="grp_max_title" value="{$row.grp_max_title}" size="15" maxlength="5" />
-          </div>
-          <div class="col-md-4">
-              <label for="grp_max_desc">Group max description</label>
-              <input class="form-control" name="grp_max_desc" type="text" id="grp_max_desc" value="{$row.grp_max_desc}" size="15" maxlength="5" />
-          </div>
-
-          <div class="col-md-4">
-              <label for="max_topic_lenght">Max group topic length</label>
-              <input class="form-control" name="max_topic_length" type="text" id="max_topic_length" value="{$row.max_topic_length}" size="15" maxlength="5" />
-          </div>
+        <div class="col-md-4">
+            <label for="groupsSelection">Enable group selection</label>
+            <select class="form-control" name="groupsSection" id="groupsSection">
+                <option value="yes" {if $row.groupsSection!='no'} selected="selected"{/if}>Yes</option>
+                <option value="no" {if $row.groupsSection=='no'} selected="selected"{/if}>No</option>
+            </select>
+        </div>
+    
+        <div class="col-md-4">
+            <label for="grp_thumb_height">Group Thumb Height</label>
+            <input name="grp_thumb_height" type="text" id="grp_thumb_height" class="form-control" value="{$row.grp_thumb_height}" size="15" maxlength="5" />
+        </div>
+    
+        <div class="col-md-4">
+            <label for="grp_thumb_width">Group Thumb Width</label>
+            <input name="grp_thumb_width" type="text" id="grp_thumb_width" class="form-control" value="{$row.grp_thumb_width}" size="15" maxlength="5" />
+        </div>
               </div>
-
-          <div class="form-group1">
-              <label for="grp_categories">Max categories for each group</label>
-              <input class="form-control" name="grp_categories" type="text" id="grp_categories" value="{$row.grp_categories}" size="15" maxlength="5" />
-          </div>
-
-
-      </div>
+        <div class="row">
+    
+        <div class="col-md-4">
+            <label for="grp_max_title">Group max title</label>
+            <input class="form-control" name="grp_max_title" type="text" id="grp_max_title" value="{$row.grp_max_title}" size="15" maxlength="5" />
+        </div>
+        <div class="col-md-4">
+            <label for="grp_max_desc">Group max description</label>
+            <input class="form-control" name="grp_max_desc" type="text" id="grp_max_desc" value="{$row.grp_max_desc}" size="15" maxlength="5" />
+        </div>
+    
+        <div class="col-md-4">
+            <label for="max_topic_lenght">Max group topic length</label>
+            <input class="form-control" name="max_topic_length" type="text" id="max_topic_length" value="{$row.max_topic_length}" size="15" maxlength="5" />
+        </div>
+            </div>
+    
+        <div class="form-group1">
+            <label for="grp_categories">Max categories for each group</label>
+            <input class="form-control" name="grp_categories" type="text" id="grp_categories" value="{$row.grp_categories}" size="15" maxlength="5" />
+        </div>
+    
+    
+    </div> -->
       <div id="general" class="tab-pane">
           <h2>General</h2>
           <div class="row">
@@ -608,7 +624,7 @@
     </div>
 
 
-    <div class="col-md-4">
+   <!--  <div class="col-md-4">
       <h5>Use Crons</h5>
       <label class="radio-inline">
         <input type="radio" name="use_crons" value="yes" id="use_crons_0" {if $row.use_crons =='yes'} checked="checked"{/if} />Yes
@@ -617,7 +633,7 @@
       <label class="radio-inline">
         <input type="radio" name="use_crons" value="no" id="use_crons_1" {if $row.use_crons =='no'} checked="checked"{/if} />No    
       </label>
-    </div>
+    </div> -->
 
     <div class="col-md-4">
       <label for="ffmpegpath">FFMPEG Path</label>
@@ -744,14 +760,14 @@
   </div>
   <div class="row"> 
 
-    <div class="col-md-4">
+    <!-- <div class="col-md-4">
       <h5>Quick Conversion</h5>
       <label class="checkbox" for="quick_conv">
         <input type="checkbox" name="quick_conv" id="quick_conv" value="yes" {if $row.quick_conv=='yes'} checked="checked"{/if}/>
         Turn on Quick Conversion
         <a href="javascript:void(0)" target="_blank"><img src="{$imageurl}/help.png" alt="info" border="0" class="tipsy_tip" title="If you check this option, videos will be converted as soon as uploading is complete, make sure your php path is correct before enabling this option otherwise may cause your website inaccessible" /></a>
       </label>
-    </div>
+    </div> -->
 
 <!--
     <div class="col-md-4">
@@ -1142,6 +1158,17 @@
             <input class="form-control" name="videos_items_uvid_page" type="text" id="videos_items_uvid_page" value="{$row.videos_items_uvid_page}" size="6" maxlength="3" />
             - 'user videos' page
         </div>
+        <div class="col-md-4">
+            <label for="videos_items_uvid_page">Home Page Popup Video</label>
+            <select class="form-control" name="popup_video">
+                <option value="no" {if $row.popup_video == "no"}
+                selected="selected"
+                {/if}>No</option>
+                <option value="yes" {if $row.popup_video == "yes"}
+                selected="selected"
+                {/if}>Yes</option>
+            </select>
+        </div>
         </div>
     </div>
 
@@ -1338,7 +1365,7 @@
       </label>
     </div>
 
-    <div class="col-md-4">
+ <!--    <div class="col-md-4">
       <label for="varification_captcha">Image verification (captcha)</label>
       <select class="form-control" name="captcha_type">
         <option value="0" {if $row.captcha_type == 0}
@@ -1351,7 +1378,7 @@
         selected="selected"
         {/if}>Secured</option>
       </select>
-    </div>
+    </div> -->
           </div>
       <div class="row">
 
@@ -1454,9 +1481,10 @@
     </div>
 
     <div class="col-md-4">
-      <label for="max_profile_pic_width">Max profile pic dimension</label>
-      <input class="form-control" name="max_profile_pic_width" type="text" id="max_profile_pic_width" value="{$row.max_profile_pic_width}" size="6" maxlength="10" />
-    <br>
+        <label for="max_profile_pic_width">Max profile pic dimension</label>
+        <input class="form-control" name="max_profile_pic_width" type="text" id="max_profile_pic_width" value="{$row.max_profile_pic_width}" size="6" maxlength="10" />
+        Pixels
+        <br>
         <label for="max_bg_width">Max Background Dimension</label>
         <input class="form-control" name="max_bg_width" type="text" id="max_bg_width" value="{$row.max_bg_width}" size="6" maxlength="10" />
         Pixels
