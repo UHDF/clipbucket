@@ -16,12 +16,12 @@
 
 include("../includes/config.inc.php"); 
  
-$vid = $_GET['vid'];
+$vid = mysql_clean($_GET['vid']);
 //gettin video details
 $vdetails = get_video_details($vid);
 increment_views_new($vid, 'video');
-$width = @$_GET['width'];
-$height = @$_GET['height'];
+$width = intval(@$_GET['width']);
+$height = intval(@$_GET['height']);
 $autoplay = @$_GET['autoplay'];
 
 
@@ -31,7 +31,7 @@ if(!$width)
 if(!$height)
 	$height = '240';
 
-if(!$autoplay)
+if(!$autoplay || $autoplay!='yes')
 	$autoplay = 'no';
 
 
