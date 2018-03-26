@@ -40,6 +40,7 @@
 		} else {
 			$form_data = $_POST;
 			$signup_data = $form_data;
+			$signup_data['username'] = mysql_clean(clean($signup_data['username']));
 			$signup_data['password'] = mysql_clean(clean($signup_data['password']));
 			$signup_data['cpassword'] = mysql_clean(clean($signup_data['cpassword']));
 			$signup_data['email'] = mysql_clean($signup_data['email']);
