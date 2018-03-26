@@ -11,16 +11,10 @@ require'../includes/admin_config.php';
 $userquery->admin_login_check();
 $userquery->login_check('web_config_access');
 $pages->page_redir();
-$access_token = $MrsTranslator->get_access_token();
 
-  if(isset($_COOKIE['bing_access_token'])){
-    //Do nothing
-  }else{
-  	setcookie('bing_access_token', $access_token, time()+600);
-  }
 /* Assigning page and subpage */
 if(!defined('MAIN_PAGE')){
-	define('MAIN_PAGE', 'Stats And Configurations');
+	define('MAIN_PAGE', 'General Configurations');
 }
 if(!defined('SUB_PAGE')){
 	define('SUB_PAGE', 'Language Settings');
