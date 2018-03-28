@@ -126,6 +126,15 @@
 	}
 	
 	/**
+	 * When called clean all $_GET parameters by calling mysql_clean on each parameter
+	 */
+	function cleanup_get(){
+		foreach ($_GET as $key => $value){
+			$_GET[$key]=mysql_clean($_GET[$key]);
+		}
+	}
+	
+	/**
 	* Clean a string and remove malicious stuff before insertin
 	* that string into the database
 	* @param : { string } { $id } { string to be cleaned }

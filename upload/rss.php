@@ -9,6 +9,13 @@
 
 define("THIS_PAGE",'rss');
 require 'includes/config.inc.php';
+
+if(!array_key_exists('cat',$_GET) || !array_key_exists('tag',$_GET) || !is_numeric($_GET['cat'])) {
+	header('Location: /404.php');
+	exit();
+}
+
+
 header ("Content-type: text/xml; charset=utf-8");
 echo '<?xml version=\'1.0\' encoding=\'UTF-8\'?>'."\n";
 
@@ -128,7 +135,7 @@ subtitle($title);
         <tr>
         <td width="130" height="90" align="center" valign="middle"><img src="<?=get_thumb($video)?>"  border="0"/></td>
         <td valign="top">
-        <?=clean_string_tags($video["description"])?>
+        <?=/*clean_string_tags(*/$video["description"]/*)*/?>
         </td>
         <td width="100" valign="top" align="right">
         <?=$video['views']?> Vues<br />
