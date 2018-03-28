@@ -42,7 +42,7 @@ RewriteRule ^videos/([0-9]+) videos.php?page=$1 [L]
 RewriteRule ^videos/?$ videos.php?%{QUERY_STRING} [L]
 RewriteRule ^video/(.*)/(.*) watch_video.php?v=$1&%{QUERY_STRING} [L]
 #Alternate watch video links
-RewriteRule ^(.*)\_v([0-9]+) watch_video.php?v=$2&%{QUERY_STRING} [L]
+# RewriteRule ^(.*)\_v([0-9]+) watch_video.php?v=$2&%{QUERY_STRING} [L]	# commented by AP
 RewriteRule ^video/([0-9]+)_(.*) watch_video.php?v=$1&%{QUERY_STRING} [L]
 
 
