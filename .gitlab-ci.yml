@@ -16,6 +16,8 @@ build:
 deploy_prod:
   stage: deploy
   script:
+    - source /home/vagrant/AWX-Deploy-Template/prod-env.sh
+    - env
     - ansible-playbook -i /home/vagrant/AWX-Deploy-Template/upjv.yml /home/vagrant/AWX-Deploy-Template/main.yml
   only:
   - upjv-nocdn
