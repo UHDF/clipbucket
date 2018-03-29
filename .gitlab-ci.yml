@@ -1,0 +1,21 @@
+stages:
+  - test
+  - build
+  - deploy
+
+test:
+  stage: test
+  script:
+    - echo "Running tests"
+    - env
+
+build:
+  stage: build
+  script: echo "Building the app"
+
+deploy_prod:
+  stage: deploy
+  script:
+    - ansible-playbook -i /home/vagrant/AWX-Deploy-Template/upjv.yml /home/vagrant/AWX-Deploy-Template/main.yml
+  only:
+  - upjv-nocdn
