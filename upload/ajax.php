@@ -9,8 +9,9 @@
 
 define("THIS_PAGE",'ajax');
 
-$mode = $_POST['mode'];
 require 'includes/config.inc.php';
+cleanup_post();
+$mode = $_POST['mode'];
 
 if(!empty($mode))
 {
