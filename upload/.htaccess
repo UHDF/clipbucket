@@ -127,6 +127,22 @@ RewriteRule	^([a-zA-Z0-9-]+)/?$ 	view_channel.php?uid=$1&seo_diret=yes [NS]
 
 RewriteRule	^list/([0-9]+)/(.*)?$ 	view_playlist.php?list_id=$1 [NS]
 
+#
+#  Adrien Ponchelet
+#    Config specifique pour upload
+#    Bloque l'execution des fichiers php et autre dans files et cache
+#
 php_value upload_max_filesize 800M
 php_value post_max_size 800M
 php_value max_execution_time 8000
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    # Disable PHP in Upload/files
+    RewriteRule ^/files/.*\.(?:php[1-7]?|pht|phtml?|phps|html?|pyc?)$ -
+[NC,F]
+
+    # Disable PHP in upload/cache
+    RewriteRule ^/cache/.*\.(?:php[1-7]?|pht|phtml?|phps|html?|pyc?)$ -
+[NC,F]
+</IfModule>
