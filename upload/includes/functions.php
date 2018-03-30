@@ -134,7 +134,16 @@
 		}
 	}
 	
-	/**
+		/**
+	 * When called clean all $_POST parameters by calling mysql_clean on each parameter
+	 */
+	function cleanup_post(){
+		foreach ($_POST as $key => $value){
+			$_POST[$key]=mysql_clean($_POST[$key]);
+		}
+	}
+	
+/**
 	* Clean a string and remove malicious stuff before insertin
 	* that string into the database
 	* @param : { string } { $id } { string to be cleaned }
