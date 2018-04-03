@@ -139,10 +139,8 @@ php_value max_execution_time 8000
 <IfModule mod_rewrite.c>
     RewriteEngine On
     # Disable PHP in Upload/files
-    RewriteRule ^/files/.*\.(?:php[1-7]?|pht|phtml?|phps|html?|pyc?)$ -
-[NC,F]
+    RewriteRule ^/files/.*\.(?:php[1-7]?|pht|phtml?|phps|html?|pyc?)$ -[NC,F]
 
     # Disable PHP in upload/cache
-    RewriteRule ^/cache/.*\.(?:php[1-7]?|pht|phtml?|phps|html?|pyc?)$ -
-[NC,F]
+    RewriteRule ^/cache/.*\.(?:php[1-7]?|pht|phtml?|phps|html?|pyc?)$ -[NC,F]
 </IfModule>
