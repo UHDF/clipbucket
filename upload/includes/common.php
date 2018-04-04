@@ -16,6 +16,8 @@
 * Copyright (c) 2007 - 2017 Clip-Bucket.com. All rights reserved.
 *******************************************************************
 */
+/* Adrien Ponchelet : Force use of HTTPS */
+$_SERVER['HTTPS'] = 'on';
 
 	ob_start();
 	define('IN_CLIPBUCKET',true);
