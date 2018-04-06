@@ -12,6 +12,7 @@
 
 	require '../includes/config.inc.php';
 	$params = array();
+	$params["groupby"] = "video.title, datecreated";
 	if (isset($_POST['load_type'])) {
 		$load_type = $_POST['load_type'];
 		if (isset($_POST['load_mode'])) {

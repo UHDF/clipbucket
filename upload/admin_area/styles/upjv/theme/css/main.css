@@ -4,12 +4,6 @@
 @import url("pagination.css");
 @import url("cbtab.css");
 
-
-*{
-  font-family: Arial, Verdana, Helvetica, sans-serif;
-}
-
-
 body,html {background-color:#fff; margin:0px; padding:0px; font-family:Verdana; color:#333; font-size:11px;}
 
 /* CLEARS */
@@ -452,4 +446,3 @@ ul#stickies li:hover {
     transform: rotate(0deg) scale(1.25);
     z-index: 10;
 }
-
