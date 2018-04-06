@@ -1098,6 +1098,10 @@ class CBvideo extends CBCategory
                 $query .= " WHERE ".$cond;
             }
 
+			if ($params["groupby"] != ""){
+				$query .= " GROUP BY ".$params["groupby"];
+			}
+			
             $query .= $order ? " ORDER BY ".$order : false;
             $query .= $limit ? " LIMIT ".$limit : false;
             #pr( $query, true );
