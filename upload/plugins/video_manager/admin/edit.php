@@ -81,6 +81,21 @@ if($vidmquery->isActivated()){
         header('Location: '. $_SERVER['PHP_SELF'] .'?video='. $video);
         exit;
     }
+	
+	$thumb = filter_input(INPUT_GET, 'delete');
+	if($thumb && $myquery->VideoExists($video)){
+		$data = empty($data) ? get_video_details($video) : $data;
+		$file_name_num = explode('-', $thumb);
+		$num = get_thumb_num($thumb);
+
+		$file_name = $file_name_num[0];
+
+		delete_video_thumb($data['file_directory'], $file_name,$num);
+		$_SESSION['vidm_msg'][] = lang('video_thumb_delete_msg');
+		
+		header('Location: '. $_SERVER['PHP_SELF'] .'?video='. $video);
+        exit;
+	}
 
     $mode = filter_input(INPUT_GET, 'mode');
     if($mode){
@@ -117,7 +132,7 @@ if($vidmquery->isActivated()){
         unset($_SESSION['vidm_modedata']);
     }
 } else {
-    //Performing Video Acttions
+    //Performing Video Actions
     if($_GET['mode']!=''){
         $modedata = $cbvid->action($_GET['mode'],$video);
         assign("modedata",$modedata);
@@ -202,6 +217,18 @@ Assign('flagedVideos', $videos);
 
 $comments = getComments($comment_cond);
 assign('comments', $comments);
+
+// DELETING THUMBNAIL
+$thumb = filter_input(INPUT_GET, 'delete');
+if($thumb && $myquery->VideoExists($video)){
+    $data = empty($data) ? get_video_details($video) : $data;
+    $file_name_num = explode('-', $thumb);
+    $num = get_thumb_num($thumb);
+
+    $file_name = $file_name_num[0];
+
+    delete_video_thumb($data['file_directory'], $file_name,$num);    
+}
 
 if($vidmquery->isActivated()){
     Assign('vidm_defaultCategory', $cbvid->get_default_category());

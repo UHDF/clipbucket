@@ -7,17 +7,18 @@
 <form action="" method="post" name="vidm-edit_video" id="vidm-edit_video" enctype="multipart/form-data">
     <div class="row">
         <div class="heading clearfix">
-            <div class="col-sm-8">
-                <h2 class="pull-left">{lang('edit')} <small>&gt; {$data.title|truncate:80}</small></h2>
-                <div class="btn-group">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">{lang("actions")} <span class="caret caret_margin"></span></button>
-                    <ul class="dropdown-menu pull-right" role="menu">
-                        <li><a href="{videoLink vdetails=$data}">{lang("vdo_watch_video")}</a></li>
-                        <li><a href="edit_video.php?video={$data.videoid}&amp;mode={if $data.active != 'yes'}activate">{lang('vidm_Activate')}{else}deactivate">{lang('vidm_Deactivate')}{/if}</a></li>
-                        <li><a href="edit_video.php?video={$data.videoid}&amp;mode={if not $data.is_featured}featured">{lang('vidm_makeFeatured')}{else}unfeature">{lang('vidm_makeUnfeatured')}{/if}</a></li>
-                        <li><a href="javascript:void(0)" onClick="javascript:Confirm_Delete('video_manager.php?delete_video={$data.videoid}')">{lang('vidm_deleteThisVideo')}</a></li>
-                    </ul>
-                </div>
+            <div class="col-sm-12">
+                <h2 class="pull-left">{lang('edit')} <small>&gt; {$data.title|truncate:80}</small>
+					<div class="btn-group">
+						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">{lang("actions")} <span class="caret caret_margin"></span></button>
+						<ul class="dropdown-menu pull-right" role="menu">
+							<li><a href="{videoLink vdetails=$data}">{lang("vdo_watch_video")}</a></li>
+							<li><a href="edit_video.php?video={$data.videoid}&amp;mode={if $data.active != 'yes'}activate">{lang('vidm_Activate')}{else}deactivate">{lang('vidm_Deactivate')}{/if}</a></li>
+							<li><a href="edit_video.php?video={$data.videoid}&amp;mode={if not $data.is_featured}featured">{lang('vidm_makeFeatured')}{else}unfeature">{lang('vidm_makeUnfeatured')}{/if}</a></li>
+							<li><a href="javascript:void(0)" onClick="javascript:Confirm_Delete('video_manager.php?delete_video={$data.videoid}')">{lang('vidm_deleteThisVideo')}</a></li>
+						</ul>
+					</div>
+				</h2>
             </div>
         </div>
         <div class="heading quick-infos"> 
@@ -66,7 +67,7 @@
             {ANCHOR place='vidm_video-informations_left'}
         </div>
         <div class="col-md-6">
-            <div class="col-md-12">{FlashPlayer vdetails=$data width='100%' height='100%'}</div>
+            <div class="vplayer">{FlashPlayer vdetails=$data width='100%' height='100%'}</div>
             {ANCHOR place='vidm_video-informations_right'}
         </div>
     </div>
@@ -123,7 +124,7 @@
                             {* STATUT DE LA VIDEO (Traitement réussi, En cours d'encodage, Echec) *}
                             <div class="form-group none">
                                 <label class="status">{lang('vdo_status')}</label>
-                                <select class="form-control" name="status">
+                                <select class="form-control" name=l"status">
                                     <option class="form-control" value="Successful" {if $data.status=='Successful'} selected{/if}>{lang('Successfull')}</option>
                                     <option class="form-control" value="processing" {if $data.status=='Processing'} selected{/if}>{lang('processing')}</option>
                                     <option class="form-control" value="Failed"{if $data.status=='Failed'} selected{/if}>{lang('vidm_failed')}</option>
@@ -142,7 +143,7 @@
                         <div class="col-sm-8">{assign var=vidthumbs value=get_thumb($data,1,TRUE,FALSE,TRUE,FALSE,'original')}
                             <div class="vidm-thumbs">
                                 <label for="vidm-thumbs">{lang('vidm_videoThumbnails')}</label>
-                                <a href="upload_thumbs.php?video={$data.videoid}" class="btn btn-primary btn-sm">{lang('vidm_manageThumbs')}</a>
+                                <div class="actions"><a href="upload_thumbs.php?video={$data.videoid}" id="vidm-thumbs" class="btn btn-primary btn-sm">{lang('vidm_manageThumbs')}</a></div>
                             </div>
                             <ul class="ace-thumbnails">
                                 {foreach from=$vidthumbs item=vid_thumb}
