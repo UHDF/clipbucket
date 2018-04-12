@@ -60,6 +60,16 @@
                         <td class="tablabel">{lang('vidm_uploadedBy')}</td>
                         <td>{$data.userid|get_username}</td>
                     </tr>
+					<tr>
+                        <td class="tablabel">{lang('vdo_status')}</td>
+                        <td>
+							<select class="form-control" name="status">
+								<option value="Successful" {if $data.status=='Successful'} selected {/if}>{lang('Successfull')}</option>
+								<option value="processing" {if $data.status=='Processing'} selected {/if}>{lang('processing')}</option>
+								<option value="Failed"{if $data.status=='Failed'} selected {/if}>Failed</option>
+							</select>
+						</td>
+                    </tr>
                     
                     {ANCHOR place='vidm_video-informations_table'}
                 </tbody>
