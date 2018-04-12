@@ -39,5 +39,9 @@
 		<actual_document>Actual document</actual_document>
 		<documents_have_been_disconected>Documents have been disconected</documents_have_been_disconected>
 		<documents>Documents</documents>
+		<documents_linked>Linked documents</documents_linked>
+                <documents_addDoc>Link a document</documents_addDoc>
+                <documents_removeLinked>Remove linked document</documents_removeLinked>
+                <documents_NoResultForQuery>No result for the term</documents_NoResultForQuery>
 	</phrases>
 </clipbucket_language>
