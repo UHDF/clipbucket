@@ -3,7 +3,7 @@
  Plugin Name: Documents
  Description: This plugin will add documents to a video.
  Author: Franck Rouze
- Author Website: http://www.univ-lille.fr/
+ Author Website: http://semm.univ-lille1.fr/
  ClipBucket Version: 2.8
  Version: 1.0
  Website:
@@ -19,6 +19,7 @@ define("SITE_MODE",'/admin_area');
 define('DOCUMENT_BASE',basename(dirname(__FILE__)));
 define('DOCUMENT_DIR',PLUG_DIR.'/'.DOCUMENT_BASE);
 define('DOCUMENT_URL',PLUG_URL.'/'.DOCUMENT_BASE);
+assign('document_url', DOCUMENT_URL);
 define('DOCUMENT_ADMIN_DIR',DOCUMENT_DIR.'/admin');
 define('DOCUMENT_ADMIN_URL',DOCUMENT_URL.'/admin');
 define("DOCUMENT_MANAGEPAGE_URL",BASEURL.SITE_MODE."/plugin.php?folder=".DOCUMENT_BASE."/admin&file=manage_documents.php");
@@ -120,12 +121,10 @@ if ($cbplugin->is_installed('common_library.php') && $userquery->permission[getS
 /**
  * insert js code into the HEADER of the edit_video.php page
  */
-if ($cbplugin->is_installed('common_library.php') &&
-		$userquery->permission[getStoredPluginName("documents")]=='yes' &&
-		substr($_SERVER['SCRIPT_NAME'], -14, 14) == "edit_video.php"){
-	assign("videoid",$_GET['video']);
-	$Cbucket->add_admin_header(PLUG_DIR . '/documents/admin/header.html', 'global');
-	
+if ($cbplugin->is_installed('common_library.php') && $userquery->permission[getStoredPluginName("documents")]=='yes' && substr($_SERVER['SCRIPT_NAME'], -14, 14) == "edit_video.php"){
+	assign("videoid", $_GET['video']); 
+	$Cbucket->add_admin_header(PLUG_DIR . '/documents/admin/header.html');
+        
 	register_anchor_function('addNavTab', 'vidm_navtab');
 	register_anchor_function('addPanel', 'vidm_tabcontent');
 	register_anchor_function('addAfterForm', 'vidm_afterForm');
@@ -136,6 +135,7 @@ if ($cbplugin->is_installed('common_library.php') &&
 		$documentquery->setVideoDocuments($_GET['video'], $documents);
 	}
 }
+
 
 function addNavTab(){
     echo '<li role="presentation"><a href="#documents-panel" aria-controls="required" role="tab" data-toggle="tab">'. lang('documents') .'</a></li>';
@@ -173,24 +173,23 @@ function addAfterForm(){
 <div class="modal fade" tabindex="-1" role="dialog" id="addDocModal">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title"><?php echo lang('documents_addDoc'); ?></h4>
-            </div>
-            <div class="modal-body">
-                <form method="post" enctype="multipart/form-data">
-                    <div class="form-group">
-                        
-                    </div>
+			<form method="post" enctype="multipart/form-data">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title"><?php echo lang('documents_addDoc'); ?></h4>
+				</div>
+				<div class="modal-body">
                     <div class="form-group">
                         <select name="selectedDocuments[]" id="documents_selectedDoc" class="form-control"></select>
                     </div>
-                    <div class="form-group text-right">
-                        <button type="button" class="btn btn-default btn-xs docmCancelModal" data-dismiss="modal"><?php echo lang('cancel'); ?></button>
-                        <button type="submit" class="btn btn-primary btn-xs docmValidate"><?php echo lang('validate'); ?></button>
-                    </div>
-                </form>
-            </div>
+				</div>
+				<div class="modal-footer">
+					<div class="text-right">
+						<button type="button" class="btn btn-default btn-xs docmCancelModal" data-dismiss="modal"><?php echo lang('cancel'); ?></button>
+						<button type="submit" class="btn btn-primary btn-xs docmValidate"><?php echo lang('validate'); ?></button>
+					</div>
+				</div>
+			</form>
         </div>
     </div>
 </div>
