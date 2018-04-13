@@ -8,7 +8,7 @@
 $( document ).ready( function() {
 
 	var obj=$(".btn-group").find(".dropdown-menu");
-	var data="<li><a href='{/literal}{$document_linkpage}{literal}&video={/literal}{$videoid}{literal}'>{/literal}{lang('link_document')}{literal}</a></li>"
+	var data="<li><a href='{/literal}{$document_linkpage}{literal}&video={/literal}{$videoid}{literal}' target='_blank'>{/literal}{lang('link_document')}{literal}</a></li>"
 	obj.html(obj.html()+data);
 });
 
