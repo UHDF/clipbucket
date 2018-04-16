@@ -15,5 +15,6 @@
 		<link_pending_video>Link pending video</link_pending_video>
 		<no_encoding_in_progress>No encoding in progress</no_encoding_in_progress>
 		<Encoding_progression>Encoding progression</Encoding_progression>
+		<Encoding_tab>Encoding</Encoding_tab>
 	</phrases>
 </clipbucket_language>
