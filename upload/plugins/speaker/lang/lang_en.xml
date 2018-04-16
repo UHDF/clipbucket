@@ -7,7 +7,7 @@
 		<speaker_manager>Speaker Manager</speaker_manager>
 		<speaker_already_exists>Speaker already exists</speaker_already_exists>
 		<speaker_does_not_exist>Speaker does not exist</speaker_does_not_exist>
-		<cant_del_linked_speaker_msg>Speaker is likned to almost one video and has not been deleted</cant_del_linked_speaker_msg>
+		<cant_del_linked_speaker_msg>Speaker is linked to almost one video and has not been deleted</cant_del_linked_speaker_msg>
 		<speaker_del_msg>Speaker(s) succesfully deleted</speaker_del_msg>
 		<new_speaker_added>Speaker has been added</new_speaker_added>
 		<speaker_updated>Speaker succesfully updated</speaker_updated>
@@ -38,5 +38,12 @@
 		<cant_slugify_speaker>Can't slugify speaker</cant_slugify_speaker>
 		<speaker_slugified>Speaker slugified</speaker_slugified>
 		<speakers_have_been_disconected>speakers have been disconected</speakers_have_been_disconected>
+		
+		<speakers_linked>Linked speakers</speakers_linked>
+		<speakers_addlink>Link a speaker</speakers_addlink>
+		<speakers_createlink>Create a speaker</speakers_createlink>
+		<speakers_removeLinked>Unlink the speaker</speakers_removeLinked>
+		<speakers_NoResultForQuery>No result for the term</speakers_NoResultForQuery>
+		<speakers_backToVideo>Back to video</speakers_backToVideo>
 	</phrases>
 </clipbucket_language>

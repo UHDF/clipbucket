@@ -38,5 +38,12 @@
 		<cant_slugify_speaker>Impossible de slugifier l'intervenant</cant_slugify_speaker>
 		<speaker_slugified>Intervenant slugifié</speaker_slugified>
 		<speakers_have_been_disconected>Les intervenants ont été dissociés</speakers_have_been_disconected>
+		
+		<speakers_linked>Intervenants associés</speakers_linked>
+		<speakers_addlink>Associer un intervenant</speakers_addlink>
+		<speakers_createlink>Créer un intervenant</speakers_createlink>
+		<speakers_removeLinked>Retirer l'intervenant</speakers_removeLinked>
+		<speakers_NoResultForQuery>Aucun résultat correspondant au terme</speakers_NoResultForQuery>
+		<speakers_backToVideo>Revenir à la vidéo</speakers_backToVideo>
 	</phrases>
 </clipbucket_language>
