@@ -29,5 +29,11 @@
 		<video_addon>Extensions Vidéo</video_addon>
 		<links_have_been_disconected>Les liens externes ont été dissociés</links_have_been_disconected>
 		<links>Liens</links>
+		
+		<extlink_linked>Liens externes associés</extlink_linked>
+		<extlink_create>Créer un lien</extlink_create>
+		<extlink_unlink>Retirer le lien</extlink_unlink>
+		<extlink_NoResultForQuery>Aucun résultat correspondant au terme</extlink_NoResultForQuery>
+		<extlink_backToVideo>Revenir à la vidéo</extlink_backToVideo>
 	</phrases>
 </clipbucket_language>

@@ -1,7 +1,10 @@
 {if $unlinkedLinks}
 <!-- Displaying Links -->
 <div class="heading">
-	<h2>{lang('link_external_links_to_video')}{$video.videoid}</h2>
+	<h2>
+		{lang('link_external_links_to_video')}{$video.videoid}
+		<small><a href="edit_video.php?video={$video.videoid}" class="btn btn-xs btn-primary backtovid">{lang('extlink_backToVideo')}</a></small>
+	</h2>
 </div>
 <div><span class="btn btn-primary" onclick="toggle_search('searchdiv')" ><span class="glyphicon glyphicon-search"></span>{lang('filter')}</span></div>
 <br/>
