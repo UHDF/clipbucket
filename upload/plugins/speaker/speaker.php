@@ -213,10 +213,10 @@ function addAfterFormSpeaker(){
     </div>
 </div>
 
-<script src="<?php echo DOCUMENT_URL; ?>/admin/mgsg/magicsuggest-min.js"></script>
+<script src="<?php echo SPEAKER_URL; ?>/admin/mgsg/magicsuggest-min.js"></script>
 <script type="text/javascript">
     $(function(){
-        var docOpt = '';
+        var spkOpt = '';
         
         $('#speakers-panel').on('click', 'button.deleteSpeaker', function(e){
             $(e.currentTarget).closest('tr').remove();
