@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clipbucket_language>
+	<name>English</name>
+	<iso_code>en</iso_code>
+	<phrases>
+		<genThumb_modalTitle>Generate a new thumbnail</genThumb_modalTitle>
+		<genThumb_modalBody>Are you sure you want to generate this thumbnail?</genThumb_modalBody>
+		<genThumb_btn>Generate a thumbnail</genThumb_btn>
+		<genThumb_modalBody2>Creation in progress</genThumb_modalBody2>
+	</phrases>
+</clipbucket_language>

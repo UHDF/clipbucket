@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clipbucket_language>
+	<name>Français</name>
+	<iso_code>fr</iso_code>
+	<phrases>
+		<genThumb_modalTitle>Générer une nouvelle miniature</genThumb_modalTitle>
+		<genThumb_modalBody>Êtes-vous sûr(e) de vouloir générer cette miniature ?</genThumb_modalBody>
+		<genThumb_btn>Générer une miniature</genThumb_btn>
+		<genThumb_modalBody2>Création en cours</genThumb_modalBody2>
+	</phrases>
+</clipbucket_language>
