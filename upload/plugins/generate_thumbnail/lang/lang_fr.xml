@@ -3,9 +3,12 @@
 	<name>Français</name>
 	<iso_code>fr</iso_code>
 	<phrases>
-		<genThumb_modalTitle>Générer une nouvelle miniature</genThumb_modalTitle>
-		<genThumb_modalBody>Êtes-vous sûr(e) de vouloir générer cette miniature ?</genThumb_modalBody>
 		<genThumb_btn>Générer une miniature</genThumb_btn>
+		<genThumb_modalTitle>Générer une nouvelle miniature</genThumb_modalTitle>
+		<genThumb_modalTitle2>Supprimer une miniature</genThumb_modalTitle2>
+		<genThumb_modalBody>Êtes-vous sûr(e) de vouloir générer cette miniature ?</genThumb_modalBody>
 		<genThumb_modalBody2>Création en cours</genThumb_modalBody2>
+		<genThumb_modalBody3>Êtes-vous sûr(e) de vouloir supprimer cette miniature ?</genThumb_modalBody3>
+		<genThumb_modalBody4>Suppression en cours</genThumb_modalBody4>
 	</phrases>
 </clipbucket_language>
