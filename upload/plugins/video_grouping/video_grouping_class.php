@@ -859,7 +859,15 @@ class VideoGrouping extends CBCategory{
 		$query="SELECT * FROM ".tbl("vdogrouping") ." WHERE in_homepage=1 ";
 		return $db->_select($query);
 	}
-
+	
+	function getModalGrouping($type, $notIn = array()){
+		global $db;
+		$query = 'SELECT * FROM '. tbl('vdogrouping') .' WHERE grouping_type_id = '. $type;
+		if(count($notIn)) $query .= ' AND id NOT IN ('. $notIn .')';
+		$query .= ' ORDER BY name ASC';
+		return $db->_select($query);
+	}
+	
 }
 
 ?>

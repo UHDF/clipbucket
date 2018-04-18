@@ -1,6 +1,9 @@
 <!-- Displaying video groupings -->
 <div class="heading">
-	<h2>{lang('link_groupings_to_video')} {$video.videoid}</h2>
+	<h2>
+		{lang('link_groupings_to_video')} {$video.videoid}
+		<small><a href="edit_video.php?video={$video.videoid}" class="btn btn-xs btn-primary backtovid">{lang('vidgrp_backToVideo')}</a>
+	</h2>
 </div>
 <div><span class="btn btn-primary" onclick="toggle_search('searchdiv')" ><span class="glyphicon glyphicon-search"></span> {lang('filter')}</span></div>
 <div class="search_box" id="searchdiv" {if $showfilter!=true} style="display:none"{/if}>  

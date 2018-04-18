@@ -63,5 +63,11 @@
 		<in_homepage>En page d'accueil</in_homepage>
 		<show_in_homepage>Afficher en page d'accueil</show_in_homepage>
 		<hide_from_homepage>Enlever de la page d'accueil</hide_from_homepage>
+		
+		<vidgrp_linked>Groupements de la vidéo</vidgrp_linked>
+		<vidgrp_create>Créer un groupement</vidgrp_create>
+		<vidgrp_unlink>Retirer le groupement</vidgrp_unlink>
+		<vidgrp_NoResultForQuery>Aucun résultat correspondant au terme</vidgrp_NoResultForQuery>
+		<vidgrp_backToVideo>Retour à la vidéo</vidgrp_backToVideo>
 	</phrases>
 </clipbucket_language>
