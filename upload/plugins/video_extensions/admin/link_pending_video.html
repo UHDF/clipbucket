@@ -2,7 +2,10 @@
 {if $nbPendingFiles>0}
 <!-- Displaying content only if exists -->
 <div class="heading">
-	<h2>{lang('link_pending_video_to')} {$video.videoid}</h2>
+	<h2>
+		{lang('link_pending_video_to')} {$video.videoid}
+		<small><a href="edit_video.php?video={$video.videoid}" class="btn btn-xs btn-primary backtovid">{lang('videoextensions_backToVideo')}</a></small>
+	</h2>
 </div>
 <form name="user_manage" method="post">
   <div class="btn-group marginBottomSmall">
