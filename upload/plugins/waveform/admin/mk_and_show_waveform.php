@@ -35,7 +35,7 @@
 		$file_name = $video_details['file_name'];
 		// *** Output path and filename
 		$waveform_folder = BASEDIR.'/files/waveform';
-		$waveform_filename = 'waveform_'.$_POST['data']['video'].'.png';
+		$waveform_filename = 'waveform_'.$_POST['data']['video'].'.jpg';
 
 
 		// If FOLDER exist
