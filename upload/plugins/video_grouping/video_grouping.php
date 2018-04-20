@@ -140,23 +140,26 @@ if ($cbplugin->is_installed('common_library.php') && $userquery->permission[getS
 /**
  * insert js code into the HEADER of the edit_video.php page
  */
-if ($cbplugin->is_installed('common_library.php') &&
-		$userquery->permission[getStoredPluginName("videogrouping")]=='yes' &&
-		substr($_SERVER['SCRIPT_NAME'], -14, 14) == "edit_video.php"){
-	assign("videoid",$_GET['video']);
-	$Cbucket->add_admin_header(PLUG_DIR . '/video_grouping/admin/header2.html', 'global');
-	
-	register_anchor_function('addNavTabVidGrp', 'vidm_navtab');
-	register_anchor_function('addPanelVidGrp', 'vidm_tabcontent');
-	register_anchor_function('addAfterFormVidGrp', 'vidm_afterForm');
+if ($cbplugin->is_installed('common_library.php') && $userquery->permission[getStoredPluginName("videogrouping")]=='yes'){
+	$server_script = $_SERVER['SCRIPT_NAME'];
+	if(substr($server_script, -14, 14) == "edit_video.php"){
+		assign("videoid",$_GET['video']);
+		$Cbucket->add_admin_header(PLUG_DIR . '/video_grouping/admin/header2.html', 'global');
 
-	$plgvidgrp = filter_input(INPUT_POST, 'plgvidgrp');
-	if($plgvidgrp){
-		$groupes = !empty($_POST['vidgrp']) ? $_POST['vidgrp'] : array();
-		$videoGrouping->unlinkAllGrouping($_GET['video']);
-		foreach($groupes as $g){
-			$videoGrouping->linkGrouping($g, $_GET['video']);
+		register_anchor_function('addNavTabVidGrp', 'vidm_navtab');
+		register_anchor_function('addPanelVidGrp', 'vidm_tabcontent');
+		register_anchor_function('addAfterFormVidGrp', 'vidm_afterForm');
+
+		$plgvidgrp = filter_input(INPUT_POST, 'plgvidgrp');
+		if($plgvidgrp){
+			$groupes = !empty($_POST['vidgrp']) ? $_POST['vidgrp'] : array();
+			$videoGrouping->unlinkAllGrouping($_GET['video']);
+			foreach($groupes as $g){
+				$videoGrouping->linkGrouping($g, $_GET['video']);
+			}
 		}
+	} elseif($server_script === '/search_result.php'){
+		register_anchor_function('addSearchResultGroupInfos', 'ulille_search_heading');
 	}
 }
 
@@ -343,6 +346,25 @@ function addAfterFormVidGrp(){
 </script>
 
 <?php
+}
+
+function addSearchResultGroupInfos(){
+	global $videoGrouping, $cbtpl;
+	
+	$stype = filter_input(INPUT_GET, 'type');
+	$squery = filter_input(INPUT_GET, 'query');
+	$sgtype = filter_input(INPUT_GET, 'gtype', FILTER_SANITIZE_NUMBER_INT);
+	$sgroupe = array();
+	if(strtolower($stype) === 'videogrouping' && $squery && $sgtype){
+		$escapechars = array('’', "'", "\'", "\\&#8217;", "&amp;#8217;", "#39;");
+		$squery = str_replace($escapechars, '%', $squery);
+		$sgroupe = $videoGrouping->getGroupingInfos($sgtype, $squery);
+	}
+	
+	if(count($sgroupe) !== 1) return;
+	
+	Assign('groupe', $sgroupe[0]);
+	echo $cbtpl->fetch(VIDEO_GROUPING_DIR .'/search.html');
 }
 
 global $videoGrouping;
