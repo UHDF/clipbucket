@@ -170,7 +170,7 @@
 	}
 
 	$(function(){
-		if($('#vidm-video .vidm-thumbs div.actions').length){
+		if($('#vidm-video .vidm-thumbs div.actions').length && typeof videojs !== 'undefined'){
 			genthumb_addBtn($('#vidm-video .vidm-thumbs div.actions'));
 			changeDeleteThumb();
 		}
