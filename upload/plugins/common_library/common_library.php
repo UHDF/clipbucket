@@ -68,7 +68,7 @@ function importLangagePack($folder, $lang){
 			$db->execute($query);
 			// update all phrases. This way the phrases which were present in the previous SQL INSERT will be updated.
 			foreach($phrases as $code => $phrase) {
-				$db->Execute("UPDATE ".tbl('phrases')." SET `text`='".$phrase."' WHERE `varname` = '".$code."' AND `lang_iso` LIKE '".$lang."'");
+				$db->Execute("UPDATE ".tbl('phrases')." SET `text`='".htmlspecialchars($phrase,ENT_QUOTES, "UTF-8")."' WHERE `varname` = '".$code."' AND `lang_iso` LIKE '".$lang."'");
 			}
 					
 			e(lang("lang_added")." : ".$lang,"m");
