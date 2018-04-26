@@ -54,7 +54,7 @@
                     </tr>
                     <tr>
                         <td class="tablabel">{lang('vidm_uploadedDate')}</td>
-                        <td>{$data.datecreated|date_format:'%d/%m/%Y'}</td>
+                        <td>{$data.date_added|date_format:'%d/%m/%Y'}</td>
                     </tr>
                     <tr>
                         <td class="tablabel">{lang('vidm_uploadedBy')}</td>
@@ -109,6 +109,7 @@
                         <input type="text" name="{$fields.tags.name}" id="form-control" class="form-control" value="{$fields.tags.value}" />
                     </div>
                     <div class="form-group">
+						{if $vidmErrorDateCreated}<div class="alert alert-danger">{$vidmErrorDateCreated}</div>{/if}
                         <label for="vidm-date">{lang('vidm_Date')}</label>
                         <div class="input-group">
                             <input type="text" id="vidm-date" name="vidm-date" class="form-control" value="{vidm_datetime($data.videoid)|date_format:"%d/%m/%Y %H:%M"}" aria-describedby="basic-addon-date" readonly />
@@ -288,7 +289,6 @@
 
     function changeDuration(dur){
         if(typeof dur !== 'undefined'){
-            console.log(dur, hmsToSeconds(dur));
             $('#duration').val(hmsToSeconds(dur));
         } else {
             var hms = secondsToHms(Math.round($('#duration').val()));
