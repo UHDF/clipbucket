@@ -8,7 +8,7 @@
 /upload/cache/comments/*
 /upload/cache/userfeeds/*
 
-/upload/filesconversion_queue/*.*
+/upload/files/conversion_queue/*.*
 /upload/files/logs/20*
 /upload/files/mass_uploads/*.*
 /upload/files/photos/20*
@@ -24,3 +24,5 @@ development.dev
 
 /upload/files/*
 *kdev4*
+
+/upload/includes/langs/*.lang
