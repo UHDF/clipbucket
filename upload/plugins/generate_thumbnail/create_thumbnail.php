@@ -4,27 +4,27 @@
     $userquery->login_check('admin_access');
     $pages->page_redir();
 
-    $ffmpeg_path = $GLOBALS['Cbucket']->configs['ffmpegpath'];	
+    $ffmpeg_path = $GLOBALS['Cbucket']->configs['ffmpegpath'];
 	if($ffmpeg_path === ''){
 		echo json_encode(array('error' => 'Error : ffmpeg not found'));
 		return;
 	}
-	
+
     require_once '../../includes/classes/video.class.php';
     $cbvid = new CBvideo;
-	
+
 	$return = '';
 
     if(isset($_POST['thumb_time']) && isset($_POST['video_id'])){
 		$time = filter_input(INPUT_POST, 'thumb_time', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
         $video = filter_input(INPUT_POST, 'video_id', FILTER_SANITIZE_NUMBER_INT);
-		
+
         $data = get_video_details($video);
 
         $thumbs = get_thumb($video, 1, true, false, false, true, false);	// Liste des fichiers thumbnails
         $counter = get_thumb_num($thumbs[count($thumbs) - 1]) + 1;		// Connaitre le prochain element
         $thumbs_settings_28 = thumbs_res_settings_28();				// Dimension des vignettes a generer
-		
+
         /**
          *	On cherche le plus gros fichier video (suppose que c'est la meilleur resolution)
          *
@@ -32,16 +32,25 @@
          */
         $file_name = $data['file_name'];
         $file_dir = $data['file_directory'];
-		
+
         // *** Chemin de base de la video
         $file_video = BASEDIR .'/files/videos/'. $data['file_directory'] .'/'. $data['file_name'] .'-*';
-		
+
         // Nom du plus gros fichier
         $max_video_file_by_size = shell_exec('ls -S '.$file_video.' | head -n 1');
-        $max_video_file_by_size = str_replace("\n", "", $max_video_file_by_size);
-		
+		$max_video_file_by_size = str_replace("\n", "", $max_video_file_by_size);
+
+		/**
+		 * Si la video est remote_play_url, ls retourne "... No such file or directory"
+		 * La variable $max_video_file_by_size n'est donc pas vide.
+		 */
+		if (!preg_match('/No such file/i', $max_video_file_by_size)){
+			echo json_encode(array('error' => 'No video source found.', 'res' => ''));
+			return;
+		}
+
         if(trim($max_video_file_by_size) !== ''){
-            foreach($thumbs_settings_28 as $key => $thumbs_size){		
+            foreach($thumbs_settings_28 as $key => $thumbs_size){
                 if($key == 'original'){
                     $output = THUMBS_DIR .'/'. $file_dir .'/'. $file_name .'-original-'. $counter .'.jpg';
                     $command = $ffmpeg_path .' -ss '. $time .' -i '. $max_video_file_by_size .' -f image2 -vframes 1 '. $output;
@@ -50,7 +59,7 @@
                     $height_setting = $thumbs_size[1];
                     $width_setting = $thumbs_size[0];
                     $output = THUMBS_DIR .'/'. $file_dir .'/'. $file_name .'-'. $width_setting .'x'. $height_setting .'-'. $counter .'.jpg';
-				
+
                     // Pour eviter d'utiliser le fichier video
                     if(file_exists($original)){
                         $command = $ffmpeg_path .' -i '. $original .' -vf scale='. $width_setting .':'. $height_setting .' '. $output;
@@ -58,13 +67,13 @@
                         $command = $ffmpeg_path .' -ss '. $time .' -i '. $max_video_file_by_size .' -vf scale='. $width_setting .':'. $height_setting .' -an -r 1 -y -f image2 -vframes 1 '. $output;
                     }
                 }
-                
+
                 $cmd = shell_exec($command);
             }
-            
-            $cbvid->set_default_thumb($video, mysql_clean($counter));	
+
+            $cbvid->set_default_thumb($video, mysql_clean($counter));
         }
-		
+
 		$lastThumb = array('file' => $file_name .'-original-'. $counter .'.jpg', 'name' => $file_name .'-original-'. $counter, 'ext' => '.jpg');
 		if(file_exists(THUMBS_DIR .'/'. $file_dir .'/'. $file_name .'-original-'. $counter .'.jpg')){
 			$thumbs = get_thumb($data, 1, true, false, true, false, 'original');
@@ -81,8 +90,8 @@
 		} else {
 			echo json_encode(array('error' => 'Error, cannot create thumbnail', 'res' => ''));
 		}
-		
+
 		return;
     }
-	
+
 	echo json_encode(array('error' => 'Error, no valid data', 'res' => ''));
