@@ -15,8 +15,8 @@
 {if $type == 'p'}
 <div class="collection-holder">
 	<div class="photo-block">
-		<a href="{$main_url}" title="{$collection.collection_name}}">
-			<img alt="{$collection.title}" class="img-responsive" id="photo_{$collection.ci_id}" src="{$first_col_thumb}">
+		<a href="{$main_url}" title="{lang code='to_view'} {$collection.collection_name}}">
+			<img alt="{$collection.collection_name}" class="img-responsive" id="photo_{$collection.collection_id}" src="{$first_col_thumb}">
 			<div class="collection-info">
 				<span>{$collection.total_objects}</span>{if $type == 'v'}{lang code="videos"}{else}{lang code="photos"}{/if}
 			</div>
@@ -28,8 +28,8 @@
 {else}
 <div class="collection-holder">
 	<div class="photo-block">
-		<a href="{$main_url}" title="{$collection.collection_name}">
-			<img alt="{$collection.title}" class="img-responsive" id="photo_{$collection.ci_id}" src="{$first_col_thumb}">
+		<a href="{$main_url}" title="{lang code='to_view'} {$collection.collection_name}">
+			<img alt="{$collection.collection_name}" class="img-responsive" id="photo_{$collection.collection_id}" src="{$first_col_thumb}">
 			<div class="collection-info">
 				<span>{$collection.total_objects}</span>{lang code="videos"}
 			</div>
