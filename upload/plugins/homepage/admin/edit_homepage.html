@@ -1,0 +1,45 @@
+{include file="$chp_css"}
+
+<h2>
+	{lang('chp_editTitle')}
+	<small><a href="{$chp_managepages}" class="btn btn-xs btn-default">{lang('chp_backto')}</a></small>
+</h2>
+
+<div class="well">
+	<form method="post" action="" id="formHomepage" class="form-horizontal">
+		<div class="form-group">
+			<div class="alert alert-danger chpname{if $chpError}">{$chpError}{else} none">{/if}</div>
+			<label for="chpname" class="control-label col-sm-3">{lang('chp_labelname')}</label>
+			<div class="col-sm-9">
+				<input type="text" name="chpname" id="chpname" class="form-control" value="{$chpname}" />
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="alert alert-danger chpslug none"></div>
+			<label for="chpslug" class="control-label col-sm-3">{lang('chp_labelslug')}</label>
+			<div class="col-sm-9">
+				<input type="text" name="chpslug" id="chpslug" class="form-control" value="{$chpslug}" />
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label for="chpulvl" class="control-label col-sm-3">{lang('chp_ulvl')}</label>
+			<div class="col-sm-9">
+				<select name="chpulvl" id="chpulvl" class="form-control">
+					{foreach $chpulvls as $ulvl}<option value="{$ulvl.user_level_id}">{$ulvl.user_level_name}</option>{/foreach}
+				</select>
+				<input type="hidden" name="ulvlSelected" value="{$chpulevels}" />
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<div class="col-sm-12 text-right">
+				<button type="submit" class="btn btn-xs btn-primary">{lang('validate')}</button>
+			</div>
+		</div>
+	</form>
+</div>
+
+<script src="{$chp_mgsg}/magicsuggest-min.js"></script>
+{include file="$chp_js"}
