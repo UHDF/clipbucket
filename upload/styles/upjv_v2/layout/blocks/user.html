@@ -1,6 +1,6 @@
 {if $block_type == '' || $block_type=='normal'}
 	<div class="item-channel col-lg-3 col-md-3 col-sm-4 col-xs-12" id="user-{$user.userid}">
-		
+
 		<div class="channel-holder">
 			<a href="{$userquery->profile_link($user)}" id="user-{$user.userid}" class="user-block">
 				<img class="avatar" src="{avatar details=$user}">
@@ -37,7 +37,7 @@
 		<div class="cb-user-thumb clearfix">
 			<div class="chanel-cover clearfix" style="background: url({$coverPhoto}) center #000000 no-repeat;"></div>
 			<a class="avatar" href="{$userquery->profile_link($user)}">
-				<img src="{$userquery->getuserthumb($user)}">
+				<img src="{$userquery->getuserthumb($user)}" alt="">
 			</a>
 		</div>
 		<div class="user-detail-block">
@@ -65,7 +65,7 @@
 	<div class="col-md-2" id="user-{$user.userid}" align="center">
 		<a href="{$userquery->profile_link($user)}">{$user.username}</a>
 		<a href="{$userquery->profile_link($user)}">
-			<img src="{$userquery->getuserthumb($user)}" class="img-thumbnail" class="user_mid_thumb">
+			<img src="{$userquery->getuserthumb($user)}" class="img-thumbnail user_mid_thumb" alt="">
 		</a>
 	</div>
 {/if}
@@ -74,7 +74,7 @@
 	<div class="user_block_med" id="user-{$user.userid}">
 		<div class="thumb_container_medium" >
 			<a href="{$userquery->profile_link($user)}">
-				<img src="{$userquery->getuserthumb($user)}" class="img-thumbnail" class="user_thumb_medium">
+				<img src="{$userquery->getuserthumb($user)}" class="img-thumbnail user_thumb_medium" alt="">
 			</a>
 		</div>
 		<div class="prof_title"><a href="{$userquery->profile_link($user)}">{$user.username}</a></div>
@@ -103,9 +103,9 @@
 		click: function(e){
 		    e.preventDefault();
 		   _cb.subscribeToChannel(id,'subscribe_user','result_cont');
-		   
+
 		 }
 		});
-	});	
+	});
 
 </script>

@@ -13,7 +13,7 @@
 						<div class="clearfix">
 							<label class="label label-info">{$playlist.playlist_name}</label>
 						</div>
-						<img src="{get_playlist_thumb($playlist)}">
+						<img src="{get_playlist_thumb($playlist)}" alt="">
 						{$list_id=$playlist.playlist_id}
 						{$first=get_playlist_items($list_id,1)}
 						{if $first}

@@ -31,21 +31,21 @@
 
 			{if config('comments_captcha')=='all' || ( config('comments_captcha')=='guests' && !$userquery->login_check('',true) )}
 				{$captcha=get_captcha()}
-				{if $captcha} 
-				
+				{if $captcha}
+
 					{if $captcha.show_field}
 							<label class="block-label" for="captcha">Verification Code</label>
 							<div class="ADfieldInputs">{load_captcha captcha=$captcha load=field field_params = ' id="captcha" class="TextField"'}</div>
 					{/if}
 					{load_captcha captcha=$captcha load=function}
-				
+
 				{/if}
-			{/if} 
+			{/if}
 			{ANCHOR place='before_compose_box'}
-			
+
 			<div class="form-group clearfix">
 				<div class="avatar_comment_as">
-					<img src="{$userquery->avatar(false,'m',userid())}" class="img-circle">
+					<img src="{$userquery->avatar(false,'m',userid())}" alt="" class="img-circle">
 				</div>
 				<div class="comment_txt_area">
 					<textarea name="comment" id="comment_box" cols="30" rows="1"  class="form-control" placeholder="{lang code='please_enter_comment'}"></textarea>
@@ -55,7 +55,7 @@
 				<input type="button" name="add_comment" id="add_comment_button" class="btn btn-submit btn-primary"  value="{lang code='user_add_comment'}">
 			</div>
 		</div>
-		
+
 		<div class="clearfix" id="msg_container"></div>
 	</form>
 	{else}
@@ -83,5 +83,5 @@
 			}
 			});
 		});
-	
+
 </script>

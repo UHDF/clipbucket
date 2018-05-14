@@ -9,7 +9,7 @@
 	<td>
 		<div class="col-md-3">
 			<a class="manageVid_thumb" href="edit_video.php?vid={$video.videoid}">
-				<img src="{getThumb vdetails=$video}" class="img-responsive" width="130" height="80" id="thumbs_{$video.videoid}" class="vthumb" title=""/>
+				<img src="{getThumb vdetails=$video}" class="img-responsive vthumb" width="130" height="80" id="thumbs_{$video.videoid}" alt="">
 				<span class="duration">({if
 				$video.duration>1}{$video.duration|SetTime}{else}00:00{/if})</span>
 			</a>
@@ -30,7 +30,7 @@
 			</div>
 		</div>
 	</td>
-	
+
 	{*<td>
 		<div class="clearfix">
 			{if $video.broadcast=='public'}
@@ -41,7 +41,7 @@
 		</div>
 		<a href="view_user.php?uid={$video.userid}">{$video.username}</a>
 	</td>*}
-		
+
 	<td>
 		<div class="dropdown text-center">
 			<button id="dropdownMenu1" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown">
@@ -54,10 +54,10 @@
 				</li>
 			{/if}
 				<li><a role="menuitem" tabindex="-1" href="{$baseurl}/watch_video.php?v={$video.videokey}"target="_blank">{lang|capitalize code="to_view"}</a>
-					
+
 				</li>
 
-			
+
 
 				{foreach from=$cbvid->video_manager_links item=links}
 				{$cbvid->video_manager_link($links,$video)}
@@ -65,7 +65,7 @@
 			</ul>
 		</div>
 	</td>
-</tr>	
+</tr>
 {/if}
 
 {if $control=='playlist'}
@@ -75,7 +75,7 @@
 	</td>
 	<td>
 		<div>
-			<img class="edit-img-thumbnail" src="{getThumb vdetails=$video}">
+			<img class="edit-img-thumbnail" alt="" src="{getThumb vdetails=$video}">
 			<p class="marginTop">{$video.title|truncate:100}</p>
 			<div class="btn-group show">
 				<a class="btn btn-primary btn-sm" href="{videoLink vdetails=$video}">{lang|capitalize code="to_view"}</a>
@@ -84,7 +84,7 @@
 				</a>
 			</div>
 		</div>
-		<a href="javascript:void(0)"  onmousedown="delete_video('delete_icon','{$video.playlist_item_id}','{lang code="remove_playlist_item_confirm"}','?mode=edit_playlist&pid={$pid}&amp;delete_item={$video.playlist_item_id}')" id="delete_icon-{$video.playlist_item_id}"><img src="{$imageurl}/dot.gif" border="0" class="delete_icon" /></a>
+		<a href="javascript:void(0)"  onmousedown="delete_video('delete_icon','{$video.playlist_item_id}','{lang code="remove_playlist_item_confirm"}','?mode=edit_playlist&pid={$pid}&amp;delete_item={$video.playlist_item_id}')" id="delete_icon-{$video.playlist_item_id}"><img src="{$imageurl}/dot.gif" border="0" class="delete_icon" alt=""></a>
 	</td>
 	<td width="100">
 		{$video.date_added|date_format}
@@ -107,7 +107,7 @@
 
 	<div class="clearfix">
 		<a href="{videoLink vdetails=$video}">
-		  <img  src="{getThumb vdetails=$video}" width="130" height="80" id="thumbs_{$video.videoid}" class="vthumb" />
+		  <img src="{getThumb vdetails=$video}" width="130" height="80" id="thumbs_{$video.videoid}" class="vthumb" alt="">
 		  <p class="marginTop">{$video.title|truncate:100}</p>
 		</a>
 	</div>
@@ -122,7 +122,7 @@
 <div class="featured-video clearfix" {if $ajax_load == "yes"} style="display: none" {/if}>
 	<a href="{videoLink($video)}">
 		<div class="video_thumb">
-			<img src="{getThumb vdetails=$video size=128x80}" {ANCHOR place="video_thumb" data=$video} class="img-responsive">
+			<img src="{getThumb vdetails=$video size=128x80}" {ANCHOR place="video_thumb" data=$video} class="img-responsive" alt="">
 			<img src="{$theme}/images/thumb-ratio.png" alt="" class="thumb-ratio">
 			<time datetime="2016-15-03" class="duration">
 			{if $video.duration>1}{$video.duration|SetTime}{else}00:00{/if}</time>
@@ -135,4 +135,4 @@
 		</div>
 	</div>
 </div>
-{/if}	
+{/if}

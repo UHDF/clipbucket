@@ -17,14 +17,14 @@
 					<div class="dropdown">
 						{if $smarty.get.sort}
 						{foreach from=$sorting_links item=name key=sort name=sorts}
-							{if $smarty.get.sort==$sort && isset($smarty.get.sort)} 
+							{if $smarty.get.sort==$sort && isset($smarty.get.sort)}
 							<a href="javascript:void(0)" data-toggle="dropdown" class="dropdown-toggle">{$name} <span class="icon-down-arrow"></span></a>
 							{/if}
 						{/foreach}
 						{else}
 							<a href="javascript:void(0)" data-toggle="dropdown" class="dropdown-toggle">Recent <span class="icon-down-arrow"></span></a>
-						{/if}    
-					
+						{/if}
+
 						<ul class="dropdown-menu">
 							{foreach from=$sorting_links item=name key=sort}
 							<li>
@@ -33,20 +33,20 @@
 							{/foreach}
 						</ul>
 					</div>
-					
+
 					<!--Sorting By time-->
 					{assign var=time_links value=time_links()}
 					<div class="dropdown">
-						{if $smarty.get.time} 
-					
+						{if $smarty.get.time}
+
 						{foreach from=$time_links item=name key=sort name=times}
-							{if $smarty.get.time==$sort && isset($smarty.get.time)} 
+							{if $smarty.get.time==$sort && isset($smarty.get.time)}
 							<a href="javascript:void(0)" data-toggle="dropdown" class="dropdown-toggle">{$name} <span class="icon-down-arrow"></span></a>
 							{/if}
 						{/foreach}
 						{else}
 							<a href="javascript:void(0)" data-toggle="dropdown" class="dropdown-toggle">all time <span class="icon-down-arrow"></span></a>
-						{/if}  
+						{/if}
 						  <ul class="dropdown-menu">
 							{foreach from=$time_links item=name key=sort name=times}
 								<li>
@@ -77,10 +77,10 @@
 			<h2>{lang code="featured_users"}</h2>
 			<div class="clearfix sidebar-channels">
 				{foreach $feature_users as $user}
-				
+
 				<div class="clearfix channel-item">
 					<a href="{$userquery->profile_link($user)}" class="avatar">
-						<img src="{$userquery->getuserthumb($user,'m')}" width="50" height="50" class="img-circle">
+						<img src="{$userquery->getuserthumb($user,'m')}" width="50" height="50" class="img-circle" alt="">
 					</a>
 					<div class="channel-info">
 						<h3><a href="{$userquery->profile_link($user)}">{$user.username}</a></h3>

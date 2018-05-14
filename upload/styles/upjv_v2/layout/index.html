@@ -109,7 +109,7 @@
 
 				<div class="clearfix channel-item">
 					<a href="{$userquery->profile_link($user)}" class="avatar">
-						<img src="{$userquery->getuserthumb($user,'m')}" width="50" height="50" class="img-circle">
+						<img src="{$userquery->getuserthumb($user,'m')}" width="50" height="50" class="img-circle" alt="">
 					</a>
 					<div class="channel-info">
 						<h3><a href="{$userquery->profile_link($user)}">{$user.username}</a></h3>
@@ -175,7 +175,7 @@
 								{$videos = get_videos(['videoid'=>$videoid,'limit'=>'2'])}
 								{foreach $videos as $video}
 									<a href="{videoLink($video)}{if $Cbucket->configs.seo == 'no'}&{else}?{/if}play_list={$playlist.playlist_id}" class="playlist-video">
-										<img src="{getThumb vdetails=$video size=168x105}" class="img-responsive">
+										<img src="{getThumb vdetails=$video size=168x105}" alt="" class="img-responsive">
 										<img src="{$theme}/images/thumb-ratio.png" alt="" class="thumb-ratio">
 									</a>
 								{/foreach}

@@ -30,7 +30,7 @@
 			<td>{lang code="option"}</td>
 		</tr>
 		{if $videos}
-		
+
 		{foreach from=$videos item=video}
 
 		<tr>
@@ -40,10 +40,10 @@
 						<div class="row">
 							<div class="col-md-3">
 							  <a class="manageVid_thumb" href="{$baseurl}/edit_video.php?vid={$video.videoid}">
-								<img src="{getThumb vdetails=$video}" class="img-responsive" width="130" height="80" id="thumbs_{$video.videoid}" class="vthumb" title=""/>
+								<img src="{getThumb vdetails=$video}" class="img-responsive vthumb" width="130" height="80" id="thumbs_{$video.videoid}" alt="">
 								<span class="duration">({if
 									$video.duration>1}{$video.duration|SetTime}{else}00:00{/if})</span>
-							   </a>     
+							   </a>
 							</div>
 							<div class="col-md-9">
 								<a href="edit_video.php?vid={$video.videoid}">
@@ -54,7 +54,7 @@
 								</span>
 								<div class="labels">
 									{if $video.featured=='yes'}<span class="label label-primary">{lang|capitalize code="featured"}</span>&nbsp;{else}{/if}
-	
+
 									<span class="label {if $video.active=='yes'}label-success{else}label-warning{/if} mlabel">
 										{if $video.active=='yes'}Active{else}Inactive{/if}
 									</span>&nbsp;
@@ -91,9 +91,9 @@
 							   href="{$baseurl}/edit_video.php?vid={$video.videoid}" class="">Edit</a></li>
 						<li><a role="menuitem" tabindex="-1"
 							   href="{$baseurl}/watch_video.php?v={$video.videokey}"target="_blank">Watch</a>
-						 
-					   
-						
+
+
+
 						<li class="divider"></li>
 						<li><a role="menuitem" tabindex="-1" href="{$baseurl}/myaccount.php?delete_video={$video.videoid}">Delete</a>
 						</li>
@@ -138,7 +138,7 @@
 										{section name=list loop=$flagedVideos}
 										<div class="row">
 											<div class="col-md-3">
-												<img src="{getThumb vdetails=$flagedVideos[list]}" width="85" height="70" id="thumbs_{$flagedVideos[list].videoid}" title=""/>
+												<img src="{getThumb vdetails=$flagedVideos[list]}" width="85" height="70" id="thumbs_{$flagedVideos[list].videoid}" alt="">
 											</div>
 											<div class="col-md-6 fvideos">
 												{$flagedVideos[list].title|truncate:50}
@@ -157,7 +157,7 @@
 										{section name=list loop=$flagedPhotos}
 										<div class="row">
 											<div class="col-md-3">
-												<img src="{getThumb vdetails=$flagedPhotos[list]}" width="85" height="70" id="thumbs_{$flagedPhotos[list].photoid}" title=""/>
+												<img src="{getThumb vdetails=$flagedPhotos[list]}" width="85" height="70" id="thumbs_{$flagedPhotos[list].photoid}" alt="">
 											</div>
 											<div class="col-md-6 fusers">
 												{$flagedphotos[list].title|truncate:50}

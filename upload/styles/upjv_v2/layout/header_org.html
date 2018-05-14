@@ -24,14 +24,14 @@
 <div id="quick_container">
 	<div id="quicklist_box">
 	</div>
-</div> 
+</div>
 
 {$searchPage = $smarty.get.query}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 <!-- <header id="header" class="clearfix"> -->
 
@@ -41,16 +41,16 @@
 			<!-- Brand and toggle get grouped for better mobile display -->
 			<div class="header-holder">
 				<div class="navbar-header clearfix">
-					
+
 					<h1 class="logo">
 						<a href="{$baseurl}">
-							<img src="{$theme}/images/logo.png" alt="cbtune" class="img-responsive">
+							<img src="{$theme}/images/logo.png" alt="" class="img-responsive">
 							<span>clipbucket</span>
 						</a>
 					</h1>
-					
+
 					<button class="navbar-toggle" data-toggle="collapse" data-target="#bs-collapse">Menu<span class="glyphicon glyphicon-menu-down"></span></button>
-					
+
 					<a href="javascript:void(0)" class="btn-search-toggle btn visible-xs">
 						<i class="glyphicon glyphicon-search"></i>
 					</a>
@@ -58,7 +58,7 @@
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse" id="bs-collapse">
 					<div class="menu-holder">
-						
+
 						<div class="col">
 							<nav class="main-links">
 								{$head_menu=cb_menu()}
@@ -79,7 +79,7 @@
 									</li>
 									{/if}
 									{/foreach}
-									
+
 									{ANCHOR place="cb_28_head"}
 								</ul>
 							</nav>
@@ -138,7 +138,7 @@
 								<li class="dropdown myaccount-dd">
 									<a href="javascript:void(0)" class="user-area dropdown-toggle" data-toggle="dropdown">
 										{$user_det = $userquery->get_user_details(userid())}
-										<img src="{$userquery->getUserThumb($user_det)}" width="35" height="35">
+										<img src="{$userquery->getUserThumb($user_det)}" width="35" height="35" alt="">
 										<span>{$userquery->username|truncate:15}</span>
 									</a>
 									<ul class="dropdown-menu">
@@ -156,7 +156,7 @@
 									</ul>
 								</li>
 								{else}
-						
+
 								<!-- Shown to small devices only Start  @todo : Add condition for logged in user -->
 								<li class="navbar-sm-login-links">
 									<a class="btn btn-default btn-newacc" href="{link name='signup'}">{lang code='create_new_account'}</a>
@@ -164,15 +164,15 @@
 								<li class="navbar-sm-login-links">
 									<a class="btn btn-default btn-login" href="{link name='signup'}?mode=login">{lang code='login'}</a>
 								</li>
-								
+
 								<!-- Ends -->
 								{/if}
 							</ul>
 						</div>
 					</div>
-					
-					
-					
+
+
+
 				</div><!--navbar-collapse-->
 			</div>
 		</div><!--container-fluid-->

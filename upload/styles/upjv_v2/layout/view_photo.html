@@ -21,7 +21,7 @@
 				<!-- overlay div when clicked on extend icon -->
 						<div id="myNav" class="overlay">
 							<div class="overlay-content">
-								<img id="gallery-exd" class="img-responsive center-block">
+								<img id="gallery-exd" class="img-responsive center-block" alt="">
 								<button type="button" class="img-close" id="btn-close" data-dismiss="modal" data-check="">&times;</button>
 								<!-- Next and Previous Button inside overlay -->
 								<div class="btn-holder clearfix">
@@ -38,7 +38,7 @@
 						<button id="mainPrevBtn" class="btn view-photo-pre icon-left-arrow prev view-photo" data-check="prev"><i>prev</i></button>
 					</div>
 			</div>
-			
+
 			<section class="view-details clearfix">
 				<header class="clearfix details">
 					<div id="result_cont"></div>
@@ -48,14 +48,14 @@
 					-->
 					<div class="user-video-info clearfix">
 						<a href="{$userquery->profile_link($user)}" class="avatar">
-							<img src="{$userquery->avatar($video,'m',userid())}" class="img-responsive">
+							<img src="{$userquery->avatar($video,'m',userid())}" class="img-responsive" alt="">
 						</a>
 						<h2 class="user-title">
 							<a href="{$userquery->profile_link($user)}">{$user.username}</a>
 						</h2>
 						<div class="views-counter">
 							<span>{lang code="views"} {prettyNum($photo.views)}</span>
-					
+
 						</div>
 					</div>
 					<div class="user-likes-sub clearfix">
@@ -98,11 +98,11 @@
 							<div class="clearfix watch-vid-details">
 								<ul class="clearfix desc-list">
 									<li><strong>{lang('photo_description')}</strong> <span id="description"></span>:&nbsp;{$photo.photo_description|truncate:90}</li>
-									
-									 {assign var=category value=$userquery->get_category($user.category)} 
+
+									 {assign var=category value=$userquery->get_category($user.category)}
 
 									<li id="category"></li>
-		
+
 									<li><strong>{lang('category')}</strong>:&nbsp;{$category.category_name}
 									<span id="category"></span>
 									</li>
@@ -112,7 +112,7 @@
 								</ul>
 							</div>
 						</div>
-		
+
 						<div class="tab-pane fade in clearfix" id="cb-item-share">
 							<ul class="social-share">
 								<li>
@@ -133,40 +133,40 @@
 							</ul>
 							{show_share_form id=$photo.photo_id type=Photo}
 						</div>
-		
+
 						<div class="tab-pane fade in clearfix" id="cb-item-addto">
 							<div class="clearfix form-horizontal row">
 							{$codes=$cbphoto->photo_embed_codes(['type'=>'all','with_url'=>true, 'details'=>$photo])}
 								{foreach from=$codes item=item}
-								
+
 								<div class="photo-share-tab col-lg-6 col-md-6 col-sm-6 col-xs-12 form-group">
 									<label class="col-sm-2 col-xs-3 control-label" for="{$item.type}">{$item.name}</label>
 									<div class="col-sm-10 col-xs-9">
 										<input class="form-control" onFocus="this.select();" value="{$item.code}" id="{$item.type}">
 									</div>
 								</div>
-								
+
 								{/foreach}
 							</div>
 						</div>
-		
+
 						<div class="tab-pane fade in clearfix custom-elements" id="cb-item-report">
 							{show_flag_form id=$photo.photo_id type=Photo}
 						</div>
 					</div>
 				</div>
 			</section>
-			
+
 			<!--
 			<div class="clearfix comments-block" id="comments-block">
 				<div id="test1"></div>
-				<div id="reply" class="clearfix"> 
+				<div id="reply" class="clearfix">
 					<div class="pad-bottom">
 						<div  class="addComment clearfix">
 							<div class="com_count" id="com_count">
-								<h2><span>{$photo.total_comments} 
+								<h2><span>{$photo.total_comments}
 								{if $photo.total_comments <= 1 }
-								{lang code='comment'} 
+								{lang code='comment'}
 								{else}
 								{{lang code='comments'} }
 								{/if}
@@ -186,17 +186,17 @@
 				</div>
 			</div>
 			-->
-			
+
 		</section>
-		
+
 		<aside id="sidebar">
 			<div class="box-ad ad">{AD place='ad_300x250'}</div>
 			<h2>{lang code='related_photos'}</h2>
 			<div class="clearfix sidebar-items">
-		
+
 			{$related_photos=get_photos(['title'=>$photo.photo_title,'tags'=>$photo.photo_tags,
 			'exclude'=>$photo.photo_id,'show_related'=>'yes','limit'=>6,'order'=>'date_added DESC'])}
-		
+
 			{if $related_photos}
 				<div class="row">
 					{foreach $related_photos as $photo}
@@ -209,7 +209,7 @@
 				<div class="well well-info">{lang code="no_photos_found"}</div>
 			{/if}
 			</div>
-		
+
 			{$row = $myquery->Get_Website_Details()}
 			{if $row.collectionsSection == 'yes'}
 			{$collections = $cbcollection->get_collections(['limit'=>5, 'active'=>'yes'])}
@@ -218,7 +218,7 @@
 			<div class="clearfix sidebar-items collections-grid">
 				<div class="clearfix row">
 				{$limit=10}
-				{if $collections}        
+				{if $collections}
 				{foreach from=$collections item=collection}
 				{$first_col_thumb = $cbcollection->coll_first_thumb($collection,'l')}
 					<div class="clearfix collection-item col-lg-6 col-md-6 col-sm-12 col-xs-12">
@@ -242,14 +242,14 @@
 var seoUrls = "{$Cbucket->configs.seo}";
 var srcFirst = "{$srcfirst}";
 var key_globel; // image source key0
-var first_source; 
+var first_source;
 var collection_id;
 var mode = "photo_ajax";
 var key; // for passing key to different attributes
 var d = {$curr_photo}; // photo info
 var curr_photo = {$curr_photo};
 var user = {$user_admin};
-var r = $('<i class="glyphicon glyphicon-refresh animate-spin pic-glyp" style="position:absolute;left:50%;top: 50%;font-size:16px;line-height:16px;width:16px;height:16px;margin:-8px 0 0 -8px;"></i>');  // Ajax loader 
+var r = $('<i class="glyphicon glyphicon-refresh animate-spin pic-glyp" style="position:absolute;left:50%;top: 50%;font-size:16px;line-height:16px;width:16px;height:16px;margin:-8px 0 0 -8px;"></i>');  // Ajax loader
 var b = $('<i class="glyphicon glyphicon-refresh animate-spin pic-glyp" style="position:absolute;left:50%;top: 50%;font-size:16px;line-height:16px;width:16px;height:16px;margin:-8px 0 0 -8px; color:#fff;"></i>'); // Extend Ajax Loader
 
 $(document).ready(function()
@@ -287,6 +287,6 @@ comments_voting = 'no';
 		}
 		});
 	});
-	
+
 */
 </script>

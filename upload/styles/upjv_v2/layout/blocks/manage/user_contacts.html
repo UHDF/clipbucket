@@ -9,7 +9,7 @@
                     <img src="{$userquery->getUserThumb($user_detail)}" id="thumbs_{$video.videoid}" class="vthumb img-responisve" alt="">
                 </a>
             </div>
-        
+
             <div class="col-md-10  col-sm-9">
                 <a href="{$userquery->profile_link($user_detail)}">{$user_detail.username} </a><br>
                 <div class="labels">
@@ -33,7 +33,7 @@
                     <li><a role="menuitem" href="?mode=delete&userid={$user_detail.userid}">Cancel Request</a></li>
                     {/if}
                 </ul>
-            </div> 
+            </div>
 
         </td>
    {/foreach}
@@ -48,7 +48,7 @@
     <tr>
         <td>
             <a href="edit_video.php?video={$video.videoid}">
-                <img src="{$userquery->getUserThumb($user_detail)}" width="100" height="60" id="thumbs_{$video.videoid}" class="vthumb" title=""/>
+                <img src="{$userquery->getUserThumb($user_detail)}" width="100" height="60" id="thumbs_{$video.videoid}" class="vthumb" alt="">
             </a>
         </td>
         <td>
@@ -73,7 +73,7 @@
                     <li><a role="menuitem" href="?mode=delete&userid={$user_detail.userid}">Reject Request</a>
 
                 </ul>
-            </div>   
+            </div>
         </td>
     </tr>
    {/foreach}

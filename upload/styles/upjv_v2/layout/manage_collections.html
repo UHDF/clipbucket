@@ -7,13 +7,13 @@
 			{include file="$style_dir/blocks/manage/userMenuLeft.html"}
 		</div>
 			<div class="mainContent col-md-9 col-sm-9 col-xs-12">
-			   
-				   
+
+
 					<form action="" method="post" class="upload_form" name="form1" enctype="multipart/form-data">
 					{if $mode == "manage" || $mode == ""}
 						<h2>{lang code='manage_collections'}</h2>
 						<div>
-							<img src="{$imageurl}/dot.gif" class="arrow_pointing" />
+							<img src="{$imageurl}/dot.gif" class="arrow_pointing" alt="">
 							<input type="submit" name="delete_selected" id="delete_selected" value="{lang code='delete'}" class="btn btn-primary btn-sm" />
 						</div>
 						<br>
@@ -35,13 +35,13 @@
 						{sectionelse}
 							<div>
 								{lang code="no_collection_found"}
-							</div>   
+							</div>
 						{/section}
 							</table>
 						</div>
 
 						{*include file="$style_dir/blocks/manage/user_account_pagination.html"*}
-						{include file="$style_dir/blocks/pagination.html"} 
+						{include file="$style_dir/blocks/pagination.html"}
 					{/if}
 
 					{if $mode == "edit_collection"}
@@ -73,7 +73,7 @@
 										{if $field.hint_2}
 										<small>{$field.hint_2}</small>{/if}
 									</div>
-								{/foreach}            
+								{/foreach}
 							</div>
 							<div class="text-right">
 								<input type="submit" name="update_collection" class="btn btn-primary btn-lg" value="{lang code='update_collection'}">
@@ -108,7 +108,7 @@
 										{if $field.hint_2}
 										<small>{$field.hint_2}</small>{/if}
 									</div>
-								{/foreach}            
+								{/foreach}
 							</div>
 							<div class="text-right">
 								<input type="submit" name="add_collection" class="btn btn-primary" value="{lang code='add_new_collection'}">
@@ -119,7 +119,7 @@
 					{if $mode == "manage_items" || $mode == "collection_items"}
 						<h2>{lang code='manage_items'} - {$c.collection_name}</h2>
 						<div>
-							<img src="{$imageurl}/dot.gif" class="arrow_pointing" style="margin-right:10px;" />
+							<img src="{$imageurl}/dot.gif" class="arrow_pointing" style="margin-right:10px;" alt="">
 							<input type="submit" name="delete_selected" id="delete_selected" value="{lang code='delete'}" class="small_button" />
 						</div>
 						<div>
@@ -139,13 +139,13 @@
 						{sectionelse}
 							<div align="center" style="font:bold 11px Tahoma; margin-top:5px;">{lang code="no_items_found_in_collect"}</div>
 						{/section}
-						{include file="$style_dir/blocks/pagination.html"}    
+						{include file="$style_dir/blocks/pagination.html"}
 					{/if}
 
 					{if $mode == "favorite"}
 						<h2>{lang code="manage_favorite_collections"}</h2>
 						<div>
-							<img src="{$imageurl}/dot.gif" class="arrow_pointing" style="margin-right:10px;" />
+							<img src="{$imageurl}/dot.gif" class="arrow_pointing" style="margin-right:10px;" alt="">
 							<input type="submit" name="remove_selected_favs" id="remove_selected_favs" value="{lang code='remove'}" class="btn btn-primary btn-sm" />
 						</div>
 						<br>
@@ -168,14 +168,14 @@
 							{/section}
 							</table>
 						</div>
-						
+
 						{*include file="$style_dir/blocks/manage/user_account_pagination.html"*}
-						{include file="$style_dir/blocks/pagination.html"}        
+						{include file="$style_dir/blocks/pagination.html"}
 					{/if}
 					</form>
-			   
+
 			</div>
-	</div>  
+	</div>
 	</div>
 </div>
 <div style="height:20px"> </div>

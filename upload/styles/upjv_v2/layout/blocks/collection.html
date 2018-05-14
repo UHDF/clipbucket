@@ -2,7 +2,7 @@
 <div class="collection-holder">
 	<div class="photo-block">
 		<a href="{$baseurl}/view_collection.php?cid={$collection.collection_id}&type={$collection.type}">
-			<img src="{$cbcollection->coll_first_thumb($collection,'l')}" alt="{$collection.title}" class="img-responsive" id="photo_{$collection.ci_id}">
+			<img src="{$cbcollection->coll_first_thumb($collection,'l')}" alt="{$collection.collection_name}" class="img-responsive" id="photo_{$collection.collection_id}">
 			<div class="collection-info">
 				<span>{$collection.total_objects}</span>{lang code='photos'}
 			</div>
@@ -44,7 +44,7 @@
 {if $display_type == "user_collections"}
 	<div class="moveL">
 		<a href="{$cbcollection->collection_links($collection,'view')}" style="width:47px; height:47px;" title="{$collection.collection_name}">
-			<img src="{$imageurl}/dot.gif" style="background:url({$cbcollection->get_thumb($collection,'small')}) center top no-repeat;" />
+			<img src="{$imageurl}/dot.gif" alt="" style="background:url({$cbcollection->get_thumb($collection,'small')}) center top no-repeat;" />
 		</a>
 	</div>
 {/if}
