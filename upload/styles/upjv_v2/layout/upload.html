@@ -1,6 +1,6 @@
 		<div id="main">
 			<div class="container cb-box uploadVideos">
-				<div class="progress-container allProgress hidden">  
+				<div class="progress-container allProgress hidden">
 					<div class="row">
 						<div class="col-md-2" id="uploadedFilesInfo">
 							<p>{lang code="uploaded"} 0 {lang code="of"} 0</p>
@@ -18,7 +18,7 @@
 				<div class="cb-item-desc-container clearfix flat-tabs" id="mainUploadContainer">
 					<div class="video-info-container">
 						<ul class="nav nav-tabs uploaderTabs">
-							{assign var=opt_list value=$Upload->load_upload_options()} 
+							{assign var=opt_list value=$Upload->load_upload_options()}
 							{$counter = 1}
 							{foreach from=$opt_list item=opt key=divid}
 								{if $counter == 1}{$class = "active"}{else}{$class = ""}{/if}
@@ -33,7 +33,7 @@
 								{$counter = $counter + 1}
 							{/foreach}
 						</ul>
-						
+
 						<div class="row" id="#message">
 							<p>
 								{if $msg}
@@ -42,7 +42,7 @@
 									</div>
 								{/if}
 
-								<div id="uploadMessage" class=""></div>
+								<div id="uploadMessage"></div>
 
 								<div id="error_msgs"></div>
 							</p>
@@ -51,13 +51,13 @@
 
 						<div class="tab-content uploadFormDiv">
 							{$counter = 1}
-							{foreach from=$opt_list item=opt key=divid}     
+							{foreach from=$opt_list item=opt key=divid}
 								{* Checking weather to show uploadin option to user or not *}
 								{assign var=uploadOptId value=$opt.load_func}
-								{if $Cbucket->configs.$uploadOptId=='yes'} 
+								{if $Cbucket->configs.$uploadOptId=='yes'}
 								{if $counter == 1}{$class = "active"}{else}{$class = ""}{/if}
 								<div class="tab-pane fade in clearfix {$class} uploadForm" id="{$divid}">
-									{load_form name=$opt.load_func button_class='cb_button_2' class='upload_form'} 
+									{load_form name=$opt.load_func button_class='cb_button_2' class='upload_form'}
 								</div>
 								{/if}
 								{$counter = $counter + 1}
@@ -65,7 +65,7 @@
 						</div>
 					</div>
 				</div>
-					
+
 			</div>
 		</div>
 	<div>
@@ -77,9 +77,9 @@
 	(function(window){
 		$(document).ready(function(){
 			 setTimeout(function(){
-					  
+
 						$(".embed_video").remove();
-				   
+
 					}, 10000);
 
 
@@ -87,10 +87,10 @@
 			if('{$uploaderDetails.uploadScriptPath}'!=''){
 			var uploadurl = '{$uploaderDetails.uploadScriptPath}';
 			}else{
-			var uploadurl = '{$baseurl}/actions/file_uploader.php';    
+			var uploadurl = '{$baseurl}/actions/file_uploader.php';
 			}
 			//alert(uploadurl);
-			
+
 			var extensions = "{$extensions}";
 			extensions = extensions.substring(0, extensions.length-1);
 			/* files uploading */
@@ -152,7 +152,7 @@
 					$("#files").append(ul);
 
 					var totalFiles = files.length;
-					
+
 					var oneFile = false;
 
 					var uploadForm = $("#updateVideoInfoForm").clone();
@@ -170,14 +170,14 @@
 						$(oneUploadForm).find("input[name='title']").val(files[i].name.slice(0, -4));
 						$(oneUploadForm).find("textarea#desc").val(files[i].name.slice(0, -4));
 						$(oneUploadForm).find("input[name='category[]']:first").attr('checked', 'checked');
-						wrapperDiv.appendChild(oneUploadForm);   
+						wrapperDiv.appendChild(oneUploadForm);
 						uploadForms.push(wrapperDiv);
 					}
 
 					$("#allUploadForms").html("");
 					$("#allUploadForms").append(uploadForms);
-					
-					//Disabling saveDetails button for Current form 
+
+					//Disabling saveDetails button for Current form
 					var div_wrap_numb = totalFiles - 1;
 					var upload_form_Div = $('#tab'+div_wrap_numb);
 					upload_form_Div.find('#saveVideoDetails').attr("disabled",true);
@@ -233,7 +233,7 @@
 
 				/*
 				This is the event handler for FileUploaded,
-				it fires when the uploading of the files is completed  
+				it fires when the uploading of the files is completed
 				*/
 
 				var currentFileIndex = 0;
@@ -246,7 +246,7 @@
 					var fileName = serverResponse.file_name;
 					var uploadForm = $("#tab"+currentFileIndex+" form");
 					totalUploaded++;
-					//enabling savedetails button for Current form 
+					//enabling savedetails button for Current form
 					var _upload_form_Div_ = $('#tab'+currentFileIndex);
 					_upload_form_Div_.find("#saveVideoDetails").attr("disabled",false);
 					/*
@@ -284,15 +284,15 @@
 						hiddenUploadVideoFlagField.name = 'updateVideo';
 						hiddenUploadVideoFlagField.value = 'yes';
 
-						
+
 						uploadForm.append(hiddenVideoIdField);
 						uploadForm.append(hiddenVideoNameField);
 						uploadForm.append(hiddenUploadVideoFlagField);
 						uploadForm.find("#cbSubmitUpload").removeAttr('disabled').val('Upload').addClass('btn-success');
 					});
 
-					/* 
-					Submit the form with all the video details and options 
+					/*
+					Submit the form with all the video details and options
 					to update the video information in the system
 					*/
 					$(uploadForm).on({
@@ -333,7 +333,7 @@
 					$("#uploadMore").removeClass("hidden");
 					$(".uploadingProgressContainer").hide();
 					uploader.refresh();
-					$("#uploadMessage").html("All Files are uploaded Successfully").attr("class", "alert alert-success container");            
+					$("#uploadMessage").html("All Files are uploaded Successfully").attr("class", "alert alert-success container");
 					setTimeout(function(){
 						$("#uploadMessage").addClass("hidden");
 					}, 5000);
