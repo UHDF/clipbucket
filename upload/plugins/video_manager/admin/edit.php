@@ -247,6 +247,9 @@ if($vidmquery->isActivated()){
     template_files('edit_video.html');
 }
 
+$embedIframe = '<iframe width="540" height="334" src="'. BASEURL .'/player/embed_player.php?vid='. $video .'&width=540&height=334 frameborder="0" allowfullscreen></iframe>';
+Assign('embedIframe', $embedIframe);
+
 unset($_POST);
 display_it();
 
