@@ -18,7 +18,7 @@ $Smarty->assign_by_ref('speakerquery', $speakerquery);
  * 		the slug corresponding to the parameter string
  *@see php5-intl	this package is required
  */
-function slugify($text) {
+function slugify($text) { 
 	// replace non letter or digits by -
 	$text = preg_replace('~[^\pL\d]+~u', '-', $text);
 	$text=preg_replace('/\pM*/u','',normalizer_normalize( $text, Normalizer::FORM_D));
@@ -110,6 +110,7 @@ class Speaker extends CBCategory{
 				// insert speaker roles
 				for ($i=0; $i<count($desc); $i++)
 					$db->insert(tbl('speakerfunction'), array('description','speaker_id'), array(mysql_clean($desc[$i]),$id));
+				
 				return $id;		
 			}
 		}
@@ -754,6 +755,15 @@ class Speaker extends CBCategory{
 		$query .= 'ORDER BY lastname ASC, firstname ASC, role ASC';
 		
 		return $db->Execute($query);
+	}
+	
+	function getlastSpeakerRole($id, $role){
+		global $db;
+		$cond = 'speaker_id = "'. mysql_clean($id) .'" AND description = "'. mysql_clean($role) .'"';
+		$res = $db->select(tbl('speakerfunction'), 'id', $cond);
+		if(count($res)) return $res[0]['id'];
+		
+		return false;
 	}
 }
 
