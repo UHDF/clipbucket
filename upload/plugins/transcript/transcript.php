@@ -8,7 +8,12 @@ ClipBucket Version: 4
 Version: 0.1
 */
 
-
+/**
+ * Return only line of text
+ *
+ * @param string $string
+ * @return void
+ */
 function notATimecode($string){
 
 	$string = trim(str_replace("\n", "", str_replace("\r", "", $string)));
@@ -21,47 +26,32 @@ function notATimecode($string){
 		and (!preg_match( "/NOTE :/", $string))
 		and (!preg_match( "/WEBVTT/", $string))
 	){
-/*
-		echo '<pre>';
-		echo substr($string, -1, 1);
-		echo '</pre>';
-*/
-		if (in_array(substr($string, -1, 1), $end)){
-			echo $string.'<br>';
-		}
-		else{
-			echo $string.' ';
-		}
+		echo (in_array(substr($string, -1, 1), $end)) ? $string.'<br>' : $string.' ';
 	}
 }
 
-
-
-/*
-	* This Function generate anchors for  subtitle vtt file if exist
-	*/
+/**
+ * Display the content of subtitle file
+ *
+ * @param string $data
+ * @return void
+ */
 function displayTranscript($data = ''){
 
 	if ($data['videoid']){
 		if (file_exists(FILES_DIR."/subtitle/subtitle_".$data['videoid'].".vtt")){
 			$subfile = BASEDIR.'/files/subtitle/subtitle_'.$data['videoid'].'.vtt';
-			$suburl = BASEURL.'/files/subtitle/subtitle_'.$data['videoid'].'.vtt';
-
 			$lines = file($subfile);
+
+			echo '<h2>Transcription :</h2>';
+			array_filter($lines, "notATimecode");
+			echo '<hr>';
 		}
 	}
 
-
-
-	echo '<h2>Transcription :</h2>';
-	array_filter($lines, "notATimecode");
-	echo '<hr>';
-
-
 }
+
 // use {ANCHOR place="getSubtitleVtt" data=$vdata} to add the HTML string into the file.
 register_anchor_function('displayTranscript','displayTranscript');
-
-
 
 ?>
