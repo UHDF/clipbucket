@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clipbucket_language>
+    <name>Français</name>
+    <iso_code>fr</iso_code>
+    <phrases>    
+		<chp_actionNew>Ajouter une page d'accueil</chp_actionNew>
+		<chp_addVideo>Ajouter la vidéo à la page d'accueil</chp_addVideo>
+		<chp_alertSucessDelete>La page d'accueil a été supprimée</chp_alertSucessDelete>
+		<chp_backto>Retour à la gestion des pages d'accueil</chp_backto>
+		<chp_btnPick>Ajouter aux coups de coeur</chp_btnPick>
+		<chp_btnUnpick>Retirer des coups de coeur</chp_btnUnpick>
+		<chp_createSuccess>La page d'accueil <strong>%s</strong> a été créée</chp_createSuccess>
+		<chp_createTitle>Création d'une page d'accueil</chp_createTitle>
+		<chp_deleteBtnTitle>Supprimer la page d'accueil</chp_deleteBtnTitle>
+		<chp_editBtnTitle>Modifier la page d'accueil</chp_editBtnTitle>
+		<chp_editSuccess>La page d'accueil <strong>%s</strong> a été modifiée</chp_editSuccess>
+		<chp_editTitle>Edition d'une page d'accueil</chp_editTitle>
+		<chp_errorExists>Le nom et/ou le permalien de la page existe(nt) déjà</chp_errorExists>
+		<chp_errorName>Le nom de la page ne peut être vide</chp_errorName>
+		<chp_errorSaveDb>Erreur lors de l'écriture dans la base de données</chp_errorSaveDb>
+		<chp_errorSaveForm>Erreur lors de la sauvegarde des données</chp_errorSaveForm>
+		<chp_errorSlug>Le permalien ne peut être vide</chp_errorSlug>
+		<chp_labelname>Nom de la page</chp_labelname>
+		<chp_labelslug>Permalien</chp_labelslug>
+		<chp_managePage>Gérer les vidéos de la page d'accueil</chp_managePage>
+		<chp_manageTitle>Gestion de la page d'accueil</chp_manageTitle>
+		<chp_modalAreUSure>Êtes-vous sûr(e) de vouloir supprimer la page</chp_modalAreUSure>
+		<chp_modalDeleteTitle>Supprimer une page d'accueil</chp_modalDeleteTitle>
+		<chp_noHomeForId>Aucune page d'accueil ne possède l'identifiant <strong>%s</strong></chp_noHomeForId>
+		<chp_nohomepage>Aucune page d'accueil disponible</chp_nohomepage>
+		<chp_noResultForQuery>Aucun résultat correspondant au terme</chp_noResultForQuery>
+		<chp_novideofound>Aucune vidéo trouvée</chp_novideofound>
+		<chp_noVideoSelected>Aucune vidéo sélectionnée</chp_noVideoSelected>
+		<chp_orderBy>Tier par</chp_orderBy>
+		<chp_searchPlaceholder>Rechercher</chp_searchPlaceholder>
+		<chp_searchTitle>Titre</chp_searchTitle>
+		<chp_tags>Tags</chp_tags>
+		<chp_title>Gestion des pages d'accueil</chp_title>
+		<chp_ulvl>User level</chp_ulvl>
+		
+		<chp_tabSuggest>Pages d'accueil</chp_tabSuggest>
+		<chp_suggestHp>Suggérer en page d'accueil</chp_suggestHp>
+		<chp_addHp>Ajouter une suggestion</chp_addHp>
+		<chp_removeSuggested>Retirer la page d'accueil</chp_removeSuggested>
+		<chp_allVideos>Toutes les vidéos</chp_allVideos>
+		<chp_suggestedVideos>Vidéos suggérées</chp_suggestedVideos>
+    </phrases>
+</clipbucket_language>

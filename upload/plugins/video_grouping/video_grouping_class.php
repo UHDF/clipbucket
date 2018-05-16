@@ -760,7 +760,7 @@ class VideoGrouping extends CBCategory{
 		$gtype=$_GET['gtype'];
 		$gt=$this->getGroupingType($gtype);
 		$this->search->search_type['videogrouping'] = array('title'=>$gt['name']);
-
+		
 		$this->search->db_tbl = "video";
 		$this->search->columns =array(
 				//Warning : Don't use %{KEY}% in this case. We need the exact name
@@ -859,7 +859,22 @@ class VideoGrouping extends CBCategory{
 		$query="SELECT * FROM ".tbl("vdogrouping") ." WHERE in_homepage=1 ";
 		return $db->_select($query);
 	}
-
+	
+	function getModalGrouping($type, $notIn = array()){
+		global $db;
+		$query = 'SELECT * FROM '. tbl('vdogrouping') .' WHERE grouping_type_id = '. $type;
+		if(count($notIn)) $query .= ' AND id NOT IN ('. $notIn .')';
+		$query .= ' ORDER BY name ASC';
+		return $db->_select($query);
+	}
+	
+	function getGroupingInfos($type, $name){
+		global $db;
+		$query = 'SELECT g.*, t.name type FROM '. tbl('vdogrouping') .' g LEFT JOIN '. tbl('vdogrouping_type') .' t ON t.id = g.grouping_type_id WHERE g.grouping_type_id = '. intval($type) .' AND g.name LIKE "'. mysql_clean($name) .'"';
+		
+		return $db->_select($query);
+	}
+	
 }
 
 ?>

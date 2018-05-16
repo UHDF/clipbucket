@@ -8,6 +8,8 @@ ClipBucket Version: 2.8
 Version: 1.0
 */
 
-if(intval($db->count(tbl('plugins'), 'plugin_id', 'plugin_folder = "generate_thumbnail" AND plugin_file = "generate_thumbnail.php" AND plugin_active = "yes"')) === 1)
-	$Cbucket->add_admin_header(PLUG_DIR . '/generate_thumbnail/admin/header.html');
+if(intval($db->count(tbl('plugins'), 'plugin_id', 'plugin_folder = "generate_thumbnail" AND plugin_file = "generate_thumbnail.php" AND plugin_active = "yes"')) === 1){
+	if(substr($_SERVER['SCRIPT_NAME'], -14, 14) === 'edit_video.php')
+		$Cbucket->add_admin_header(PLUG_DIR . '/generate_thumbnail/admin/header.html');
+}
 ?>

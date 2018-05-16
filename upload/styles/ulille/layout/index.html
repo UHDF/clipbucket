@@ -17,16 +17,16 @@
 			<div id="videolist-container" class="clearfix grid videos">
 				<div class="grid-sizer"></div>
                                 
-                                {if $liveudlquery}
-                                <div class="thumb" id="livesHomepage">
-                                    <ul>
-                                        {foreach from = $liveudlquery->getFront() item = live}<li>{if $live.active}<span class="onlive" title="{lang('liveudl_stActive')}"></span>{/if}
-                                            <h4><a href="{$live.link}" title="{$live.title}{if $live.active} ─ {lang('liveudl_stActive')}{/if}">{$live.title}</a><small>{$live.date|date_format:'%d %B %Y %H:%M'}</small>
-                                        </li>{/foreach}
-                                    </ul>
-                                </div>  
-                                {/if}
-                                
+				{if $liveudlquery}{assign var = 'lives' value = $liveudlquery->getFront()}{if $lives}
+				<div class="thumb card" id="livesHomepage">
+					<ul>
+						{foreach from = $lives item = live}<li>{if $live.active}<span class="onlive" title="{lang('liveudl_stActive')}"></span>{/if}
+							<h4><a href="{$live.link}" title="{$live.title}{if $live.active} ─ {lang('liveudl_stActive')}{/if}">{$live.title}</a><small>{$live.date|date_format:'%d %B %Y %H:%M'}</small>
+						</li>{/foreach}
+					</ul>
+				</div>
+				{/if}{/if}
+                              
 				{if $videoGrouping}
 					{assign var="grps" value=$videoGrouping->getGroupingsInHomePage()}
 					{if $grps|@count<1}
@@ -73,7 +73,7 @@
 							{include file="$style_dir/blocks/videos/video-index.html" grp=$grps[ep_list]}
 						{/section}
 					{/if}
-				{elseif $editor_picks}
+				{elseif $editor_picks}jzhefjzehfjzhejfhez
 					{section name=ep_list loop=$editor_picks}
 						{include file="$style_dir/blocks/videos/video-index.html" video=$editor_picks[ep_list]}
 					{/section}

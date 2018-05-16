@@ -1,0 +1,15 @@
+					
+<style>
+	#groupingInfos .intro-img{ background-size: cover; margin-bottom: 20px; }
+	#groupingInfos .intro-img h2{ color: #333; background-color: rgba(255, 255, 255, .6); display: inline-block; padding: 8px; font-size: 27px; }
+	#groupingInfos .intro-img .intro-text{ max-width: 960px; }
+	#groupingInfos .intro-img .intro-text p{ color: #333; background-color: rgba(255, 255, 255, .6); display: inline-block; padding: 8px; }
+</style>
+					<div id="groupingInfos" {if $groupe.description} class="wdesc"{/if}>
+						<div class="category-intro">
+							<div class="intro-img col-xs-12"{if $groupe.thumb_url && $groupe.thumb_url neq 'default.png'} style="background-image: url({$video_grouping_thumbdir}/{$groupe.thumb_url});"{/if}>
+								<h2>{$groupe.type} &laquo;&nbsp;{$groupe.name}&nbsp;&raquo;</h2>
+								{if $groupe.description}<div class="intro-text"><p>{$groupe.description|nl2br}</p></div>{/if}
+							</div>
+						</div>
+					</div>

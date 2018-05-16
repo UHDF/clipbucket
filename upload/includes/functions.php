@@ -1594,6 +1594,9 @@
 		if(!is_valid_syntax('username',$username) && $multi!='yes' || $matches) {
 			e(lang("class_invalid_user"));
 		}
+		if(!preg_match('/^[A-Za-z0-9_.]+$/', $username)){
+			return false;
+		}
 		return true;
 	}
 	
@@ -2199,8 +2202,11 @@
 			{	
 				if(!isset($_COOKIE['video_'.$id])) {
 					$currentTime = time();
+					$vdetails = get_video_details($id);
+					// Cookie life time at least 1 hour else if video duration is bigger set at video time.
+					$cookieTime = ($vdetails['duration'] > 3600) ? $vdetails['duration'] : $cookieTime = 3600;
 					$db->update(tbl("video"),array("views", "last_viewed"),array("|f|views+1",$currentTime)," videoid='$id' OR videokey='$id'");
-					setcookie('video_'.$id,'watched',time()+3600);
+					setcookie('video_'.$id,'watched',time()+$cookieTime);
 				}
 			}
 			break;
@@ -2560,6 +2566,7 @@
 	*/
 
 	function nicetime($date,$istime=false) {
+		global $lang_obj;
 		if(empty($date)) {
 			return lang('no_date_provided');
 		}
@@ -2594,7 +2601,10 @@
 		if($difference != 1) {
 			// *** Dont apply plural if terms ending by a "s". Typically, french word for "month" is "mois".
 			if(substr($periods[$j], -1) != "s") {
-				$periods[$j].= "s";
+				$periods[$j]= $periods[$j];
+				if($lang_obj->lang=='en'){
+					$periods[$j].= 's';
+				}
 			}
 		}
 		return sprintf(lang($tense),$difference,$periods[$j]);
@@ -4201,6 +4211,8 @@
 				return true;
 			}
 		} elseif ( isset($_SERVER['SERVER_PORT']) && ( '443' == $_SERVER['SERVER_PORT'] ) ) {
+			return true;
+		} elseif(isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') {
 			return true;
 		}
 		return false;

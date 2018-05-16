@@ -45,36 +45,35 @@ switch($mode)
 	case 'recent':
 	default:
 	{
-		$videos = get_videos(array('limit'=>$limit,'order'=>'date_added DESC', 'tags'=>$tag, 'category'=>$cat));
+		$videos = get_videos(array('limit'=>$limit,'broadcast'=>'public','order'=>'date_added DESC', 'tags'=>$tag, 'category'=>$cat));
 		$title  = "Vidéos récentes";
 	}
 	break;
 	
 	case 'featured':
 	{
-			$videos = get_videos(array('limit'=>$limit,'featured'=>'yes','order'=>'featured_date DESC', 'tags'=>$tag, 'category'=>$cat));
+			$videos = get_videos(array('limit'=>$limit,'broadcast'=>'public','featured'=>'yes','order'=>'featured_date DESC', 'tags'=>$tag, 'category'=>$cat));
 			$title  = "Vidéos à la une";
 	}
 	break;
 	
 	case 'views':
 	{
-		
-		 $videos = get_videos(array('limit'=>$limit,'order'=>'views DESC', 'tags'=>$tag, 'category'=>$cat));
+		 $videos = get_videos(array('limit'=>$limit,'broadcast'=>'public','order'=>'views DESC', 'tags'=>$tag, 'category'=>$cat));
 		 $title = "Most Viewed Videos";
 	}
 	break;
 	
 	case 'rating':
 	{
-		 $videos = get_videos(array('limit'=>$limit,'order'=>'rating DESC', 'tags'=>$tag, 'category'=>$cat));
+		 $videos = get_videos(array('limit'=>$limit,'broadcast'=>'public','order'=>'rating DESC', 'tags'=>$tag, 'category'=>$cat));
 		 $title = "Top Rated Videos";
 	}
 	break;
 	
 	case 'watching':
 	{
-		 $videos = get_videos(array('limit'=>$limit,'order'=>'last_viewed DESC', 'tags'=>$tag, 'category'=>$cat));
+		 $videos = get_videos(array('limit'=>$limit,'broadcast'=>'public','order'=>'last_viewed DESC', 'tags'=>$tag, 'category'=>$cat));
 		 $title = "Videos Being Watched";
 	}
 	break;

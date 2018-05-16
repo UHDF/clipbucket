@@ -8,9 +8,20 @@
 $( document ).ready( function() {
 
 	var obj=$(".btn-group").find(".dropdown-menu");
-	var data="<li><a href='{/literal}{$video_grouping_linkpage}{literal}&video={/literal}{$videoid}{literal}'>{/literal}{lang('link_video_grouping')}{literal}</a></li>"
+	var data="<li><a href='{/literal}{$video_grouping_linkpage}{literal}&video={/literal}{$videoid}{literal}' target='_blank'>{/literal}{lang('link_video_grouping')}{literal}</a></li>"
 	obj.html(obj.html()+data);
 });
 
 {/literal}
 </script>
+
+<style>
+	#vidgrp-panel #btnAddVidgrp, #vidgrp-panel #btnCreateVidgrp{ margin: 0 0 5px 15px; border-width: 1px; padding: 4px 12px; }
+	#vidgrp-panel h4{ font-size: 14px; font-variant: small-caps; }
+    #vidgrp-panel table.table td{ vertical-align: middle; font-weight: 700; }
+    #vidgrp-panel table.table td small{ display: block; color: #666; font-weight: 400; }
+    #vidgrp-panel table.table td.vidgrpAction{ width: 42px; text-align: center; }
+    #vidgrp-panel table.table button.deleteVidgrp{ border: 1px; background: transparent !important; color: darkred !important; }
+    #addVidgrpModal .modal-content .modal-body{ min-height: 300px; }
+    #addVidgrpModal .modal-content .modal-body .form-group.vidgrp{ display: none; }
+</style>

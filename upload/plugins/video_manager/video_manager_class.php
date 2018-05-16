@@ -66,6 +66,14 @@ class VideoManager extends CBCategory{
         $count = intval($this->db->count(tbl('editors_picks'), 'videoid', ' videoid='. $vid));
         return $count > 0;
     }
+	
+	public function updateDateCreated($vid, $date){
+		$datetime = DateTime::createFromFormat('d/m/Y H:i', $date);
+		if($datetime === false) return false;
+		$this->db->update(tbl('video'), array('datecreated'), array($datetime->format('Y-m-d H:i:s')), 'videoid = '. intval($vid));
+		
+		return true;
+	}
     
     private function checkActivation($folder, $file){
         $count = intval($this->db->count(tbl('plugins'), 'plugin_id', 'plugin_folder = "'. $folder .'" AND plugin_file = "'. $file .'" AND plugin_active = "yes"'));

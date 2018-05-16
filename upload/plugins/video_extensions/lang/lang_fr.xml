@@ -16,5 +16,8 @@
 		<no_encoding_in_progress>Pas d'encodage en cours</no_encoding_in_progress>
 		<Encoding_progression>Avancement de l'encodage</Encoding_progression>
 		<Encoding_tab>Encodage</Encoding_tab>
+		
+		<videoextensions_NoResultForQuery>Aucun résultat correspondant au terme</videoextensions_NoResultForQuery>
+		<videoextensions_backToVideo>Retour à la vidéo</videoextensions_backToVideo>
 	</phrases>
 </clipbucket_language>
