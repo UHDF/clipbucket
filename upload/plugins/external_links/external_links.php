@@ -197,7 +197,7 @@ function addAfterFormExternalLinks(){
     </div>
 </div>
 
-<script src="<?php echo DOCUMENT_URL; ?>/admin/mgsg/magicsuggest-min.js"></script>
+<script src="<?php echo LINK_URL; ?>/admin/mgsg/magicsuggest-min.js"></script>
 <script type="text/javascript">
     $(function(){  
 		var extlkOpt;

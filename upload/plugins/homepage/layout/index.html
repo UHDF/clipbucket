@@ -1,0 +1,74 @@
+<!-- YB annonce / plugin global announcement -->
+<div class="global-announcement">{ANCHOR place='global'}</div>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0];
+	if (d.getElementById(id)) return;
+	js = d.createElement(s); js.id = id;
+	js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=120542078043680";
+	fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+</script>
+	
+{$row = $myquery->Get_Website_Details()}
+<!-- YB home selection -->
+
+<div class="row">
+	<div class="col-xs-12">
+		<div id="videolist-container" class="clearfix grid videos">
+			<div class="grid-sizer"></div>
+
+			{*if $liveudlquery}
+				<div class="thumb" id="livesHomepage">
+					<ul>
+						{foreach from = $liveudlquery->getFront() item = live}<li>{if $live.active}<span class="onlive" title="{lang('liveudl_stActive')}"></span>{/if}
+							<h4><a href="{$live.link}" title="{$live.title}{if $live.active} ─ {lang('liveudl_stActive')}{/if}">{$live.title}</a><small>{$live.date|date_format:'%d %B %Y %H:%M'}</small>
+						</li>{/foreach}
+					</ul>
+				</div>  
+			{/if*}
+			
+			{if $videos}{foreach $videos as $v}
+				<div class="thumb{if $v.chppicked} spotlight{/if}">
+					<div class="image-holder">
+						<div class="image"><img nopin="nopin" src="{getThumb vdetails=$v size='768x432'}" alt="alt" class="img-responsive"></div>
+						<div class="image-overlay fade1s"></div>
+						<div class="duration-anchor fade1s">{if $v.duration > 1}{$v.duration|SetTime}{else}00:00{/if}</div>
+						{if has_access('admin_access')}
+						<div class="dropdown fade1s"> <a id="video{$v.videoid}" href="#" class="options glyphicon glyphicon-option-vertical text-card" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="sr-only">menu</span></a>
+							<ul class="dropdown-menu" aria-labelledby="video{$video.videoid}">
+								<li><a href="{$admin_baseurl}/edit_video.php?video={$video.videoid}"><span class="glyphicon glyphicon-pencil"></span> éditer les informations</a></li>
+							</ul>
+						</div>
+						{/if}
+						<a href="{videoLink($v)}" class="play-anchor fade1s"><span href="#" class="glyphicon glyphicon-play-circle text-card"></span></a>
+						
+						{if $v.chppicked}<div class="favorite-anchor"><span class="glyphicon glyphicon-heart"></span>&nbsp;{lang('picked')}</div>{/if}
+					</div>
+					<div class="details card">
+						<div class="published">
+						{if function_exists('get_video_field')}
+							{assign var=created value=get_video_field($v.videoid, 'datecreated')}
+							{if $created}
+								{$created|date_format:"%d %B %Y"}
+							{/if}
+						{else}
+							{$video.date_added|date_format:"%d %B %Y"}
+						{/if}
+						</div>
+						<h4 class="reset"><a href="{videoLink($v)}">{$v.title|truncate:100}</a></h4>
+						<div class="description">{$v.description|unescape:'html'}</div>
+						<div class="attributes text-right">
+							<div class="topic">
+								{if function_exists('groupingThumbOutput')}
+									{ANCHOR place="groupingThumbOutput" data=$v.videoid}
+								{/if}
+							</div>
+						</div>
+					</div>
+				</div>
+			{/foreach}{else}
+			{/if}
+			</div>
+		</div>
+	</div>

@@ -1,0 +1,121 @@
+{include file="$chp_css"}
+
+<h2>
+	{lang('chp_manageTitle')} <strong>{$homepage.name}</strong>
+	<small><a href="{$chp_managepages}" class="btn btn-xs btn-default">{lang('chp_backto')}</a></small>
+</h2>
+
+<form method="post" action="" id="formManageHomepage" class="form-horizontal">		
+	<div class="form-group">
+		{if $chpErrorSaveForm}<div class="alert alert-danger">{$chpErrorSaveForm}</div>{/if}
+		
+		<div id="chpNoVideoSelected"{if $chpvidSelected} class="none"{/if}>{lang('chp_noVideoSelected')}</div>
+		<ul id="chpSelectedVideos">
+			<li id="chplimodel" data-picked="{lang('chp_btnUnpick')}" data-unpicked="{lang('chp_btnPick')}">
+				<span class="glyphicon glyphicon-resize-vertical"></span>
+				<div class="date"></div>
+				<div class="title"></div>
+				<div class="action">
+					<button type="button" class="btn picked"><span class="glyphicon glyphicon-heart"></span></button>
+					<button type="button" class="btn remove"><span class="glyphicon glyphicon-remove"></span></button>
+				</div>
+			</li>
+			{foreach $chpvidSelected as $v}<li{if $v.chppicked} class="picked"{/if} data-v="{$v.videoid}">
+				<span class="glyphicon glyphicon-resize-vertical"></span>
+				<div class="date">{$v.datecreated}</div>
+				<div class="title">{$v.title}</div>
+				<div class="action">
+					<button type="button" class="btn picked"><span class="glyphicon glyphicon-heart"></span></button>
+					<button type="button" class="btn remove"><span class="glyphicon glyphicon-remove"></span></button>
+				</div>
+			</li>{/foreach}
+		</ul>
+	</div>
+
+	<div class="form-group">
+		<div class="col-sm-12 text-right">
+			<input type="hidden" name="chp" />
+			<input type="hidden" name="homeid" value="{$homepage.id}" />
+			<button type="submit" class="btn btn-sm btn-primary">{lang('validate')}</button>
+		</div>
+	</div>
+</form>
+
+<ul class="nav nav-tabs" role="tablist">
+	<li role="presentation" class="active"><a href="#allVideos" aria-controls="allVideos" role="tab" data-toggle="tab">{lang('chp_allVideos')}</a></li>
+	<li role="presentation"><a href="#suggestedVideos" aria-controls="suggestedVideos" role="tab" data-toggle="tab">{lang('chp_suggestedVideos')}<span id="nbSuggestedVideos"></span></a></li>
+</ul>
+
+<div class="tab-content">
+	<div role="tabpanel" class="tab-pane active" id="allVideos">
+		<form class="form-horizontal" id="chpSearchForm" action="" method="post">
+			<div class="form-group">
+				<div class="col-sm-12">
+					<div class="fields">
+						<div id="chpTag" data-nores="{lang('chp_noResultForQuery')}"></div>
+						<input type="text" class="form-control" name="chpSearch" placeholder="{lang('chp_searchTitle')}" aria-describedby="basic-chpsearch" />
+					</div>
+					<button class="btn btn-primary btn-sm" type="submit">{lang('chp_searchPlaceholder')}</button>
+				</div>
+
+				{*<div class="col-sm-6 col-sm-offset-6">
+					<div class="input-group">
+						<input type="text" class="form-control" name="chpSearch" placeholder="{lang('chp_searchPlaceholder')}" aria-describedby="basic-chpsearch">
+						<span class="input-group-btn">
+							<button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+						</span>
+					</div>
+				</div>*}
+			</div>
+		</form>
+
+		<p id="chpNoVideoFound">{lang('chp_novideofound')}</p>
+
+		<nav class="chpnav" aria-label="Video pagination">
+			<ul class="pagination"></ul>
+		</nav>
+
+		<div class="text-right">
+			<label for="chpOrder">{lang('chp_orderBy')}</label>
+			<select class="form-group" id="chpOrder">
+				<option value="title">{lang('chp_searchTitle')}</option>
+				<option value="date">{lang('date')}</option>
+			</select>
+		</div>
+
+		<table class="table table-striped selectVideos" id="chpvideos">
+			<tr id="chptrmodel" data-v="{$chp_url}/video.php">
+				<td class="action"><button type="button" class="btn selectVideo" title="{lang('chp_addVideo')}"><span class="glyphicon glyphicon-plus"></span></button></td>
+				<td class="title"></td>
+				<td class="date"></td>
+			</tr>
+		</table>
+
+		<nav class="chpnav" aria-label="Video pagination">
+			<ul class="pagination"></ul>
+		</nav>
+	</div>
+	
+	<div role="tabpanel" class="tab-pane" id="suggestedVideos">		
+		<nav class="chpnavsugg" aria-label="Video pagination">
+			<ul class="pagination"></ul>
+		</nav>
+		<div class="text-right">
+			<label for="chpSuggestedOrder">{lang('chp_orderBy')}</label>
+			<select class="form-group" id="chpSuggestedOrder">
+				<option value="title">{lang('chp_searchTitle')}</option>
+				<option value="date">{lang('date')}</option>
+			</select>
+		</div>
+		
+		<table class="table table-striped selectVideos" id="chpsuggestedvideos">
+			
+		</table>
+		
+		<nav class="chpnavsugg" aria-label="Video pagination">
+			<ul class="pagination"></ul>
+		</nav>
+	</div>
+</div>
+<script src="{$chp_admin}/jquery-ui.min.js"></script>
+<script src="{$chp_admin}/manage_page.js"></script>

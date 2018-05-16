@@ -62,5 +62,11 @@
 		<in_homepage>In Homepage</in_homepage>
 		<show_in_homepage>Show in homepage</show_in_homepage>
 		<hide_from_homepage>Hide from homepage</hide_from_homepage>
+		
+		<vidgrp_linked>Video grouping</vidgrp_linked>
+		<vidgrp_create>Create a grouping</vidgrp_create>
+		<vidgrp_unlink>Unlink the grouping</vidgrp_unlink>
+		<vidgrp_NoResultForQuery>No result for the term</vidgrp_NoResultForQuery>
+		<vidgrp_backToVideo>Back to video</vidgrp_backToVideo>
 	</phrases>
 </clipbucket_language>

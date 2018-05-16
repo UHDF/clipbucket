@@ -8,7 +8,7 @@
         <vidm_addedToEp>Video has been added to editor's pick</vidm_addedToEp>
         <vidm_admMenu>Videos management</vidm_admMenu>
         <vidm_alreadyInEp>Video is already in editor's pick</vidm_alreadyInEp>
-        <vidm_Date>Date</vidm_Date>
+        <vidm_Date>Event date</vidm_Date>
         <vidm_Deactivate>Deactivate this video</vidm_Deactivate>
         <vidm_deactivateSelected>Deactivate</vidm_deactivateSelected>
         <vidm_Delete>Delete</vidm_Delete>
@@ -18,6 +18,7 @@
         <vidm_duration>Separate hours, minutes and seconds in the following way 1:33:56</vidm_duration>
         <vidm_Edit>Edit</vidm_Edit>
         <vidm_embedCode>Embeded code</vidm_embedCode>
+		<vidm_errorDateCreated>Error, wrong datetime format</vidm_errorDateCreated>
         <vidm_failed>Failed</vidm_failed>
         <vidm_favorite>Favorite</vidm_favorite>
         <vidm_featuredmsg>Video has been marked as "Featured Video"</vidm_featuredmsg>

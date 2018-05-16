@@ -47,6 +47,13 @@ if(isset($_POST['update'])){
 }
 
 if($vidmquery->isActivated()){
+	$vidmdate = filter_input(INPUT_POST, 'vidm-date');
+	if($vidmdate){
+		if(!$vidmquery->updateDateCreated($video, $vidmdate)){
+			Assign('vidmErrorDateCreated', lang('vidm_errorDateCreated'));
+		}
+	}
+	
     $ep_action = filter_input(INPUT_GET, 'ep');
     if($ep_action){
         if($ep_action === 'hidehome' && function_exists('remove_vid_editors_pick')){
@@ -240,6 +247,10 @@ if($vidmquery->isActivated()){
     template_files('edit_video.html');
 }
 
+$embedIframe = '<iframe width="540" height="334" src="'. BASEURL .'/player/embed_player.php?vid='. $video .'&width=540&height=334 frameborder="0" allowfullscreen></iframe>';
+Assign('embedIframe', $embedIframe);
+
+unset($_POST);
 display_it();
 
 ?>

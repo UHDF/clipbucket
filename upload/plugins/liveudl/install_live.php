@@ -59,7 +59,6 @@ function installLive() {
 function copyFile(){
     $pluginDir = BASEDIR .'/plugins/liveudl';
     
-    symlink($pluginDir .'/admin/watch_live.php', BASEDIR.'/watch_live.php');
     mkdir(BASEDIR .'/files/thumbs/lives');
     symlink($pluginDir .'/thumblive.png', BASEDIR .'/files/thumbs/lives/thumblive.png');
 }

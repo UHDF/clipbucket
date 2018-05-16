@@ -1,0 +1,60 @@
+{include file="$chp_css"}
+{assign var="chpadmin" value=$userquery->permission[getStoredPluginName('homepageAdmin')] eq 'yes'}
+<h2>
+	{lang('chp_title')}
+	{if $chpadmin}<small><a href="{$chp_createpage}" class="btn btn-primary btn-xs">{lang('chp_actionNew')}</a></small>{/if}
+</h2>
+
+{if $chpAlert}<div class="alert alert-dismissible alert-success" role="alert">
+	<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	<p>{$chpAlert}</p>
+</div>{/if}
+
+{if $homepages|@count eq 0}
+<p align="center"><strong><em>{lang('chp_nohomepage')}</em></strong></p>
+{else}
+
+<table class="table table-striped customhomepage">
+	<thead>
+		<tr>
+			<th class="manage"></th>
+			<th class="name">{lang('chp_labelname')}</th>
+			{if $chpadmin}<th class="ulvl">User level</th>
+			<th class="action"></th>{/if}
+		</tr>
+	</thead>{assign var = "currentHp" value = 0}
+	<tbody>{foreach from=$homepages item=hp}
+		<tr>
+			<td class="manage"><a href="{$chp_managepage}&amp;hp={$hp.id}" class="btn manage" title="{lang('chp_managePage')}"><span class="glyphicon glyphicon-th"></span></a></td>
+			<td class="name"><a href="{$chp_managepage}&amp;hp={$hp.id}" title="{lang('chp_managePage')}"><span>{$hp.name}</span> <small>({$hp.slug})</small></a></td>
+			{if $chpadmin}<td class="ulvl">{foreach $hp.ulvl as $ulvl}{$ulvl}{if not $ulvl@last}, {/if}{/foreach}</td>
+			<td class="action">
+				<a href="{$chp_editpage}&amp;hp={$hp.id}" class="btn edit" title="{lang('chp_editBtnTitle')}"><span class="glyphicon glyphicon-pencil"></span></a>
+				<button type="button" class="btn delete" data-hp="{$hp.id}" title="{lang('chp_deleteBtnTitle')}"><span class="glyphicon glyphicon-remove"></span></button>
+			</td>{/if}
+		</tr>
+	{/foreach}</tbody>
+</table>
+
+{if $chpadmin}
+<div class="modal fade" id="chpConfirmDelete" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">{lang('chp_modalDeleteTitle')}</h4>
+			</div>
+			<div class="modal-body">
+				<p>{lang('chp_modalAreUSure')} <span></span> ?</p>
+				<input type="hidden" name="hp" value="" />
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">{lang('cancel')}</button>
+				<button type="button" class="btn btn-primary">{lang('validate')}</button>
+			</div>
+		</div>
+	</div>
+</div>
+{/if}
+{include file="$chp_js"}
+{/if}

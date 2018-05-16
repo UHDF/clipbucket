@@ -162,11 +162,22 @@ function addPanelSpeaker(){
     global $speakerquery, $Smarty;
     $speakers = $speakerquery->getSpeakersVideo($Smarty->get_template_vars('videoid'));
     
-    echo '
+    /*echo '
                     <div id="speakers-panel" role="tabpanel" class="tab-pane">
                         <label for="speakers-related">'. lang('speakers_linked') .'</label> 
                         <button type="button" class="btn btn-xs btn-primary" id="btnAddSpeaker" data-toggle="modal" data-target="#addSpeakerModal">'. lang('speakers_addlink') .'</button>
                         <a class="btn btn-xs btn-primary" id="btnCreateSpeaker" target="_blank" href="'. SPEAKER_MANAGEPAGE_URL .'">'. lang('speakers_createlink') .'</a>
+                        <table class="table table-striped">';
+	*/
+	echo '
+                    <div id="speakers-panel" role="tabpanel" class="tab-pane">
+                        <label for="speakers-related">'. lang('speakers_linked') .'</label> 
+                        <button type="button" class="btn btn-xs btn-primary" id="btnAddSpeaker" data-toggle="modal" data-target="#addSpeakerModal">'. lang('speakers_addlink') .'</button>
+                        <button type="button" class="btn btn-xs btn-primary" id="btnCreateSpeaker" data-toggle="modal" data-target="#createSpeakerModal">'. lang('speakers_createlink') .'</button>
+						<div class="alert alert-danger error" role="alert">
+							<button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							'. lang('speakers_errorLastSpkRole') .'
+						</div>
                         <table class="table table-striped">';
     foreach($speakers as $s){
         echo '
@@ -213,10 +224,52 @@ function addAfterFormSpeaker(){
     </div>
 </div>
 
-<script src="<?php echo DOCUMENT_URL; ?>/admin/mgsg/magicsuggest-min.js"></script>
+<div class="modal fade" tabindex="-1" role="dialog" id="createSpeakerModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+			<form method="post">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title"><?php echo lang('speakers_createlink'); ?></h4>
+				</div>
+				<div class="modal-body">
+                    <div class="form-group">
+						<div class="alert alert-danger speakerExists"><?php echo lang('speaker_already_exists'); ?></div>
+						<div class="alert alert-danger firstname"><?php echo lang('speakers_missingFirstname'); ?></div>
+						<label for="spk_firstname"><?php echo lang('speakers_firstname'); ?></label>
+						<input name="spk_firstname" id="spk_firstname" class="form-control" />
+                    </div>
+					<div class="form-group">
+						<div class="alert alert-danger lastname"><?php echo lang('speakers_missingLastname'); ?></div>
+                        <label for="spk_lastname"><?php echo lang('speakers_lastname'); ?></label>
+						<input name="spk_lastname" id="spk_lastname" class="form-control" />
+                    </div>
+					<div class="form-group role">
+						<label for="spk_roles"><?php echo lang('speakers_role'); ?></label><?php /*<button type="button" id="spk_addRole" class="btn btn-info btn-xs"><?php echo lang('speakers_addRole'); ?></button>
+ 						<div class="input-group">
+							<input type="text" class="form-control" name="spk_role[]" placeholder="<?php echo lang('speakers_role'); ?>">
+							<span class="input-group-btn">
+								<button type="button" class="btn" title="<?php echo lang('speakers_removeRole'); ?>"><span class="glyphicon glyphicon-remove"></span></button>
+							</span>
+						</div> */?>
+						<textarea id="spk_role" name="spk_role" class="form-control" rows="2"></textarea>
+                    </div>
+				</div>
+				<div class="modal-footer">
+					<div class="text-right">
+                        <button type="button" class="btn btn-default btn-xs spkrmCancelModal" data-dismiss="modal"><?php echo lang('cancel'); ?></button>
+                        <button type="submit" class="btn btn-primary btn-xs spkrmValidate"><?php echo lang('validate'); ?></button>
+                    </div>
+				</div>
+			</form>
+        </div>
+    </div>
+</div>
+
+<script src="<?php echo SPEAKER_URL; ?>/admin/mgsg/magicsuggest-min.js"></script>
 <script type="text/javascript">
     $(function(){
-        var docOpt = '';
+        var spkOpt = '';
         
         $('#speakers-panel').on('click', 'button.deleteSpeaker', function(e){
             $(e.currentTarget).closest('tr').remove();
@@ -243,16 +296,12 @@ function addAfterFormSpeaker(){
 			}, 100);
 		});
 		
-		$(msspk).on('expand', function(e, m){
-			//$('#beforeLoadedSpeakers').fadeOut('fast');
-		});
-		
 		$(msspk).on('collapse', function(e, m){
 			$('#beforeLoadedSpeakers').fadeOut('fast');
 		});
 		
-		$(msspk).on('triggerclick', function(e, m){ console.log('triggerclick', $('#speakers_selectedSpeaker .ms-res-ctn').is(':visible'));
-			/*if(!$('#speakers_selectedSpeaker .ms-res-ctn').is(':visible')) */$('#beforeLoadedSpeakers').fadeIn('fast');
+		$(msspk).on('triggerclick', function(e, m){ 
+			$('#beforeLoadedSpeakers').fadeIn('fast');
 		});		
         
         $('#addSpeakerModal').on('show.bs.modal', function(e){
@@ -275,15 +324,21 @@ function addAfterFormSpeaker(){
             });
         });
         
+		$('#speakers-panel .alert.error button').click(function(e){
+			$(this).closest('.error').slideUp('fast');
+		});
+		
+		var spkTrTpl = '<tr><td class="speakerAction">';
+		spkTrTpl += '<button class="btn deleteSpeaker" type="button" title="<?php echo lang('speakers_removeLinked') ?>"><span class="glyphicon glyphicon-remove"></span></button>';
+		spkTrTpl += '<input type="hidden" name="speakers[]" value="###sid###" />';
+		spkTrTpl += '</td>';
+		spkTrTpl += '<td>###sname###</td></tr>';
+		
         $('#addSpeakerModal form').submit(function(e){
             var opt = msspk.getValue();
             $.each(spkOpt, function(index, s){
                 if($.inArray(s.id, opt) !== -1){
-                    var resHtml = '<tr><td class="speakerAction">'
-                    resHtml += '<button class="btn deleteSpeaker" type="button" title="<?php echo lang('speakers_removeLinked') ?>"><span class="glyphicon glyphicon-remove"></span></button>';
-                    resHtml += '<input type="hidden" name="speakers[]" value="'+ s.id +'" />';
-                    resHtml += '</td>';
-                    resHtml += '<td>'+ s.name +'</td></tr>';
+                    var resHtml = spkTrTpl.replace(/\#\#\#sid\#\#\#/, s.id).replace(/\#\#\#sname\#\#\#/, s.name);
                     $('#speakers-panel table').append(resHtml);
                 }
             });
@@ -291,6 +346,79 @@ function addAfterFormSpeaker(){
             $('#addSpeakerModal').modal('hide');
             return false; 
         });
+		
+		var spkRoleTpl = '';
+		$('#createSpeakerModal').on('show.bs.modal', function(e){
+			<?php /*if(spkRoleTpl === ''){
+				spkRoleTpl = $('#createSpeakerModal .role .input-group').clone();
+			}
+			$('#createSpeakerModal .role .input-group').remove(); */ ?>
+			$('#createSpeakerModal input').val('');
+			$('#createSpeakerModal textarea').val('');
+		});
+		
+		$('#createSpeakerModal').on('hide.bs.modal', function(e){
+			if($('body').hasClass('spkCreate')) return false;
+			$('#createSpeakerModal .alert').slideUp();
+		});
+		
+		<?php /*$('#createSpeakerModal #spk_addRole').click(function(e){
+			$('#createSpeakerModal .role').append(spkRoleTpl.clone());
+		});
+		
+		$('#createSpeakerModal .role').on('click', '.input-group button', function(e){
+			$(this).closest('.input-group').slideUp('fast', function(){ $(this).remove(); });
+		});*/ ?>
+		
+		$('#createSpeakerModal form').submit(function(e){
+			e.preventDefault();
+			var f = $('#createSpeakerModal #spk_firstname').val();
+			var l = $('#createSpeakerModal #spk_lastname').val();
+			<?php /*var r = [];
+			$('#createSpeakerModal input[name="spk_role[]"]').each(function(i){
+				r.push($(this).val());
+			});*/ ?>
+			var r = $('#createSpeakerModal #spk_role').val();
+			
+			var canSave = true;
+			if(f){
+				$('#createSpeakerModal .alert.firstname').slideUp('fast');
+			} else {
+				canSave = false;
+				$('#createSpeakerModal .alert.firstname').slideDown('fast');
+			}
+			
+			if(l){
+				$('#createSpeakerModal .alert.lastname').slideUp('fast');
+			} else {
+				canSave = false;
+				$('#createSpeakerModal .alert.lastname').slideDown('fast');
+			}
+			
+			if(canSave){
+				$('body').addClass('spkCreate');
+				$.ajax({
+					method: 'POST',
+					url: '<?php echo SPEAKER_URL .'/action.php' ?>',
+					data: {f: f, l: l, r: r, addSpeaker: 1},
+					success: function(res){
+						$('body').removeClass('spkCreate');
+						if(res === ''){
+							$('#createSpeakerModal .alert.speakerExists').slideDown('fast');
+						} else {
+							if(res === '0'){
+								$('#speakers-panel .alert.error').slideDown();
+							} else {
+								var resHtml = spkTrTpl.replace(/\#\#\#sid\#\#\#/, res).replace(/\#\#\#sname\#\#\#/, f +' '+ l +'<small>'+ r +'</small>');
+								$('#speakers-panel table').append(resHtml);
+							}
+							
+							$('#createSpeakerModal ').modal('hide');
+						}	
+					}
+				});
+			}
+		});
     });
 </script>
 
