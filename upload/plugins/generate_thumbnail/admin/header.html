@@ -1,0 +1,96 @@
+<script type="text/javascript">{literal}
+	function genthumb_generate(){
+		$('#genThumbModal .question').fadeOut('fast', function(){
+			$('#genThumbModal .loading').fadeIn('fast');
+			$('body').addClass('genThumbGeneration');
+		});
+		$('#genThumbModal .modal-footer').slideUp('fast');
+		
+		var p = videojs('cb_video_js');
+		var formData = {thumb_time:p.currentTime(), video_id:$('#videoid').val()};
+		$.ajax({
+			type: 'POST',
+			url: '../plugins/generate_thumbnail/create_thumbnail.php',
+			data: formData,
+			success: function(q){
+				console.log(q);
+				q = $.parseJSON(q);
+				$('body').removeClass('genThumbGeneration');
+				if(q.error !== ''){
+					$('#genThumbModal .alert').html(q.error);
+					$('#genThumbModal .loading').fadeOut('fast', function(){
+						$('#genThumbModal .alert').fadeIn('fast');
+					});
+				} else if(q.res !== ''){
+					$('#vidm-video ul.ace-thumbnails').append(q.res);
+					$('#genThumbModal').modal('hide');
+				}
+			}
+		});
+	}
+
+	function genthumb_addModal(){
+		var modal = '<div class="modal fade" id="genThumbModal" tabindex="-1" role="dialog" aria-labelledby="genThumbModalLabel">'
+		modal += '<div class="modal-dialog" role="document"><div class="modal-content"><div class="modal-header">';
+		modal += '<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
+		modal += '<h4 class="modal-title" id="genThumbModalLabel">{/literal}{lang('genThumb_modalTitle')}{literal}</h4></div>';
+		modal += '<div class="modal-body"><p class="question">{/literal}{lang('genThumb_modalBody')}{literal}</p>';
+		modal += '<div class="loading"><p>{/literal}{lang('genThumb_modalBody2')}{literal}</p><div class="gtspinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div></div>';
+		modal += '<div class="alert alert-danger"></div></div>';
+		modal += '<div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">{/literal}{lang('cancel')}{literal}</button>';
+		modal += '<button type="button" class="btn btn-primary btn-ok">Ok</button></div></div></div></div>';
+
+		$('body').append(modal);
+		$('#genThumbModal button.btn-ok').click(genthumb_generate);
+	}
+
+	function genthumb_addBtn($target){
+		var btn = '<button type="button" class="btn btn-sm btn-primary" id="generateThumbnailAtTime">{/literal}{lang('genThumb_btn')}{literal}</button>';
+		$target.prepend(btn);
+		genthumb_addModal();
+		btn = $('#generateThumbnailAtTime');
+		btn.click(function(e){
+			$('#genThumbModal').modal();
+		});
+
+		$('#genThumbModal').on('hide.bs.modal', function(e){
+			if($('body').hasClass('genThumbGeneration')){
+				e.preventDefault();
+				e.stopImmediatePropagation();
+				return false;
+			}
+			$('#genThumbModal .modal-footer').css('display', 'block');
+			$('#genThumbModal .question').css('display', 'block');
+			$('#genThumbModal .loading').css('display', 'none');
+			$('#genThumbModal .alert').css('display', 'none').html('');
+		});
+	}
+
+	$(function(){
+		if($('#vidm-video .vidm-thumbs div.actions').length){
+			genthumb_addBtn($('#vidm-video .vidm-thumbs div.actions'));
+		}
+	});
+{/literal}</script>
+
+<style>
+	#genThumbModal .modal-body{ min-height: 80px; }
+	#genThumbModal .loading, #genThumbModal .alert{ display: none; position: absolute; top: 20px; left: 20px; right: 20px; bottom: 20px; text-align: center; }
+	#genThumbModal .btn{ border-width: 1px; min-width: 80px; }
+
+	/** Spinner by @tobiasahlin (http://tobiasahlin.com/spinkit/) **/
+	#genThumbModal .gtspinner{ margin: 10px auto 0; width: 70px; text-align: center; }
+	#genThumbModal .gtspinner > div{ width: 10px; height: 10px; background-color: #333; border-radius: 100%; display: inline-block; -webkit-animation: gtSpin 1.4s infinite ease-in-out both; animation: gtSpin 1.4s infinite ease-in-out both; }
+	#genThumbModal .gtspinner .bounce1{ -webkit-animation-delay: -0.32s; animation-delay: -0.32s; }
+	#genThumbModal .gtspinner .bounce2{ -webkit-animation-delay: -0.16s; animation-delay: -0.16s; }
+
+	@-webkit-keyframes gtSpin {
+	  0%, 80%, 100% { -webkit-transform: scale(0) }
+	  40% { -webkit-transform: scale(1.0) }
+	}
+
+	@keyframes gtSpin {
+	  0%, 80%, 100% { -webkit-transform: scale(0); transform: scale(0);
+	  } 40% { -webkit-transform: scale(1.0); transform: scale(1.0); }
+	}
+</style>

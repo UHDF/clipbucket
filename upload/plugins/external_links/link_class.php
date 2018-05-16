@@ -432,7 +432,17 @@ class Link extends CBCategory{
 		validate_cb_form($fields,$array);
 	}
 	
-	
+	function getModalSelect($notIn = ''){
+		global $db;
+		$query = 'SELECT l.*';
+		$query .= 'FROM '. tbl('links') .' l ';
+		if($notIn !== ''){
+			$query .= 'WHERE l.id NOT IN ('. $notIn .') ';
+		}
+		$query .= 'ORDER BY title ASC';
+		
+		return $db->Execute($query);
+	}
 }
 
 ?>

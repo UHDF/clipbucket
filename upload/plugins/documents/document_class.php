@@ -598,6 +598,19 @@ class Document extends CBCategory{
 			return false;
 	}
 	
+	function getHref($key){
+		return PLUG_URL .'/'. basename(dirname(__FILE__)) .'/download.php?download='. $this->encode_key($key);
+	}
+
+	function setVideoDocuments($videoid, $ids = array()){
+		global $db;
+		$db->delete(tbl('video_documents'), array('video_id'), array($videoid));
+
+		foreach($ids as $id){
+			$db->insert(tbl('video_documents'), array('video_id', 'document_id'), array($videoid, $id));
+		}
+	}
+	
 }
 
 ?>

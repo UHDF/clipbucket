@@ -3,7 +3,7 @@
 Plugin Name: Define chapters
 Description: Add a tab into the edit_video page that enable video chapter edition
 Author: Franck Rouze
-Author Website: http://www.univ-lille.fr/
+Author Website: http://semm.univ-lille1.fr/
 ClipBucket Version: 2.8.1
 Version: 1.0
 */
@@ -44,4 +44,23 @@ if(!function_exists('getVTTFile')){
 	register_anchor_function('getVTTFile','getVTTFile');
 }
 
+if(!isset($cbplugin)) global $cbplugin;
+$videoManagerIsActive = false;
+$p_installed = $cbplugin->getInstalledPlugins();
+foreach($p_installed as $p){
+	if($p['plugin_file'] === 'video_manager.php' && $p['plugin_folder'] === 'video_manager'){
+		$videoManagerIsActive = $p['plugin_active'] === 'yes';
+	}
+}
+
+$get_vid = filter_input(INPUT_GET, 'video');
+if($videoManagerIsActive && $get_vid){
+	$_POST['data']['video'] = $get_vid;
+	register_anchor('<li role="presentation"><a href="#chapters" aria-controls="required" role="tab" data-toggle="tab">'. lang('Chapters') .'</a></li>', 'vidm_navtab');
+	$html = '';
+	ob_start();
+	require_once CHAPTER_ADMIN_DIR .'/set_chapters.php';
+	$html = ob_get_clean();
+	register_anchor('<div id="chapters" role="tabpanel" class="tab-pane">'. $html .'</div>', 'vidm_tabcontent');
+}
 ?>

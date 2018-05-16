@@ -8,9 +8,18 @@
 $( document ).ready( function() {
 
 	var obj=$(".btn-group").find(".dropdown-menu");
-	var data="<li><a href='{/literal}{$link_linkpage}{literal}&video={/literal}{$videoid}{literal}'>{/literal}{lang('link_external_link')}{literal}</a></li>"
+	var data="<li><a href='{/literal}{$link_linkpage}{literal}&video={/literal}{$videoid}{literal}' target='_blank'>{/literal}{lang('link_external_link')}{literal}</a></li>"
 	obj.html(obj.html()+data);
 });
 
 {/literal}
 </script>
+
+<style>
+	#extlinks-panel #btnAddExtLink, #extlinks-panel #btnCreateExtLink{ margin: 0 0 5px 15px; border-width: 1px; padding: 4px 12px; }
+    #extlinks-panel table.table td{ vertical-align: middle; font-weight: 700; }
+    #extlinks-panel table.table td small{ display: block; color: #666; font-weight: 400; }
+    #extlinks-panel table.table td.extLinkAction{ width: 42px; text-align: center; }
+    #extlinks-panel table.table button.deleteExtLink{ border: 1px; background: transparent !important; color: darkred !important; }
+    #addExtLinkModal .modal-content .modal-body{ min-height: 300px; }
+</style>

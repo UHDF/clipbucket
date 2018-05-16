@@ -732,6 +732,29 @@ class Speaker extends CBCategory{
 		);
 	}
 	
+	function getSpeakersVideo($vid){
+		global $db;
+		$query = 'SELECT r.id id, r.description role, s.firstname firstname, s.lastname lastname ';
+		$query .= 'FROM '. tbl('video_speaker') .' vs LEFT JOIN '. tbl('speakerfunction') .' r ON vs.speakerfunction_id = r.id ';
+		$query .= 'LEFT JOIN '. tbl('speaker') .' s ON r.speaker_id = s.id ';
+		$query .= 'WHERE vs.video_id = '. intval($vid) .' ';
+		$query .= 'ORDER BY lastname ASC, firstname ASC, role ASC';
+		
+		return $db->Execute($query);
+	}
+	
+	function getModalSelect($notIn = ''){
+		global $db;
+		$query = 'SELECT r.id id, r.description role, s.firstname firstname, s.lastname lastname ';
+		$query .= 'FROM '. tbl('speakerfunction') .' r ';
+		$query .= 'LEFT JOIN '. tbl('speaker') .' s ON r.speaker_id = s.id ';
+		if($notIn !== ''){
+			$query .= 'WHERE r.id NOT IN ('. $notIn .') ';
+		}
+		$query .= 'ORDER BY lastname ASC, firstname ASC, role ASC';
+		
+		return $db->Execute($query);
+	}
 }
 
 ?>

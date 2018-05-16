@@ -3,7 +3,7 @@
  Plugin Name: Documents
  Description: This plugin will add documents to a video.
  Author: Franck Rouze
- Author Website: http://www.univ-lille.fr/
+ Author Website: http://semm.univ-lille1.fr/
  ClipBucket Version: 2.8
  Version: 1.0
  Website:
@@ -19,6 +19,7 @@ define("SITE_MODE",'/admin_area');
 define('DOCUMENT_BASE',basename(dirname(__FILE__)));
 define('DOCUMENT_DIR',PLUG_DIR.'/'.DOCUMENT_BASE);
 define('DOCUMENT_URL',PLUG_URL.'/'.DOCUMENT_BASE);
+assign('document_url', DOCUMENT_URL);
 define('DOCUMENT_ADMIN_DIR',DOCUMENT_DIR.'/admin');
 define('DOCUMENT_ADMIN_URL',DOCUMENT_URL.'/admin');
 define("DOCUMENT_MANAGEPAGE_URL",BASEURL.SITE_MODE."/plugin.php?folder=".DOCUMENT_BASE."/admin&file=manage_documents.php");
@@ -120,11 +121,134 @@ if ($cbplugin->is_installed('common_library.php') && $userquery->permission[getS
 /**
  * insert js code into the HEADER of the edit_video.php page
  */
-if ($cbplugin->is_installed('common_library.php') &&
-		$userquery->permission[getStoredPluginName("documents")]=='yes' &&
-		substr($_SERVER['SCRIPT_NAME'], -14, 14) == "edit_video.php"){
-	assign("videoid",$_GET['video']);
-	$Cbucket->add_admin_header(PLUG_DIR . '/documents/admin/header.html', 'global');
+if ($cbplugin->is_installed('common_library.php') && $userquery->permission[getStoredPluginName("documents")]=='yes' && substr($_SERVER['SCRIPT_NAME'], -14, 14) == "edit_video.php"){
+	assign("videoid", $_GET['video']); 
+	$Cbucket->add_admin_header(PLUG_DIR . '/documents/admin/header.html');
+        
+	register_anchor_function('addNavTab', 'vidm_navtab');
+	register_anchor_function('addPanel', 'vidm_tabcontent');
+	register_anchor_function('addAfterForm', 'vidm_afterForm');
+
+	$plgdoc = filter_input(INPUT_POST, 'plgdocuments');
+	if($plgdoc){
+		$documents = !empty($_POST['documents']) ? $_POST['documents'] : array();
+		$documentquery->setVideoDocuments($_GET['video'], $documents);
+	}
 }
-	
+
+
+function addNavTab(){
+    echo '<li role="presentation"><a href="#documents-panel" aria-controls="required" role="tab" data-toggle="tab">'. lang('documents') .'</a></li>';
+}
+
+function addPanel(){
+    global $documentquery, $Smarty;
+    $sDocs = $documentquery->getDocumentForVideo(array('limit' => '', 'order' => 'title', 'selected' => 'yes', 'videoid' => $Smarty->get_template_vars('videoid')));
+    
+    echo '
+                    <div id="documents-panel" role="tabpanel" class="tab-pane">
+                        <label for="documents-related">'. lang('documents_linked') .'</label> 
+                        <button type="button" class="btn btn-xs btn-primary" id="btnAddDocument" data-toggle="modal" data-target="#addDocModal">'. lang('documents_addDoc') .'</button>
+						<a class="btn btn-xs btn-primary" id="btnCreateDocument" target="_blank" href="'. DOCUMENT_MANAGEPAGE_URL .'">'. lang('speakers_createlink') .'</a>
+                        <table class="table table-striped">';
+    foreach($sDocs as $doc){
+        echo '
+                            <tr>
+                                <td class="docAction">
+                                    <button class="btn deleteDocument" type="button" title="'. lang('documents_removeLinked') .'"><span class="glyphicon glyphicon-remove"></span></button>
+                                    <input type="hidden" name="documents[]" value="'. $doc['id'] .'" />
+                                </td>
+                                <td><a href="'. $documentquery->getHref($doc['documentkey']) .'" target="_blank">'. $doc['title'] .'</a></td>
+                            </tr>
+            ';
+    } //DOCUMENT_URL .'/download.php?download='. $documentquery->encode_key($doc['documentkey'])
+    echo '
+                        </table>
+                        <input type="hidden" name="plgdocuments" value="update" />
+                    </div>
+        ';
+}
+
+function addAfterForm(){
 ?>
+<div class="modal fade" tabindex="-1" role="dialog" id="addDocModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+			<form method="post" enctype="multipart/form-data">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title"><?php echo lang('documents_addDoc'); ?></h4>
+				</div>
+				<div class="modal-body">
+                    <div class="form-group">
+                        <select name="selectedDocuments[]" id="documents_selectedDoc" class="form-control"></select>
+                    </div>
+				</div>
+				<div class="modal-footer">
+					<div class="text-right">
+						<button type="button" class="btn btn-default btn-xs docmCancelModal" data-dismiss="modal"><?php echo lang('cancel'); ?></button>
+						<button type="submit" class="btn btn-primary btn-xs docmValidate"><?php echo lang('validate'); ?></button>
+					</div>
+				</div>
+			</form>
+        </div>
+    </div>
+</div>
+
+<script src="<?php echo DOCUMENT_URL; ?>/admin/mgsg/magicsuggest-min.js"></script>
+<script type="text/javascript">
+    $(function(){
+        var docOpt = '';
+        
+        $('#documents-panel').on('click', 'button.deleteDocument', function(e){
+            $(e.currentTarget).closest('tr').remove();
+        });
+        
+        var ms = $('#documents_selectedDoc').magicSuggest({
+            allowFreeEntries: false,
+            noSuggestionText: '<?php echo lang('documents_NoResultForQuery'); ?> : <strong>{{query}}</strong>',
+            placeholder: '',
+            toggleOnClick: true
+        });
+        
+        $('#addDocModal').on('show.bs.modal', function(e){
+            ms.setSelection([]);
+            
+            docOpt = '';
+            $('#documents-panel table input[name="documents[]"]').each(function(e){
+                docOpt += ','+ $(this).val();
+            });
+            if(docOpt !== '') docOpt = docOpt.substring(1);
+
+            $.ajax({
+               url: '<?php echo DOCUMENT_URL .'/action.php' ?>',
+               method: 'POST',
+               data: {getOpt: docOpt}
+            }).done(function(msg){
+				if(msg === '') return;
+                docOpt = $.parseJSON(msg);
+                ms.setData(docOpt);
+            });
+        });
+        
+        $('#addDocModal form').submit(function(e){
+            var opt = ms.getValue();
+            $.each(docOpt, function(index, d){
+                if($.inArray(d.id, opt) !== -1){
+                    var resHtml = '<tr><td class="docAction">'
+                    resHtml += '<button class="btn deleteDocument" type="button" title="<?php echo lang('documents_removeLinked') ?>"><span class="glyphicon glyphicon-remove"></span></button>';
+                    resHtml += '<input type="hidden" name="documents[]" value="'+ d.id +'" />';
+                    resHtml += '</td>';
+                    resHtml += '<td><a href="'+ d.link +'" target="_blank">'+ d.name +'</a></td></tr>';
+                    $('#documents-panel table').append(resHtml);
+                }
+            });
+            
+            $('#addDocModal').modal('hide');
+            return false; 
+        });
+    });
+</script>
+
+<?php
+}

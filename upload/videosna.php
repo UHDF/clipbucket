@@ -4,7 +4,8 @@
 	* File: videos
 	* Description: Used to display list of videos
 	* 
-	* Same as videos.php but force anly view for active videos
+	* UDL Change
+	* Same as videos.php but force anly view for active public and Succesfully encoded videos
 	* 
 	* @author: Arslan Hassan, Saqib Razzaq
 	* @since: 2007
@@ -38,7 +39,7 @@
 		$child_ids[] = mysql_clean($_GET['cat']);
 	}
 	//uLille change : Add Active check for only displaying activated videos
-	$vid_cond = array('active'=>'yes','category'=>$child_ids,'date_span'=>mysql_clean($_GET['time']),'sub_cats');
+	$vid_cond = array('active'=>'yes','broadcast'=>'public', 'status'=>'Successful', 'category'=>$child_ids,'date_span'=>mysql_clean($_GET['time']),'sub_cats');
 	$vid_cond = build_sort($sort, $vid_cond);
 	//Getting Video List
 	$page = mysql_clean($_GET['page']);

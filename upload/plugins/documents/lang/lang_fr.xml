@@ -39,5 +39,11 @@
 		<actual_document>Document actuel</actual_document>
 		<documents_have_been_disconected>Les documents ont été dissociés</documents_have_been_disconected>
 		<documents>Documents</documents>
+                <documents_linked>Documents liés</documents_linked>
+                <documents_addDoc>Associer un document</documents_addDoc>
+                <documents_createDoc>Ajouter un document</documents_createDoc>
+                <documents_removeLinked>Retirer le document</documents_removeLinked>
+                <documents_NoResultForQuery>Aucun résultat correspondant au terme</documents_NoResultForQuery>
+				<documents_backToVideo>Revenir à la vidéo</documents_backToVideo>
 	</phrases>
 </clipbucket_language>

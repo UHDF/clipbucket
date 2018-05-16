@@ -3,7 +3,7 @@
  Plugin Name: Video Extensions
  Description: Add an empty video form or duplicate a video form in the video_manager, Link a video data to pending video file encoded externally. 
  Author: Franck Rouze
- Author Website: http://www.univ-lille.fr/
+ Author Website: http://semm.univ-lille1.fr/
  ClipBucket Version: 2.8.1
  Version: 1.0
  Website:
@@ -147,4 +147,23 @@ if ($cbplugin->is_installed('common_library.php') &&
 }
 
 
+if(!isset($cbplugin)) global $cbplugin;
+$videoManagerIsActive = false;
+$p_installed = $cbplugin->getInstalledPlugins();
+foreach($p_installed as $p){
+	if($p['plugin_file'] === 'video_manager.php' && $p['plugin_folder'] === 'video_manager'){
+		$videoManagerIsActive = $p['plugin_active'] === 'yes';
+	}
+}
+
+$get_vid = filter_input(INPUT_GET, 'video');
+if($videoManagerIsActive && $get_vid){
+	$_POST['data']['video'] = $get_vid;
+	register_anchor('<li role="presentation"><a href="#encoding" aria-controls="required" role="tab" data-toggle="tab">'. lang('Encoding_tab') .'</a></li>', 'vidm_navtab');
+	$html = '';
+	ob_start();
+	require_once VIDEO_EXTENSIONS_ADMIN_DIR .'/show_encoding.php';
+	$html = ob_get_clean();
+	register_anchor('<div id="encoding" role="tabpanel" class="tab-pane">'. $html .'</div>', 'vidm_tabcontent');
+}
 ?>
