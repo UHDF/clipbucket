@@ -21,12 +21,7 @@ function notATimecode($string){
 		and (!preg_match( "/NOTE :/", $string))
 		and (!preg_match( "/WEBVTT/", $string))
 	){
-		if (in_array(substr($string, -1, 1), $end)){
-			echo $string.'<br>';
-		}
-		else{
-			echo $string.' ';
-		}
+		echo (in_array(substr($string, -1, 1), $end)) ? $string.'<br>' : $string.' ';
 	}
 }
 
