@@ -14,7 +14,7 @@
 		{include file="$style_dir/blocks/view_channel/channel_header.html"}
 	</div>
 	<div class="clearfix report-block" id="report-user-form" style="display:none">
-		{show_flag_form id=$user.userid type=user}	
+		{show_flag_form id=$user.userid type=user}
 	</div>
 	<div class="clearfix">
 		<section id="content" class="clearfix">
@@ -25,7 +25,7 @@
 						{FlashPlayer vdetails=$first_video width='100%' height='355'}
 					</div>
 				</div>
-				<img src="{$theme}/images/player-ratio.png" class="playerRatio">
+				<img src="{$theme}/images/player-ratio.png" class="playerRatio" alt="">
 			</div>
 			{/if}
 			<div id="messageFav" class="alert alert-info marginTop" style="display:none"></div>
@@ -74,7 +74,7 @@
 							{if $smarty.foreach.profile_groups.iteration==2}
 							<div id="moreDetailsDIV" style="display:none">
 							{/if}
-							{if $field_group.channel_view !='no'}     
+							{if $field_group.channel_view !='no'}
 								<div class="clearfix">
 									<h2>{$field_group.group_name}</h2>
 									<ul class="clearfix desc-list">
@@ -96,7 +96,7 @@
 										{/if}
 										</li>
 										{/if}
-										{if $field_group.group_id=='profile_basic_info' 
+										{if $field_group.group_id=='profile_basic_info'
 											  && $field.name=='relation_status'
 												  && $p.show_dob!='no'}
 										<li>
@@ -126,16 +126,16 @@
 									{if $cpt eq 1 or ($cpt%3 == 1)}
 										<div class="row" style="padding:8px;">
 									{/if}
-				
+
 									<div class="item-video col-lg-4 col-md-4 col-sm-4 col-xs-12">
 									{include file="$style_dir/blocks/videos/video.html" display_type='homeVideos'}
 									</div>
-					
+
 
 									{if $cpt%3 == 0}
 										</div>
 									{/if}
-									
+
 									<!--
 									<div class="item-video col-lg-4 col-md-4 col-sm-6 col-xs-12">
 									{*include file="$style_dir/blocks/videos/video.html" display_type='homeVideos'*}
@@ -163,7 +163,7 @@
 									{include file="$style_dir/blocks/photo.html" photo=$p_list display_type = "default_photo"}
 								</div>
 								{/foreach}
-								{if $user.total_photos > 9} 
+								{if $user.total_photos > 9}
 									<div class="clearfix text-center">
 										<button id="more-channel-photos" class="btn btn-loadmore" dataLimit="9" dataHit="2">{lang code='load_more'}</button>
 									</div>
@@ -176,17 +176,17 @@
 					<div class="tab-pane fade in clearfix" id="user-playlist">
 						{*$u.userid*}
 						{$playlists = $cbvid->action->get_playlists(["user"=>$u.userid,"order"=>"date_added DESC","limit"=>""])}
-						
+
 						{if $playlists}
 						{*pr($playlists,true)*}
 						<div class="clearfix row ch-playlists">
-						
+
 						{foreach $playlists as $playlist}
 							<div class="playlist-item col-lg-4 col-md-4 col-sm-6 col-xs-12">
 							{include file="$style_dir/blocks/playlist/playlist-block.html"}
 							</div>
 						{/foreach}
-						
+
 						</div>
 						{else}
 							<div class="well well-info">{lang code='no_playlists'}</div>
@@ -210,12 +210,12 @@
 			<h2>{lang code="Popular Users"}</h2>
 			<div class="clearfix sidebar-channels">
 				{foreach $popular_users as $popular}
-				{if $popular.username == $smarty.get.user} 
+				{if $popular.username == $smarty.get.user}
 					{continue}
 				{/if}
 				<div class="clearfix channel-item">
 					<a href="{$userquery->profile_link($popular)}" class="avatar">
-						<img src="{$userquery->getuserthumb($popular,'small')}" width="50" height="50" class="img-circle">
+						<img src="{$userquery->getuserthumb($popular,'small')}" width="50" height="50" class="img-circle" alt="">
 					</a>
 					<div class="channel-info">
 						<h3><a href="{$userquery->profile_link($popular)}">{$popular.username}</a></h3>
@@ -230,8 +230,8 @@
 			{/if}
 		</aside>
 	</div>
-	
-		
+
+
 </div>
 <script>
 /*$('#changeCover').on("click", function(){
@@ -271,7 +271,7 @@ $('#cover_info').show();
 		up.start();
 	  });
 	  uploader.bind('UploadComplete', function(plupload, files, response){
-		
+
 	  });
 
 	  uploader.bind("FileUploaded", function(plupload, files, response){
@@ -340,7 +340,7 @@ $('#cover_info').show();
 		else
 		{
 			console.log("height "+WinWidHome);
-			
+
 			$(".user-activities").css("max-height","auto");
 		}
 	}
@@ -352,7 +352,7 @@ $('#cover_info').show();
 		click: function(e){
 			e.preventDefault();
 		   _cb.subscribeToChannelNew(id,'subscribe_user');
-		   
+
 		 }
 		});
 
@@ -362,8 +362,8 @@ $('#cover_info').show();
 		e.preventDefault()
 		$(this).tab('show')
 	});
-	$('#load_more_playlist').click(function() 
-	 { 
+	$('#load_more_playlist').click(function()
+	 {
 	  var limit = $(this).attr("limit");
 	  var mode = 'load_more';
 	  var inner_mode = 'load_more_playlist';
@@ -421,7 +421,7 @@ $('#cover_info').show();
 					$('<div class="clearfix text-center"><button id="more-view-channel" class="btn btn-loadmore" disabled="disabled">Unable to fetch more</button></div>').appendTo('.user_vids').fadeIn('slow');
 				}
 
-				
+
 			}
 		});
 	});
@@ -472,13 +472,13 @@ $('#cover_info').show();
 					$('<div class="clearfix text-center"><button id="more-view-channel" class="btn btn-loadmore" disabled="disabled">Unable to fetch more</button></div>').appendTo('.user_vids').fadeIn('slow');
 				}
 
-				
+
 			}
 		});
 	});
 	/**/
-	
-	
+
+
 	$('.playerRatio').load(function(){
 		editpickVideos();
 	});

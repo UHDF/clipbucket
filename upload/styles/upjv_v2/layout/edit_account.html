@@ -11,7 +11,7 @@
 			</div>
 
 			{if $mode=='profile_settings' || $mode=='account_settings'}
-					
+
 				<div class="mainContent col-lg-9 col-md-9 col-sm-9 col-xs-12">
 					<div class="tabbable">
 						<ul class="nav nav-tabs" id="myTab">
@@ -26,13 +26,13 @@
 								</a>
 							</li>
 						</ul>
-						
+
 						<div class="tab-content clearfix">
 							<div id="cpsetting" class="tab-pane {if $mode=='profile_settings'}active{/if}">
 								<form method="post" class="accountForm">
 									<div class="channelSettings col-md-10">
 										{$channel_profile_fields = $userquery->load_user_fields($p)}
-										
+
 										{foreach from=$channel_profile_fields item=field_group}
 											<p>{$field_group.group_name}</p>
 											{foreach from=$field_group.fields item=field}
@@ -53,7 +53,7 @@
 														{if $field.hint_1}
 															{$field.hint_1}
 														{/if}
-														
+
 														{$field.class = 'form-control'}
 														{ANCHOR place=$field.anchor_before}
 														{$formObj->createField($field)}
@@ -63,7 +63,7 @@
 												</div>
 											{/foreach}
 										{/foreach}
-										
+
 										<div class="form-group">
 											<button name="update_profile" id="button" value="submit" class="btn btn-primary">
 												{lang code='update'}
@@ -72,7 +72,7 @@
 									</div>
 								</form>
 							</div>
-							
+
 							<div id="asettings" class="tab-pane {if $mode=='account_settings'}active{/if}">
 								<form method="post" class="accountForm">
 									<div  class="accountSettings col-md-6">
@@ -80,10 +80,10 @@
 										{$signup_fields = $userquery->load_signup_fields($user)}
 										{$cust_signup_fields = $userquery->load_custom_signup_fields($user,false,true)}
 										<h2>{lang code='account_details'}</h2>
-										
+
 										<div class="form-group">
 											<label for="country">{lang code='country'}</label>
-											
+
 											<select class="form-control" name="country" id="country">
 												{assign var='countries' value=$Cbucket->get_countries(iso2)}
 
@@ -92,15 +92,15 @@
 												{/foreach}
 											</select>
 										</div>
-										
+
 										<div class="form-group">
 											<label for="country" class="show">{lang code='gender'}</label>
-											
+
 											<label class="radio-inline">
 												<input type="radio" name="sex" value="male" id="sex_0" {if $user.sex == male} checked="checked"{/if} />
 												{lang code='male'}
 											</label>
-											
+
 											<label class="radio-inline">
 												<input type="radio" name="sex" value="female" id="sex_1" {if $user.sex == female} checked="checked"{/if}/>
 												{lang code='female'}
@@ -130,7 +130,7 @@
 													{if $field.hint_1}
 														{$field.hint_1}
 													{/if}
-													
+
 													{ANCHOR place=$field.anchor_before}
 													{$formObj->createField($field)}
 													{ANCHOR place=$field.anchor_after}
@@ -155,9 +155,9 @@
 
 				<div class="mainContent col-md-9 col-sm-9 col-xs-12">
 					<div class="coverPhotoContainer">
-						<img src="{$coverPhoto}" alt="coverPhoto" id="coverPhoto" class="edit-img-thumbnail img-responsive">
+						<img src="{$coverPhoto}" alt="" id="coverPhoto" class="edit-img-thumbnail img-responsive">
 					</div>
-					
+
 					<div class="avatar_bg">
 						<!-- <form method="post" enctype="multipart/form-data"> -->
 						<input type="file" name="coverPhoto" style="display:none">
@@ -166,40 +166,40 @@
 					</div>
 				</div>
 			{/if}
-			
+
 			{if $mode == 'avatar_bg' || $mode == 'channel_bg'}
-					
+
 				<div class="mainContent col-md-9 col-sm-9 col-xs-12">
 					<div id="uavatar" class="tab-pane {if $mode == 'avatar_bg'} active {/if}">
 						<form method="post" enctype="multipart/form-data">
 							<h2>{lang code='user_user_avatar'}</h2>
-							
+
 							<div class="show-image">
-								<img src="{$userquery->getUserThumb($user)}" class="edit-img-thumbnail img-responsive" />
+								<img src="{$userquery->getUserThumb($user)}" class="edit-img-thumbnail img-responsive" alt="">
 							</div>
-							
+
 							<div class="form-group">
 								<label for="avatar_file">
 									<h4>{lang code='user_user_avatar'}</h4>
 									{lang code='please_select_img_file'}
 								</label>
-								
+
 								<input type="file" name="avatar_file" id="avatar_file" class="the-buttons btn" />
 							</div>
-							
+
 							<h3>{lang code='or'}</h3>
-							
+
 							<div class="form-group">
 								<label for="avatar_url">{lang code='pelase_enter_image_url'}</label>
 								<input class="form-control" name="avatar_url" type="text" id="avatar_url" value="{$user.avatar_url}" />
 							</div>
-							
+
 							<div class="form-group">
 								<label class="radio">
 									<input name="delete_avatar" type="checkbox" id="delete_avatar" value="yes" />
 									{lang code='delete_this_img'} - (if user has uploaded profile pic)
 								</label>
-								
+
 								<input type="hidden" name="avatar_file_name" value="{$user.avatar}" />
 							</div>
 
@@ -239,19 +239,19 @@
 								</a>
 							</li>
 						</ul>
-						
+
 						<div class="tab-content clearfix">
 							<div id="busers" class="tab-pane {if $mode =='block_users'}active {/if}">
 
 								<h2>{lang code='block_users'}</h2>
-								
+
 								<form method="post" name="ban_users">
 									<div class="form-group">
 										<label for="users">{lang code='block_users'}</label>
 										<textarea class="form-control" name="users" id="users">{$user.banned_users}</textarea>
 										{lang code='spe_users_by_comma'}
 									</div>
-								
+
 									<div class="form-group">
 										<button name="block_users" id="button5" value="submit" class="btn btn-primary">
 											{lang code='update_blocked_user_list'}
@@ -259,10 +259,10 @@
 									</div>
 								</form>
 							</div>
-						
+
 							<div id="cpassword" class="tab-pane {if $mode =='change_password'}active {/if}">
 								<h2>{lang code='user_change_pass'}</h2>
-								
+
 								<form method="post" name="edit_profile">
 									<div class="form-group">
 										<label for="old_pass">{lang code='user_old_pass'}</label>
@@ -278,7 +278,7 @@
 										<label for="c_new_pass">{lang code='user_c_new_pass'}</label>
 										<input class="form-control" name="c_new_pass" type="password" id="c_new_pass" />
 									</div>
-									
+
 									<div class="form-group">
 										<button name="change_password" id="button4" value="submit" class="btn btn-primary">
 											{lang code='user_change_pass'}
@@ -312,7 +312,7 @@
 									</div>
 								</form>
 							</div>
-							
+
 							<div id="msubscription" class="tab-pane {if $mode =='subs'}active {/if}">
 								<h2>{lang code='com_manage_subs'}</h2>
 								{if $subs}
@@ -342,7 +342,7 @@
 												</td>
 												<td>
 													<a href="?mode=subscriptions&delete_subs={$sub.subscribed_to}">
-														<img src="{$imageurl}/cancel.png" width="16" height="16" border="0" />
+														<img src="{$imageurl}/cancel.png" width="16" height="16" border="0" alt="">
 													</a>
 												</td>
 											</tr>
@@ -379,7 +379,7 @@
 		var extensions = "{$extensions}";
 		var baseurl = '{$baseurl}';
 		extensions = (extensions.substring(0, extensions.length - 1)) + ",png,jpeg";
-		
+
 		$.get("{$theme}/js/plupload/js/plupload.full.min.js", function(e){
 			var uploader = new plupload.Uploader({
 				browse_button: 'selectCover',
@@ -394,7 +394,7 @@
 					prevent_duplicates: true,
 				}
 			});
-			
+
 			window.uploader = uploader;
 			uploader.init();
 			uploader.bind("FilesAdded", function(up, uploadedFiles){

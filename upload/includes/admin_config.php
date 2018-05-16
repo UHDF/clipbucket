@@ -42,7 +42,7 @@
 	Assign('admin_pages',$admin_pages);
 	
  	//Do No Edit Below This Line
- 	define('ADMIN_TEMPLATE', 'upjv');
+ 	define('ADMIN_TEMPLATE', 'cb_2014');
  	
 	define('TEMPLATEDIR',BASEDIR.'/'.ADMINDIR.'/'.TEMPLATEFOLDER.'/'.ADMIN_TEMPLATE);
 	define('SITETEMPLATEDIR',BASEDIR.'/'.TEMPLATEFOLDER.'/'.$row['template_dir']);

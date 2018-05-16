@@ -1,7 +1,7 @@
 {if $block_type == '' || $block_type=='normal'}
 <div class="clearfix" id="user-{$user.userid}">
 	<a href="{$userquery->profile_link($user)}" class="avatar">
-		<img src="{avatar details=$user size='220x124'}">
+		<img src="{avatar details=$user size='220x124'}" alt="">
 	</a>
 	<h2><a href="{$userquery->profile_link($user)}">{$user.username}</a></h2>
 	<span class="videos-count">
@@ -12,7 +12,7 @@
 	<span class="subscribers-count">
 		{lang code="subscribers"}:  {$user.subscribers|number_format}
 	</span>
-	
+
 	<h2>{$user.total_videos|number_format} {lang code="videos"} {$user.profile_hits|number_format} {lang code="views"}</h2>
 	<img src="{$userquery->getCover($user.userid)}" alt="">
 </div>
@@ -22,7 +22,7 @@
 {assign var='user_cover' value=$userquery->getCover($user.userid)}
 
 <a href="{$userquery->profile_link($user)}" id="user-{$user.userid}" style="background:url({if $user_cover != ''} {$user_cover} {else} {$theme}/images/cover_default.jpg  {/if} )">
-	<img class="avatar" src="{avatar details=$user}">
+	<img class="avatar" alt="" src="{avatar details=$user}">
 	<div class="info">
 		<h2>{$user.username}</h2>
 		<div class="clearfix">
@@ -37,9 +37,9 @@
 {assign var='user_cover' value=$userquery->getCover($featured.userid)}
 
 <a href="{$userquery->profile_link($featured)}" id="user-{$featured.userid}" class="featured-userlink">
-	<img class="sm-cover img-responsive" src="{if $user_cover != ''} {$user_cover} {else} {$theme}/images/cover_default.jpg  {/if}"  size='368x124'>
+	<img class="sm-cover img-responsive" alt="" src="{if $user_cover != ''} {$user_cover} {else} {$theme}/images/cover_default.jpg  {/if}"  size='368x124'>
 	<div class="info">
-		<img class="avatar" src="{avatar details=$featured}">
+		<img class="avatar" alt="" src="{avatar details=$featured}">
 		<h2>{$featured.username}</h2>
 		<div class="clearfix">
 			<span>{$featured.total_videos|number_format} {lang code="videos"}</span>
@@ -55,7 +55,7 @@
 
 <div class="channel-holder">
 	<a href="{$userquery->profile_link($user)}" id="user-{$user.userid}" class="user-block">
-		<img class="avatar" src="{avatar details=$user size='m'}">
+		<img class="avatar" alt="" src="{avatar details=$user size='m'}">
 		<h2>{$user.username}</h2>
 	</a>
 	<div class="info clearfix">
@@ -93,7 +93,7 @@
 {assign var="user_data" value=$userquery->get_user_details($subscriber)}
 <div class="channel-holder">
 	<a href="{$userquery->profile_link($user_data.userid)}" id="user-{$my_user.userid}" class="user-block">
-		<img class="avatar" src="{$userquery->getuserthumb($user_data.userid)}">
+		<img class="avatar" alt="" src="{$userquery->getuserthumb($user_data.userid)}">
 		<h2>{$user_data.username}</h2>
 	</a>
 	<div class="info">
@@ -101,7 +101,7 @@
 		<span>{$user_data.profile_hits|number_format} {lang code="views"}</span>
 		<span>{lang code="subscribers"}:  {$user_data.subscribers|number_format}</span>
 	</div>
-	
+
 </div>
 
 {/if}
@@ -110,7 +110,7 @@
 
 {assign var="user_data" value=$userquery->get_user_details($subscriber)}
 	<a href="{$userquery->profile_link($user_data.userid)}" title="{$user_data.username}" id="user-{$user_data.userid}" class="sub-avatar">
-		<img class="avatar img-responsive img-circle"  src="{$userquery->getuserthumb($user_data.userid)}">
+		<img class="avatar img-responsive img-circle" alt="" src="{$userquery->getuserthumb($user_data.userid)}">
 	</a>
 	<span>{$user_data.username}</span>
 {/if}
@@ -119,7 +119,7 @@
 <div class="col-md-2" id="user-{$user.userid}" align="center">
 	<a href="{$userquery->profile_link($user)}">{$user.username}</a>
 	<a href="{$userquery->profile_link($user)}">
-		<img src="{$userquery->getuserthumb($user)}" class="img-thumbnail" class="user_mid_thumb">
+		<img src="{$userquery->getuserthumb($user)}" alt="" class="img-thumbnail user_mid_thumb">
 	</a>
 </div>
 {/if}
@@ -128,7 +128,7 @@
 <div class="user_block_med" id="user-{$user.userid}">
 	<div class="thumb_container_medium" >
 		<a href="{$userquery->profile_link($user)}">
-			<img src="{$userquery->getuserthumb($user)}" class="img-thumbnail" class="user_thumb_medium">
+			<img src="{$userquery->getuserthumb($user)}" alt="" class="img-thumbnail user_thumb_medium">
 		</a>
 	</div>
 	<div class="prof_title"><a href="{$userquery->profile_link($user)}">{$user.username}</a></div>

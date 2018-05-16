@@ -1,7 +1,7 @@
 {assign var='reqFields'  value=$cbphoto->load_required_forms($photoArray)}
 {assign var='otherFields'  value=$cbphoto->load_other_forms($photoArray)}
 <div id="uploadFormContainer0" class="uploadFormContainer">
-    <form action="#" method="post" id="Form{$uniqueID}"> 
+    <form action="#" method="post" id="Form{$uniqueID}">
         <div class="row">
             <div class="col-md-8">
               <div>
@@ -16,9 +16,9 @@
                     </div>
                 {/foreach}
             </div>
-            <div class="">
+            <div>
                 <div class="photoOptionalSettings">
-                    <div class="">
+                    <div>
                         {foreach from=$otherFields item=field}
                             <div class="form-group">
                             <label class="show">{$field.title}</label>
@@ -29,16 +29,16 @@
                         {/foreach}
                     </div>
                 </div>
-            </div>   
+            </div>
             <div class="form-group">
                 <button disabled class="btn btn-primary submitPhoto">
                     {lang code="save_details"}
                 </button>
-            </div>  
+            </div>
             </div>
             <div class="col-md-4">
                 <div class="edit-img-thumbnail" id="photoPreview">
-                     <img src="{get_photo details=$photoArray size='m'}" />
+                     <img src="{get_photo details=$photoArray size='m'}" alt="">
                 </div>
             </div>
         </div>

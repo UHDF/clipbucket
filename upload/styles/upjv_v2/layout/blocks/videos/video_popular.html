@@ -3,7 +3,7 @@
         <div class="cb_item_container clearfix">
             <div class=" col-md-5 thumb row">
                <a href="{videoLink($video)}" title="{$video.title|title}" >
-                    <img class="" src="{getThumb vdetails=$video}">
+                    <img alt="" src="{getThumb vdetails=$video}">
                     <span class="duration">{if $video.duration>1}{$video.duration|SetTime}{else}00:00{/if}</span>
                 </a>
             </div>
@@ -15,12 +15,12 @@
 					<span class="user-block">{name($video)}</span>
                 </div>
                 <div class="row small col-md-8">
-                    <span class="pull-left views-count"><!-- <span class="bg-eye"></span> --> 
+                    <span class="pull-left views-count"><!-- <span class="bg-eye"></span> -->
                         {prettyNum($video.views)}&nbsp;{if $video.views > 1}{lang code='views'}{else}{lang code="view"}{/if}
                     </span>
                     <!-- <span class="pull-right"><small><span class="glyphicon glyphicon-thumbs-up"></span> {$video.rating}</small></span> -->
                 </div>
             </div>
         </div>
-    </div>    
+    </div>
 </div>

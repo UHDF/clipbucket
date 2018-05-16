@@ -3,7 +3,7 @@
 <footer id="footer" class="clearfix">
 	{$Cbucket->footer()}
 
-	
+
 	<div id="pied_page">
 
 		<div id="pied_page_rubriques">
@@ -26,7 +26,7 @@
 
 		<p id="pied_page_logos">
 			<a title="(Nouvelle fenêtre)" href="https://www.u-picardie.fr/">
-				<img src="{$theme}/images/logo-UPJV.png">
+				<img src="{$theme}/images/logo-UPJV.png" alt="Université de Picardie Jules Verne">
 			</a>
 		</p>
 
@@ -60,12 +60,12 @@
 		var lang_code = _this.data('lang');
 		var $currentLocation = window.location.href,
 		matchedElement = $currentLocation.match(/\?/);
-			  
+
 		if(matchedElement == null)
 		{
-			window.location = "?set_site_lang="+lang_code;    
+			window.location = "?set_site_lang="+lang_code;
 		} else {
-			window.location = window.location+"&set_site_lang="+lang_code;    
+			window.location = window.location+"&set_site_lang="+lang_code;
 		}
 	});
 

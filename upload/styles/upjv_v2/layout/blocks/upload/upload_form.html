@@ -6,9 +6,9 @@
 <form action="#" id="updateVideoInfoFormNew">
     <div class="row">
         <div class="col-md-8">
-            <div class="" id="updateVideoInfo">
-                <fieldset class="">
-                    <legend class="">{$requiredFields.group_name}</legend>
+            <div id="updateVideoInfo">
+                <fieldset>
+                    <legend>{$requiredFields.group_name}</legend>
                 </fieldset>
                 <div class="requiredFields">
                   {foreach $requiredFields.fields as $field}
@@ -50,10 +50,10 @@
                                 {$formObj->createField($field)}
                             {/if}
                             </div>
-                        {/foreach}    
+                        {/foreach}
                     </div>
                 </div>
-  
+
                 <div class="formSection clear">
                     <h4>{$sharingOptions.group_name}<i class="glyphicon glyphicon-chevron-down pull-right"></i></h4>
                     <div class="sectionContent hidden">
@@ -76,7 +76,7 @@
 
                 <div class="pad-bottom-sm text-right">
                     <button class="btn btn-primary btn-lg" type="button" id="saveVideoDetailsNew">{lang code="submit_now"}</button>
-                </div>  
+                </div>
             </div>
         </div>
         <div class="col-md-4 uploadFormSidebarDiv">
@@ -109,7 +109,7 @@
             </div> -->
             <input type="hidden" name="videoid" value="{$videoid}">
             <input type="hidden" name="updateVideo" value="yes">
-            
+
         </div>
     </div>
 </form>
@@ -142,7 +142,7 @@ $(document).ready(function(){
                 dataType : 'json',
                 success: function(msg)
                 {
-               
+
                     //msg = $.parseJSON(msg);
                     console.log(msg);
                     $("#uploadMessage").removeClass("hidden");

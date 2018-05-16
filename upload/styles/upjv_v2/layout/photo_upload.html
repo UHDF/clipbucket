@@ -1,8 +1,8 @@
 
 {if $step == 1 || $step == ""}
-	<div id="uploadMessage" class=""></div>
+	<div id="uploadMessage"></div>
 	<div class="container">
-		<div class="cb-box progress-container overallProgressContainer hidden" id="overallProgressContainer">    
+		<div class="cb-box progress-container overallProgressContainer hidden" id="overallProgressContainer">
 			<div class="row">
 				<div class="col-md-12">
 					<div class="col-md-2" id="uploadedFilesInfo">
@@ -72,7 +72,7 @@
 										<div id="CollectionDIV" style="display:none">
 											<form action="#" type="post">
 												<h3>Create New Collection</h3>
-												{assign var='reqFields' value=$cbcollection->load_required_fields()}    
+												{assign var='reqFields' value=$cbcollection->load_required_fields()}
 												{foreach from=$reqFields item=field}
 												{if $field.id != 'type'}
 												<div class="form-group">
@@ -122,7 +122,7 @@
 								<a href="#" class="btn btn-primary uploadMoreVideos" id="uploadMoreVideos">{lang code="upload_more_photos"}</a>
 							</div>
 							<div class="marginTop">
-								<div id="files" class=""></div>
+								<div id="files"></div>
 								<div id="allUploadForms" class="tab-content allUploadForms"></div>
 							</div>
 						</div>
@@ -205,7 +205,7 @@
 						$("#files").append(ul);
 
 						var totalFiles = files.length;
-						
+
 						var oneFile = false;
 
 
@@ -229,7 +229,7 @@
 							if(typeof files[i]['photoThumb'] !== "undefined"){
 							  $(oneUploadForm).find("img").attr("src", files[i]['photoThumb']);
 							}
-							wrapperDiv.appendChild(oneUploadForm);   
+							wrapperDiv.appendChild(oneUploadForm);
 							uploadForms.push(wrapperDiv);
 						}
 						$("#allUploadForms").html("");
@@ -280,7 +280,7 @@
 
 				   /*
 					This is the event handler for FileUploaded,
-					it fires when the uploading of the files is completed  
+					it fires when the uploading of the files is completed
 					*/
 
 					var currentFileIndex = 0;
@@ -298,7 +298,7 @@
 						*/
 						var collectionId;
 						var collection_id = '{$c.collection_id}';
-						if (collection_id ) 
+						if (collection_id )
 						{
 						  collectionId = collection_id;
 						}
@@ -328,7 +328,7 @@
 						  $('#photo_description').val(slicedDesc);
 						  $(uploadForm).find("img").attr("src", msg.photoPreview);
 						  $(".submitPhoto").removeAttr("disabled");
-						  
+
 						  if(typeof files[(currentFileIndex - 1)] !== "undefined"){
 							files[(totalUploaded-1)]['photoThumb'] = msg.photoPreview;
 						  }
@@ -340,8 +340,8 @@
 						   uploadForm.append(hiddenPhotoIdField);
 					   });
 
-					   /* 
-					   Submit the form with all the video details and options 
+					   /*
+					   Submit the form with all the video details and options
 					   to update the video information in the system
 					   */
 
@@ -383,7 +383,7 @@
 						$("#uploadMore").removeClass("hidden");
 						$(".uploadingProgressContainer").addClass("hidden");
 						uploader.refresh();
-						$("#uploadMessage").html("All Files are uploaded Successfully").attr("class", "alert alert-success");            
+						$("#uploadMessage").html("All Files are uploaded Successfully").attr("class", "alert alert-success");
 						setTimeout(function(){
 							$("#uploadMessage").addClass("hidden");
 						}, 5000);
@@ -436,7 +436,7 @@
 							});
 						}
 					});
-					
+
 					$("#createNewCollection").on({
 						click: function(e){
 							e.preventDefault();
@@ -511,10 +511,10 @@
 {if $step == 3}
 	<div class="photoBox">
 		<div style="background:#FFF; text-align:center; border-bottom:1px solid #ccc; color:#666; padding:8px; font:bold 14px Arial;">{lang code="photo_success_heading"}</div>
-		
+
 		<div class="clearfix" style="padding:8px; font:normal 11px Tahoma;">
 			You can manage your photos from <strong><a href="{link name='manage_photos'}">{lang code='manage_photos'}</a></strong>.
 		</div>
 	</div>
-{/if}     
+{/if}
 
