@@ -55,9 +55,9 @@
 @font-face {
 	font-family: 'rokkittregular';
 	src: url("../fonts/rokkitt/rokkitt-webfont.eot");
-	src: url("../fonts/rokkitt/rokkitt-webfont.eot?#iefix") format("embedded-opentype"), 
-		 url("../fonts/rokkitt/rokkitt-webfont.woff") format("woff"), 
-		 url("../fonts/rokkitt/rokkitt-webfont.ttf") format("truetype"), 
+	src: url("../fonts/rokkitt/rokkitt-webfont.eot?#iefix") format("embedded-opentype"),
+		 url("../fonts/rokkitt/rokkitt-webfont.woff") format("woff"),
+		 url("../fonts/rokkitt/rokkitt-webfont.ttf") format("truetype"),
 		 url("../fonts/rokkitt/rokkitt-webfont.svg#rokkittregular") format("svg");
 	font-weight: normal;
 	font-style: normal;
@@ -66,9 +66,9 @@
 @font-face {
 	font-family: 'sansationregular';
 	src: url("../fonts/sansation/sansation-regular-webfont.eot");
-	src: url("../fonts/sansation/sansation-regular-webfont.eot?#iefix") format("embedded-opentype"), 
-		 url("../fonts/sansation/sansation-regular-webfont.woff") format("woff"), 
-		 url("../fonts/sansation/sansation-regular-webfont.ttf") format("truetype"), 
+	src: url("../fonts/sansation/sansation-regular-webfont.eot?#iefix") format("embedded-opentype"),
+		 url("../fonts/sansation/sansation-regular-webfont.woff") format("woff"),
+		 url("../fonts/sansation/sansation-regular-webfont.ttf") format("truetype"),
 		 url("../fonts/sansation/sansation-regular-webfont.svg#sansationregular") format("svg");
 	font-weight: normal;
 	font-style: normal;
@@ -77,9 +77,9 @@
 @font-face {
 	font-family: 'sansationbold';
 	src: url("../fonts/sansation/sansation-bold-webfont.eot");
-	src: url("../fonts/sansation/sansation-bold-webfont.eot?#iefix") format("embedded-opentype"), 
-		 url("../fonts/sansation/sansation-bold-webfont.woff") format("woff"), 
-		 url("../fonts/sansation/sansation-bold-webfont.ttf") format("truetype"), 
+	src: url("../fonts/sansation/sansation-bold-webfont.eot?#iefix") format("embedded-opentype"),
+		 url("../fonts/sansation/sansation-bold-webfont.woff") format("woff"),
+		 url("../fonts/sansation/sansation-bold-webfont.ttf") format("truetype"),
 		 url("../fonts/sansation/sansation-bold-webfont.svg#sansationbold") format("svg");
 	font-weight: normal;
 	font-style: normal;
@@ -88,9 +88,9 @@
 @font-face {
 	font-family: 'sansation_lightlight';
 	src: url("../fonts/sansation/sansation-light-webfont.eot");
-	src: url("../fonts/sansation/sansation-light-webfont.eot?#iefix") format("embedded-opentype"), 
-		 url("../fonts/sansation/sansation-light-webfont.woff") format("woff"), 
-		 url("../fonts/sansation/sansation-light-webfont.ttf") format("truetype"), 
+	src: url("../fonts/sansation/sansation-light-webfont.eot?#iefix") format("embedded-opentype"),
+		 url("../fonts/sansation/sansation-light-webfont.woff") format("woff"),
+		 url("../fonts/sansation/sansation-light-webfont.ttf") format("truetype"),
 		 url("../fonts/sansation/sansation-light-webfont.svg#sansation_lightlight") format("svg");
 	font-weight: normal;
 	font-style: normal;
@@ -99,9 +99,9 @@
 @font-face {
 	font-family: 'arvoregular';
 	src: url("../fonts/arvo/arvo-regular-webfont.eot");
-	src: url("../fonts/arvo/arvo-regular-webfont.eot?#iefix") format("embedded-opentype"), 
-		 url("../fonts/arvo/arvo-regular-webfont.woff") format("woff"), 
-		 url("../fonts/arvo/arvo-regular-webfont.ttf") format("truetype"), 
+	src: url("../fonts/arvo/arvo-regular-webfont.eot?#iefix") format("embedded-opentype"),
+		 url("../fonts/arvo/arvo-regular-webfont.woff") format("woff"),
+		 url("../fonts/arvo/arvo-regular-webfont.ttf") format("truetype"),
 		 url("../fonts/arvo/arvo-regular-webfont.svg#arvoregular") format("svg");
 	font-weight: normal;
 	font-style: normal;
@@ -110,9 +110,9 @@
 @font-face {
 	font-family: 'arvobold';
 	src: url("../fonts/arvo/arvo-bold-webfont.eot");
-	src: url("../fonts/arvo/arvo-bold-webfont.eot?#iefix") format("embedded-opentype"), 
-		 url("../fonts/arvo/arvo-bold-webfont.woff") format("woff"), 
-		 url("../fonts/arvo/arvo-bold-webfont.ttf") format("truetype"), 
+	src: url("../fonts/arvo/arvo-bold-webfont.eot?#iefix") format("embedded-opentype"),
+		 url("../fonts/arvo/arvo-bold-webfont.woff") format("woff"),
+		 url("../fonts/arvo/arvo-bold-webfont.ttf") format("truetype"),
 		 url("../fonts/arvo/arvo-bold-webfont.svg#arvobold") format("svg");
 	font-weight: normal;
 	font-style: normal;
@@ -3370,14 +3370,14 @@
 	margin:-15px 0 0 -15px
 }
 
-.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default { 
-	border: 1px solid #c5dbec; 
-	background: #dfeffc url('images/ui-bg_glass_85_dfeffc_1x400.png') 50% 50% repeat-x; 
-	font-weight: bold; 
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+	border: 1px solid #c5dbec;
+	background: #dfeffc url('images/ui-bg_glass_85_dfeffc_1x400.png') 50% 50% repeat-x;
+	font-weight: bold;
 	color: #2e6e9e;
 }
 
-.ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited { 
+.ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited {
 	color: #2e6e9e;
 	text-decoration: none;
 }
@@ -3673,7 +3673,7 @@
     line-height:23px;
     font-family: arvoregular, Tahoma, Verdana, Segoe, sans-serif;
     color: #666;
-    margin:0 0 20px 
+    margin:0 0 20px
 }
 
 #footer{
@@ -3805,7 +3805,7 @@
 	display: inline-block;
 	padding: 0 .5em;
 	vertical-align: top;
-	width: 25%;
+	width: 15%;
 	float: left;
 }
 
@@ -4064,7 +4064,7 @@
 
 #pied_page{
 	box-shadow:0 20px 10px 10px rgba(168,168,183,0.2);
-	padding: 4.5em 0 0;
+	padding: 2.5em 0 0;
 }
 
 #pied_page_logos{
@@ -4321,7 +4321,7 @@ Snippet code pour titre h1 :
 
 
 
-	
+
 
 /* ******************************************************************
 
@@ -4341,7 +4341,7 @@ Snippet code pour titre h1 :
 		margin: 0;
 		padding: .75em 0 .25em;
 	}
-  
+
 	#menu_principal > li:first-child {
 		border: none;
 	}
@@ -4381,7 +4381,7 @@ Snippet code pour titre h1 :
 	#menu_principal ul li:first-child:before {
 		content: none;
 	}
-	
+
 	#menu_principal a {
 		font-size: 25px;
 		display: inline-block;
@@ -4398,24 +4398,24 @@ Snippet code pour titre h1 :
 		font-weight: initial;
 	}
 
-	#menu_principal a, 
-	#menu_principal li:hover a, 
-	#menu_principal a:hover, 
-	#menu_principal a:focus, 
+	#menu_principal a,
+	#menu_principal li:hover a,
+	#menu_principal a:hover,
+	#menu_principal a:focus,
 	#menu_principal em a {
 		color: #002d59;
 	}
 
-	#menu_principal li:hover li a, 
+	#menu_principal li:hover li a,
 	#menu_principal ul a {
 		color: #148dc8;
 		width: 100%;	/* to make link on all width */
 		padding: .75em .5em;
 	}
 
-	#menu_principal li:hover li a:hover, 
-	#menu_principal ul a:hover, 
-	#menu_principal ul a:focus, 
+	#menu_principal li:hover li a:hover,
+	#menu_principal ul a:hover,
+	#menu_principal ul a:focus,
 	#menu_principal ul em a {
 		background-color: #002d59;
 	}
@@ -4424,7 +4424,7 @@ Snippet code pour titre h1 :
 		display: none;
 	}
 
-	#menu_principal:hover li:hover em + ul, 
+	#menu_principal:hover li:hover em + ul,
 	#menu_principal li em + ul {
 		display: block;
 	}
@@ -4434,24 +4434,47 @@ Snippet code pour titre h1 :
 		z-index: 100;
 	}
 
-	#menu_principal > li > a:hover, 
-	#menu_principal > li > em > a, 
-	#menu_principal > li:hover > em > a, 
+	#menu_principal > li > a:hover,
+	#menu_principal > li > em > a,
+	#menu_principal > li:hover > em > a,
 	#menu_principal li:hover > a {
 		color: #666666;
 	}
 
-	#menu_principal li:hover li a:hover, 
-	#menu_principal ul a:hover, 
-	#menu_principal ul a:focus, 
+	#menu_principal li:hover li a:hover,
+	#menu_principal ul a:hover,
+	#menu_principal ul a:focus,
 	#menu_principal ul em a,
-	#menu_principal ul a:hover span, 
+	#menu_principal ul a:hover span,
 	#menu_principal ul a:focus span{
 		background-color: #002d59;
 		color: #fff;
 	}
 
-	
+
+
+	#pied_page_rubriques > div.divpartner {
+		margin-top: 14px;
+		width: 73%;
+	}
+
+	.partner{
+		/* margin-left:20px; */
+		/* width: 50%; */
+		color:#595959;
+		font-size: 10px;
+	}
+
+	#footer #pied_page #pied_page_rubriques .partner img{
+		display:inline !important;
+		padding-right:15px;
+		height:50px;
+	}
+
+	#footer #pied_page #pied_page_rubriques a{
+		color:#337ab7;
+	}
+
 
 /* ******************************************************************
 
@@ -4507,11 +4530,11 @@ Snippet code pour titre h1 :
 		right: 3.5em;
 		top: -1.52381em;
 	}
-  
+
 	#recherche_simple label span {
 		display: none;
 	}
-  
+
 	#recherche_simple div {
 		-webkit-box-shadow: 0 3px 3px rgba(0, 0, 0, 0.3);
 		-moz-box-shadow: 0 3px 3px rgba(0, 0, 0, 0.3);
@@ -4524,14 +4547,14 @@ Snippet code pour titre h1 :
 		position: relative;
 		z-index: 300;
 	}
-  
+
 	#recherche_simple input[type="text"] {
 		background: #fff;
 		border-color: #002d59;
 		padding-right: 8%;
 		width: 100%;
 	}
-  
+
 	#recherche_simple input[type="text"]:focus, #recherche_simple input[type="text"]:active {
 		border-color: #00345f;
 	}
@@ -4539,7 +4562,7 @@ Snippet code pour titre h1 :
 	#recherche_simple .icon-search {
 		color: #002d59;
 	}
-  
+
 	#recherche_simple .icon-search span {
 		display: none;
 	}
@@ -4561,7 +4584,7 @@ Snippet code pour titre h1 :
 		width: 100%;
 		z-index: 300;
 	}
-	
+
 	#menu_principal > li > a, #menu_principal > li > em > a {
 		display: block;
 		border-bottom: 1px solid;
@@ -4594,7 +4617,7 @@ Snippet code pour titre h1 :
 	#meta_menu {
 		min-height: 2.28571em;
 	}
-	
+
 	#meta_menu > div {
 		margin-top: 2.28571em;
 	}
@@ -4640,7 +4663,7 @@ Snippet code pour titre h1 :
 		margin: 0 0 0 -2em;
 		padding: .25em;
 	}
-  
+
 	#recherche_simple button span{
 		display: none;
 	}
@@ -4666,7 +4689,7 @@ Snippet code pour titre h1 :
 }
 
 @media screen and (min-width: 55em) {
-	
+
 	#header > span {
 		font-size: 2.14286em;
 	}
@@ -5009,7 +5032,7 @@ Snippet code pour titre h1 :
 	#sidebar{
 		display:none
 	}
-	
+
 	#footer .column{
 		display:block;
 		width:100%
