@@ -44,7 +44,7 @@
 		 * Si la video est remote_play_url, ls retourne "... No such file or directory"
 		 * La variable $max_video_file_by_size n'est donc pas vide.
 		 */
-		if (!preg_match('/No such file/i', $max_video_file_by_size)){
+		if (preg_match('/No such file/i', $max_video_file_by_size)){
 			echo json_encode(array('error' => 'No video source found.', 'res' => ''));
 			return;
 		}
