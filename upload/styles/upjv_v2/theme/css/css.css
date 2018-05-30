@@ -127,18 +127,6 @@
 				CLASS
 
 ****************************************************************** */
-::-moz-selection {
-	background-color: #666666;
-}
-
-::-webkit-selection {
-	background-color: #666666;
-}
-
-::selection {
-	background-color: #666666;
-}
-
 .absolute-div{
 	position:absolute;
 	z-index:2;
