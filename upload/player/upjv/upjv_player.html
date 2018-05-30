@@ -4,7 +4,7 @@
 {$default_quality = get_upjv_quality_type($video_files)}
 {$availablePlaySpeed = "[1, 1.5, 2]"}
 {$preload = "none"}
-<!--    
+<!--
 	STREAMING INFO
 	Pour une lecture HLS (streaming), le type a indiquer n'est pas le même :
 	    <source src='{$file}' type="application/x-mpegURL">
@@ -16,7 +16,7 @@
 		https://w3c.github.io/webvtt/
 -->
 
-  
+
 <!-- PLAYER CSS -->
 <link href="{$upjv_player_v2_url}/app/css/video-js.min.css" rel="stylesheet">
 
@@ -31,14 +31,14 @@
 <script src="{$upjv_player_v2_url}/app/js/video.js"></script>
 {else}
 <script src="{$upjv_player_v2_url}/app/js/video.min.js"></script>
-{/if}  
+{/if}
 
 <script src="{$baseurl}/player/upjv/app/js/node_modules/videojs-contrib-hls/dist/videojs-contrib-hls.min.js"></script>
 
 
 
 
-<!-- 
+<!--
 <script src="{$upjv_player_v2_url}/app/js/video_js_custom.js"></script>
  -->
 
@@ -47,9 +47,9 @@
 -->
 <script src="{$upjv_player_v2_url}/app/js/videojs-resolution-switcher.js"></script>
 
-<!-- 
+<!--
 	2018-01-19 : Ajout plugin hotkey
-	https://github.com/ctd1500/videojs-hotkeys 
+	https://github.com/ctd1500/videojs-hotkeys
 -->
 <script src="{$upjv_player_v2_url}/app/js/videojs-hotkeys/videojs.hotkeys.min.js"></script>
 
@@ -91,7 +91,7 @@
 			{if $flv_vid == true}
 				<source src='{$file}' type="video/x-flv" />
 			{else}
-			
+
 				{if substr($video_files[0], (strlen($video_files[0])-4),4) neq 'm3u8'}
 					<source src='{$file}' type="video/mp4" label="{strtoupper($quality)}" res="{$quality}" />
 				{else}
@@ -151,7 +151,7 @@
 		var player = videojs('cb_video_js', {
 			plugins: {
 				videoJsResolutionSwitcher: {
-					default: default_res,
+					default: 'high',
 					dynamicLabel: false
 				}
 			},
@@ -170,7 +170,7 @@
 
 		/**
 		 * 2018-01-19 : Ajout plugin hotkey
-		 * https://github.com/ctd1500/videojs-hotkeys 
+		 * https://github.com/ctd1500/videojs-hotkeys
 		*/
 		videojs('cb_video_js').ready(function() {
 			this.hotkeys({
@@ -192,8 +192,8 @@
 				muteToggle: false, "volumeControl": false,
 				timeDivider: false,
 				durationDisplay: false,
-				progressControl: false 
-			} 
+				progressControl: false
+			}
 		});
 	</script>
 {/if}
