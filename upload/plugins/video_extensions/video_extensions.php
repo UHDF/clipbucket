@@ -106,7 +106,9 @@ global $videoExtension;
 if ($cbplugin->is_installed('common_library.php') &&
 		$userquery->permission[getStoredPluginName("video_extensions")]=='yes' &&
 		substr($_SERVER['SCRIPT_NAME'], -17, 17) == "video_manager.php" && $_GET['newvideo'])	{
-	$videoExtension->addEmptyVideo();
+		$id = $videoExtension->addEmptyVideo();
+		header('Location: edit_video.php?video='. $id);
+		exit;
 }
 	
 /**
