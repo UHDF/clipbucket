@@ -152,9 +152,9 @@
                             <div class="form-group">
                                 <label for="vidm-duration-s">{lang('duration')}</label>
                                 <div id="vidm-duration">
-                                    <div class="bleft"><input  name="vidm-duration-h" type="number" id="vidm-duration-h" value="0" min="0" />:</div>
-                                    <div><input  name="vidm-duration-m" type="number" id="vidm-duration-m" value="0" min="0" />:</div>
-                                    <div class="bright"><input  name="vidm-duration-s" type="number" id="vidm-duration-s" value="0" min="0" /></div>
+                                    <div class="bleft"><input  name="vidm-duration-h" type="number" id="vidm-duration-h" value="0" min="0" /> h</div>
+                                    <div><input  name="vidm-duration-m" type="number" id="vidm-duration-m" value="0" min="0" /> min</div>
+                                    <div class="bright"><input  name="vidm-duration-s" type="number" id="vidm-duration-s" value="0" min="0" /> sec</div>
                                 </div>
                                 <input  name="duration" id="duration" type="hidden" value="{$data.duration}">
                             </div>
@@ -310,7 +310,9 @@
         $('#vidm-date').datetimepicker({
             controlType: 'select',
             oneLine: true,
-            timeFormat: 'HH:mm'
+            timeFormat: 'HH:mm',
+			changeMonth: true,
+			changeYear: true
         });
 
         $('#date').parent().find('span').click(function(e){
