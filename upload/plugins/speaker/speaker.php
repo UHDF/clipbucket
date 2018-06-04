@@ -173,7 +173,7 @@ function addPanelSpeaker(){
                     <div id="speakers-panel" role="tabpanel" class="tab-pane">
                         <label for="speakers-related">'. lang('speakers_linked') .'</label> 
                         <button type="button" class="btn btn-xs btn-primary" id="btnAddSpeaker" data-toggle="modal" data-target="#addSpeakerModal">'. lang('speakers_addlink') .'</button>
-                        <button type="button" class="btn btn-xs btn-primary" id="btnCreateSpeaker" data-toggle="modal" data-target="#createSpeakerModal">'. lang('speakers_createlink') .'</button>
+                        <button type="button" class="btn btn-xs btn-info" id="btnCreateSpeaker" data-toggle="modal" data-target="#createSpeakerModal"><span class="glyphicon glyphicon-cog"></span>'. lang('speakers_createlink') .'</button>
 						<div class="alert alert-danger error" role="alert">
 							<button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 							'. lang('speakers_errorLastSpkRole') .'
