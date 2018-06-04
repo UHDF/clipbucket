@@ -161,14 +161,15 @@ foreach($p_installed as $p){
 $get_vid = filter_input(INPUT_GET, 'video');
 if($videoManagerIsActive && $get_vid && substr($_SERVER['SCRIPT_NAME'], -14, 14) === 'edit_video.php'){
 	$_POST['data']['video'] = $get_vid;
-	register_anchor('<li role="presentation"><a href="#encoding" aria-controls="required" role="tab" data-toggle="tab">'. lang('Encoding_tab') .'</a></li>', 'vidm_navtab');
+	//register_anchor('<li role="presentation"><a href="#encoding" aria-controls="required" role="tab" data-toggle="tab">'. lang('Encoding_tab') .'</a></li>', 'vidm_navtab');
 	$html = '';
 	ob_start();
 	require_once VIDEO_EXTENSIONS_ADMIN_DIR .'/show_encoding.php';
 	$html = ob_get_clean();
-	register_anchor('<div id="encoding" role="tabpanel" class="tab-pane">'. $html .'</div>', 'vidm_tabcontent');
+	// register_anchor('<div id="encoding" role="tabpanel" class="tab-pane">'. $html .'</div>', 'vidm_tabcontent');
+	register_anchor('<div id="vidm_encodingprogress">'. $html .'</div>', 'vidm_video_before_upload_fields');
 	
-	
+	// GESTION ASSOCIATION DE VIDEO EN COURS D'ENCODAGE
 	$new_video_src = filter_input(INPUT_POST, 'video_extensions_pending_video');
 	if($new_video_src !== null && $new_video_src !== ''){
 		$videoExtension->setVideoFile($get_vid, $new_video_src);
@@ -180,8 +181,6 @@ if($videoManagerIsActive && $get_vid && substr($_SERVER['SCRIPT_NAME'], -14, 14)
 		$pVidHtml .= '<option value="'. $pv['jobset'] .'">'. $pv['originalVideoName'] .'</option>';
 	}
 	if($pVidHtml !== '' ){
-		//register_anchor('<script src="'. VIDEO_EXTENSIONS_ADMIN_URL.'/mgsg/magicsuggest-min.js"></script>', 'vidm_afterForm');
-		/*data-nores="<?php echo lang('videoextensions_NoResultForQuery'); ?>*/
 		ob_start();
 ?>
                     <div class="form-group">
