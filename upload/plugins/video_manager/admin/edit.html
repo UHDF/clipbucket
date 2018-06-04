@@ -60,7 +60,7 @@
                         <td class="tablabel">{lang('vidm_uploadedBy')}</td>
                         <td>{$data.userid|get_username}</td>
                     </tr>
-					<tr>
+					{if $userquery->permission.user_level_id === '1'}<tr>
                         <td class="tablabel">{lang('vdo_status')}</td>
                         <td>
 							<select class="form-control" name="status">
@@ -69,7 +69,7 @@
 								<option value="Failed"{if $data.status=='Failed'} selected {/if}>{lang('vidm_failed')}</option>
 							</select>
 						</td>
-                    </tr>
+                    </tr>{/if}
                     
                     {ANCHOR place='vidm_video-informations_table'}
                 </tbody>
