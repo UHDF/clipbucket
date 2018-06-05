@@ -1,7 +1,5 @@
 <?php
-/**
- * Class Containing actions for the tag manager plugin 
- */
+
 class SharingDlAuth extends CBCategory{
     
     private $db;

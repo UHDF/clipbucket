@@ -17,16 +17,6 @@ if (!$cbplugin->is_installed('common_library.php'))
 else
 	require_once PLUG_DIR.'/common_library/common_library.php';
 
-if(!function_exists('shdlauth_sh')){
-
-	/*function shdlauth_sh($video){
-		global $shdlauthquery;
-		
-		return $shdlauthquery->canDl(filter_input(INPUT_GET, 'video'))	
-	}
-	
-	register_anchor_function('speakerList','speakerList');*/
-}
 
 if($shdlauthquery->isActivated()){
 	if($_SERVER['PHP_SELF'] === '/admin_area/edit_video.php'){
