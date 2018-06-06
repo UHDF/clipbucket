@@ -781,7 +781,8 @@
 	font-size:18px;
 	line-height:20px;
 	font-family:"source_sans_proregular",sans-serif;
-	margin:0 0 5px
+	margin:0 0 5px;
+	padding-bottom: 20px;
 }
 
 .videos .video-info .title a{
@@ -4348,6 +4349,14 @@ Snippet code pour titre h1 :
 		width: 250px;
 		z-index: 10;
 	}
+
+	/* Decale le dernier sous menu */
+	ul#menu_principal li:last-child ul{
+		margin-left: -6.5em;
+	}
+
+
+
 
 	#menu_principal ul li {
 		border-left:1px solid gray;
