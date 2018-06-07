@@ -54,9 +54,12 @@
 	<div class="col-xs-6">
 		<div class="cb_item_thumb video_thumb">
 			<a class="video-link" href="{videoLink($video)}" title="{$video.title|title}">
-				<span class="duration">{if
-					$video.duration>1}{$video.duration|SetTime}{else}00:00{/if}{*$video.duration|date_format:$config.time*}
-				</span>
+				<span class="duration">{if $video.duration>1}{$video.duration|SetTime}{else}00:00{/if}</span>
+				{if is_installed('mksubtitle')}
+					{if isSubtitle($video.videoid)}
+						<span class="subtitleicon" title="Sous titre disponible"><i class="fa fa-cc" aria-hidden="true"></i></span>
+					{/if}
+				{/if}
 				<i class="icon-playweb play-icon"></i>
 				<img class="img-responsive" src="{getThumb vdetails=$video size=300x169 } " border="1" />
 			</a>
@@ -80,9 +83,12 @@
 	<div class="col-xs-6">
 		<div class="cb_item_thumb video_thumb">
 			<a class="video-link" href="{videoLink($video)}" title="{$video.title|title}">
-				<span class="duration">{if
-					$video.duration>1}{$video.duration|SetTime}{else}00:00{/if}{*$video.duration|date_format:$config.time*}
-				</span>
+				<span class="duration">{if $video.duration>1}{$video.duration|SetTime}{else}00:00{/if}</span>
+				{if is_installed('mksubtitle')}
+					{if isSubtitle($video.videoid)}
+						<span class="subtitleicon" title="Sous titre disponible"><i class="fa fa-cc" aria-hidden="true"></i></span>
+					{/if}
+				{/if}
 				<i class="icon-playweb play-icon"></i>
 				<img class="img-responsive" src="{getThumb vdetails=$video size=300x169 } " border="1" />
 			</a>
@@ -110,9 +116,7 @@
 	<div class="clearfix vid_thumb">
 		<div class="cb_item_thumb video_thumb">
 			<a class="video-link" href="{videoLink($video)}" title="{$video.title|title}">
-				<span class="duration">{if
-					$video.duration>1}{$video.duration|SetTime}{else}00:00{/if}{*$video.duration|date_format:$config.time*}
-				</span>
+				<span class="duration">{if $video.duration>1}{$video.duration|SetTime}{else}00:00{/if}</span>
 				<i class="icon-playweb play-icon"></i>
 				<img class="img-responsive" src="{getThumb vdetails=$video size=300x169 } " border="1" />
 			</a>
