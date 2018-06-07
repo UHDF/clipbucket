@@ -83,7 +83,7 @@
 	<!--
 		BALISE VIDEO HTML 5 height="{$height}" width="{$width}"
 	-->
-	<video id="{$playerid}" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="{$preload}" poster="{getThumb vdetails=$vdata size=big}" height="480">
+	<video id="{$playerid}" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="{$preload}" poster="{getThumb vdetails=$vdata size=original}" height="480">
 
 		{foreach $video_files as $file}
 			{$quality = get_upjv_quality($file)}
