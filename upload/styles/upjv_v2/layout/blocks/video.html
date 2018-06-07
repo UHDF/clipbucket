@@ -11,6 +11,11 @@
 	 class="icon-plus2 cb_quickie cb-btn-quick-{$video.videoid} {if in_array($video.videoid, $qlist_vids)}icon-tick{/if}" vtitle="{$video.title}" v-id="{$video.videoid}" vlink="{videoLink($video)}" vthumb="{getThumb vdetails=$video size=600x338 }" vduration="{$video.duration|SetTime}" title="Add {$video.title} to Quicklist">
 			</button>
 			<span class="duration">{if $video.duration>1}{$video.duration|SetTime}{else}00:00{/if}</span>
+			{if is_installed('mksubtitle')}
+				{if isSubtitle($video.videoid)}
+					<span class="subtitleicon" title="Sous titre disponible"><i class="fa fa-cc" aria-hidden="true"></i></span>
+				{/if}
+			{/if}
 		</div>
 	</div>
 	<div class="clearfix video-info">

@@ -4355,8 +4355,15 @@ Snippet code pour titre h1 :
 		margin-left: -6.5em;
 	}
 
-
-
+	.item-video .thumb-holder .subtitleicon{
+		position: absolute;
+		font-size:22px;
+		z-index: 3;
+		top: 10px;
+		right: 10px;
+		color: white;
+		text-shadow: 2px 2px 5px black;
+	}
 
 	#menu_principal ul li {
 		border-left:1px solid gray;
