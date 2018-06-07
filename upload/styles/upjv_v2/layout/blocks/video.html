@@ -15,6 +15,7 @@
 	</div>
 	<div class="clearfix video-info">
 		<h2 class="title"><a href="{videoLink($video)}">{$video.title|truncate:50}</a></h2>
+		<p>{strip_tags($video.description)|truncate:80}</p>
 		<!-- <span class="author">by <a href="{$userquery->profile_link($video)}">{$video.username}</a></span> -->
 		<div class="clearfix views-date">
 			<span>{prettyNum($video.views)} {if $video.views > 1}{lang code='views'}{else}{lang code="view"}{/if}</span>
