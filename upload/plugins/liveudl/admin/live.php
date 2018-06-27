@@ -30,7 +30,7 @@ $errors = null;
 if(!empty($_POST)){
     $lid = intval(filter_input(INPUT_POST, 'lid'));
     $fmsid = intval(filter_input(INPUT_POST, 'fmsid'));
-    
+	
     if(filter_input(INPUT_POST, 'action') === 'delete'){
         $title = $liveudlquery->deleteLive($lid);
         $_SESSION['liveudl_flashmsg'] = lang('liveudl_deleteSuccess', $title);
@@ -93,7 +93,7 @@ if(!empty($_POST)){
             }
         }
     }
-    
+    $errors['xdebug'] = 'test';
     if($errors){
         $errLive = array('id' => $lid, 'title' => $title, 'description' => $description, 'date' => $date, 'visible' => $visible, 'active' => $active, 'homepage' => $front, 'rtmpid' => $fmsid);
     } else {
@@ -171,6 +171,9 @@ if($id){
         }
     } else 
         $title = 'liveudl_title_delete';
+} elseif($errors){
+	if($errLive['id']) $title = 'liveudl_title_edit';
+	$live = $errLive;
 }
 
 $rtmp = $liveudlquery->getAllRtmp(true);
