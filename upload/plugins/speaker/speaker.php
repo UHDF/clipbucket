@@ -53,7 +53,21 @@ if(!function_exists('speakerList')){
 		$data["selected"]="yes";
 		$spk=$speakerquery->getSpeakerAndRoles($data);
 		$str='';
+		$filteredspk=[];
 		foreach ($spk as $sp) {
+			$found=false;
+			for ($ii=0; $ii<count($filteredspk); $ii++) {
+				if ($sp['sid']==$filteredspk[$ii]['sid']) {
+					$filteredspk[$ii]['description']=$filteredspk[$ii]['description'].", ".$sp['description'];
+					$found=true;
+				}
+			}
+			if (!$found){
+				array_push($filteredspk,$sp);
+			}
+					
+		}
+		foreach ($filteredspk as $sp) {
 			$url=BASEURL.'/'.'search_result.php?type=speaker&query='.$sp['slug'];
 			$str.='<li><a href="'.$url.'">'.$sp['firstname'] .' '. $sp['lastname'].'</a><span>,'.$sp['description'].'</span></li>'; 
 		}
