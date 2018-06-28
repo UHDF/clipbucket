@@ -31,7 +31,7 @@
 <div id="main" class="clearfix container">
 	<div class="clearfix">
 		<section id="content" class="clearfix videos">
-		
+
 			<div class="clearfix player-holder">
 				<div id="cb_player" class="cb_player">
 					{FlashPlayer vdetails=$video width='100%' height='100%'}
@@ -39,14 +39,14 @@
 			</div>
 
 			<!-- end of player-holder -->
-			
+
 			<!--
 			<div class="clearfix leaderboard-ad ad">
 				{AD place='ad_728x90'}
 			</div>
 			-->
-			
-			
+
+
 			<section class="video-details clearfix">
 				<header class="clearfix details">
 					<h1>{$video.title}</h1>
@@ -93,7 +93,7 @@
 									<li role="presentation">
 										<a role="menuitem" tabindex="-1" href="{$file}"  download>
 										<span class="glyphicon glyphicon-download-alt"></span>{$file_quality}</a>
-										
+
 									</li>
 									{/foreach}
 									</ul>
@@ -102,7 +102,7 @@
 						</div>
 					</div>
 				</header>
-				
+
 
 				<div id="messageFav" class="alert alert-info marginTop" style="display:none"></div>
 				<div class="view-tabs clearfix">
@@ -125,7 +125,7 @@
 						-->
 					</ul>
 					<div class="tab-content clearfix">
-					
+
 						<!-- INFO SECTION TAB -->
 						<div class="tab-pane fade in clearfix active" id="cb-item-info">
 							<div class="clearfix watch-vid-details">
@@ -135,6 +135,11 @@
 								<p>
 									{description($video.description)}
 								</p>
+
+
+								{ANCHOR place="displayTranscript" data=$video}
+
+
 								<ul class="clearfix desc-list">
 									<li><strong>{lang code='category'}</strong>:&nbsp;{$vdo.category|categories:video}</li>
 									<li><strong>{lang code='duration'}</strong>:&nbsp;{if $video.duration>1}{$video.duration|SetTime}{else}00:00{/if}</li>
@@ -146,7 +151,7 @@
 								</ul>
 
 								<br>
-								
+
 								{*assign var="videoid" value=$vdo.videokey*}
 								<!-- Plugin Documents -->
 								{if externalDocumentCount() > 0}
@@ -158,9 +163,9 @@
 
 
 								<br>
-								
 
-								
+
+
 								<!-- Plugin Documents -->
 								{if speakerCount() > 0}
 									<h2><span class="glyphicon glyphicon glyphicon-user"></span> Intervenant(s)</h2>
@@ -205,7 +210,7 @@
 							</div>
 							<div class="clearfix">
 								{show_playlist_form id=$vdo.videoid type=video user=userid() }
-								
+
 								{if userid()}
 								<div class="clearfix">
 									<div class="clearfix btn-holder text-right">
@@ -215,10 +220,10 @@
 									{show_collection_form id=$vdo.videoid type=Video}
 									</div>
 								</div>
-								{/if}    
+								{/if}
 							</div>
 						</div>
-						
+
 						<!-- REPORT SECTION TAB -->
 						<!--
 						<div class="tab-pane fade in clearfix custom-elements" id="cb-item-report">
@@ -233,7 +238,7 @@
 <!--
 			<div class="clearfix comments-block" id="comments-block">
 				<div id="test1"></div>
-				<div id="reply" class="clearfix"> 
+				<div id="reply" class="clearfix">
 					<div  class="addComment clearfix">
 						<h2 class="com_count" id="com_count">
 							{$vdo.comments_count} <span>{lang code='comments'} </span>
@@ -246,7 +251,7 @@
 						</div>
 						{/if}
 					</div>
-					
+
 					<div id="userCommentsList">
 						<div class="comments clearfix">
     					<ul id="comments-ul">
@@ -279,10 +284,10 @@
 				{if $total_items > 10}
 					<button class="btn btn-primary text-centre" id="playlist-pull" dataList={$cur_playlist} dataLimit="10" dataHit="2">Load More</button>
 				{/if}
-			{else}			    	
+			{else}
 				{if $videos}
 					{foreach from=$videos item=pop_video}
-			
+
 					{if $pop_video@iteration == 9}
 						{break}
 					{/if}
@@ -290,7 +295,7 @@
 						{include file="$style_dir/blocks/videos/video.html" display_type='popVideos_sidebar'}
 					</div>
 					{/foreach}
-			
+
 				{else}
 					<div class="well well-info">No Videos Found !</div>
 				{/if}
