@@ -93,7 +93,7 @@ if(!empty($_POST)){
             }
         }
     }
-    $errors['xdebug'] = 'test';
+    
     if($errors){
         $errLive = array('id' => $lid, 'title' => $title, 'description' => $description, 'date' => $date, 'visible' => $visible, 'active' => $active, 'homepage' => $front, 'rtmpid' => $fmsid);
     } else {
