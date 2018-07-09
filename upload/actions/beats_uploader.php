@@ -167,7 +167,7 @@ switch($mode)
 
         $chunk = isset($_REQUEST["chunk"]) ? intval($_REQUEST["chunk"]) : 0;
         $chunks = isset($_REQUEST["chunks"]) ? intval($_REQUEST["chunks"]) : 0;
-        $fileName = isset($_REQUEST["name"]) ? $_REQUEST["name"] : '';
+        $fileName = isset( $_FILES['file']['name']) ?  $_FILES['file']['name'] : '';
 
         // Clean the fileName for security reasons
         $fileName = preg_replace('/[^\w\._]+/', '_', $fileName);
