@@ -151,7 +151,7 @@ function addPanelExternalLinks(){
                     <div id="extlinks-panel" role="tabpanel" class="tab-pane">
                         <label for="extlinks-related">'. lang('extlink_linked') .'</label> 
                         <button type="button" class="btn btn-xs btn-primary" id="btnAddExtLink" data-toggle="modal" data-target="#addExtLinkModal">'. lang('link_external_link') .'</button>
-                        <a class="btn btn-xs btn-primary" id="btnCreateExtLink" target="_blank" href="'. LINK_MANAGEPAGE_URL .'">'. lang('extlink_create') .'</a>
+                        <a class="btn btn-xs btn-info" id="btnCreateExtLink" target="_blank" href="'. LINK_MANAGEPAGE_URL .'"><span class="glyphicon glyphicon-cog"></span>'. lang('extlink_create') .'</a>
                         <table class="table table-striped">';
     foreach($links as $l){
         echo '

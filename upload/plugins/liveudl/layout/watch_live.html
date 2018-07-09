@@ -46,7 +46,9 @@
                         {if not $live.active}<b>
                             {if $live.diff eq -1}{lang('liveudl_scheduledOn', $live.date|date_format:"%d %B %Y")} {lang('liveudl_publishedAt', $live.date|date_format:'%H:%M')}
                             {elseif $live.diff eq 0}
-                                {if $live.date|date_format:'%Y%m%d' eq $smarty.now|date_format:'%Y%m%d'}{lang('liveudl_occuredToday', $live.date|date_format:'%H:%M')}
+                                {if $live.date|date_format:'%Y%m%d' eq $smarty.now|date_format:'%Y%m%d'}
+									{if $live.date|date_format:'%H%M'|intval lt  $smarty.now|date_format:'%H%M'|intval}{lang('liveudl_occuredToday', $live.date|date_format:'%H:%M')}
+									{else}{lang('liveudl_scheduled')} {lang('today')|lower} {lang('liveudl_publishedAt', $live.date|date_format:'%H:%M')}{/if}
                                 {else}{lang('liveudl_scheduled')} {lang('today')|lower} {lang('liveudl_publishedAt', $live.date|date_format:'%H:%M')}{/if}
                             {else}{lang('liveudl_occuredOn', $live.date|date_format:'%d %B %Y')}{/if}
                         </b>

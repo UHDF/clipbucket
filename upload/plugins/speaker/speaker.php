@@ -53,7 +53,21 @@ if(!function_exists('speakerList')){
 		$data["selected"]="yes";
 		$spk=$speakerquery->getSpeakerAndRoles($data);
 		$str='';
+		$filteredspk=[];
 		foreach ($spk as $sp) {
+			$found=false;
+			for ($ii=0; $ii<count($filteredspk); $ii++) {
+				if ($sp['sid']==$filteredspk[$ii]['sid']) {
+					$filteredspk[$ii]['description']=$filteredspk[$ii]['description'].", ".$sp['description'];
+					$found=true;
+				}
+			}
+			if (!$found){
+				array_push($filteredspk,$sp);
+			}
+					
+		}
+		foreach ($filteredspk as $sp) {
 			$url=BASEURL.'/'.'search_result.php?type=speaker&query='.$sp['slug'];
 			$str.='<li><a href="'.$url.'">'.$sp['firstname'] .' '. $sp['lastname'].'</a><span>,'.$sp['description'].'</span></li>'; 
 		}
@@ -173,7 +187,7 @@ function addPanelSpeaker(){
                     <div id="speakers-panel" role="tabpanel" class="tab-pane">
                         <label for="speakers-related">'. lang('speakers_linked') .'</label> 
                         <button type="button" class="btn btn-xs btn-primary" id="btnAddSpeaker" data-toggle="modal" data-target="#addSpeakerModal">'. lang('speakers_addlink') .'</button>
-                        <button type="button" class="btn btn-xs btn-primary" id="btnCreateSpeaker" data-toggle="modal" data-target="#createSpeakerModal">'. lang('speakers_createlink') .'</button>
+                        <button type="button" class="btn btn-xs btn-info" id="btnCreateSpeaker" data-toggle="modal" data-target="#createSpeakerModal"><span class="glyphicon glyphicon-cog"></span>'. lang('speakers_createlink') .'</button>
 						<div class="alert alert-danger error" role="alert">
 							<button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 							'. lang('speakers_errorLastSpkRole') .'

@@ -282,8 +282,9 @@ class LiveUDL extends CBCategory{
             if(is_array($thumb)){
                 $filename = uniqid() . strtolower(strrchr($thumb['name'], '.'));
                 $thumb['new_name'] = $filename;
-            }
-            
+            } elseif($oldfile === ''){
+				$filename = null;
+			}      
             
             if($lid === 0){
                 $this->db->insert(tbl('liveudl'), array('thumb', 'title', 'description', 'date', 'visible', 'active', 'homepage', 'rtmpid'), 
@@ -292,9 +293,15 @@ class LiveUDL extends CBCategory{
                 $query = 'SELECT * FROM '.tbl('liveudl').' AS live WHERE id = '. $lid;
                 $res = select($query);
                 if(count($res) === 1){
-                    $this->db->update(tbl('liveudl'), 
-                        array('thumb', 'title', 'description', 'date', 'visible', 'active', 'homepage', 'rtmpid'), 
-                        array($filename, $this->mysql_clean($title), $desc, $date->format('Y-m-d H:i:s'), $visible, $active, $front, $fmsid), 'id="'. $lid .'"');
+                    if($filename !== null){
+						$this->db->update(tbl('liveudl'), 
+							array('thumb', 'title', 'description', 'date', 'visible', 'active', 'homepage', 'rtmpid'), 
+							array($filename, $this->mysql_clean($title), $desc, $date->format('Y-m-d H:i:s'), $visible, $active, $front, $fmsid), 'id="'. $lid .'"');
+					} else {
+						$this->db->update(tbl('liveudl'), 
+							array('title', 'description', 'date', 'visible', 'active', 'homepage', 'rtmpid'), 
+							array($this->mysql_clean($title), $desc, $date->format('Y-m-d H:i:s'), $visible, $active, $front, $fmsid), 'id="'. $lid .'"');
+					}
                 }
             }
             

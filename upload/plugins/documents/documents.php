@@ -149,7 +149,7 @@ function addPanel(){
                     <div id="documents-panel" role="tabpanel" class="tab-pane">
                         <label for="documents-related">'. lang('documents_linked') .'</label> 
                         <button type="button" class="btn btn-xs btn-primary" id="btnAddDocument" data-toggle="modal" data-target="#addDocModal">'. lang('documents_addDoc') .'</button>
-						<a class="btn btn-xs btn-primary" id="btnCreateDocument" target="_blank" href="'. DOCUMENT_MANAGEPAGE_URL .'">'. lang('speakers_createlink') .'</a>
+						<a class="btn btn-xs btn-info" id="btnCreateDocument" target="_blank" href="'. DOCUMENT_MANAGEPAGE_URL .'"><span class="glyphicon glyphicon-cog"></span>'. lang('documents_createDoc') .'</a>
                         <table class="table table-striped">';
     foreach($sDocs as $doc){
         echo '

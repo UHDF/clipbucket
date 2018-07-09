@@ -32,7 +32,7 @@
         {/if}
         
         <div class="form-group">
-            {if $errors.thumb}<div class="alert alert-danger">{lang('liveudl_missingTitle')}</div>{/if}
+            {if $errors.thumb}<div class="alert alert-danger">{$errors.thumb}</div>{/if}
             <label class="col-sm-3 control-label" for="thumb">{lang('thumbnail')}</label>
             <div class="col-sm-7">
                 {if $live.thumb ne ''}

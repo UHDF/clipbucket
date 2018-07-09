@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clipbucket_language>
+    <name>Français</name>
+    <iso_code>fr</iso_code>
+    <phrases>
+		<rredir_sidebarMenu>Gestion des redirections</rredir_sidebarMenu>
+		<rredir_subtitle>Gestion des redirections</rredir_subtitle>
+		<rredir_title>Gestion des redirections</rredir_title>
+		<rredir_actionNew>Nouvelle redirection</rredir_actionNew>
+		<rredir_titleNew>Création d'une nouvelle redirection</rredir_titleNew>
+		<rredir_titleEdit>Modification d'une redirection</rredir_titleEdit>
+		<rredir_backTo>Retourner à la gestion des redirections</rredir_backTo>
+		<rredir_userGrp>Groupe d'utilisateurs</rredir_userGrp>
+		<rredir_pagefrom>Page d'origine</rredir_pagefrom>
+		<rredir_redirectto>Redirigé vers</rredir_redirectto>
+		<rredir_successCreation>Redirection créée avec succès</rredir_successCreation>
+		<rredir_successEdit>Redirection modifiée avec succès</rredir_successEdit>
+		<rredir_errorRedirectExists>La redirection pour le groupe d'utilisateurs et la page d'origine concernés existe déjà</rredir_errorRedirectExists>
+		<rredir_noRecord>Aucune redirection</rredir_noRecord>
+		<rredir_actionEdit>Modifier la redirection</rredir_actionEdit>
+		<rredir_actionDelete>Supprimer la redirection</rredir_actionDelete>
+		<rredir_modalDeleteTitle>Supprimer une redirection</rredir_modalDeleteTitle>
+		<rredir_modalAreUSure>Êtes-vous sûr(e) de vouloir supprimer cette redirection ?</rredir_modalAreUSure>
+		<rredir_alertSucessDelete>Redirection supprimée avec succès</rredir_alertSucessDelete>
+		<rredir_errorNoRedirect>Erreur, la redirection est introuvable ou n'existe pas</rredir_errorNoRedirect>
+    </phrases>
+</clipbucket_language>

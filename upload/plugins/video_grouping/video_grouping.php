@@ -175,7 +175,7 @@ function addPanelVidGrp(){
                     <div id="vidgrp-panel" role="tabpanel" class="tab-pane">
                         <label for="vidgrp-related">'. lang('vidgrp_linked') .'</label> 
                         <button type="button" class="btn btn-xs btn-primary" id="btnAddVidgrp" data-toggle="modal" data-target="#addVidgrpModal">'. lang('link_video_grouping') .'</button>
-                        <a class="btn btn-xs btn-primary" id="btnCreateVidgrp" target="_blank" href="'. VIDEO_GROUPINGS_MANAGE_PAGE_URL .'">'. lang('vidgrp_create') .'</a>';
+                        <a class="btn btn-xs btn-info" id="btnCreateVidgrp" target="_blank" href="'. VIDEO_GROUPINGS_MANAGE_PAGE_URL .'"><span class="glyphicon glyphicon-cog"></span>'. lang('vidgrp_create') .'</a>';
 	
     foreach($groupes as $g){
 		if($type !== $g['vdogroupingtype_name']){

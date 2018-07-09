@@ -56,7 +56,7 @@
         <vidm_VideoEdit>Editer</vidm_VideoEdit>
         <vidm_videoEnabled>Vidéo activée</vidm_videoEnabled>
         <vidm_videoFeatured>Vidéo ajoutée aux coups de coeur</vidm_videoFeatured>
-        <vidm_videoFields>Source vidéo</vidm_videoFields>
+        <vidm_videoFields>Informations vidéo</vidm_videoFields>
         <vidm_videoManager>Gestion des vidéos</vidm_videoManager>
         <vidm_videoNonConvertable>Non reconvertible (aucun fichier vidéo trouvé sur le serveur)</vidm_videoNonConvertable>
         <vidm_videoNotDisplayedHome>Vidéo retirée de la page d'accueil</vidm_videoNotDisplayedHome>

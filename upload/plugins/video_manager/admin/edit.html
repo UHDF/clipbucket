@@ -60,7 +60,7 @@
                         <td class="tablabel">{lang('vidm_uploadedBy')}</td>
                         <td>{$data.userid|get_username}</td>
                     </tr>
-					<tr>
+					{if $userquery->permission.user_level_id === '1'}<tr>
                         <td class="tablabel">{lang('vdo_status')}</td>
                         <td>
 							<select class="form-control" name="status">
@@ -69,7 +69,7 @@
 								<option value="Failed"{if $data.status=='Failed'} selected {/if}>{lang('vidm_failed')}</option>
 							</select>
 						</td>
-                    </tr>
+                    </tr>{/if}
                     
                     {ANCHOR place='vidm_video-informations_table'}
                 </tbody>
@@ -127,6 +127,9 @@
                             <input type="radio" id="share1" name="broadcast" value="unlisted" {if $fields.broadcast.checked eq 'unlisted'}checked {/if}/> {lang('vidm_shareUnlisted')}
                         </label>
                     </div>
+					
+					{ANCHOR place='vidm_sharing_before_link_video'}
+					
 					<div class="form-group">
 						<label for="link_video">{lang code='link_this_video'}</label>
 						<input type="text" name="_link_video" id="link_video"  value="{videoLink vdetails=$data}" class="form-control" />
@@ -152,9 +155,9 @@
                             <div class="form-group">
                                 <label for="vidm-duration-s">{lang('duration')}</label>
                                 <div id="vidm-duration">
-                                    <div class="bleft"><input  name="vidm-duration-h" type="number" id="vidm-duration-h" value="0" min="0" />:</div>
-                                    <div><input  name="vidm-duration-m" type="number" id="vidm-duration-m" value="0" min="0" />:</div>
-                                    <div class="bright"><input  name="vidm-duration-s" type="number" id="vidm-duration-s" value="0" min="0" /></div>
+                                    <div class="bleft"><input  name="vidm-duration-h" type="number" id="vidm-duration-h" value="0" min="0" /> h</div>
+                                    <div><input  name="vidm-duration-m" type="number" id="vidm-duration-m" value="0" min="0" /> min</div>
+                                    <div class="bright"><input  name="vidm-duration-s" type="number" id="vidm-duration-s" value="0" min="0" /> sec</div>
                                 </div>
                                 <input  name="duration" id="duration" type="hidden" value="{$data.duration}">
                             </div>
@@ -180,6 +183,9 @@
                             </ul>
                         </div>
                     </div>
+					
+					{ANCHOR place='vidm_video_before_upload_fields'}
+					
                     {foreach from = $custom_upload_fields item = field_group}
                     <div class="form-group">
                         {if $field_group.name eq 'remote_play_url'}
@@ -310,7 +316,9 @@
         $('#vidm-date').datetimepicker({
             controlType: 'select',
             oneLine: true,
-            timeFormat: 'HH:mm'
+            timeFormat: 'HH:mm',
+			changeMonth: true,
+			changeYear: true
         });
 
         $('#date').parent().find('span').click(function(e){

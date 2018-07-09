@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clipbucket_language>
+    <name>English</name>
+    <iso_code>en</iso_code>
+    <phrases>
+		<rredir_sidebarMenu>Redirections management</rredir_sidebarMenu>
+		<rredir_subtitle>Redirections management</rredir_subtitle>
+		<rredir_title>Redirections management</rredir_title>
+		<rredir_actionNew>New redirection</rredir_actionNew>
+		<rredir_titleNew>Create a new redirection</rredir_titleNew>
+		<rredir_titleEdit>Edit a redirection</rredir_titleEdit>
+		<rredir_backTo>Return to the redirections management</rredir_backTo>
+		<rredir_userGrp>Users group</rredir_userGrp>
+		<rredir_pagefrom>Original page</rredir_pagefrom>
+		<rredir_redirectto>Redirect to</rredir_redirectto>
+		<rredir_successCreation>Redirection successfully created</rredir_successCreation>
+		<rredir_successEdit>Redirection successfully edited</rredir_successEdit>
+		<rredir_errorRedirectExists>The redirection for the users group and the original page concerned already exists</rredir_errorRedirectExists>
+		<rredir_noRecord>No redirection</rredir_noRecord>
+		<rredir_actionEdit>Edit the redirection</rredir_actionEdit>
+		<rredir_actionDelete>Delete the redirection</rredir_actionDelete>
+		<rredir_modalDeleteTitle>Delete a redirection</rredir_modalDeleteTitle>
+		<rredir_modalAreUSure>Are you sure you want to delete this redirection?</rredir_modalAreUSure>
+		<rredir_alertSucessDelete>Redirection successfully deleted</rredir_alertSucessDelete>
+		<rredir_errorNoRedirect>Error, the redirection cannot be found or doesn't exist</rredir_errorNoRedirect>
+    </phrases>
+</clipbucket_language>

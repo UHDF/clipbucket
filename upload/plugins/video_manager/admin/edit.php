@@ -41,6 +41,10 @@ $video = mysql_clean($_GET['video']);
 if(isset($_POST['update'])){
     $Upload->validate_video_upload_form();
     if(empty($eh->error_list)){
+		$ec = filter_input(INPUT_POST, 'embed_code');
+		if(!in_array($ec, array(null, '', 'none'))){
+			$_POST['status'] = 'Successful';
+		}
         $myquery->update_video();
         $myquery->set_default_thumb($video, $_POST['default_thumb']);
     }

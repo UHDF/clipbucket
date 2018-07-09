@@ -20,17 +20,19 @@ class VideoExtension extends CBCategory{
 	 *
 	 */
 	function addEmptyVideo(){
-		global $db, $cbvid, $Upload;
+		global $db, $cbvid, $Upload, $Cbucket;
 		$title 	= lang("new_empty_video");
 		$file_name	= "".time().RandomString(5);
 		
 		#filename <<<<<$tmp="".strtotime($v['date_added']);
 		
 		$file_directory = createDataFolders();
+		
 		$vidDetails = array	(
 			'title' => $title,
 			'description' => $title,
-			'tags' => genTags(str_replace(' ',', ',$title)),
+			'tags' => $Cbucket->configs['template_dir'] === 'ulille' ? 'Université de Lille' : genTags(str_replace(' ',', ',$title)),
+			//'tags' => 'Université de Lille',
 			'category' => array($cbvid->get_default_cid()),
 			'file_name' => $file_name,
 			'file_directory' => $file_directory,
