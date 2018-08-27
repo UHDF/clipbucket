@@ -21,8 +21,8 @@ define("SUBTITLE_MAKER_URL",BASEURL.SITE_MODE."/plugin.php?folder=".SUBTITLE_MAK
 
 /**
  * Add a new entry "Subtitle maker" into the video manager menu named "Actions" associated to each video
- * 
- * @param int $vid 
+ *
+ * @param int $vid
  * 		the video id
  * @return string
  * 		the html string to be inserted into the menu
@@ -124,7 +124,7 @@ function makeSubtitleFile($marker, $subtitle, $nbcar_by_line = 70){
 					$subline .= " align:".$t[4]."";
 				}
 				$subline .= "\n".$t[3]."\n\n";
-				
+
 				fwrite($fp, $subline);
 
 			}
@@ -200,16 +200,16 @@ Portion de code pour envoyer un email :
 
 	$tpl = $cbemail->get_template('video_activation_email');
 	#$user_fields = $userquery->get_user_field($video['userid'],"username,email");
-	
+
 	$more_var = array
 	(
 		'{username}'	=> $video['username'],
 		'{video_link}' => videoLink($video)
 	);
-	
+
 	if(!is_array($var))
 		$var = array();
-	
+
 	$var = array_merge($more_var,$var);
 	$subj = $cbemail->replace($tpl['email_template_subject'],$var);
 	$msg = nl2br($cbemail->replace($tpl['email_template'],$var));
@@ -228,14 +228,14 @@ Portion de code pour envoyer un email :
 			$suburl = BASEURL.'/files/subtitle/subtitle_'.$data['videoid'].'.vtt';
 			$str="";
 			if (file_exists($subfile)){
-				$str= '<track kind="subtitles" src="'.$suburl.'" srclang="fr" label="French" default/>';
+				$str= '<track kind="subtitles" src="'.$suburl.'?'.time().'" srclang="fr" label="French" default/>';
 			}
 			echo $str;
 		}
 	}
 	// use {ANCHOR place="getSubtitleVtt" data=$vdata} to add the HTML string into the file.
 	register_anchor_function('getSubtitleVtt','getSubtitleVtt');
-	
+
 
 
 
@@ -245,7 +245,7 @@ Portion de code pour envoyer un email :
 if ($cbplugin->is_installed('common_library.php') && $userquery->permission[getStoredPluginName("mk_subtitle")]=='yes'){
 	$cbvid->video_manager_link[]='addSubtitleMaker';
 	add_admin_menu('Videos',lang('mksub_title'),'lstvideo.php',SUBTITLE_MAKER_BASE.'/admin');
-	
+
 }
 
 $cbvid->video_manager_links[]='addPublicSubtitleMaker';
