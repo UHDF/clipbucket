@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clipbucket_language>
+	<name>English</name>
+	<iso_code>en</iso_code>
+	<phrases>
+		<list_overlay>Overlay</list_overlay>
+		<position_overlay>Position</position_overlay>
+		<showbg_overlay>Show background</showbg_overlay>
+		<css_overlay>Additional CSS class</css_overlay>
+		<content_overlay>Content</content_overlay>
+		<begin_overlay>Begin (seconds)</begin_overlay>
+		<end_overlay>End (seconds)</end_overlay>
+		<add_overlay>Add overlay</add_overlay>
+		<update_overlay>Update</update_overlay>
+		<save_overlay>Save</save_overlay>
+		<delete_overlay>Delete</delete_overlay>
+		<no_overlay>No overlay for this video.</no_overlay>
+	</phrases>
+</clipbucket_language>

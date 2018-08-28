@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clipbucket_language>
+	<name>Français</name>
+	<iso_code>fr</iso_code>
+	<phrases>
+
+		<list_overlay>Couverture</list_overlay>
+
+		<position_overlay>Position</position_overlay>
+		<showbg_overlay>Afficher le fond</showbg_overlay>
+		<css_overlay>Classe CSS supplémentaire</css_overlay>
+		<content_overlay>Contenu</content_overlay>
+		<begin_overlay>Début (secondes)</begin_overlay>
+		<end_overlay>Fin (secondes)</end_overlay>
+
+		<add_overlay>Ajouter une couverture</add_overlay>
+		<update_overlay>Mettre à jour</update_overlay>
+		<save_overlay>Enregistrer</save_overlay>
+		<delete_overlay>Supprimer</delete_overlay>
+
+		<no_overlay>Aucun overlay pour cette vidéo.</no_overlay>
+
+	</phrases>
+</clipbucket_language>

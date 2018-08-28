@@ -1,0 +1,169 @@
+<legend>{lang("list_overlay")}</legend>
+
+<div id="overlay_message" style="display: none;">
+	<button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	<div class="msg"></div>
+</div>
+
+
+<div>
+	<form id="storedOverlay" class="form-horizontal"></form>
+	<a onclick="updateOverlay();" class="btn btn-primary btn-xs" id="updateOverlays"><span class="glyphicon glyphicon-refresh"></span>{lang("update_overlay")}</a>
+</div>
+
+
+<h3>{lang("add_overlay")} :</h3>
+
+<form class="form-horizontal">
+	<div id="ovform">
+
+		<div class="form-group">
+			<label class="col-sm-2 control-label" for="ovalign">{lang("position_overlay")}</label>
+			<div class="col-sm-4">
+				<select class="form-control" name="ovalign" id="ovalign">
+						<option value="top-left">top-left</option>
+						<option value="top">top</option>
+						<option value="top-right">top-right</option>
+						<option value="right">right</option>
+						<option value="bottom-right">bottom-right</option>
+						<option value="bottom">bottom</option>
+						<option value="bottom-left">bottom-left</option>
+						<option value="left">left</option>
+						<option value="fullpage">fullpage</option>
+				</select>
+			</div>
+
+			<label class="col-sm-2 control-label" for="ovshowbg">{lang("showbg_overlay")}</label>
+			<div class="col-sm-4">
+				<select class="form-control" name="ovshowbg" id="ovshowbg">
+						<option value="true">true</option>
+						<option value="false">false</option>
+				</select>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-2 control-label" for="ovclass">Classe CSS supplémentaire</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control" name="ovclass" id="ovclass" value="">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-2 control-label" for="ovcontent">{lang("content_overlay")}</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control" name="ovcontent" id="ovcontent" value="">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-2 control-label" for="ovstart">{lang("begin_overlay")}</label>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" name="ovstart" id="ovstart" value="">
+			</div>
+
+			<label class="col-sm-2 control-label" for="ovend">{lang("end_overlay")}</label>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" name="ovend" id="ovend" value="">
+			</div>
+		</div>
+	</div>
+</form>
+
+<a onclick="saveOverlay();" class="btn btn-primary btn-xs" id="saveOverlays"><span class="glyphicon glyphicon-save"></span>{lang('save_overlay')}</a>
+
+
+
+<script>
+
+	function displayStoredOverlays(){
+		var $video="{$video}";
+		{literal}
+		var formData = {action:"init",video:$video};
+		// console.log('vid = ' + $video);
+		$.ajax({
+			type	  	: "POST",
+			url 	  	: "../plugins/video_overlay/save_overlays.php",
+			data		: formData,
+			dataType : "html",
+			beforeSend: function(){
+				document.getElementById('storedOverlay').innerHTML = "Chargement en cours";
+			},
+			success : function(q) {
+				//if (q){
+					document.getElementById('storedOverlay').innerHTML = q;
+				//}
+			}
+		});
+		{/literal}
+	}
+
+	$(document).ready(function() {
+		// console.log('init');
+		displayStoredOverlays();
+	});
+
+	function deleteOverlay(id){
+		{literal}
+		var formData = {action:"remove", id:id};
+		$.ajax({
+			type	  	: "POST",
+			url 	  	: "../plugins/video_overlay/save_overlays.php",
+			data		: formData,
+			dataType : "html",
+			success : function(q) {
+				//if (q){
+					$("#ovform"+id).remove();
+				//}
+			}
+		});
+		{/literal}
+	}
+
+	function updateOverlay(){
+		var tab = new Array();
+
+		for (var i = 1; i <= $("#ovnumber").val(); i++){
+			tab[(i-1)] = $("#ovid" + i).val() + '<sep>' + $("#ovalign" + i).val() + '<sep>' + $("#ovshowbg" + i).val() + '<sep>' + $("#ovclass" + i).val() + '<sep>' + $("#ovcontent" + i).val() + '<sep>' + $("#ovstart" + i).val() + '<sep>' + $("#ovend" + i).val();
+		}
+
+		{literal}
+		var formData = {action:"update", content:tab};
+		$.ajax({
+			type	  	: "POST",
+			url 	  	: "../plugins/video_overlay/save_overlays.php",
+			data		: formData,
+			dataType : "html",
+			success : function(q) {
+				//if (q){
+				//}
+			}
+		});
+		{/literal}
+	}
+
+	function saveOverlay(){
+		var $video="{$video}";
+		{literal}
+		var formData = {action:"save", ovalign:$("#ovalign").val(), ovshowbg:$("#ovshowbg").val(), ovclass:$("#ovclass").val(), ovcontent:$("#ovcontent").val(), ovstart:$("#ovstart").val(), ovend:$("#ovend").val(), videoid:$video};
+		$.ajax({
+			type	  	: "POST",
+			url 	  	: "../plugins/video_overlay/save_overlays.php",
+			data		: formData,
+			dataType : "html",
+			success : function(q) {
+				//if (q){
+					displayStoredOverlays();
+
+					$("#ovalign").val('top-left');
+					$("#ovshowbg").val('true');
+					$("#ovclass").val('');
+					$("#ovcontent").val('');
+					$("#ovstart").val('');
+					$("#ovend").val('');
+				//}
+			}
+		});
+		{/literal}
+	}
+</script>
