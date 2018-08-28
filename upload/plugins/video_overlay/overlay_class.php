@@ -87,7 +87,7 @@ class Overlay extends CBCategory{
 				echo '<div class="form-group">';
 					echo '<label class="col-sm-2 control-label" for="ovcontent'.$i.'">'.lang("content_overlay").'</label>';
 					echo '<div class="col-sm-10">';
-						echo '<input type="text" class="form-control" name="ovcontent'.$i.'" id="ovcontent'.$i.'" value="'.$json->{"content"}.'&lt;a href=&quot;plop.com&quot;>plop</a>">';
+						echo '<input type="text" class="form-control" name="ovcontent'.$i.'" id="ovcontent'.$i.'" value="'.$json->{"content"}.'">';
 					echo '</div>';
 				echo '</div>';
 
