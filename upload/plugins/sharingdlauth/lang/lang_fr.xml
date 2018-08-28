@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clipbucket_language>
+    <name>Français</name>
+    <iso_code>fr</iso_code>
+    <phrases>
+        <shdlauth_Yes>Oui</shdlauth_Yes>
+        <shdlauth_No>Non</shdlauth_No>
+        <shdlauth_SharingAuthorization>Partage autorisé ?</shdlauth_SharingAuthorization>
+        <shdlauth_DlAuthorization>Téléchargement autorisé ?</shdlauth_DlAuthorization>
+    </phrases>
+</clipbucket_language>

@@ -26,7 +26,8 @@ if(!function_exists('getVTTFile')){
 	 */
 	function getVTTFile(){
 		global $db;
-		$query = " SELECT * FROM ".tbl('video')." WHERE `videoid`='".$_GET["v"]."'";
+		$query = " SELECT * FROM ".tbl('video')." WHERE `videokey`='".$_GET["v"]."'";
+		//echo '<pre>'.$query.'</pre>';die();
 		$respons = select( $query );
 		$str="";
 		if (count($respons)>0) {
@@ -54,13 +55,17 @@ foreach($p_installed as $p){
 }
 
 $get_vid = filter_input(INPUT_GET, 'video');
-if($videoManagerIsActive && $get_vid){
-	$_POST['data']['video'] = $get_vid;
-	register_anchor('<li role="presentation"><a href="#chapters" aria-controls="required" role="tab" data-toggle="tab">'. lang('Chapters') .'</a></li>', 'vidm_navtab');
-	$html = '';
-	ob_start();
-	require_once CHAPTER_ADMIN_DIR .'/set_chapters.php';
-	$html = ob_get_clean();
-	register_anchor('<div id="chapters" role="tabpanel" class="tab-pane">'. $html .'</div>', 'vidm_tabcontent');
+if($get_vid){
+	$cvid = $db->select(tbl('video'), '*', 'embed_code = "none" AND (videoid = '. intval($get_vid) .' OR videokey = '. mysql_clean($get_vid).')');
+	if($videoManagerIsActive && count($cvid)){
+		$_POST['data']['video'] = $get_vid;
+		register_anchor('<li role="presentation"><a href="#chapters" aria-controls="required" role="tab" data-toggle="tab">'. lang('Chapters') .'</a></li>', 'vidm_navtab');
+		$html = '';
+		ob_start();
+		require_once CHAPTER_ADMIN_DIR .'/set_chapters.php';
+		$html = ob_get_clean();
+		register_anchor('<div id="chapters" role="tabpanel" class="tab-pane">'. $html .'</div>', 'vidm_tabcontent');
+	}
 }
+
 ?>

@@ -30,7 +30,7 @@ $errors = null;
 if(!empty($_POST)){
     $lid = intval(filter_input(INPUT_POST, 'lid'));
     $fmsid = intval(filter_input(INPUT_POST, 'fmsid'));
-    
+	
     if(filter_input(INPUT_POST, 'action') === 'delete'){
         $title = $liveudlquery->deleteLive($lid);
         $_SESSION['liveudl_flashmsg'] = lang('liveudl_deleteSuccess', $title);
@@ -171,6 +171,9 @@ if($id){
         }
     } else 
         $title = 'liveudl_title_delete';
+} elseif($errors){
+	if($errLive['id']) $title = 'liveudl_title_edit';
+	$live = $errLive;
 }
 
 $rtmp = $liveudlquery->getAllRtmp(true);

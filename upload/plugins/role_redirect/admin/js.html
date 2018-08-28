@@ -1,0 +1,43 @@
+{literal}<script type="text/javascript">
+	$(function(){
+		$('table.table.manageRredir .action .btn.delete').click(function(e){
+			$('#rrConfirmDelete .modal-body input[name="rr"]').val($(this).closest('tr').attr('data-rr'));
+			$('#rrConfirmDelete').modal('show');
+		});
+		
+		$('#rralert button').click(function(e){
+			$('#rralert').slideUp('fast');
+		});
+		
+		$('#rrConfirmDelete .modal-footer .btn-primary').click(function(e){
+			var rr = $('#rrConfirmDelete .modal-body input[name="rr"]').val();
+			
+			$.ajax({
+				type: 'POST',
+				url: '{/literal}{$rredir_ajax}{literal}',
+				data: {rr: rr},
+				success: function(msg){
+					if(msg !== ''){
+						$('#rralert').removeClass('alert-success').addClass('alert-danger').find('p').html(msg);
+						$('#rralert').slideDown('fast');
+					} else {
+						if($('table.table.manageRredir tbody tr').length === 1){
+							$('table.table.manageRredir').slideUp('fast', function(){
+								$(this).remove();
+							});
+						} else {
+							$('table.table.manageRredir tr[data-rr="'+ rr +'"]').slideUp('fast', function(){
+								$(this).remove();
+							});
+						}
+						
+						$('#rralert').removeClass('alert-danger').addClass('alert-success').find('p').html('{/literal}{lang('rredir_alertSucessDelete')}{literal}');
+						$('#rralert').slideDown('fast');
+					}
+					
+					$('#rrConfirmDelete').modal('hide');
+				}
+			});
+		});
+	});
+</script>{/literal}

@@ -1,16 +1,21 @@
 <?php
-/* 
+/*
  *****************************************************************
- | Copyright (c) 2007-2010 Clip-Bucket.com. All rights reserved.	
- | @ Author : ArslanHassan											
- | @ Software : ClipBucket , © PHPBucket.com						
+ | Copyright (c) 2007-2010 Clip-Bucket.com. All rights reserved.
+ | @ Author : ArslanHassan
+ | @ Software : ClipBucket , © PHPBucket.com
  ******************************************************************
 */
 
 define("THIS_PAGE",'rss');
 require 'includes/config.inc.php';
 
-if(!array_key_exists('cat',$_GET) || !array_key_exists('tag',$_GET) || !is_numeric($_GET['cat'])) {
+if(
+	!array_key_exists('cat',$_GET) ||
+	!array_key_exists('tag',$_GET) ||
+	!is_numeric($_GET['cat']) ||
+	!array_key_exists('mode',$_GET)
+) {
 	header('Location: /404.php');
 	exit();
 }
@@ -45,40 +50,39 @@ switch($mode)
 	case 'recent':
 	default:
 	{
-		$videos = get_videos(array('limit'=>$limit,'order'=>'date_added DESC', 'tags'=>$tag, 'category'=>$cat));
+		$videos = get_videos(array('limit'=>$limit,'broadcast'=>'public','order'=>'date_added DESC', 'tags'=>$tag, 'category'=>$cat));
 		$title  = "Vidéos récentes";
 	}
 	break;
-	
+
 	case 'featured':
 	{
-			$videos = get_videos(array('limit'=>$limit,'featured'=>'yes','order'=>'featured_date DESC', 'tags'=>$tag, 'category'=>$cat));
+			$videos = get_videos(array('limit'=>$limit,'broadcast'=>'public','featured'=>'yes','order'=>'featured_date DESC', 'tags'=>$tag, 'category'=>$cat));
 			$title  = "Vidéos à la une";
 	}
 	break;
-	
+
 	case 'views':
 	{
-		
-		 $videos = get_videos(array('limit'=>$limit,'order'=>'views DESC', 'tags'=>$tag, 'category'=>$cat));
+		 $videos = get_videos(array('limit'=>$limit,'broadcast'=>'public','order'=>'views DESC', 'tags'=>$tag, 'category'=>$cat));
 		 $title = "Most Viewed Videos";
 	}
 	break;
-	
+
 	case 'rating':
 	{
-		 $videos = get_videos(array('limit'=>$limit,'order'=>'rating DESC', 'tags'=>$tag, 'category'=>$cat));
+		 $videos = get_videos(array('limit'=>$limit,'broadcast'=>'public','order'=>'rating DESC', 'tags'=>$tag, 'category'=>$cat));
 		 $title = "Top Rated Videos";
 	}
 	break;
-	
+
 	case 'watching':
 	{
-		 $videos = get_videos(array('limit'=>$limit,'order'=>'last_viewed DESC', 'tags'=>$tag, 'category'=>$cat));
+		 $videos = get_videos(array('limit'=>$limit,'broadcast'=>'public','order'=>'last_viewed DESC', 'tags'=>$tag, 'category'=>$cat));
 		 $title = "Videos Being Watched";
 	}
 	break;
-	
+
 	case 'user':
 	{
 		 $user = mysql_clean($_GET['username']);
@@ -102,7 +106,7 @@ switch($mode)
 		$videos = array( $vid );
 		$title = "Informations on a single video";
 	}
-	
+
 	break;
 }
 
@@ -114,14 +118,14 @@ subtitle($title);
 <title><?=cbtitle()?></title>
 <link><?=BASEURL?></link>
 <atom:link href="<?=htmlspecialchars('http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . "{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}")?>" rel="self" type="application/rss+xml"/>
-    <image> 
+    <image>
         <url><?=website_logo()?></url>
         <link><?=BASEURL?></link>
         <title><?=cbtitle()?></title>
     </image>
     <description><?=$Cbucket->configs['description']?></description>
 <?php
-   
+
     foreach($videos as $video)
     {
     ?>
@@ -130,7 +134,7 @@ subtitle($title);
         <title><?=substr($video['title'],0,500)?></title>
         <link><?=video_link($video)?></link>
         <description>
-                <![CDATA[   
+                <![CDATA[
         <table width="600" border="0" cellspacing="0" cellpadding="2">
         <tr>
         <td width="130" height="90" align="center" valign="middle"><img src="<?=get_thumb($video)?>"  border="0"/></td>
@@ -148,7 +152,7 @@ subtitle($title);
         <pubDate><?=date_format(date_create($video['date_added']),DateTime::RSS)?></pubDate>
         <media:player url="<?=video_link($video)?>" />
         <media:thumbnail url="<?=get_thumb($video)?>" width="120" height="90" />
-        <![CDATA[<media:title><?=substr($video['title'],0,500)?></media:title> 
+        <![CDATA[<media:title><?=substr($video['title'],0,500)?></media:title>
         <media:category label="Tags"><?=strip_tags(tags($video['tags'],'video'))?></media:category>]]>
         <media:credit><?=$video['username']?></media:credit>
     </item>

@@ -45,5 +45,15 @@
 		<speakers_removeLinked>Retirer l'intervenant</speakers_removeLinked>
 		<speakers_NoResultForQuery>Aucun résultat correspondant au terme</speakers_NoResultForQuery>
 		<speakers_backToVideo>Revenir à la vidéo</speakers_backToVideo>
+		
+		<speakers_firstname>Prénom</speakers_firstname>
+		<speakers_lastname>Nom</speakers_lastname>
+		<speakers_roles>Rôles</speakers_roles>
+		<speakers_role>Rôle</speakers_role>
+		<speakers_addRole>Ajouter un rôle</speakers_addRole>
+		<speakers_removeRole>Supprimer le rôle</speakers_removeRole>
+		<speakers_missingFirstname>Veuillez indiquer le prénom de l'intervenant</speakers_missingFirstname>
+		<speakers_missingLastname>Veuillez indiquer le nom de l'intervenant</speakers_missingLastname>
+		<speakers_errorLastSpkRole>Erreur lors de la récupération de l'intervenant</speakers_errorLastSpkRole>
 	</phrases>
 </clipbucket_language>

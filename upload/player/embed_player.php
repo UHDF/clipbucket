@@ -15,7 +15,6 @@
  define("THIS_PAGE","watch_video");
 
 include("../includes/config.inc.php"); 
- 
 $vid = mysql_clean($_GET['vid']);
 //gettin video details
 $vdetails = get_video_details($vid);

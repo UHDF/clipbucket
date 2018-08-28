@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clipbucket_language>
+    <name>English</name>
+    <iso_code>en</iso_code>
+    <phrases>
+        <chp_actionNew>Add to homepage</chp_actionNew>
+		<chp_addVideo>Add the video to the homepage</chp_addVideo>
+		<chp_alertSucessDelete>The homepage has been deleted</chp_alertSucessDelete>
+		<chp_backto>Return to the homepages management</chp_backto>
+		<chp_btnPick>Add to picked videos</chp_btnPick>
+		<chp_btnUnpick>Remove from picked video</chp_btnUnpick>
+		<chp_createSuccess>The homepage <strong>%s</strong> has been created</chp_createSuccess>
+		<chp_createTitle>Creation of a homepage</chp_createTitle>
+		<chp_deleteBtnTitle>Delete the homepage</chp_deleteBtnTitle>
+		<chp_editBtnTitle>Edit the homepage</chp_editBtnTitle>
+		<chp_editSuccess>The homepage <strong>%s</strong> has been modified</chp_editSuccess>
+		<chp_editTitle>Edition of a homepage</chp_editTitle>
+		<chp_errorExists>The name and/or slug of the homepage already exist(s)</chp_errorExists>
+		<chp_errorName>The name cannot be empty</chp_errorName>
+		<chp_errorSaveDb>Error while writing in database</chp_errorSaveDb>
+		<chp_errorSaveForm>Error while saving datas</chp_errorSaveForm>
+		<chp_errorSlug>The slug cannot be empty</chp_errorSlug>
+		<chp_labelname>Homepage's name</chp_labelname>
+		<chp_labelslug>Slug</chp_labelslug>
+		<chp_managePage>Manage the homepage's videos</chp_managePage>
+		<chp_manageTitle>Manage the homepage</chp_manageTitle>
+		<chp_modalAreUSure>Are you sure you want to delete the homepage</chp_modalAreUSure>
+		<chp_modalDeleteTitle>Delete a homepage</chp_modalDeleteTitle>
+		<chp_noHomeForId>No homepage has the ID <strong>%s</strong></chp_noHomeForId>
+		<chp_nohomepage>No homepage available</chp_nohomepage>
+		<chp_noResultForQuery>No result for the term</chp_noResultForQuery>
+		<chp_novideofound>No video found</chp_novideofound>
+		<chp_noVideoSelected>No selected video</chp_noVideoSelected>
+		<chp_orderBy>Sort by</chp_orderBy>
+		<chp_searchPlaceholder>Search</chp_searchPlaceholder>
+		<chp_searchTitle>Title</chp_searchTitle>
+		<chp_tags>Tags</chp_tags>
+		<chp_title>Homepages management</chp_title>
+		<chp_ulvl>User level</chp_ulvl>
+		
+		<chp_tabSuggest>Home pages</chp_tabSuggest>
+		<chp_suggestHp>Suggest in homepage</chp_suggestHp>
+		<chp_addHp>Add a suggestion</chp_addHp>
+		<chp_removeSuggested>Remove the homepage</chp_removeSuggested>
+		<chp_allVideos>All videos</chp_allVideos>
+		<chp_suggestedVideos>Suggested videos</chp_suggestedVideos>
+    </phrases>
+</clipbucket_language>

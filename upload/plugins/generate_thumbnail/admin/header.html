@@ -6,6 +6,10 @@
 		});
 		$('#genThumbModal .modal-footer').slideUp('fast');
 		
+		if($('#genThumbModal').hasClass('deleteThumb')){
+			return deleteThumb();
+		}
+		
 		var p = videojs('cb_video_js');
 		var formData = {thumb_time:p.currentTime(), video_id:$('#videoid').val()};
 		$.ajax({
@@ -13,7 +17,6 @@
 			url: '../plugins/generate_thumbnail/create_thumbnail.php',
 			data: formData,
 			success: function(q){
-				console.log(q);
 				q = $.parseJSON(q);
 				$('body').removeClass('genThumbGeneration');
 				if(q.error !== ''){
@@ -22,7 +25,12 @@
 						$('#genThumbModal .alert').fadeIn('fast');
 					});
 				} else if(q.res !== ''){
+					if($('#vidm-video ul.ace-thumbnails li').length === 1 && /processing.jpg$/.test($('#vidm-video ul.ace-thumbnails li:first-child img').attr('src'))){
+						$('#vidm-video ul.ace-thumbnails').html('');
+					}
+					
 					$('#vidm-video ul.ace-thumbnails').append(q.res);
+					askBeforeDeleteThumb($('#vidm-video ul.ace-thumbnails li:last-child .tools a'));
 					$('#genThumbModal').modal('hide');
 				}
 			}
@@ -33,9 +41,9 @@
 		var modal = '<div class="modal fade" id="genThumbModal" tabindex="-1" role="dialog" aria-labelledby="genThumbModalLabel">'
 		modal += '<div class="modal-dialog" role="document"><div class="modal-content"><div class="modal-header">';
 		modal += '<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
-		modal += '<h4 class="modal-title" id="genThumbModalLabel">{/literal}{lang('genThumb_modalTitle')}{literal}</h4></div>';
-		modal += '<div class="modal-body"><p class="question">{/literal}{lang('genThumb_modalBody')}{literal}</p>';
-		modal += '<div class="loading"><p>{/literal}{lang('genThumb_modalBody2')}{literal}</p><div class="gtspinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div></div>';
+		modal += '<h4 class="modal-title" id="genThumbModalLabel"></h4></div>';
+		modal += '<div class="modal-body"><p class="question"></p>';
+		modal += '<div class="loading"><p></p><div class="gtspinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div></div>';
 		modal += '<div class="alert alert-danger"></div></div>';
 		modal += '<div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">{/literal}{lang('cancel')}{literal}</button>';
 		modal += '<button type="button" class="btn btn-primary btn-ok">Ok</button></div></div></div></div>';
@@ -50,6 +58,9 @@
 		genthumb_addModal();
 		btn = $('#generateThumbnailAtTime');
 		btn.click(function(e){
+			$('#genThumbModal h4#genThumbModalLabel').html('{/literal}{lang('genThumb_modalTitle')}{literal}');
+			$('#genThumbModal .modal-body .question').html('{/literal}{lang('genThumb_modalBody')}{literal}');
+			$('#genThumbModal .modal-body .loading p').html('{/literal}{lang('genThumb_modalBody2')}{literal}');
 			$('#genThumbModal').modal();
 		});
 
@@ -63,12 +74,105 @@
 			$('#genThumbModal .question').css('display', 'block');
 			$('#genThumbModal .loading').css('display', 'none');
 			$('#genThumbModal .alert').css('display', 'none').html('');
+			
+			$('#vidm-video ul.ace-thumbnails .tools a').removeAttr('id');
+		});
+	}
+	
+	function deleteThumb(){
+		var _this = $('#vidm-video ul.ace-thumbnails .tools a#thumbToDelete')
+		var toDel = _this.closest('.tools').find('input').val();
+		var next = '';
+		if(_this.closest('ul').find('li').length > 1){
+			if(_this.closest('.tools').find('input').is(':checked')) next = 'checked';
+			else next = 'none';
+		}
+		var li = _this.closest('li');
+		$.ajax({
+			type: 'POST',
+			url: '../plugins/generate_thumbnail/delete_thumbnail.php',
+			data: {id: $('#videoid').val(), 'd': toDel, 'n': next},
+			success: function(q){
+				$('body').removeClass('genThumbGeneration');
+				q = $.parseJSON(q);
+				
+				if(q.error !== ''){
+					$('#genThumbModal .alert').html(q.error);
+					$('#genThumbModal .loading').fadeOut('fast', function(){
+						$('#genThumbModal .alert').fadeIn('fast');
+					});
+				} else if(q.res !== ''){
+					if(q.res === 'last'){
+						var last = li.closest('ul').find('li:last-child');
+						if(li.html() === last.html()) last = last.prev();
+						last.find('.tools input').prop('checked', true);
+					} else {
+						li.closest('ul').append(q.res);
+					}
+					li.remove();
+					$('#genThumbModal').removeClass('deleteThumb');
+					$('#genThumbModal').modal('hide');
+				}
+			}
+		});
+	}
+	
+	function askBeforeDeleteThumb($a){
+		$a.click(function(e){
+			e.preventDefault();
+			$(this).attr('id', 'thumbToDelete');
+			$('#genThumbModal h4#genThumbModalLabel').html('{/literal}{lang('genThumb_modalTitle2')}{literal}');
+			$('#genThumbModal .modal-body .question').html('{/literal}{lang('genThumb_modalBody3')}{literal}');
+			$('#genThumbModal .modal-body .loading p').html('{/literal}{lang('genThumb_modalBody4')}{literal}');
+			$('#genThumbModal').addClass('deleteThumb');
+			$('#genThumbModal').modal('show');
+			/*if(confirm('Voulez-vous supprimer cette miniature ?')){
+				var toDel = $(this).closest('.tools').find('input').val();
+				var next = '';
+				if($(this).closest('ul').find('li').length > 1){
+					if($(this).closest('.tools').find('input').is(':checked')) next = 'checked';
+					else next = 'none';
+				}
+				var li = $(this).closest('li');
+				$.ajax({
+					type: 'POST',
+					url: '../plugins/generate_thumbnail/delete_thumbnail.php',
+					data: {id: $('#videoid').val(), 'd': toDel, 'n': next},
+					success: function(q){
+						q = $.parseJSON(q);
+						
+						if(q.error !== ''){
+							$('#genThumbModal .alert').html(q.error);
+							$('#genThumbModal .loading').fadeOut('fast', function(){
+								$('#genThumbModal .alert').fadeIn('fast');
+							});
+						} else if(q.res !== ''){
+							if(q.res === 'last'){
+								var last = li.closest('ul').find('li:last-child');
+								if(li.html() === last.html()) last = last.prev();
+								last.find('.tools input').prop('checked', true);
+							} else {
+								li.closest('ul').append(q.res);
+							}
+							li.remove();
+							//$('#genThumbModal').modal('hide');
+						}
+					}
+				});
+			}*/
+		});
+	}
+	
+	function changeDeleteThumb(){
+		$('#vidm-video ul.ace-thumbnails .tools').each(function(index){
+			askBeforeDeleteThumb($(this).find('a'));
 		});
 	}
 
 	$(function(){
-		if($('#vidm-video .vidm-thumbs div.actions').length){
+		if($('#vidm-video .vidm-thumbs div.actions').length && typeof videojs !== 'undefined'){
 			genthumb_addBtn($('#vidm-video .vidm-thumbs div.actions'));
+			changeDeleteThumb();
 		}
 	});
 {/literal}</script>

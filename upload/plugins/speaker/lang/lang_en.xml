@@ -45,5 +45,15 @@
 		<speakers_removeLinked>Unlink the speaker</speakers_removeLinked>
 		<speakers_NoResultForQuery>No result for the term</speakers_NoResultForQuery>
 		<speakers_backToVideo>Back to video</speakers_backToVideo>
+		
+		<speakers_firstname>Firstname</speakers_firstname>
+		<speakers_lastname>Lastname</speakers_lastname>
+		<speakers_roles>Roles</speakers_roles>
+		<speakers_role>Role</speakers_role>
+		<speakers_addRole>Add a role</speakers_addRole>
+		<speakers_removeRole>Remove the role</speakers_removeRole>
+		<speakers_missingFirstname>The firstname cannot be empty</speakers_missingFirstname>
+		<speakers_missingLastname>The lastname cannot be empty</speakers_missingLastname>
+		<speakers_errorLastSpkRole>Error while getting back the speaker</speakers_errorLastSpkRole>
 	</phrases>
 </clipbucket_language>

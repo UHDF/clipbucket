@@ -8,10 +8,10 @@
 */
 
 define("THIS_PAGE",'ajax');
-
+$is_ajax = true;
+$mode = $_POST['mode'];
 require 'includes/config.inc.php';
 cleanup_post();
-$mode = $_POST['mode'];
 
 if(!empty($mode))
 {
@@ -531,16 +531,26 @@ if(!empty($mode))
 		case 'subscribe_user':
 		{
 			$subscribe_to = mysql_clean($_POST['subscribe_to']);
+			$username = username();
+			$mailId = $userquery->get_user_details($subscribe_to,false,true);
 			$userquery->subscribe_user($subscribe_to);
 			if(msg())
 			{
 				$msg = msg_list();
-				$msg = '<div class="msg">'.$msg[0].'</div>';
+				$msg['msg'] = $msg[0]; unset($msg[0]);
+				$msg['typ'] = 'msg';
+				if(!userid()) $msg['severity'] = 2;
+				else $msg['severity'] = 1;
+				$msg = json_encode($msg);
 			}
 			if(error())
 			{
 				$msg = error_list();
-				$msg = '<div class="error">'.$msg[0].'</div>';
+				$msg['msg'] = $msg[0]; unset($msg[0]);
+				$msg['typ'] = 'err';
+				if(!userid()) $msg['severity'] = 2;
+				else $msg['severity'] = 1;
+				$msg = json_encode($msg);
 			}
 			echo $msg;
 		}
@@ -562,6 +572,18 @@ if(!empty($mode))
 			}
 			echo $msg;
 		}
+		break;
+
+		case 'get_subscribers_count':
+		    $userid = $_POST['userid'];
+			if(isset($userid) ) {
+				$sub_count = $userquery->get_user_subscribers($userid,true);
+				echo json_encode(array("subscriber_count"=>$sub_count));
+			}
+			else{
+				echo json_encode(array("msg"=>"Userid is empty"));
+			}
+
 		break;
 
 

@@ -229,7 +229,7 @@ Portion de code pour envoyer un email :
 			$suburl = BASEURL.'/files/subtitle/subtitle_'.$data['videoid'].'.vtt';
 			$str="";
 			if (file_exists($subfile)){
-				$str= '<track kind="subtitles" src="'.$suburl.'" srclang="fr" label="French" default/>';
+				$str= '<track kind="subtitles" src="'.$suburl.'?'.time().'" srclang="fr" label="French" default/>';
 			}
 			echo $str;
 		}

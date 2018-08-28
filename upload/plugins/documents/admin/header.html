@@ -16,7 +16,9 @@ $( document ).ready( function() {
 </script>
 
 <style>
-    #documents-panel #btnAddDocument{ margin: 0 0 5px 15px; border-width: 1px; padding: 4px 12px; }
+    #documents-panel #btnAddDocument, #documents-panel #btnCreateDocument{ margin: 0 0 5px 15px; border-width: 1px; padding: 4px 12px; }
+	#documents-panel #btnCreateDocument{ float: right; }
+	#documents-panel #btnCreateDocument span{ padding-right: 5px; }
     #documents-panel .mgsg_docs .selected-doc button{ border: 1px; background: transparent !important; color: darkred !important; margin-right: 20px; }
     #documents-panel table.table td{ vertical-align: middle; }
     #documents-panel table.table td.docAction{ width: 42px; text-align: center; }

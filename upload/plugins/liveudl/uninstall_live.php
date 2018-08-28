@@ -24,7 +24,6 @@ function uninstallLive() {
  * Remove watch_live.php
  */
 function removeFiles(){
-    unlink(BASEDIR .'/watch_live.php');
     delTree(BASEDIR .'/files/thumbs/lives');
 }
 

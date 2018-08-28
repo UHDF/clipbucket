@@ -106,7 +106,9 @@ global $videoExtension;
 if ($cbplugin->is_installed('common_library.php') &&
 		$userquery->permission[getStoredPluginName("video_extensions")]=='yes' &&
 		substr($_SERVER['SCRIPT_NAME'], -17, 17) == "video_manager.php" && $_GET['newvideo'])	{
-	$videoExtension->addEmptyVideo();
+		$id = $videoExtension->addEmptyVideo();
+		header('Location: edit_video.php?video='. $id);
+		exit;
 }
 	
 /**
@@ -157,13 +159,40 @@ foreach($p_installed as $p){
 }
 
 $get_vid = filter_input(INPUT_GET, 'video');
-if($videoManagerIsActive && $get_vid){
+if($videoManagerIsActive && $get_vid && substr($_SERVER['SCRIPT_NAME'], -14, 14) === 'edit_video.php'){
 	$_POST['data']['video'] = $get_vid;
-	register_anchor('<li role="presentation"><a href="#encoding" aria-controls="required" role="tab" data-toggle="tab">'. lang('Encoding_tab') .'</a></li>', 'vidm_navtab');
+	//register_anchor('<li role="presentation"><a href="#encoding" aria-controls="required" role="tab" data-toggle="tab">'. lang('Encoding_tab') .'</a></li>', 'vidm_navtab');
 	$html = '';
 	ob_start();
 	require_once VIDEO_EXTENSIONS_ADMIN_DIR .'/show_encoding.php';
 	$html = ob_get_clean();
-	register_anchor('<div id="encoding" role="tabpanel" class="tab-pane">'. $html .'</div>', 'vidm_tabcontent');
+	// register_anchor('<div id="encoding" role="tabpanel" class="tab-pane">'. $html .'</div>', 'vidm_tabcontent');
+	register_anchor('<div id="vidm_encodingprogress">'. $html .'</div>', 'vidm_video_before_upload_fields');
+	
+	// GESTION ASSOCIATION DE VIDEO EN COURS D'ENCODAGE
+	$new_video_src = filter_input(INPUT_POST, 'video_extensions_pending_video');
+	if($new_video_src !== null && $new_video_src !== ''){
+		$videoExtension->setVideoFile($get_vid, $new_video_src);
+	}
+	
+	$pVid = $videoExtension->getPendingVideos();
+	$pVidHtml = '';
+	foreach($pVid as $pv){
+		$pVidHtml .= '<option value="'. $pv['jobset'] .'">'. $pv['originalVideoName'] .'</option>';
+	}
+	if($pVidHtml !== '' ){
+		ob_start();
+?>
+                    <div class="form-group">
+						<label for="video_extensions_pending_video"><?php echo lang('link_pending_video'); ?></label>
+						<select class="form-control" id="video_extensions_pending_video" name="video_extensions_pending_video">
+							<option value=""></option>
+							<?php echo $pVidHtml; ?>
+						</select>
+					</div>
+<?php
+		$pVidHtml = ob_get_clean();
+		register_anchor('<div id="vidm_pvOptions" style="display: none;">'. $pVidHtml .'</div>', 'vidm_afterForm');
+	}
 }
 ?>

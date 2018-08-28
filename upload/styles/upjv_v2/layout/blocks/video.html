@@ -22,6 +22,12 @@
 		<h2 class="title"><a href="{videoLink($video)}">{$video.title|truncate:50}</a></h2>
 		<p>{strip_tags($video.description)|truncate:80}</p>
 		<!-- <span class="author">by <a href="{$userquery->profile_link($video)}">{$video.username}</a></span> -->
+
+	<span>
+		{$video.description|truncate:60}
+	</span>
+
+
 		<div class="clearfix views-date">
 			<span>{prettyNum($video.views)} {if $video.views > 1}{lang code='views'}{else}{lang code="view"}{/if}</span>
 			<time class="date" datetime="2016-15-03">{$video.date_added|niceTime}</time>
@@ -65,7 +71,8 @@
 			</a>
 			{ANCHOR place='in_video_thumb' data=$video}
 
-			<img src="{$imageurl}/dot.gif" data-quick="quick-{$video.videoid}" class="add_icon cb_quickie cb-btn-quick-{$video.videoid}" onclick="add_quicklist(this,'{$video.videoid}')" alt="Add {$video.title} to Quicklist">
+			<img src="{$imageurl}/dot.gif" data-quick="quick-{$video.videoid}"
+         class="add_icon cb_quickie cb-btn-quick-{$video.videoid}" onclick="add_quicklist(this,'{$video.videoid}')" title="Add {$video.title} to Quicklist" alt="Quicklist" />
 		</div>
 	</div>
 	<div class="col-xs-6">

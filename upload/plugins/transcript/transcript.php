@@ -8,7 +8,12 @@ ClipBucket Version: 4
 Version: 0.1
 */
 
-
+/**
+ * Return only line of text
+ *
+ * @param string $string
+ * @return void
+ */
 function notATimecode($string){
 
 	$string = trim(str_replace("\n", "", str_replace("\r", "", $string)));
@@ -21,13 +26,16 @@ function notATimecode($string){
 		and (!preg_match( "/NOTE :/", $string))
 		and (!preg_match( "/WEBVTT/", $string))
 	){
-		echo (in_array(substr($string, -1, 1), $end)) ? $string.'<br>' : $string.' ';
+		return (in_array(substr($string, -1, 1), $end)) ? $string.'<br>' : $string.' ';
 	}
 }
 
-/*
-	* This Function generate anchors for  subtitle vtt file if exist
-	*/
+/**
+ * Display the content of subtitle file
+ *
+ * @param string $data
+ * @return void
+ */
 function displayTranscript($data = ''){
 
 	if ($data['videoid']){
@@ -35,13 +43,45 @@ function displayTranscript($data = ''){
 			$subfile = BASEDIR.'/files/subtitle/subtitle_'.$data['videoid'].'.vtt';
 			$lines = file($subfile);
 
-			echo '<h2>Transcription :</h2>';
-			array_filter($lines, "notATimecode");
+			$var = implode(array_filter($lines, "notATimecode"));
+
+			echo '<a name="transcriptp"></a><h2>Transcription :</h2>';
+
+			echo '<p class="transcript">';
+				echo $var;
+			echo '</p>';
+			echo '<p class="read-more" id="readmore-btn"><a href="#transcriptp" class="button" id="readmore-transcript">Lire la suite</a></p>';
+
 			echo '<hr>';
+?>
+
+<style>
+
+	.transcript {
+		max-height: 120px;
+		position: relative;
+		overflow: hidden;
+		background-image: linear-gradient(to bottom, transparent, white);
+		/* background-image: linear-gradient(to bottom, transparent, white); */
+		/*border:1px solid red*/
+	}
+
+
+</style>
+
+<script>
+	document.querySelector("#readmore-transcript").addEventListener("click", function(){
+		document.querySelector(".transcript").style.maxHeight = 'none';
+		document.querySelector("#readmore-btn").style.display = 'none';
+	});
+</script>
+
+<?php
 		}
 	}
 
 }
+
 // use {ANCHOR place="displayTranscript" data=$vdata} to add the HTML string into the file.
 register_anchor_function('displayTranscript','displayTranscript');
 

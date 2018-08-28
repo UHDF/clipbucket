@@ -9,7 +9,7 @@
 	* @author: Saqib Razzaq
 	* @modified: 8th April, 2016
 	*/
-
+	$is_ajax = true;
 	require '../includes/config.inc.php';
 	$params = array();
 	$params["groupby"] = "video.title, datecreated";

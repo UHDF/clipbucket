@@ -7,7 +7,7 @@
 	* @author: Saqib Razzaq
 	* @modified: 8th April, 2016
 	*/
-
+	$is_ajax = true;
 	require '../includes/config.inc.php';
 	if (isset($_POST['mode'])) {
 		$mode = $_POST['mode'];
@@ -33,7 +33,7 @@
 			case 'get_video':{
 				$response = array();
 				try{
-					$videoid = $_POST['videoid'];
+					$videoid = (int)$_POST['videoid'];
 				    $videoDetails = $cbvid->get_video($videoid);
 				    if ( $videoDetails && video_playable($videoDetails) ){
 				    	assign('video',$videoDetails);

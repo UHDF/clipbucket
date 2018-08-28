@@ -6,11 +6,22 @@
  *		modify the DOM to add an action into the dropdown menu
  */
 $( document ).ready( function() {
-
 	var obj=$(".btn-group").find(".dropdown-menu");
 	var data="<li><a href='{/literal}{$video_extensions_linkpage}{literal}&video={/literal}{$videoid}{literal}' target='_blank'>{/literal}{lang('link_pending_video')}{literal}</a></li>"
 	obj.html(obj.html()+data);
 });
 
+$(function(){ 
+	if($('#vidm_pvOptions').length && $('#vidm_pvOptions').html() !== ''){
+		$('#vidm-embedCode').closest('.form-group').before($('#vidm_pvOptions').html());
+		$('#vidm_pvOptions').remove();
+	}
+});
+
 {/literal}
 </script>
+
+<style>
+	#vidm_encodingprogress{ padding: 15px 0; }
+	#vidm_encodingprogress legend { font-size: 14px; font-weight: bold; margin-bottom: 10px; }
+</style>

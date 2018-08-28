@@ -3,17 +3,17 @@
         <div class="container-fluid"><div class="row">
             {$Cbucket->footer()}
 			<div class="col-md-2 col-sm-4 col-xs-12 footer-logo">
-				<img nopin="nopin" src="{$theme}/images/logo-ul.svg" alt="logo Université de Lille" class="img-responsive">
+				<img nopin="nopin" src="{$theme}/images/logo-semm.svg" alt="logo SEMM" class="img-responsive">
 			</div>
             <div class="col-md-8 col-sm-4 col-xs-12 footer-list">
-                <ul class="nav list-unstyled pull-left">
+                {*<ul class="nav list-unstyled pull-left">
                     {$foot_menu=foot_menu()}
                     {foreach from=$foot_menu item=fm}
                     {if $fm.name!=''}
                         <li><a href="{$fm.link}" {if $fm.target} target="{$fm.target}"{/if} {if $fm.onclick} onclick="{$fm.onclick}" {/if}>{$fm.name}</a></li>
                     {/if}
                     {/foreach}
-                </ul> 
+                </ul> *}
             </div>
             <div class="col-md-2 col-sm-4 col-xs-12 forged-by footer-list">
                    <ul class="nav list-unstyled pull-right">

@@ -10,9 +10,9 @@
 
 	define("THIS_PAGE",'watch_live');
 	define("PARENT_PAGE",'videos');
-        
-	require_once 'includes/config.inc.php';
-	require_once 'plugins/liveudl/live.php';
+       
+	require_once '../../../includes/config.inc.php';
+	require_once '../live.php';
 	global $cbvid, $Cbucket;
         
 	//$userquery->perm_check('view_live',true);

@@ -1,5 +1,8 @@
 <legend>{lang("divide_into_chapters")}</legend>
-	<div id="chmessage"></div>
+	<div id="chapter_message" style="display: none;">
+		<button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		<div class="msg"></div>
+	</div>
 	<div class="rien">
 		<span id="duplicate" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-plus"></span>{lang('add_a_chapter')}</span>
 		<span class="btn btn-primary btn-xs" id="save_chapters"><span class="glyphicon glyphicon-save"></span>{lang('save_chapters')}</span>
@@ -27,10 +30,23 @@
 			var $video="{$video}";
 			var $data=new Array();
 			saveChapters($data);
-		});
-
+		});	
 		
+		$('#chapter_message button.close').click(chapterHideMsg);
 	});
+	
+	function chapterShowMsg(msg, c){
+		var bmsg = $('#chapter_message');
+		bmsg.slideUp('fast', function(){
+			bmsg.attr('class', 'alert '+ c);
+			bmsg.find('.msg').html(msg);
+			bmsg.slideDown('fast');
+		});
+	}
+	
+	function chapterHideMsg(){
+		$('#chapter_message').slideUp('fast');
+	}
 	
 	function saveChapters($data){
 		var $video="{$video}";
@@ -52,14 +68,15 @@
 			dataType : "html",
 			success : function(q)
 			{
+				
 				if (q){
 					q=$.parseJSON(q);
-					$("#chmessage").html(q.message);
+					chapterShowMsg(q.message, 'alert-info');
 					$('#add-before-container').html(q.output);
 					setEvents();
 				}
 				else{
-					$("#chmessage").html("{/literal}unable to update chapters{literal}");
+					chapterShowMsg('Unable to update chapters', 'alert-danger');
 				}
 			}
 		});		
@@ -71,7 +88,7 @@
 		for ($j=0; $j<$number; $j++){
 			$("#chtime_"+$j).on('click', function(){
 				theplayer.currentTime(this.value);
-				$("#chmessage").html("");
+				chapterHideMsg();
 			});
 			$("#chtime_"+$j).on('change', function(){
 				theplayer.currentTime(this.value);
@@ -87,7 +104,7 @@
 				}
 			});
 			$("#chtitle_"+$j).on('click', function(){
-				$("#chmessage").html("");
+				chapterHideMsg();
 			});
 		}
 		
@@ -105,11 +122,11 @@
 			success : function(q)
 			{
 				if (q){
-					$("#chmessage").html(q);
+					chapterShowMsg(q, 'alert-info');
 					$("#extra_"+param).remove();
 				}
 				else{
-					$("#chmessage").html("{/literal}unable to remove chapter{literal}");
+					chapterShowMsg('Unable to remove chapter', 'alert-danger');
 				}
 			}
 		});		

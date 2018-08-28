@@ -8,7 +8,7 @@
         <vidm_addedToEp>La vidéo a été ajoutée à la page d'accueil</vidm_addedToEp>
         <vidm_admMenu>Gestion des vidéos</vidm_admMenu>
         <vidm_alreadyInEp>La vidéo est déjà affichée sur la page d'accueil</vidm_alreadyInEp>
-        <vidm_Date>Date</vidm_Date>
+        <vidm_Date>Date de l'événement</vidm_Date>
         <vidm_Deactivate>Désactiver la vidéo</vidm_Deactivate>
         <vidm_deactivateSelected>Désactiver</vidm_deactivateSelected>
         <vidm_Delete>Supprimer</vidm_Delete>
@@ -18,6 +18,7 @@
         <vidm_duration>Séparez heures, minutes et secondes de la façon suivante 1:33:56</vidm_duration>
         <vidm_Edit>Modifier</vidm_Edit>
         <vidm_embedCode>Lien d'intégration</vidm_embedCode>
+		<vidm_errorDateCreated>Erreur, format de date invalide</vidm_errorDateCreated>
         <vidm_failed>Echec</vidm_failed>
         <vidm_favorite>Coup de coeur</vidm_favorite>
         <vidm_featuredmsg>Vidéo ajoutée aux coups de coeur</vidm_featuredmsg>
@@ -55,7 +56,7 @@
         <vidm_VideoEdit>Editer</vidm_VideoEdit>
         <vidm_videoEnabled>Vidéo activée</vidm_videoEnabled>
         <vidm_videoFeatured>Vidéo ajoutée aux coups de coeur</vidm_videoFeatured>
-        <vidm_videoFields>Source vidéo</vidm_videoFields>
+        <vidm_videoFields>Informations vidéo</vidm_videoFields>
         <vidm_videoManager>Gestion des vidéos</vidm_videoManager>
         <vidm_videoNonConvertable>Non reconvertible (aucun fichier vidéo trouvé sur le serveur)</vidm_videoNonConvertable>
         <vidm_videoNotDisplayedHome>Vidéo retirée de la page d'accueil</vidm_videoNotDisplayedHome>

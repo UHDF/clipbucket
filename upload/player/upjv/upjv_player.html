@@ -4,6 +4,13 @@
 {$default_quality = get_upjv_quality_type($video_files)}
 {$availablePlaySpeed = "[1, 1.5, 2]"}
 {$preload = "none"}
+
+{if (!function_exists('getOverlayCount'))}
+	{assign var=nboverlay value=0}
+{else}
+	{assign var=nboverlay value=getOverlayCount($vdata)}
+{/if}
+
 <!--
 	STREAMING INFO
 	Pour une lecture HLS (streaming), le type a indiquer n'est pas le même :
@@ -24,6 +31,10 @@
 <!-- PLUGIN CSS -->
 <link href="{$upjv_player_v2_url}/app/css/videojs-resolution-switcher.css" rel="stylesheet">
 
+{if $nboverlay > 0}
+<link href="{$upjv_player_v2_url}/app/js/videojs-overlay/dist/videojs-overlay.css" rel="stylesheet">
+{/if}
+
 <!--
 	  PLAYER JS
 -->
@@ -35,8 +46,9 @@
 
 <script src="{$baseurl}/player/upjv/app/js/node_modules/videojs-contrib-hls/dist/videojs-contrib-hls.min.js"></script>
 
-
-
+{if $nboverlay > 0}
+<script src="{$baseurl}/player/upjv/app/js/videojs-overlay/dist/videojs-overlay.js"></script>
+{/if}
 
 <!--
 <script src="{$upjv_player_v2_url}/app/js/video_js_custom.js"></script>
@@ -77,6 +89,11 @@
 	{assign var="playerid" value="video_js_hls"}
 	{assign var="streamtype" value="hls"}
 {/if}
+
+
+
+
+
 
 <!-- RESSOURCES -->
 {if substr($video_files[0], 0,4) neq 'rtmp'}
@@ -239,3 +256,46 @@
 	}
 </style>
 
+
+{if $nboverlay > 0}
+<!--
+	STYLE OVERLAY
+-->
+<style>
+	.video-js .vjs-overlay-fullpage {
+		top: 0px;
+		width: 100%;
+		height: 100%;
+	}
+
+	.video-js .vjs-overlay-background {
+		/* border: 1px solid red; */
+		/* background-color: transparent !important; */
+		border-radius: 3px;
+		padding: 10px;
+		/* width: 100%; */
+	}
+
+	.video-js .vjs-overlay-no-background {
+		max-width: 100%;
+	}
+</style>
+
+
+<!--
+	LISTE OVERLAY
+-->
+<script>
+	(function(window, videojs) {
+		var player = window.player = videojs('cb_video_js');
+
+		player.overlay({
+			debug: false,
+			overlays: [
+				{ANCHOR place="getOverlayList" data=$vdata}
+			]
+		});
+	}(window, window.videojs));
+</script>
+
+{/if}

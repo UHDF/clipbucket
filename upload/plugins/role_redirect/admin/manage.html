@@ -1,0 +1,67 @@
+{include file="$rredir_css"}
+
+<h2>
+	{lang('rredir_title')}
+	<small><a href="{$rredir_createpage}" class="btn btn-primary btn-xs">{lang('rredir_actionNew')}</a></small>
+</h2>
+
+{foreach $rredir_formSuccess as $rrmsg}
+<div class="alert alert-success alert-dismissible" role="alert">
+	<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	{$rrmsg}
+</div>
+{/foreach}
+
+<div id="rralert" class="alert none">
+	<button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	<p></p>
+</div>
+
+{if $rrRecords}
+<table class="table table-bordered table-striped manageRredir">
+	<thead>
+		<tr>
+			<th class="head">{lang('rredir_userGrp')}</th>
+			<th class="head none">{lang('rredir_pagefrom')}</th>
+			<th class="head">{lang('rredir_redirectto')}</th>
+			<th align="center" class="right_head action"></th>
+		</tr>
+	</thead>
+	<tbody>
+		{foreach $rrRecords as $redir}
+		<tr data-rr="{$redir.id}">
+			<td>{$redir.user_level_name}</td>
+			<td class="none">{$redir.pagefrom}</td>
+			<td>{$redir.redirectto}</td>
+			<td class="action">
+				<a href="{$rredir_editpage}&amp;rr={$redir.id}" class="btn edit" title="{lang('rredir_actionEdit')}"><span class="glyphicon glyphicon-pencil"></span></a>
+				<button class="btn delete" title="{lang('rredir_actionDelete')}"><span class="glyphicon glyphicon-remove"></span></button>
+			</td>
+		</tr>
+		{/foreach}
+	</tbody>
+</table>
+
+<div class="modal fade" id="rrConfirmDelete" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">{lang('rredir_modalDeleteTitle')}</h4>
+			</div>
+			<div class="modal-body">
+				<p>{lang('rredir_modalAreUSure')}</p>
+				<input type="hidden" name="rr" value="" />
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">{lang('cancel')}</button>
+				<button type="button" class="btn btn-primary">{lang('validate')}</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+{include file="$rredir_js"}
+{else}
+<p id="rredir_noRecord">{lang('rredir_noRecord')}</p>
+{/if}

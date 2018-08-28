@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clipbucket_language>
+	<name>English</name>
+	<iso_code>en</iso_code>
+	<phrases>
+		<genThumb_btn>Generate a thumbnail</genThumb_btn>
+		<genThumb_modalTitle>Generate a new thumbnail</genThumb_modalTitle>
+		<genThumb_modalTitle2>Delete a thumbnail</genThumb_modalTitle2>
+		<genThumb_modalBody>Are you sure you want to generate this thumbnail?</genThumb_modalBody>
+		<genThumb_modalBody2>Creation in progress</genThumb_modalBody2>
+		<genThumb_modalBody3>Are you sure you want to delete this thumbnail?</genThumb_modalBody3>
+		<genThumb_modalBody4>Deletion in progress</genThumb_modalBody4>
+	</phrases>
+</clipbucket_language>
