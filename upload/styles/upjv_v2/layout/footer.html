@@ -3,7 +3,7 @@
 <footer id="footer" class="clearfix">
 	{$Cbucket->footer()}
 
-	
+
 	<div id="pied_page">
 
 		<div id="pied_page_rubriques">
@@ -34,7 +34,7 @@
 		<ul id="menu_pied_page">
 			<li><address>Université de Picardie Jules Verne – Chemin du Thil, 80000 Amiens</address></li>
 			<li><a href="{$baseurl}/view_page.php?pid=3">mentions légales</a></li>
-			<li><a href="{link name='signup'}?mode=login">privé</a></li>
+			<li><a href="{link name='signup'}?mode=cas">privé</a></li>
 			<li><a href="https://www.u-picardie.fr/nous-contacter/">nous contacter</a></li>
 			<li>Tél. : 03 22 82 89 89</li>
 		</ul>
@@ -60,12 +60,12 @@
 		var lang_code = _this.data('lang');
 		var $currentLocation = window.location.href,
 		matchedElement = $currentLocation.match(/\?/);
-			  
+
 		if(matchedElement == null)
 		{
-			window.location = "?set_site_lang="+lang_code;    
+			window.location = "?set_site_lang="+lang_code;
 		} else {
-			window.location = window.location+"&set_site_lang="+lang_code;    
+			window.location = window.location+"&set_site_lang="+lang_code;
 		}
 	});
 

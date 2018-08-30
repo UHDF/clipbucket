@@ -27,7 +27,7 @@
 
 						<input id="login_btn" type="submit" name="login" value="{lang('Login')}" class="btn btn-primary btn-lg btn-block">
 
-						
+
 						<div class="checkbox custom-elements form-group">
 							<label>
 								<a href='{ANCHOR place="is_auth_cas"}'>Connexion CAS</a>
@@ -44,9 +44,27 @@
 				</div>
 			</div>
 		{/if}
+
+
+		{if $mode == 'cas'}
+
+		<div class="clearfix signin-block">
+			<div class="account-holder text-center">
+					<h2>{lang code="login"}</h2>
+
+					<div class="checkbox custom-elements form-group">
+						<label>
+							<a href='{ANCHOR place="is_auth_cas"}' class="btn btn-default btn-lg">Connexion CAS</a>
+						</label>
+					</div>
+			</div>
+		</div>
+
+		{/if}
+
 	</div>
 
-	
+
 <script>
 
 	$(document).ready(function(){
@@ -54,24 +72,24 @@
 		if (pageMode == 'login') {
 			document.title = 'Login - {$Cbucket->configs.site_title}';
 		}
-		
+
 		$('.simple_container').addClass('alert-success alert container');
 	 });
-	
+
 	var errors = {
-		"empty_name" : "{lang code='usr_uname_err'}", 
-		"name_length" : "{lang code='user_name_invalid_len'}", 
+		"empty_name" : "{lang code='usr_uname_err'}",
+		"name_length" : "{lang code='user_name_invalid_len'}",
 		"name_invalid_chars" : "{lang code='usr_uname_err3'}",
-		"pass_mismatch" : "{lang code='usr_pass_err3'}", 
-		"empty_pass" : "{lang code='usr_pass_err2'}", 
-		"empty_email" : "{lang code='usr_email_err1'}" , 
+		"pass_mismatch" : "{lang code='usr_pass_err3'}",
+		"empty_pass" : "{lang code='usr_pass_err2'}",
+		"empty_email" : "{lang code='usr_email_err1'}" ,
 		"invalid_email":"{lang code='usr_email_err2'}",
 		"user_exists":"{lang code='usr_uname_err2'}",
 		"email_exists":"{lang code='usr_email_err3'}",
 		"weak_pass":"{lang code='weak_pass'}",
 		"username_spaces":"{lang code='username_spaces'}",
 	};
-	
+
 	function removeErrClass(obj, passSec = false) {
 		$(obj).closest('.form-group').removeClass('invalid-error');
 		$(obj).closest('.form-group').removeClass('warning-ind');
@@ -128,7 +146,7 @@
 
 				success: function(data) {
 					if (data == 'NO') {
-						removeErrClass(userSect);	
+						removeErrClass(userSect);
 					} else {
 						addErrClass(userSect, errors['user_exists'], true, false)
 					}
