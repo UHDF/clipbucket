@@ -131,7 +131,14 @@
 		*/
 		$fic = str_replace("marker_", "marker_meta_", $output);
 		$fp = fopen($fic, "w+");
-		fwrite($fp, $threshold."\t".$durationSilence."\t".$delayBefore."\t".$delayAfter);
+
+		$jsonmeta = array(
+			"threshold" => $threshold,
+			"durationSilence" => $durationSilence,
+			"delayBefore" => $delayBefore,
+			"delayAfter" => $delayAfter
+		);
+		fwrite($fp, json_encode($jsonmeta));
 		fclose($fp);
 
 	}

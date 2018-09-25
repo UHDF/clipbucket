@@ -37,7 +37,7 @@ $pages->page_redir();
 
 require_once '../includes/classes/video.class.php';
 require_once '../includes/functions_video.php';
-	
+
 // Assigning page and subpage
 if(!defined('MAIN_PAGE')){
     define('MAIN_PAGE', 'Videos');
@@ -75,7 +75,7 @@ $subtitle = BASEDIR.'/files/subtitle/subtitle_'.$data['videoid'].'.vtt';
 $subtitle_draft = BASEDIR.'/files/subtitle/subtitle_draft_'.$data['videoid'].'.vtt';
 
 // ffmpeg path
-$ffmpeg_path = $GLOBALS['Cbucket']->configs['ffmpegpath'];	
+$ffmpeg_path = $GLOBALS['Cbucket']->configs['ffmpegpath'];
 assign('ffmpeg_path', $ffmpeg_path);
 
 // Assign for template
@@ -89,15 +89,15 @@ assign('nbMarker', 0);
 *	If it is the case, assign the variable that have been used, else assign default variable
 */
 if (file_exists($marker_meta)){
-	$lines = file($marker_meta, FILE_IGNORE_NEW_LINES);
-	$t = explode("\t", $lines[0]);
-	assign('threshold', $t[0]);
-	assign('durationSilence', $t[1]);
-	assign('delayBefore', $t[2]);
-	assign('delayAfter', $t[3]);
+	$data = file($marker_meta, FILE_IGNORE_NEW_LINES);
+	$json = json_decode($data[0]);
+	assign('threshold', $json->{'threshold'});
+	assign('durationSilence', $json->{'durationSilence'});
+	assign('delayBefore', $json->{'delayBefore'});
+	assign('delayAfter', $json->{'delayAfter'});
 
-	$delayBefore = $t[2];
-	$delayAfter = $t[3];
+	$delayBefore = $json->{'delayBefore'};
+	$delayAfter = $json->{'delayAfter'};
 }
 else{
 	assign('threshold', '-26');
@@ -143,7 +143,7 @@ if ($_POST['deleteSubtitle']){
 */
 $element = array();
 $savedSub = 0;
-	
+
 if (file_exists($marker)){
 
 	$lines = file($marker, FILE_IGNORE_NEW_LINES);
@@ -182,7 +182,7 @@ if (file_exists($marker)){
 
 assign('marker', $element);
 
-	
+
 if (file_exists($subtitle)){
 	$subdata = file_get_contents($subtitle);
 	assign('subfile', $subdata);
