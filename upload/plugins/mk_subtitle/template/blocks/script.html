@@ -10,11 +10,11 @@
 		var nb = document.querySelector("#nbMarker");
 		var data = document.querySelector("#dataTime");
 		var submarker = document.querySelector("#submarker");
-		
+
 		var prevdata = data.value.split(";");
 
 		submarker.value = '';
-		
+
 		for (i = 0; i < parseInt(nb.value); i++){
 
 			var id = i+1;
@@ -57,13 +57,15 @@
 
 	}
 
-
+	/**
+	*	Submit form if enter key is pressed
+	*/
 	function enterPostForm(event){
 		// The form
 		var submitForm = document.querySelector("#realDraftForm");
 		// Get CharCode
 		char = event.which || event.keyCode;
-		
+
 		// If keyboard event is "enter"
 		if (char == 13){
 			// Create a input to post name of the submit button
@@ -129,7 +131,7 @@
 			// Remove previous timeListener function, if there is one
 			// For HTML 5
 			// video.removeEventListener('timeupdate', timeListener, false);
-			// For Video JS 
+			// For Video JS
 			video.off('timeupdate', timeListener);
 		}
 		video.pause();
@@ -194,7 +196,7 @@
 				document.querySelector("#draftProgressBar").removeAttribute('value');
 			},
 			success : function(q)
-			{	
+			{
 				var result = q;
 				var i = 0;
 				var ret = '';
@@ -208,7 +210,7 @@
 
 				for (i = 0; i < object.phrases.length; i++){
 
-					ret += mkInput(object.phrases[i].id, object.phrases[i].humanbegin, object.phrases[i].begin, object.phrases[i].tbegin, object.phrases[i].humanend, object.phrases[i].end, object.phrases[i].tend, object.phrases[i].duration, object.phrases[i].onfocus);
+					ret += mkInput(object.phrases[i].id, object.phrases[i].begin, object.phrases[i].tbegin, object.phrases[i].end, object.phrases[i].tend, object.phrases[i].duration);
 
 					dataTime.value += object.phrases[i].id+","+object.phrases[i].begin+","+object.phrases[i].end+";";
 				}
@@ -224,9 +226,9 @@
 	}
 
 
-	function mkInput(id, humanbegin, begin, tbegin, humanend, end, tend, duration, onfocus){
+	function mkInput(id, begin, tbegin, end, tend, duration){
 
-		return '<div class="control-group"><div class="row"><div class="col-md-9"><div class="form-group"><label for="phrase'+id+'" class="control-label">'+tbegin+' --> '+tend+' - duration : '+duration+'</label><input type="text"  class="form-control" name="phrase'+id+'" id="phrase'+id+'" onfocus="'+onfocus+';" onblur="inputStop();draftProgress();" onkeyup="infoSub('+id+');" value="" spellcheck="true"><span id="subinfo'+id+'" class="help-inline"></span></div></div><div class="col-md-3"><label class="control-label">Position</label><div class="btn-group colors" data-toggle="buttons"><label class="btn btn-primary btn-xs"><input type="radio" name="options'+id+'" value="left" autocomplete="off">Gauche</label><label class="btn btn-primary btn-xs active"><input type="radio" name="options'+id+'" value="" autocomplete="off" checked>Centre</label><label class="btn btn-primary btn-xs"><input type="radio" name="options'+id+'" value="right" autocomplete="off">Droite</label></div></div></div></div>';
+		return '<div class="control-group"><div class="row"><div class="col-md-9"><div class="form-group"><label for="phrase'+id+'" class="control-label">'+tbegin+' --> '+tend+' - duration : '+duration+'</label><input type="text"  class="form-control" name="phrase'+id+'" id="phrase'+id+'" onfocus="inputPlay('+begin+','+end+');" onblur="inputStop();draftProgress();" onkeyup="infoSub('+id+');" value="" spellcheck="true"><span id="subinfo'+id+'" class="help-inline"></span></div></div><div class="col-md-3"><label class="control-label">Position</label><div class="btn-group colors" data-toggle="buttons"><label class="btn btn-primary btn-xs"><input type="radio" name="options'+id+'" value="left" autocomplete="off">Gauche</label><label class="btn btn-primary btn-xs active"><input type="radio" name="options'+id+'" value="" autocomplete="off" checked>Centre</label><label class="btn btn-primary btn-xs"><input type="radio" name="options'+id+'" value="right" autocomplete="off">Droite</label></div></div></div></div>';
 
 	}
 
@@ -266,14 +268,14 @@
 
 			var myCues = track.cues;		// array of current cues.
 			var i = myCues.length;			// Cues size
-			
+
 			if (i > 0) {		// If array not empty
 				do {
 					track.removeCue(myCues[i]);	// Remove the object from cue list.
 					i = i - 1;
 				} while (i >= 0);
 			}
-			
+
 			track.mode = "disabled";		// Hide the subtitle
 		}
 	}	// En of myRemoveCue

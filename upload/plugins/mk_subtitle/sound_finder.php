@@ -19,7 +19,7 @@
 
 	// If video parameter exist
 	if ($video){
-		
+
 		/**
 		*	Verbose ffmpeg command ffmpeg, print information about finded silence in a file.
 		*
@@ -34,7 +34,7 @@
 		*
 		*/
 		$command = $ffmpeg_path.' -i '.$video.' -af silencedetect=n='.$threshold.'dB:d='.$durationSilence.' -f null - 2>&1 | grep silence > ../../files/subtitle/marker/tmp.txt';
-		
+
 		// Execute the command
 		$cmd = shell_exec($command);
 
@@ -156,14 +156,11 @@
 		echo '
 			{
 				"id": "'.$t[2].'",
-				"humanbegin": "'.$t[0].'",
-				"humanend": "'.$t[1].'",
 				"begin": "'.$begin.'",
 				"end": "'.$end.'",
 				"tbegin": "'.secondToTime($begin).'",
 				"tend": "'.secondToTime($end).'",
-				"duration": "'.round(($end-$begin), 2).'",
-				"onfocus":"inputPlay(\''.($t[0]-$delayBefore).'\', \''.($t[1]+$delayAfter).'\')"
+				"duration": "'.round(($end-$begin), 2).'"
 			}
 		';
 
