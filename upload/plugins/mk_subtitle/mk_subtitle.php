@@ -59,34 +59,6 @@ function updateMarkerFile($marker){
 
 
 /**
- * Update the draft file
- *
- * @param string $marker Path to the marker file
- */
-function updateMarkerFileOLD($marker){
-
-	// Read files in array
-	$lines = file($marker, FILE_IGNORE_NEW_LINES);	// Read file in array (without break line)
-
-	for ($i = 1; $i <= $_POST['nbMarker']; $i++){
-		if (!empty($_POST['phrase'.$i])){
-			$t = explode("\t", $lines[$i-1]);		// Line to array
-			$t[3] = $_POST['phrase'.$i];			// Replace with the new value
-			$t = implode("\t", $t);					// Array to line
-			$lines[($i-1)] = $t;					// New line assignation
-		}
-	}
-
-	$fp = fopen($marker, "w+");						// Open the draft file
-	for ($i = 0; $i < count($lines); $i++){			// Each line of table
-		fwrite($fp, $lines[$i]."\n");				// Write
-	}
-	fclose($fp);									// Close file
-
-}
-
-
-/**
  * Write the subtitle file
  *
  * @param string $marker Path to the marker file
@@ -110,7 +82,8 @@ function makeSubtitleFile($marker, $subtitle, $nbcar_by_line = 70){
 			// Test length of subtitle and number of line
 			$nbCar = strlen($t[3]);
 			if ( ($nbCar > $nbcar_by_line) ){
-				$t[3] = wordwrap($t[3], $nbcar_by_line, "\n", true);
+				// $t[3] = wordwrap($t[3], $nbcar_by_line, "\n", true);
+				$t[3] = cutString($t[3]);
 
 				if (substr_count($t[3], "\n") > 1){
 					$t[3] = $t[3]."\n\nNOTE : You must split the subtitle above (too much line).";
@@ -134,6 +107,84 @@ function makeSubtitleFile($marker, $subtitle, $nbcar_by_line = 70){
 
 	fclose($fp);
 }
+
+
+
+/**
+ * Return size of string in pixel
+ *
+ * @param [string] $string
+ * @return void
+ */
+function getPixelWidth($string){
+
+	$carWidth_array = array(
+		"a" => 14, "b" => 13, "c" => 13, "d" => 13, "e" => 14, "f" => 8, "g" => 13, "h" => 12, "i" => 5, "j" => 7, "k" => 12, "l" => 5, "m" => 18,
+		"n" => 12, "o" => 14, "p" => 13, "q" => 13, "r" => 8, "s" => 12, "t" => 8, "u" => 12, "v" => 13, "w" => 18, "x" => 13, "y" => 13, "z" => 12,
+		"," => 6, "?" => 13, ";" => 5, "." => 6, ":" => 5, "/" => 10, "!" => 5, "%" => 21, "*" => 10, "$" => 14, "€" => 14, "#" => 14, "&" => 15,
+		"(" => 8, ")" => 8, "[" => 7, "]" => 7, "{" => 9, "}" => 8, "'" => 5, "@" => 23, "=" => 13, "+" => 13, "-" => 8, "£" => 14, "€" => 14,
+		"A" => 17, "B" => 15, "C" => 16, "D" => 16, "E" => 15, "F" => 14, "G" => 17, "H" => 16, "I" => 5, "J" => 12, "K" => 16, "L" => 13, "M" => 18,
+		"N" => 16, "O" => 19, "P" => 15, "Q" => 19, "R" => 15, "S" => 15, "T" => 15, "U" => 16, "V" => 16, "W" => 23, "X" => 16, "Y" => 18, "Z" => 15,
+		"à" => 14, "ç" => 13, "è" => 14, "é" => 14, "ù" => 12, "ê" => 14, "î" => 10, "û" => 12, "ô" => 14, '"' => 8, " " => 5
+	);
+
+	$total = 0;
+
+	// For each caracters in word
+	for ($i = 0; $i < iconv_strlen($string,'UTF-8'); $i++){
+		$total = $total + $carWidth_array[iconv_substr($string, $i, 1,'UTF-8')];
+	}
+
+	return $total;
+}
+
+/**
+ * Return string with carriage return
+ *
+ * @param [string] $string
+ * @return void
+ */
+function cutString($string){
+	// Size of entire sentence
+	$phrase_len = getPixelWidth($string);
+	// Array of each word size
+	$mot_len = array();
+	$retstring = '';
+	$val = 0;
+
+	$word_array = str_word_count($string, 1, 'éèçàùôîûêâ,?;.:!.');
+
+	// For each word in sentence
+	foreach ($word_array as $key => $value) {
+		$mot_len[] = getPixelWidth($value);
+	}
+
+	foreach ($mot_len as $key => $value) {
+		// Word length
+		$total = $total + $mot_len[$key];
+
+		if (($phrase_len-$total) >= $total) {
+			if ( ($key > 0) ){
+				// Where to cut
+				$val = ($key-1);
+
+			}
+		}
+	}
+
+	// For each word in sentence
+	foreach ($word_array as $key => $value) {
+		if ($key == $val){
+			$retstring .= $word_array[$key]."\n";
+		}
+		else{
+			$retstring .= $word_array[$key]." ";
+		}
+	}
+
+	return trim($retstring);
+}
+
 
 
 /**
