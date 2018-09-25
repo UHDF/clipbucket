@@ -113,7 +113,7 @@ else{
 *	Update the marker file
 */
 if ($_POST['saveMarker']){
-	updateMarkerFile($marker);
+	updateFile($marker, $_POST['submarker']);
 }
 
 /**
@@ -128,7 +128,7 @@ if ($_POST['subtitlize']){
 *	If editing the final file
 */
 if ($_POST['saveSubtitle']){
-	updateSubtitleFile($subtitle);
+	updateFile($subtitle, $_POST['subdata']);
 }
 
 /**

@@ -45,20 +45,6 @@ function addPublicSubtitleMaker($vid){
 
 
 /**
- * Update the draft file
- *
- * @param string $marker Path to the marker file
- */
-function updateMarkerFile($marker){
-
-	$fp = fopen($marker, "w+");						// Open the draft file
-	fwrite($fp, $_POST["submarker"]);				// Write
-	fclose($fp);									// Close file
-
-}
-
-
-/**
  * Write the subtitle file
  *
  * @param string $marker Path to the marker file
@@ -107,8 +93,6 @@ function makeSubtitleFile($marker, $subtitle, $nbcar_by_line = 70){
 
 	fclose($fp);
 }
-
-
 
 /**
  * Return size of string in pixel
@@ -186,18 +170,19 @@ function cutString($string){
 }
 
 
-
 /**
- * Update the subtitle file
+ * Update the file
  *
- * @param string $subtitle Path to the subtitle file
+ * @param string $file Path to the file
+ *
+ * @param string $data What to write
+ *
  */
-function updateSubtitleFile($subtitle){
+function updateFile($file, $data){
 
-	if (file_exists($subtitle)){
-
-		$fp = fopen($subtitle, "w+");			// Open the draft file
-		fwrite($fp, $_POST['subdata']);
+	if (file_exists($file)){
+		$fp = fopen($file, "w+");			// Open the draft file
+		fwrite($fp, $data);
 		fclose($fp);
 	}
 
