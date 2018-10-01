@@ -18,5 +18,18 @@
 		<mksub_close>Fermer</mksub_close>
 		<mksub_helpcontent>&lt;h1&gt;Comment ça fonctionne ?&lt;/h1&gt;&lt;p&gt;Trouver les phrases va chercher les silences. Puisque l'on sait qu'entre les silences il y'a du son, on en déduit les phrases.&lt;/p&gt;&lt;h1&gt;Comment faire ?&lt;/h1&gt;&lt;h2&gt;Trouvé les phrases&lt;/h2&gt;&lt;p&gt;D'abord, vous devez créé le fichier de marqueur. Pour faire ça, cliquer sur le bouton \"Trouver les phrases\".&lt;/p&gt;&lt;p&gt;Ceci générera une liste de champs. Cette liste doit correspondre aux phrases ditent dans le fichier video.&lt;/p&gt;&lt;p&gt;Si ce n'est pas le cas, vous pouvez ajuster les paramètres de seuil et la durée minimum des silences.&lt;br&gt;&lt;br&gt;Seuil : volume maximum a considérer sous lequel personne ne parle.&lt;br&gt;Durée des silence : durée des silences.&lt;/p&gt;&lt;h2&gt;Ecrire les phrases&lt;/h2&gt;&lt;p&gt;Mettez votre curseur dans le champs. La vidéo va lire en boucle jusqu'à ce que le curseur sorte du champs. Ceci est très utile pour écrire la phrase.&lt;/p&gt;&lt;p&gt;Valider avec \"entrée\" (ou le bouton Sauvegarde...) pour enregistrer votre travail.&lt;/p&gt;&lt;p&gt;En quiquant dans le lecteur vidéo, celle ci se joue normallement.&lt;/p&gt;&lt;h2&gt;Fini ?&lt;/h2&gt;&lt;p&gt;Cliquer sur le bouton \"Generer le fichier de sous titres\". Ceci publie le fichier final et le publique peut voir les sous-titres.&lt;/p&gt;</mksub_helpcontent>
 		<mksub_subfileavailable>Sous titre disponible</mksub_subfileavailable>
+		<mksub_position>Position</mksub_position>
+		<mksub_left>Gauche</mksub_left>
+		<mksub_center>Centre</mksub_center>
+		<mksub_right>Droite</mksub_right>
+		<mksub_originalfiles>Fichier original</mksub_originalfiles>
+		<mksub_addlanguage>Ajouter une langue</mksub_addlanguage>
+		<mksub_originallanguage>Langue d'origine de la vidéo</mksub_originallanguage>
+		<mksub_whatfilestodelete>Quelle sous titre voulez-vous supprimer ?</mksub_whatfilestodelete>
+		<mksub_subtitle>Sous titre</mksub_subtitle>
+		<mksub_wip>En cours</mksub_wip>
+		<mksub_online>En ligne</mksub_online>
+		<mksub_finish>Fini</mksub_finish>
+		<mksub_notdo>Non fait</mksub_notdo>
 	</phrases>
 </clipbucket_language>

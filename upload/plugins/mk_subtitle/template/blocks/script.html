@@ -10,11 +10,11 @@
 		var nb = document.querySelector("#nbMarker");
 		var data = document.querySelector("#dataTime");
 		var submarker = document.querySelector("#submarker");
-		
+
 		var prevdata = data.value.split(";");
 
 		submarker.value = '';
-		
+
 		for (i = 0; i < parseInt(nb.value); i++){
 
 			var id = i+1;
@@ -57,13 +57,15 @@
 
 	}
 
-
+	/**
+	*	Submit form if enter key is pressed
+	*/
 	function enterPostForm(event){
 		// The form
 		var submitForm = document.querySelector("#realDraftForm");
 		// Get CharCode
 		char = event.which || event.keyCode;
-		
+
 		// If keyboard event is "enter"
 		if (char == 13){
 			// Create a input to post name of the submit button
@@ -129,7 +131,7 @@
 			// Remove previous timeListener function, if there is one
 			// For HTML 5
 			// video.removeEventListener('timeupdate', timeListener, false);
-			// For Video JS 
+			// For Video JS
 			video.off('timeupdate', timeListener);
 		}
 		video.pause();
@@ -194,7 +196,7 @@
 				document.querySelector("#draftProgressBar").removeAttribute('value');
 			},
 			success : function(q)
-			{	
+			{
 				var result = q;
 				var i = 0;
 				var ret = '';
@@ -208,7 +210,7 @@
 
 				for (i = 0; i < object.phrases.length; i++){
 
-					ret += mkInput(object.phrases[i].id, object.phrases[i].humanbegin, object.phrases[i].begin, object.phrases[i].tbegin, object.phrases[i].humanend, object.phrases[i].end, object.phrases[i].tend, object.phrases[i].duration, object.phrases[i].onfocus);
+					ret += mkInput(object.phrases[i].id, object.phrases[i].begin, object.phrases[i].tbegin, object.phrases[i].end, object.phrases[i].tend, object.phrases[i].duration);
 
 					dataTime.value += object.phrases[i].id+","+object.phrases[i].begin+","+object.phrases[i].end+";";
 				}
@@ -224,9 +226,9 @@
 	}
 
 
-	function mkInput(id, humanbegin, begin, tbegin, humanend, end, tend, duration, onfocus){
+	function mkInput(id, begin, tbegin, end, tend, duration){
 
-		return '<div class="control-group"><div class="row"><div class="col-md-9"><div class="form-group"><label for="phrase'+id+'" class="control-label">'+tbegin+' --> '+tend+' - duration : '+duration+'</label><input type="text"  class="form-control" name="phrase'+id+'" id="phrase'+id+'" onfocus="'+onfocus+';" onblur="inputStop();draftProgress();" onkeyup="infoSub('+id+');" value="" spellcheck="true"><span id="subinfo'+id+'" class="help-inline"></span></div></div><div class="col-md-3"><label class="control-label">Position</label><div class="btn-group colors" data-toggle="buttons"><label class="btn btn-primary btn-xs"><input type="radio" name="options'+id+'" value="left" autocomplete="off">Gauche</label><label class="btn btn-primary btn-xs active"><input type="radio" name="options'+id+'" value="" autocomplete="off" checked>Centre</label><label class="btn btn-primary btn-xs"><input type="radio" name="options'+id+'" value="right" autocomplete="off">Droite</label></div></div></div></div>';
+		return '<div class="control-group"><div class="row"><div class="col-md-9"><div class="form-group"><label for="phrase'+id+'" class="control-label">'+tbegin+' --> '+tend+' - duration : '+duration+'</label><input type="text"  class="form-control" name="phrase'+id+'" id="phrase'+id+'" onfocus="inputPlay('+begin+','+end+');" onblur="inputStop();draftProgress();" onkeyup="infoSub('+id+');" value="" spellcheck="true"><span id="subinfo'+id+'" class="help-inline"></span></div></div><div class="col-md-3"><label class="control-label">Position</label><div class="btn-group colors" data-toggle="buttons"><label class="btn btn-primary btn-xs"><input type="radio" name="options'+id+'" value="left" autocomplete="off">Gauche</label><label class="btn btn-primary btn-xs active"><input type="radio" name="options'+id+'" value="" autocomplete="off" checked>Centre</label><label class="btn btn-primary btn-xs"><input type="radio" name="options'+id+'" value="right" autocomplete="off">Droite</label></div></div></div></div>';
 
 	}
 
@@ -266,14 +268,14 @@
 
 			var myCues = track.cues;		// array of current cues.
 			var i = myCues.length;			// Cues size
-			
+
 			if (i > 0) {		// If array not empty
 				do {
 					track.removeCue(myCues[i]);	// Remove the object from cue list.
 					i = i - 1;
 				} while (i >= 0);
 			}
-			
+
 			track.mode = "disabled";		// Hide the subtitle
 		}
 	}	// En of myRemoveCue
@@ -292,12 +294,119 @@
 	*/
 
 	document.querySelector('#btnOverview').addEventListener('click', function(e){
-		console.log("goto remove");
 		myRemoveCue();
-
-		console.log("goto add");
 		myAddCue();
 	});
+
+	document.querySelector('#btnAddlang').addEventListener('click', function(e){
+
+		// Remove tab active style
+		removeActiveStyle('#otherlangtab');
+
+		// Remove tab content active style
+		removeActiveStyle('#otherlangcontent');
+
+		var codelang = document.querySelector('#newLang').value;
+
+		if ( document.querySelector('#tab-'+codelang) == null ){
+			// Tab
+			var newTab = document.createElement("li");
+				newTab.setAttribute('class', 'active');
+				newTab.setAttribute('id', 'tab-'+codelang);
+
+			var newLink = document.createElement("a");
+				newLink.setAttribute('data-toggle', 'tab');
+				newLink.setAttribute('href', '#'+codelang);
+				newLink.setAttribute('id', 'link-'+codelang);
+				newLink.setAttribute('title', document.querySelector('#newLang').options[document.querySelector('#newLang').selectedIndex].innerHTML);
+
+			var text = document.createTextNode(codelang);
+
+			document.querySelector('#otherlangtab').appendChild(newTab)
+			document.querySelector('#tab-'+codelang).appendChild(newLink)
+			document.querySelector('#link-'+codelang).appendChild(text)
+
+			// Content
+			var divContent = document.createElement("div");
+				divContent.setAttribute('id', codelang);
+				divContent.setAttribute('class', 'tab-pane active');
+
+			var divTextarea = document.createElement("textarea");
+				divTextarea.setAttribute('id', 'txtarea-'+codelang);
+				divTextarea.setAttribute('class', 'form-control')
+				divTextarea.setAttribute('name', 'otherSubtitle['+codelang+']')
+				divTextarea.setAttribute('onscroll', 'this.form.elements.subdata.scrollTop=this.scrollTop;')
+				divTextarea.setAttribute('cols', '80')
+				divTextarea.setAttribute('rows', '20')
+
+			var text = document.createTextNode(delSentenceFromWebVTT(document.querySelector('#subdata').value));
+
+			document.querySelector('#otherlangcontent').appendChild(divContent)
+			document.querySelector('#'+codelang).appendChild(divTextarea)
+			document.querySelector('#txtarea-'+codelang).appendChild(text)
+
+		}
+		else{
+			document.querySelector('#tab-'+codelang).classList.add("active");
+			document.querySelector('#'+codelang).classList.add("active");
+		}
+
+	});
+
+
+	function removeActiveStyle(parentNode){
+		// Remove active style
+		var tablist = document.querySelector(parentNode).childNodes
+		if (tablist.length > 1){
+			for (var i = 0; i < tablist.length; i++) {
+				if (tablist[i].classList){
+					tablist[i].classList.remove("active")
+				}
+			}
+		}
+	}
+
+	function delSentenceFromWebVTT(){
+
+		var tableau = document.querySelector('#subdata').value.split("\n");
+		var chaine = '';
+
+		for (var i = 0; i < tableau.length; i++){
+
+			if (tableau[i] == 'WEBVTT'){
+				chaine += "WEBVTT";
+			}
+			else{
+				if (tableau[i].indexOf("-->") > -1){
+					chaine += tableau[i];
+				}
+			}
+			chaine += "\n";
+
+		}
+		return chaine;
+	}
+
+
+	function autosavedraft(){
+
+		movemarker();
+		var markerfile = document.querySelector("#marker").value;
+		var submarker = document.querySelector("#submarker").value;
+
+		var formData = {markerfile:markerfile,submarker:submarker};
+		$.ajax({
+			type	  	: "POST",
+			url 	  	: "{/literal}{$baseurl}{literal}/plugins/mk_subtitle/autosavedraft.php",
+			data		: formData,
+			success : function(q)
+			{
+				if (q){
+					document.querySelector("#autosavestatut").innerHTML = q;
+				}
+			}
+		});
+	}
 
 
 </script>

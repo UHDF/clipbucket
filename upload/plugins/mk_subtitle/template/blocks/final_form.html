@@ -1,20 +1,70 @@
-<!-- 
+<!--
 	Fichier final
 -->
 <div id="final" class="tab-pane{if $tabactive == 'final'} active{/if}">
-	
 	<h2>{lang code="mksub_finalfile"}</h2>
 	<p>{lang code="mksub_finalfiledesc"}</p>
 
 	{if $subfile neq ''}
-		<form method="POST">
-			<div class="control-group">
-				<textarea name="subdata" id="subdata" cols="80" rows="20">{$subfile}</textarea><br>
-				<br>
+		<div id="finalForm">
+
+			<form method="POST">
+				<div class="row">
+
+					<div class="col-md-6">
+						<br><br>
+						{lang('mksub_originalfiles')} :<br>
+						<textarea name="subdata" id="subdata" class="form-control" cols="80" rows="20">{$subfile}</textarea><br>
+						<br>
+					</div>
+
+					<div class="col-md-6" id="otherlangdiv">
+						<div class="tabbable">
+							<ul class="nav nav-tabs" id="otherlangtab">
+								{foreach from=$othersubtitle item=item}
+									{$subtitlelanguagecode = getSubtitleLanguage($item, $data.videoid)}
+
+									{$label = getLangLabelByCode($subtitlelanguagecode)}
+
+									<li class="{if $item@iteration == 1}active{/if}" id="tab-{$subtitlelanguagecode}"><a data-toggle="tab" href="#{$subtitlelanguagecode}" title="{$label}">{$subtitlelanguagecode}</a></li>
+								{/foreach}
+							</ul>
+
+							<div class="tab-content" id="otherlangcontent">
+								{foreach from=$othersubtitle item=item}
+									{$subtitlelanguagecode = getSubtitleLanguage($item, $data.videoid)}
+
+									<div id="{$subtitlelanguagecode}" class="tab-pane{if $item@iteration == 1} active{/if}">
+										<textarea name="otherSubtitle[{$subtitlelanguagecode}]" onscroll="this.form.elements.subdata.scrollTop=this.scrollTop;" class="form-control" cols="80" rows="20">{getSubtitleContent($item)}</textarea>
+									</div>
+								{/foreach}
+							</div>
+						</div>
+					</div>
+
+				</div>
+
 				<input type="submit" name="saveSubtitle" class="btn btn-primary" value="{lang('saving')}">
-				<input type="submit" name="deleteSubtitle" class="btn btn-primary" value="{lang('remove')}">
-			</div>
-		</form>
+				<!-- Button trigger modal delete final file -->
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#delSubtitle">{lang code="remove"}</button>
+
+				<h2>{lang('mksub_addlanguage')}</h2>
+
+				<select name="newLang" id="newLang">
+					{foreach from=$langcode item=item key=code}
+					<option value="{$code}">{$item}</option>
+					{/foreach}
+				</select>
+
+				<input type="button" id="btnAddlang" class="btn btn-primary" value="{lang('mksub_addlanguage')}">
+
+			</form>
+		</div>
 	{/if}
-	
 </div>
+
+
+
+
+
+

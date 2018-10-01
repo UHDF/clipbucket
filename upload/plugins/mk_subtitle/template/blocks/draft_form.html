@@ -5,9 +5,9 @@
 	<progress id="draftProgressBar" value="{$savedSub}" max="{$nbMarker}" style="width: 100%;"></progress>
 
 	<div id="soundFinderResult" style="overflow:scroll; overflow-x:hidden; height:400px;margin-bottom:10px;">
-		
+
 		{foreach from=$marker item=data}
-		
+
 		<div class="control-group">
 			<div class="row">
 				<div class="col-md-9">
@@ -16,8 +16,8 @@
 							{$data[6]} --> {$data[7]} - {lang code="duration"} : {$data[8]}
 						</label>
 
-						<input type="text"  class="form-control" name="phrase{$data[2]}" id="phrase{$data[2]}" onfocus="inputPlay({$data[0]}, {$data[1]});" onblur="inputStop();draftProgress();" onkeyup="infoSub({$data[2]});" onkeypress="enterPostForm(event);" value="{$data[3]}" spellcheck="true">
-						
+						<input type="text"  class="form-control" name="phrase{$data[2]}" id="phrase{$data[2]}" onfocus="inputPlay({$data[0]}, {$data[1]});" onblur="inputStop();draftProgress();autosavedraft();" onkeyup="infoSub({$data[2]});" onkeypress="enterPostForm(event);" value="{$data[3]}" spellcheck="true">
+
 						<span id="subinfo{$data[2]}" class="help-inline"></span>
 					</div>
 				</div>
@@ -26,29 +26,29 @@
 						Positionnement du sous titre
 					-->
 					<label class="control-label">
-						Position
+						{lang('mksub_position')}
 					</label>
 
 					<div class="btn-group colors" data-toggle="buttons">
 						<label class="btn btn-primary btn-xs{if $data[9] eq 'left'} active{/if}">
-							<input type="radio" name="options{$data[2]}" value="left" autocomplete="off"{if $data[9] eq 'left'} checked{/if}> Gauche
+							<input type="radio" name="options{$data[2]}" value="left" autocomplete="off"{if $data[9] eq 'left'} checked{/if}> {lang('mksub_left')}
 						</label>
-						
+
 						<label class="btn btn-primary btn-xs{if $data[9] eq ''} active{/if}">
-						<input type="radio" name="options{$data[2]}" value="" autocomplete="off"{if $data[9] eq ''} checked{/if}> Centre
+						<input type="radio" name="options{$data[2]}" value="" autocomplete="off"{if $data[9] eq ''} checked{/if}> {lang('mksub_center')}
 						</label>
-						
+
 						<label class="btn btn-primary btn-xs{if $data[9] eq 'right'} active{/if}">
-							<input type="radio" name="options{$data[2]}" value="right" autocomplete="off"{if $data[9] eq 'right'} checked{/if}> Droite
+							<input type="radio" name="options{$data[2]}" value="right" autocomplete="off"{if $data[9] eq 'right'} checked{/if}> {lang('mksub_right')}
 						</label>
 					</div>
 				</div>
 			</div>
 		</div>
-		
+
 		{/foreach}
 	</div>
-	
+
 	<div class="control-group">
 
 		<form method="POST" class="form-horizontal" onsubmit="return movemarker();" id="realDraftForm">
@@ -61,13 +61,17 @@
 			<!-- To construct the file -->
 			<input type="hidden" name="nbMarker" id="nbMarker" value="{$nbMarker}">
 			<input type="submit" name="saveMarker" class="btn btn-primary" value="{lang('saving')}">
-			
+
 			<input type="button" name="btnOverview" id="btnOverview" class="btn btn-primary" value="{lang('mksub_preview')}">
 
 			<input type="submit" name="subtitlize" class="btn btn-primary" value="{lang('mksub_mksubfile')}">
 
 		</form>
 	</div>
+
+
+	<!-- Autosave -->
+	<div id="autosavestatut"></div>
 
 	<!--
 			DEBUG

@@ -1,0 +1,42 @@
+
+
+<!-- Modal delete final file -->
+<div class="modal fade" id="delSubtitle" tabindex="-1" role="dialog" aria-labelledby="delSubtitleLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">{lang code="mksub_title"} : {lang code="remove"}</h4>
+				</div>
+
+				<div class="modal-body">
+					Quelle sous titre ?<br>
+
+					<form method="POST">
+
+
+					<input type="checkbox" value="{$defaultsubfile}" name="lstDelSub[]" id="lstDelSub-{$originalLanguage}">
+					<label for="lstDelSub-{$originalLanguage}">{lang code="mksub_originalfiles"} ({$originalLanguage})</label><br>
+
+						{foreach from=$othersubtitle item=item}
+
+							{$subtitlelanguagecode = getSubtitleLanguage($item, $data.videoid)}
+							{$label = getLangLabelByCode($subtitlelanguagecode)}
+
+							<input type="checkbox" value="{$item}" name="lstDelSub[]" id="lstDelSub-{$subtitlelanguagecode}">
+							<label for="lstDelSub-{$subtitlelanguagecode}">{$label} ({$subtitlelanguagecode})</label><br>
+						{/foreach}
+
+						<input type="submit" name="deleteSubtitle" class="btn btn-primary" value="{lang('remove')}">
+
+					</form>
+
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">{lang code="mksub_close"}</button>
+				</div>
+			</div>
+		</div>
+	</div>

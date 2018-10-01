@@ -65,7 +65,7 @@ require_once '../includes/classes/video.class.php';
 require_once '../includes/functions_video.php';
 
 */
-	
+
 // Assigning page and subpage
 /*
 
@@ -107,7 +107,7 @@ $subtitle = BASEDIR.'/files/subtitle/subtitle_'.$data['videoid'].'.vtt';
 $subtitle_draft = BASEDIR.'/files/subtitle/subtitle_draft_'.$data['videoid'].'.vtt';
 
 // ffmpeg path
-$ffmpeg_path = $GLOBALS['Cbucket']->configs['ffmpegpath'];	
+$ffmpeg_path = $GLOBALS['Cbucket']->configs['ffmpegpath'];
 assign('ffmpeg_path', $ffmpeg_path);
 
 // Assign for template
@@ -117,19 +117,35 @@ assign('savedSub', 0);
 assign('nbMarker', 0);
 
 /**
+ * Due to change of format from tabulated file to json
+ * test to convert the old file
+ */
+convertMarkerToJson($marker_meta);
+/**
 *	Check if a silence finder metadata file is associated to the marker video file
 *	If it is the case, assign the variable that have been used, else assign default variable
 */
 if (file_exists($marker_meta)){
-	$lines = file($marker_meta, FILE_IGNORE_NEW_LINES);
-	$t = explode("\t", $lines[0]);
-	assign('threshold', $t[0]);
-	assign('durationSilence', $t[1]);
-	assign('delayBefore', $t[2]);
-	assign('delayAfter', $t[3]);
+	$data = file($marker_meta, FILE_IGNORE_NEW_LINES);
+	$json = json_decode($data[0]);
+	assign('threshold', $json->{'threshold'});
+	assign('durationSilence', $json->{'durationSilence'});
+	assign('delayBefore', $json->{'delayBefore'});
+	assign('delayAfter', $json->{'delayAfter'});
+	assign('originalLanguage', $json->{'originalLanguage'});
 
-	$delayBefore = $t[2];
-	$delayAfter = $t[3];
+	$originalLanguage = $json->{'originalLanguage'};
+	$delayBefore = $json->{'delayBefore'};
+	$delayAfter = $json->{'delayAfter'};
+
+	if (
+		(isset($originalLanguage)) and
+		(!empty($originalLanguage)) and
+		(!strstr($subtitle, "_".$originalLanguage.".vtt"))
+	){
+		$subtitle = str_replace(".vtt", "_".$originalLanguage.".vtt", $subtitle);
+	}
+
 }
 else{
 	assign('threshold', '-26');
@@ -145,7 +161,7 @@ else{
 *	Update the marker file
 */
 if ($_POST['saveMarker']){
-	updateMarkerFile($marker);
+	updateFile($marker, $_POST['submarker']);
 }
 
 /**
@@ -160,14 +176,40 @@ if ($_POST['subtitlize']){
 *	If editing the final file
 */
 if ($_POST['saveSubtitle']){
-	updateSubtitleFile($subtitle);
+	updateFile($subtitle, $_POST['subdata']);
+
+	if (isset($_POST['otherSubtitle'])){
+		foreach ($_POST['otherSubtitle'] as $key => $value){
+			// if default language is defined
+			if ($originalLanguage){
+				// modify default suffix by the new
+				$otherSubtitleUpdate = str_replace($originalLanguage, $key, $subtitle);
+			}
+			else{
+				// else no default language, just add suffix
+				$otherSubtitleUpdate = str_replace('.vtt', '_'.$key.'.vtt', $subtitle);
+			}
+
+			if (trim($value) != ''){
+				updateFile($otherSubtitleUpdate, $value);
+			}
+		}
+	}
+
 }
 
 /**
 *	If editing the final file
 */
 if ($_POST['deleteSubtitle']){
-	deleteSubtitleFile($subtitle);
+
+	if (isset($_POST['lstDelSub'])){
+		foreach ($_POST['lstDelSub'] as $key => $value){
+			if (trim($value) != ''){
+				deleteSubtitleFile($value);
+			}
+		}
+	}
 }
 
 /**
@@ -175,7 +217,7 @@ if ($_POST['deleteSubtitle']){
 */
 $element = array();
 $savedSub = 0;
-	
+
 if (file_exists($marker)){
 
 	$lines = file($marker, FILE_IGNORE_NEW_LINES);
@@ -203,7 +245,6 @@ if (file_exists($marker)){
 		);
 
 		if (!empty($t[3])){
-//		if (isset($t[3])){
 			$savedSub++;
 		}
 
@@ -214,11 +255,30 @@ if (file_exists($marker)){
 
 assign('marker', $element);
 
-	
+
 if (file_exists($subtitle)){
 	$subdata = file_get_contents($subtitle);
 	assign('subfile', $subdata);
 }
+
+/**
+ * List all subtitle files of the video
+ */
+$listSubtitleFile = getSubtitleList($video);
+// Unset the default file already save as subdata (assign subfile)
+if (($key = array_search($subtitle, $listSubtitleFile)) !== false) {
+	unset($listSubtitleFile[$key]);
+}
+
+if (!empty($listSubtitleFile)){
+	assign('othersubtitle', $listSubtitleFile);
+}
+
+assign('defaultsubfile', $subtitle);
+assign('langcode', getLangCode());
+
+
+
 
 subtitle(lang("vdo_edit_vdo"));
 template_files(PLUG_DIR.'/mk_subtitle/template/subtitle_maker_public.html');

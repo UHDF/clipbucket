@@ -18,5 +18,20 @@
 		<mksub_close>Close</mksub_close>
 		<mksub_helpcontent>&lt;h1&gt;How does it works ?&lt;/h1&gt;&lt;p&gt;The sound finder will search the silence in the video file. Because of that we know that between silence there is sound.&lt;/p&gt;&lt;h1&gt;How to do ?&lt;/h1&gt;&lt;h2&gt;Find sentences&lt;/h2&gt;&lt;p&gt;First, you need to create the marker file. To do that, click on the \"Sound Finder\" button.&lt;/p&gt;&lt;p&gt;This will generate a list of input. This list may correspond to the sentence speaking in the video file.&lt;/p&gt;&lt;p&gt;If it is not the case, you can adjust the threshold and minimum duration of silence parameter.&lt;br&gt;&lt;br&gt;Threshold : volume max to be consider as a silence.&lt;br&gt;Duration of silence : Time of the silence.&lt;/p&gt;&lt;h2&gt;Write the sentence&lt;/h2&gt;&lt;p&gt;Put the cursor in the input. The video will be playing while you sort the cursor. It is very helpful to write the sentence.&lt;/p&gt;&lt;p&gt;Validate with \"enter\" when you want in order to save your work.&lt;/p&gt;&lt;p&gt;Read the video by clicking in the player will play the video normally.&lt;/p&gt;&lt;h2&gt;Finish ?&lt;/h2&gt;&lt;p&gt;Click the generate subtitle file. It will publish the final and the public can use it.&lt;/p&gt;</mksub_helpcontent>
 		<mksub_subfileavailable>Subtitle available</mksub_subfileavailable>
+		<mksub_position>Position</mksub_position>
+		<mksub_left>Left</mksub_left>
+		<mksub_center>Center</mksub_center>
+		<mksub_right>Right</mksub_right>
+		<mksub_originalfiles>Original files</mksub_originalfiles>
+		<mksub_addlanguage>Add a language</mksub_addlanguage>
+		<mksub_originallanguage>Original language of video</mksub_originallanguage>
+		<mksub_whatfilestodelete>What files you want to delete ?</mksub_whatfilestodelete>
+		<mksub_subtitle>Subtitle</mksub_subtitle>
+		<mksub_wip>Work in progress</mksub_wip>
+		<mksub_online>Online</mksub_online>
+		<mksub_finish>Finish</mksub_finish>
+		<mksub_notdo>Not do</mksub_notdo>
+
+
 	</phrases>
 </clipbucket_language>

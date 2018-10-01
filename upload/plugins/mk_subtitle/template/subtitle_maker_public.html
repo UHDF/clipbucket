@@ -22,7 +22,7 @@
 					<!-- Button trigger modal -->
 					<button type="button" class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#helpSubtitle">{lang code="help"}</button>
 
-					<!-- 
+					<!--
 						Formulaire de configuration
 					-->
 					{include file="./blocks/soundfinder_form.html"}
@@ -40,13 +40,13 @@
 							<li class="{if $tabactive == 'final'}active{/if}"><a data-toggle="tab" href="#final">{lang code="mksub_finalfile"}</a></li>
 						</ul>
 
-						<!-- 
+						<!--
 							Edition des sous titres
 						-->
 						<div class="tab-content">
 							{include file="./blocks/draft_form.html"}
-							
-							<!-- 
+
+							<!--
 								Fichier final
 							-->
 							{include file="./blocks/final_form.html"}
@@ -86,7 +86,11 @@
 </div>
 
 
-<!-- 
+
+<!-- Modal delete final file -->
+{include file="./blocks/modal_delete.html"}
+
+<!--
 	Javascript
 -->
 {include file="./blocks/script.html"}

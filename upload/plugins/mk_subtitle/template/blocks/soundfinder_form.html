@@ -14,6 +14,15 @@
 	<label for="delayAfter">{lang code="mksub_stopplaying"} : </label>
 	<input type="text" name="delayAfter" id="delayAfter" size="5" value="{$delayAfter}">{lang code="seconds"}<br>
 
-	<button onclick="soundFinder();" title="Sound Finder">{lang code="mksub_findsentences"}</button><br>
+
+	<label for="delayAfter">{lang code="mksub_originallanguage"} : </label>
+	<select name="originalLanguage" id="originalLanguage">
+		<option value=""></option>
+		{foreach from=$langcode item=item key=code}
+		<option value="{$code}"{if $originalLanguage eq $code} selected{/if}>{$item}</option>
+		{/foreach}
+	</select><br>
+
+	<button onclick="soundFinder();" title="Sound Finder" class="btn btn-primary">{lang code="mksub_findsentences"}</button><br>
 	<br>
 </div>
