@@ -294,12 +294,119 @@
 	*/
 
 	document.querySelector('#btnOverview').addEventListener('click', function(e){
-		console.log("goto remove");
 		myRemoveCue();
-
-		console.log("goto add");
 		myAddCue();
 	});
+
+	document.querySelector('#btnAddlang').addEventListener('click', function(e){
+
+		// Remove tab active style
+		removeActiveStyle('#otherlangtab');
+
+		// Remove tab content active style
+		removeActiveStyle('#otherlangcontent');
+
+		var codelang = document.querySelector('#newLang').value;
+
+		if ( document.querySelector('#tab-'+codelang) == null ){
+			// Tab
+			var newTab = document.createElement("li");
+				newTab.setAttribute('class', 'active');
+				newTab.setAttribute('id', 'tab-'+codelang);
+
+			var newLink = document.createElement("a");
+				newLink.setAttribute('data-toggle', 'tab');
+				newLink.setAttribute('href', '#'+codelang);
+				newLink.setAttribute('id', 'link-'+codelang);
+				newLink.setAttribute('title', document.querySelector('#newLang').options[document.querySelector('#newLang').selectedIndex].innerHTML);
+
+			var text = document.createTextNode(codelang);
+
+			document.querySelector('#otherlangtab').appendChild(newTab)
+			document.querySelector('#tab-'+codelang).appendChild(newLink)
+			document.querySelector('#link-'+codelang).appendChild(text)
+
+			// Content
+			var divContent = document.createElement("div");
+				divContent.setAttribute('id', codelang);
+				divContent.setAttribute('class', 'tab-pane active');
+
+			var divTextarea = document.createElement("textarea");
+				divTextarea.setAttribute('id', 'txtarea-'+codelang);
+				divTextarea.setAttribute('class', 'form-control')
+				divTextarea.setAttribute('name', 'otherSubtitle['+codelang+']')
+				divTextarea.setAttribute('onscroll', 'this.form.elements.subdata.scrollTop=this.scrollTop;')
+				divTextarea.setAttribute('cols', '80')
+				divTextarea.setAttribute('rows', '20')
+
+			var text = document.createTextNode(delSentenceFromWebVTT(document.querySelector('#subdata').value));
+
+			document.querySelector('#otherlangcontent').appendChild(divContent)
+			document.querySelector('#'+codelang).appendChild(divTextarea)
+			document.querySelector('#txtarea-'+codelang).appendChild(text)
+
+		}
+		else{
+			document.querySelector('#tab-'+codelang).classList.add("active");
+			document.querySelector('#'+codelang).classList.add("active");
+		}
+
+	});
+
+
+	function removeActiveStyle(parentNode){
+		// Remove active style
+		var tablist = document.querySelector(parentNode).childNodes
+		if (tablist.length > 1){
+			for (var i = 0; i < tablist.length; i++) {
+				if (tablist[i].classList){
+					tablist[i].classList.remove("active")
+				}
+			}
+		}
+	}
+
+	function delSentenceFromWebVTT(){
+
+		var tableau = document.querySelector('#subdata').value.split("\n");
+		var chaine = '';
+
+		for (var i = 0; i < tableau.length; i++){
+
+			if (tableau[i] == 'WEBVTT'){
+				chaine += "WEBVTT";
+			}
+			else{
+				if (tableau[i].indexOf("-->") > -1){
+					chaine += tableau[i];
+				}
+			}
+			chaine += "\n";
+
+		}
+		return chaine;
+	}
+
+
+	function autosavedraft(){
+
+		movemarker();
+		var markerfile = document.querySelector("#marker").value;
+		var submarker = document.querySelector("#submarker").value;
+
+		var formData = {markerfile:markerfile,submarker:submarker};
+		$.ajax({
+			type	  	: "POST",
+			url 	  	: "{/literal}{$baseurl}{literal}/plugins/mk_subtitle/autosavedraft.php",
+			data		: formData,
+			success : function(q)
+			{
+				if (q){
+					document.querySelector("#autosavestatut").innerHTML = q;
+				}
+			}
+		});
+	}
 
 
 </script>

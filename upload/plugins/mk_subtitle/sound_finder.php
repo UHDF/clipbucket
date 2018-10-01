@@ -16,6 +16,8 @@
 	$delayBefore = (isset($_POST['delayBefore'])) ? $_POST['delayBefore'] : 0.200;
 	$delayAfter = (isset($_POST['delayAfter'])) ? $_POST['delayAfter'] : 0.200;
 
+	$originalLanguage = (isset($_POST['originalLanguage'])) ? $_POST['originalLanguage'] : 'fr';
+
 
 	// If video parameter exist
 	if ($video){
@@ -136,7 +138,8 @@
 			"threshold" => $threshold,
 			"durationSilence" => $durationSilence,
 			"delayBefore" => $delayBefore,
-			"delayAfter" => $delayAfter
+			"delayAfter" => $delayAfter,
+			"originalLanguage" => $originalLanguage
 		);
 		fwrite($fp, json_encode($jsonmeta));
 		fclose($fp);
