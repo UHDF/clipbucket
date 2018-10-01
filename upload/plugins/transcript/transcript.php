@@ -38,10 +38,22 @@ function notATimecode($string){
  */
 function displayTranscript($data = ''){
 
+	global $lang_obj;
+
 	if ($data['videoid']){
-		if (file_exists(FILES_DIR."/subtitle/subtitle_".$data['videoid'].".vtt")){
-			$subfile = BASEDIR.'/files/subtitle/subtitle_'.$data['videoid'].'.vtt';
-			$lines = file($subfile);
+
+		$deflang = $lang_obj->lang;
+
+		$file = FILES_DIR."/subtitle/subtitle_".$data['videoid']."_".$deflang.".vtt";
+		if (!file_exists($file)){
+			$file = FILES_DIR."/subtitle/subtitle_".$data['videoid']."_fr.vtt";
+			if (!file_exists($file)){
+				$file = FILES_DIR."/subtitle/subtitle_".$data['videoid'].".vtt";
+			}
+		}
+
+		if (file_exists($file)){
+			$lines = file($file);
 
 			$var = implode(array_filter($lines, "notATimecode"));
 
