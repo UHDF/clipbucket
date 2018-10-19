@@ -1,0 +1,260 @@
+<h2>{lang code="liveupjv_manage_stream"}</h2>
+
+<!-- Button trigger modal : help -->
+<button type="button" class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#helpStreaming">{lang code="liveupjv_help"}</button>
+
+
+<form class="form-horizontal" role="form" method="POST">
+	{foreach $streamList as $stream}
+		{$v = get_video_details($stream[3])}
+
+		<div class="row">
+			<h2><small>{$v.title}</small></h2>
+		</div>
+
+		<!-- Existing -->
+		<div class="form-group">
+			<!-- id -->
+			<input type="hidden" class="form-control" name="liveid[]" id="streamid-{$stream[0]}" value="{$stream[0]}" placeholder="">
+
+			<label for="cas_context" class="col-md-1 control-label">{lang code="liveupjv_planbegin"}</label>
+			<div class="col-md-2">
+
+				<div class='input-group date' id='datetimepicker11'>
+					<input type="text" class="form-control" name="liveid[]" id="debut-{$stream[0]}" value="{$stream[1]}" placeholder="">
+					<span class="input-group-addon">
+						<span class="glyphicon glyphicon-calendar open-AddBookDialog" data-toggle="modal" data-id="debut-{$stream[0]}" data-target="#dateTimeStreaming" data-id="{$stream[0]}">
+						</span>
+					</span>
+				</div>
+
+			</div>
+
+			<label for="cas_context" class="col-md-1 control-label">{lang code="liveupjv_planend"}</label>
+			<div class="col-md-2">
+
+				<div class='input-group date' id='datetimepicker11'>
+					<input type="text" class="form-control" name="liveid[]" id="fin-{$stream[0]}" value="{$stream[2]}" placeholder="">
+					<span class="input-group-addon">
+						<span class="glyphicon glyphicon-calendar open-AddBookDialog" data-toggle="modal" data-id="fin-{$stream[0]}" data-target="#dateTimeStreaming">
+						</span>
+					</span>
+				</div>
+
+			</div>
+
+			<label for="cas_context" class="col-md-1 control-label">{lang code="liveupjv_videoid"}</label>
+			<div class="col-md-1">
+				<input type="text" class="form-control" name="liveid[]" id="vidid-{$stream[0]}" value="{$stream[3]}" placeholder="">
+			</div>
+
+			<div class="col-md-1">
+				<!-- Button trigger modal -->
+				<button type="button" class="btn btn-primary btn-sm open-AddBookDialog" data-toggle="modal" data-id="{$stream[0]}" data-target="#browseStreaming">
+					<span class="fa icon-search" aria-hidden="true"></span> {lang code="liveupjv_browse"}
+				</button>
+			</div>
+
+
+			<div class="col-md-2">
+				<!-- Button trigger modal -->
+				<button type="button" class="btn btn-primary btn-sm" id="{$stream[0]}" onclick="deleteStream({$stream[0]});">
+					<span class="fa icon-trash" aria-hidden="true"></span> {lang code="liveupjv_delete"}
+				</button>
+			</div>
+
+		</div>
+
+	{/foreach}
+
+	<!-- Add new -->
+	<div class="row">
+		<h2><small>{lang code="liveupjv_planstream"} :</small></h2>
+	</div>
+
+	<div class="form-group">
+		<!-- id -->
+		<input type="hidden" class="form-control" name="streamid" id="streamid" value="" placeholder="">
+
+		<label for="cas_context" class="col-md-1 control-label">{lang code="liveupjv_planbegin"}</label>
+		<div class="col-md-2">
+			<div class='input-group date' id='datetimepicker11'>
+				<input type="text" class="form-control" name="debut" id="debut" value="" placeholder="YYYY-MM-DD HH:MM:SS">
+				<span class="input-group-addon">
+					<span class="glyphicon glyphicon-calendar open-AddBookDialog" data-toggle="modal" data-id="debut" data-target="#dateTimeStreaming">
+					</span>
+				</span>
+			</div>
+		</div>
+
+		<label for="cas_context" class="col-md-1 control-label">{lang code="liveupjv_planend"}</label>
+		<div class="col-md-2">
+			<div class='input-group date' id='datetimepicker11'>
+				<input type="text" class="form-control" name="fin" id="fin" value="" placeholder="YYYY-MM-DD HH:MM:SS">
+				<span class="input-group-addon">
+					<span class="glyphicon glyphicon-calendar open-AddBookDialog" data-toggle="modal" data-id="fin" data-target="#dateTimeStreaming">
+					</span>
+				</span>
+			</div>
+		</div>
+
+		<label for="cas_context" class="col-md-1 control-label">{lang code="liveupjv_videoid"}</label>
+		<div class="col-md-1">
+			<input type="text" class="form-control" name="vidid" id="vidid" value="" placeholder="">
+		</div>
+
+		<div class="col-md-1">
+			<!-- Button trigger modal -->
+			<button type="button" class="btn btn-primary btn-sm open-AddBookDialog" data-toggle="modal" data-id="" data-target="#browseStreaming">
+				{lang code="liveupjv_browse"}
+			</button>
+		</div>
+
+	</div>
+
+	<div class="row text-center">
+		<div class="col-md-12">
+			<!-- Button trigger modal -->
+			<input type="submit" class="btn btn-primary" name="enregistrer" id="enregistrer" value="{lang code='liveupjv_save'}">
+		</div>
+	</div>
+
+</form>
+
+
+	<!-- Temporary help -->
+	<div class="modal fade" id="helpStreaming" tabindex="-1" role="dialog" aria-labelledby="helpStreamingLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">{lang code="liveupjv_manage_stream"} : {lang code="liveupjv_help"}</h4>
+				</div>
+
+				<div class="modal-body">
+					{lang code="liveupjv_helpcontent"}
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">{lang code="liveupjv_close"}</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal Browse -->
+	<div class="modal fade" id="browseStreaming" tabindex="-1" role="dialog" aria-labelledby="browseStreamingLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">{lang code="liveupjv_manage_stream"} : {lang code="liveupjv_browse"}</h4>
+				</div>
+
+				<div class="modal-body">
+					{lang code="liveupjv_browsecontent"}
+
+					<input type="hidden" name="idStream" id="idStream" value=""><br>
+
+					{foreach $listStream as $list}
+						<a href="#" data-dismiss="modal" onclick="updateField({$list[0]});">{$list[0]} - {$list[1]} - {$list[2]}</a><br>
+					{/foreach}
+
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">{lang code="liveupjv_close"}</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- moment.js -->
+	<script src="{$baseurl}/plugins/liveupjv/app/js/moment.min.js"></script>
+	<script src="{$baseurl}/plugins/liveupjv/app/js/fr.js"></script>
+	<!-- datetimepicker.js -->
+	<link rel="{$baseurl}/plugins/liveupjv/app/css/bootstrap-datetimepicker-standalone.min.css">
+	<script src="{$baseurl}/plugins/liveupjv/app/js/bootstrap-datetimepicker.min.js"></script>
+
+
+	<!-- Modal Date/time picker -->
+	<div class="modal fade" id="dateTimeStreaming" tabindex="-1" role="dialog" aria-labelledby="dateTimeStreamingLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<h4 class="modal-title" id="myModalLabel">{lang code="liveupjv_manage_stream"} : {lang code="liveupjv_datetime"}</h4>
+				</div>
+
+				<div class="modal-body">
+
+					<input type="hidden" name="idStream" id="idStream" value="">
+					<input type="hidden" name="dateStream" id="dateStream" value="">
+
+					<div style="overflow:hidden;">
+						<script type="text/javascript">
+							$(function () {
+								moment.locale('fr');
+								$('#dateStream').datetimepicker({
+									inline: true,
+									format: 'YYYY-MM-DD HH:mm',
+									sideBySide: true
+								});
+							});
+						</script>
+					</div>
+
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal" onclick="updateDateTime()">
+						{lang code="liveupjv_valid"}
+					</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+
+	<script>
+		// Parameter
+		$(document).on("click", ".open-AddBookDialog", function () {
+			var streamId = $(this).data('id');
+			$(".modal-body #idStream").val( streamId );
+		});
+
+		// Update field
+		function updateField(vidid){
+			var src = document.querySelector('#idStream')
+			if (src.value != ''){
+				var dest = document.querySelector('#vidid-'+src.value)
+			}
+			else{
+				var dest = document.querySelector('#vidid')
+			}
+
+			dest.value = vidid;
+		}
+
+		// Update date field
+		function updateDateTime(vidid){
+			var src = document.querySelector('#idStream')
+			var dest = document.querySelector('#'+src.value)
+			var dateStream = document.querySelector('#dateStream')
+
+			dest.value = dateStream.value;
+		}
+
+		// Delete date field
+		function deleteStream(vidid){
+			if (confirm("{lang code='liveupjv_confirm'}")){
+				document.location.href = '{$baseurl}/admin_area/plugin.php?folder=liveupjv/admin&file=manage_stream.php&del=' + vidid;
+			}
+		}
+
+	</script>

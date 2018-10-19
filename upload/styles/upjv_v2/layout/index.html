@@ -8,17 +8,16 @@
 	<div id="messageFav" class="alert alert-info marginTop" style="display:none; height:66px;"></div>
 	<div class="clearfix">
 		<div id="content">
-		 {ANCHOR place='global'} 
+		 {ANCHOR place='global'}
 			<div class="clearfix leaderboard-ad">
 				<div class="ad">{AD place='ad_728x90'}</div>
 			</div>
 			{$row = $myquery->Get_Website_Details()}
-			
 
-
+			{ANCHOR place="displayLiveUPJV"}
 
 			<section class="clearfix featured-videos">
-				
+
 				<!--<h1>{lang code="featured_videos"}</h1>-->
 				<div class="titre_fleche">
 					<div class="container_fleche">
@@ -29,7 +28,7 @@
 						</h1>
 					</div>
 				</div>
-				
+
 				{if is_installed('editorspick')}
 				{if $editor_picks}
 				<div class="clearfix editorpick">
@@ -49,7 +48,7 @@
 						<!-- Editor Pick Video Main Container END //-->
 						<img src="{$theme}/images/player-ratio.png" class="playerRatio">
 					</div>
-	
+
 					<!-- Editor Pick Videos Slider Container START //-->
 					<div class="editorpick-videos custom-elements">
 						<div class="scrollable-area vscrollable">
@@ -65,9 +64,9 @@
 				<!-- ******************************************* -->
 				<!-- ************ EDITORS BLOCK END ************ -->
 				<!-- ******************************************* -->
-	
+
 				<div id="featured_vid_sec" class="clearfix row">
-				
+
 				</div>
 				<div id="featured_pre" class="clearfix"></div>
 				<div id="featured-loadmore" class="clearfix text-center">
@@ -106,7 +105,7 @@
 			<h2>{lang code="featured_users"}</h2>
 			<div class="clearfix sidebar-channels">
 				{foreach $feature_users as $user}
-				
+
 				<div class="clearfix channel-item">
 					<a href="{$userquery->profile_link($user)}" class="avatar">
 						<img src="{$userquery->getuserthumb($user,'m')}" width="50" height="50" class="img-circle">
@@ -125,7 +124,7 @@
 			<!-- ******************************************* -->
 			<!-- ************* USER BLOCK END ************** -->
 			<!-- ******************************************* -->
-			
+
 			{if $row.collectionsSection == 'yes'}
 			{$collections = $cbcollection->get_collections(['limit'=>4, 'active'=>'yes', 'order'=>'total_objects DESC'])}
 			{$collections = $cbcollection->activeCollections($collections)}
@@ -133,14 +132,14 @@
 			<div class="clearfix sidebar-items collections-grid">
 				<div class="clearfix row">
 				{$limit=10}
-				{if $collections}        
+				{if $collections}
 				{foreach from=$collections item=collection}
 				{$first_col_thumb = $cbcollection->coll_first_thumb($collection,'l')}
-				
+
 					<div class="col-lg-offset-2 col-lg-8">
-					
-					<!--			
-					clearfix collection-item 	
+
+					<!--
+					clearfix collection-item
 					 col-lg-6 col-md-6 col-sm-12 col-xs-12
 					<div class="clearfix collection-item col-lg-6 col-md-6 col-sm-12 col-xs-12">
 					-->
@@ -161,7 +160,7 @@
 			<div class="clearfix sidebar-playlists">
 				<h2>{lang code="top_playlists"}</h2>
 				{foreach $playlists as $playlist}
-				<div class="playlist clearfix"> 
+				<div class="playlist clearfix">
 					<a href="{videoLink vdetails=$playlist['first_item']|@json_decode}&play_list={$playlist.playlist_id}"><h3>{$playlist.playlist_name}</h3></a>
 					{$items = get_playlist_items($playlist.playlist_id)}
 					<div class="clearfix row">
@@ -195,7 +194,7 @@
 				{/if}
 			{/if}
 		</aside>
-	</div>	
+	</div>
 </div>
 
 			{*debug*}
@@ -227,11 +226,11 @@
 		else
 		{
 			console.log("height "+WinWidHome);
-			
+
 			$(".editorpick-videos .scrollable-area").css("height","auto");
 		}
 	}
-	
+
 	$('.playerRatio').load(function(){
 		editpickVideos();
 	});
