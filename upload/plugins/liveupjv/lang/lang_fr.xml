@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clipbucket_language>
+	<name>Français</name>
+	<iso_code>fr</iso_code>
+	<phrases>
+		<liveupjv_browse>Parcourir</liveupjv_browse>
+		<liveupjv_help>Aide</liveupjv_help>
+		<liveupjv_close>Fermer</liveupjv_close>
+		<liveupjv_manage_stream>Gérer les directs</liveupjv_manage_stream>
+		<liveupjv_save>Sauvegarder / Mettre à jour</liveupjv_save>
+		<liveupjv_confirm>Etes vous sur de vouloir supprimer ?</liveupjv_confirm>
+		<liveupjv_livenow>En direct</liveupjv_livenow>
+		<liveupjv_planbegin>Jour et heure de début</liveupjv_planbegin>
+		<liveupjv_planend>Jour et heure de fin</liveupjv_planend>
+		<liveupjv_delete>Supprimer</liveupjv_delete>
+		<liveupjv_videoid>Vidéo id</liveupjv_videoid>
+		<liveupjv_planstream>Planifier un streaming</liveupjv_planstream>
+		<liveupjv_datetime>Date et heure</liveupjv_datetime>
+		<liveupjv_valid>Valider</liveupjv_valid>
+		<liveupjv_le>Le</liveupjv_le>
+		<liveupjv_a>à</liveupjv_a>
+		<liveupjv_de>de</liveupjv_de>
+		<liveupjv_helpcontent>&lt;h1&gt;Aide :&lt;/h1&gt;&lt;p&gt;Les streams doivent être enregistrés au préalable via le remote play url. Contacter l'administrateur du site afin qu'il enregistre le flux vidéo.&lt;/p&gt;&lt;h1&gt;Planifier une diffusion en direct&lt;/h1&gt;&lt;p&gt;La planification permet d'afficher le flux vidéo sur la page d'accueil du site.&lt;/p&gt;&lt;p&gt;Renseigner le jour et l'heure de commencement du stream ainsi que le jour et l'heure de fin du stream. Vous pouvez cliquer sur l'icone en forme de calendrier&lt;/p&gt;</liveupjv_helpcontent>
+		<liveupjv_browsecontent>&lt;h1&gt;Choisir le streaming à diffuser :&lt;/h1&gt;&lt;p&gt;Cliquer sur le lien du streaming pour le sélectionner.&lt;/p&gt;</liveupjv_browsecontent>
+	</phrases>
+</clipbucket_language>
