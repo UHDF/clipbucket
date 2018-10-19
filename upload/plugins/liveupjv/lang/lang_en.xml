@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clipbucket_language>
+	<name>English</name>
+	<iso_code>en</iso_code>
+	<phrases>
+		<liveupjv_browse>Browse</liveupjv_browse>
+		<liveupjv_help>Help</liveupjv_help>
+		<liveupjv_close>Close</liveupjv_close>
+		<liveupjv_manage_stream>Manage the live</liveupjv_manage_stream>
+		<liveupjv_save>Save / Update</liveupjv_save>
+		<liveupjv_browsecontent>&lt;h1&gt;Choose the stream to promote :&lt;/h1&gt;&lt;p&gt;Click on the link to select it.&lt;/p&gt;</liveupjv_browsecontent>
+		<liveupjv_confirm>Are you sur to delete this ?</liveupjv_confirm>
+		<liveupjv_livenow>Live</liveupjv_livenow>
+		<liveupjv_planbegin>Day and time to begin</liveupjv_planbegin>
+		<liveupjv_planend>Day and time to end</liveupjv_planend>
+		<liveupjv_delete>Delete</liveupjv_delete>
+		<liveupjv_videoid>Video id</liveupjv_videoid>
+		<liveupjv_planstream>Planify a streaming</liveupjv_planstream>
+		<liveupjv_datetime>Date and time</liveupjv_datetime>
+		<liveupjv_helpcontent>&lt;h1&gt;Help :&lt;/h1&gt;&lt;p&gt;The streams must be save befor by the remote play methods. Contact the website administrator in order to register your video url.&lt;/p&gt;&lt;h1&gt;Planify a streaming&lt;/h1&gt;&lt;p&gt;The planinfication display the stream on the homepage.&lt;/p&gt;</liveupjv_helpcontent>
+		<liveupjv_valid>Valid</liveupjv_valid>
+		<liveupjv_le>The</liveupjv_le>
+		<liveupjv_a>to</liveupjv_a>
+		<liveupjv_de>from</liveupjv_de>
+	</phrases>
+</clipbucket_language>
