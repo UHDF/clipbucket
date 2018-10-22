@@ -221,6 +221,14 @@
 		playerHls.src({ type: "video/mp4", src: "{$baseurl}/files/videos/waitLive.mp4"});
 		playerHls.loop(true);
 
+		// Fake Live
+		var timeZone = document.querySelector('.vjs-current-time.vjs-time-control.vjs-control');
+		timeZone.classList.add("vjs-hidden");
+		timeZone.nextElementSibling.removeChild(timeZone.nextElementSibling.firstChild)
+		var text = document.createTextNode("LIVE");
+		timeZone.nextElementSibling.appendChild(text)
+		timeZone.nextElementSibling.nextElementSibling.classList.add("vjs-hidden");
+
 		var test = setInterval(testhls, 5000);
 
 		function testhls(){
