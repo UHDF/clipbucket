@@ -90,9 +90,7 @@
 	{assign var="streamtype" value="hls"}
 {/if}
 
-
-
-
+{$playerid}
 
 
 <!-- RESSOURCES -->
@@ -218,20 +216,20 @@
 
 {if $streamtype eq 'hls'}
 	<script type="text/javascript">
-		var player = videojs('video_js_hls');
+		var playerHls = videojs('video_js_hls');
 
 		// Streaming not yet playing.
-		player.src({ type: "video/mp4", src: "{$baseurl}/files/videos/waitLive.mp4"});
-		player.loop(true);
+		playerHls.src({ type: "video/mp4", src: "{$baseurl}/files/videos/waitLive.mp4"});
+		playerHls.loop(true);
 
 		var test = setInterval(testhls, 5000);
 
 		function testhls(){
 			$.get( 'https://streaming.u-picardie.fr/event-erc-artistic-started', function() {
 				console.log( "success" );
-				player.src({ type: "application/x-mpegURL", src: "{$file}"});
+				playerHls.src({ type: "application/x-mpegURL", src: "{$file}"});
 				clearInterval(test);
-				player.play();
+				playerHls.play();
 			});
 		}
 	</script>
