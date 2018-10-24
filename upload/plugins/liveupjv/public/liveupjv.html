@@ -14,7 +14,21 @@
 		<style>
 			#video_js_hls.video_js_hls-dimensions {
 				height: 480px !important;
+
 			}
+
+			@media (min-width: 768px) and (max-width: 991px) {
+				#video_js_hls.video_js_hls-dimensions {
+					height: 310px !important;
+				}
+			}
+
+			@media (max-width: 767px) {
+				#video_js_hls.video_js_hls-dimensions {
+					height: 210px !important;
+				}
+			}
+
 		</style>
 
 		{$v = get_video_details($liveList[0][0])}
