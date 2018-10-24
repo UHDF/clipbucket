@@ -22,13 +22,6 @@
 
 		$width = ($video_details['duration'] > 0) ? round($video_details['duration']) : 640;
 
-//		echo '<pre>';
-//		print_r($video_details);
-//		print_r($width);
-//		echo '</pre>';
-
-
-
 		// Video file directory
 		$file_dir = $video_details['file_directory'];
 		// Video prefix file name
@@ -54,13 +47,18 @@
 				// Delete a line break
 				$input = str_replace("\n", "", $max_video_file_by_size);
 
-				if (trim($video_details['remote_play_url']) != ''){
+				if (
+					(trim($video_details['remote_play_url']) != '') and
+					($video_details['remote_play_url'] != 'none')
+				)
+				{
 					$input = $video_details['remote_play_url'];
 				}
 
 				// Path to write file
 				$output = $waveform_folder.'/'.$waveform_filename;
-				$command = $ffmpeg_path.' -i '.$input.' -filter_complex "[0:a]aformat=channel_layouts=mono, compand, showwavespic=s='.$width.'x120, colorkey=black, colorchannelmixer=rr=66/255:gr=139/255:br=202/255[fg]; color=s='.$width.'x120:color=#ffffff, drawgrid=width=iw/10:height=ih/5:color=#555555@0.1[bg]; [bg][fg]overlay=format=rgb,drawbox=x=(iw-w)/2:y=(ih-h)/2:w=iw:h=1:color=#2d608b" -frames:v 1 '.$output;
+				$command = $ffmpeg_path.' -i '.$input.' -filter_complex "[0:a]aformat=channel_layouts=mono, compand, showwavespic=s=1920x120, colorkey=black, colorchannelmixer=rr=66/255:gr=139/255:br=202/255[fg]; color=s=1920x120:color=#ffffff, drawgrid=width=iw/10:height=ih/5:color=#555555@0.1[bg]; [bg][fg]overlay=format=rgb,drawbox=x=(iw-w)/2:y=(ih-h)/2:w=iw:h=1:color=#2d608b" -frames:v 1 '.$output;
+				// $command = $ffmpeg_path.' -i '.$input.' -filter_complex "[0:a]aformat=channel_layouts=mono, compand, showwavespic=s='.$width.'x120, colorkey=black, colorchannelmixer=rr=66/255:gr=139/255:br=202/255[fg]; color=s='.$width.'x120:color=#ffffff, drawgrid=width=iw/10:height=ih/5:color=#555555@0.1[bg]; [bg][fg]overlay=format=rgb,drawbox=x=(iw-w)/2:y=(ih-h)/2:w=iw:h=1:color=#2d608b" -frames:v 1 '.$output;
 
 				// Execute the commande
 				$cmd = shell_exec($command);
