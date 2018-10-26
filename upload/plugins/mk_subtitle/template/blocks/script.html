@@ -15,7 +15,9 @@
 
 		submarker.value = '';
 
-		for (i = {/literal}{(($page-1)*100)}{literal}; i <= parseInt({/literal}{((($page-1)*100)+100)-1}{literal}); i++){
+		console.log('fin move');
+
+		for (i = {/literal}{(($page-1)*100)}{literal}; i < parseInt({/literal}{(($page)*100)-1}{literal}); i++){
 		// for (i = 0; i < parseInt(nb.value); i++){
 
 			if ({/literal}{$page}{literal} == 1){
@@ -398,7 +400,9 @@
 
 	function autosavedraft(){
 
+		console.log('move');
 		movemarker();
+
 		var markerfile = document.querySelector("#marker").value;
 		var submarker = document.querySelector("#submarker").value;
 
