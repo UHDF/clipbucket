@@ -278,6 +278,15 @@ if (file_exists($marker)){
 assign('marker', $element);
 
 
+
+$page = mysql_clean($_GET['page']);
+assign('page', $page);
+
+$total_rows  = count($element);
+$total_pages = count_pages($total_rows, 100);
+$pages->paginate($total_pages, $page);
+
+
 if (file_exists($subtitle)){
 	$subdata = file_get_contents($subtitle);
 	assign('subfile', $subdata);
