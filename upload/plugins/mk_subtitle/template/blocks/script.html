@@ -15,10 +15,17 @@
 
 		submarker.value = '';
 
-		for (i = 0; i < parseInt(nb.value); i++){
+		for (i = {/literal}{(($page-1)*100)}{literal}; i <= parseInt({/literal}{((($page-1)*100)+100)-1}{literal}); i++){
+		// for (i = 0; i < parseInt(nb.value); i++){
 
-			var id = i+1;
-			var tmpdata = prevdata[i].split(",");
+			if ({/literal}{$page}{literal} == 1){
+				var id = i+1;
+			}
+			else{
+				var id = i;
+			}
+
+			var tmpdata = prevdata[id-1].split(",");
 			var phrase = document.querySelector("#phrase"+id).value;
 			var subpos = $('input[name="options'+id+'"]:checked').val();
 
@@ -38,22 +45,23 @@
 	/**
 	*	Information about subtitle rules when input is modified.
 	*/
-	function draftProgress(){
+	function draftProgress(valeur, old){
 		var nb = document.querySelector("#nbMarker");
 		var progressBar = document.querySelector("#draftEtat");
-		var plop = document.querySelector("#draftProgressBar");
+		var bar = document.querySelector("#draftProgressBar");
 
+		var how = bar.value;
 
-		var how = 0;
+		if ((valeur != '') && (old == '')){
+			how = how + 1;
+		}
 
-		for (i = 1; i <= parseInt(nb.value); i++){
-			if (document.querySelector("#phrase"+i).value != ''){
-				how = how + 1;
-			}
+		if (valeur == ''){
+			how = how - 1;
 		}
 
 		progressBar.innerHTML = how + " / " + nb.value;
-		plop.value = how;
+		bar.value = how;
 
 	}
 

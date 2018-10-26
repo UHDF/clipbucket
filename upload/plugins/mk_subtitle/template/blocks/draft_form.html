@@ -7,16 +7,19 @@
 	<div id="soundFinderResult" style="overflow:scroll; overflow-x:hidden; height:400px;margin-bottom:10px;">
 
 		{foreach from=$marker item=data}
+		{if ($data[2] >= ($page-1)*100) and ($data[2] < ($page*100))}
 
 		<div class="control-group">
 			<div class="row">
 				<div class="col-md-9">
 					<div class="form-group">
 						<label for="phrase{$data[2]}" class="control-label">
-							{$data[6]} --> {$data[7]} - {lang code="duration"} : {$data[8]}
+							<b>{$data[2]} :</b> {$data[6]} --> {$data[7]} - {lang code="duration"} : {$data[8]}
 						</label>
 
-						<input type="text"  class="form-control" name="phrase{$data[2]}" id="phrase{$data[2]}" onfocus="inputPlay({$data[0]}, {$data[1]});" onblur="inputStop();draftProgress();autosavedraft();" onkeyup="infoSub({$data[2]});" onkeypress="enterPostForm(event);" value="{$data[3]}" spellcheck="true">
+						<input type="text" class="form-control" name="phrase{$data[2]}" id="phrase{$data[2]}" onfocus="inputPlay({$data[0]}, {$data[1]});" onblur="inputStop();autosavedraft();document.querySelector('#old-phrase{$data[2]}').value=this.value;" onchange="draftProgress(this.value, document.querySelector('#old-phrase{$data[2]}').value);" onkeyup="infoSub({$data[2]});" onkeypress="enterPostForm(event);" value="{$data[3]}" spellcheck="true">
+
+						<input type="hidden" id="old-phrase{$data[2]}" value="{$data[3]}">
 
 						<span id="subinfo{$data[2]}" class="help-inline"></span>
 					</div>
@@ -45,8 +48,12 @@
 				</div>
 			</div>
 		</div>
-
+		{/if}
 		{/foreach}
+
+		<!-- Displaying Videos Ends-->
+		{include file="$style_dir/blocks/pagination.html" }
+
 	</div>
 
 	<div class="control-group">
@@ -62,11 +69,13 @@
 			<input type="hidden" name="nbMarker" id="nbMarker" value="{$nbMarker}">
 			<input type="submit" name="saveMarker" class="btn btn-primary" value="{lang('saving')}">
 
-			<input type="button" name="btnOverview" id="btnOverview" class="btn btn-primary" value="{lang('mksub_preview')}">
+			<!-- Temporary disabled -->
+			<!-- <input type="button" name="btnOverview" id="btnOverview" class="btn btn-primary" value="{lang('mksub_preview')}"> -->
 
 			<input type="submit" name="subtitlize" class="btn btn-primary" value="{lang('mksub_mksubfile')}">
 
 		</form>
+
 	</div>
 
 
