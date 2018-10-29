@@ -255,7 +255,7 @@ $page = mysql_clean($_GET['page']);
 assign('page', $page);
 
 $total_rows  = count($element);
-$total_pages = count_pages($total_rows, 100);
+$total_pages = count_pages($total_rows, 99);
 $pages->paginate($total_pages, $page);
 
 

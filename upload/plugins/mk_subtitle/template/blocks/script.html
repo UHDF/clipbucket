@@ -15,7 +15,14 @@
 
 		submarker.value = '';
 
-		for (i = {/literal}{(($page-1)*100)}{literal}; i < parseInt({/literal}{(($page)*100)-1}{literal}); i++){
+		if ({/literal}{$page}{literal} == 1){
+			var max = parseInt({/literal}{(($page)*100)-1}{literal})
+		}
+		else{
+			var max = parseInt({/literal}{(($page)*100)}{literal})
+		}
+
+		for (i = {/literal}{(($page-1)*100)}{literal}; i < max; i++){
 		// for (i = 0; i < parseInt(nb.value); i++){
 
 			if ({/literal}{$page}{literal} == 1){
@@ -25,17 +32,20 @@
 				var id = i;
 			}
 
-			var tmpdata = prevdata[id-1].split(",");
-			var phrase = document.querySelector("#phrase"+id).value;
-			var subpos = $('input[name="options'+id+'"]:checked').val();
+			if (document.querySelector("#phrase"+id)){
 
-			submarker.value += tmpdata[1]+"\t"+tmpdata[2]+"\t"+tmpdata[0]+"\t"+phrase.trim()+"\t";
+				var tmpdata = prevdata[id-1].split(",");
+				var phrase = document.querySelector("#phrase"+id).value;
+				var subpos = $('input[name="options'+id+'"]:checked').val();
 
-			if (subpos != "undefined"){
-				submarker.value += subpos;
+				submarker.value += tmpdata[1]+"\t"+tmpdata[2]+"\t"+tmpdata[0]+"\t"+phrase.trim()+"\t";
+
+				if (subpos != "undefined"){
+					submarker.value += subpos;
+				}
+
+				submarker.value += "\n";
 			}
-
-			submarker.value += "\n";
 
 		}
 
