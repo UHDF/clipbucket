@@ -179,7 +179,7 @@ if ($_POST['saveMarker']){
 			$data .= $post[$original[2]][0]."\t".$post[$original[2]][1]."\t".$post[$original[2]][2]."\t".$post[$original[2]][3]."\t".$post[$original[2]][4]."\n";
 		}
 		else{
-			$data .= $original[0]."\t".$original[1]."\t".$original[2]."\t".$original[3]."\t".$original[4]."";
+			$data .= $original[0]."\t".$original[1]."\t".str_replace("\n", "", $original[2])."\t".$original[3]."\t".str_replace("\n", "", $original[4])."\n";
 		}
 	}
 
