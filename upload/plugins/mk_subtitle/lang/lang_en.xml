@@ -31,7 +31,8 @@
 		<mksub_online>Online</mksub_online>
 		<mksub_finish>Finish</mksub_finish>
 		<mksub_notdo>Not do</mksub_notdo>
-
-
+		<mksub_displaydraft>Display the complete draft</mksub_displaydraft>
+		<mksub_word>mot</mksub_word>
+		<mksub_character>character</mksub_character>
 	</phrases>
 </clipbucket_language>

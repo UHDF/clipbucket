@@ -31,5 +31,8 @@
 		<mksub_online>En ligne</mksub_online>
 		<mksub_finish>Fini</mksub_finish>
 		<mksub_notdo>Non fait</mksub_notdo>
+		<mksub_displaydraft>Afficher le brouillon complet</mksub_displaydraft>
+		<mksub_word>mot</mksub_word>
+		<mksub_character>caractère</mksub_character>
 	</phrases>
 </clipbucket_language>

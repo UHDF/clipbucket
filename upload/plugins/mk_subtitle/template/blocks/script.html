@@ -429,5 +429,26 @@
 	}
 
 
+	function getDraft(){
+
+		var markerfile = document.querySelector("#marker").value;
+
+		var formData = {markerfile:markerfile};
+		$.ajax({
+			type	  	: "POST",
+			url 	  	: "{/literal}{$baseurl}{literal}/plugins/mk_subtitle/getdraft.php",
+			data		: formData,
+			success : function(q)
+			{
+				if (q){
+					document.querySelector("#txtGetDraft").innerHTML = q;
+					document.querySelector("#nbCar").innerHTML = q.length + " {/literal}{lang('mksub_character')}{literal}(s)";
+					document.querySelector("#nbWord").innerHTML = q.split(' ').length + " {/literal}{lang('mksub_word')}{literal}(s)";
+				}
+			}
+		});
+
+	}
+
 </script>
 {/literal}
