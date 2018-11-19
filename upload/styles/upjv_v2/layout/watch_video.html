@@ -121,9 +121,11 @@
 						<li class="active">
 							<a href="#cb-item-info" data-toggle="tab"><span class="icon-info"></span>{lang code='info'}</a>
 						</li>
+						{if trim($vdo['embed_code']) eq ''}
 						<li>
 							<a href="#cb-item-share" data-toggle="tab"><span class="icon-share"></span>{lang code='share_embed'}</a>
 						</li>
+						{/if}
 						{if has_access('admin_access')}
 						<li>
 							<a href="#cb-item-addto" data-toggle="tab"><span class="icon-plusrounded"></span>{lang code='add_to'}</a>
