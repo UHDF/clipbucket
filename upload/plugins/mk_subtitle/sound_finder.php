@@ -18,6 +18,7 @@
 
 	$originalLanguage = (isset($_POST['originalLanguage'])) ? $_POST['originalLanguage'] : 'fr';
 
+	$ffmpeg_version = trim(`$ffmpeg_path -version | head -n 1 | cut -d" " -f3`, "\n");
 
 	// If video parameter exist
 	if ($video){
@@ -49,6 +50,7 @@
 		$firstEnd = 0;
 		$cpt = 0;
 		$tempArray = array();
+		$nblines = count($lines);
 
 		foreach ($lines as $key => $value){
 			$value = str_replace("\n", "", str_replace("\r", "", $value));
@@ -59,12 +61,7 @@
 
 			if ($begin){
 
-				if ($pipe){
-					$debut = substr($value, ($begin+15), ($pipe-($begin+15)));
-				}
-				else{
-					$debut = substr($value, ($begin+15), $len);
-				}
+				$debut = substr($value, ($begin+15), $len);
 
 				if ($firstEnd == 1){
 					$tempArray[$cpt-1] = $tempArray[$cpt-1]."\t".$debut;
@@ -77,17 +74,21 @@
 					$firstEnd = 1;
 				}
 
+				$fin = substr($value, ($end+13), ($pipe-($end+13)));
 
-				if ($pipe){
-					$fin = substr($value, ($end+13), ($pipe-($end+13)));
+				if ($ffmpeg_version < 4.1){
+					// Version inferieur a 4.1
+					if ($firstEnd == 1) {
+						$tempArray[$cpt] = $fin;
+					}
 				}
 				else{
-					$fin = substr($value, ($end+13), $len);
+					// Version superieur ou egal a 4.1
+					if ( ($firstEnd == 1) && ($cpt != ($nblines-1)) ) {
+						$tempArray[$cpt] = $fin;
+					}
 				}
 
-				if ($firstEnd == 1){
-					$tempArray[$cpt] = $fin;
-				}
 			}
 
 			$cpt++;
